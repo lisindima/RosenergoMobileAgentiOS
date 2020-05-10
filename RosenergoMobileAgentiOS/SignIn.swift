@@ -27,9 +27,7 @@ struct SignIn: View {
                 }) {
                     Text("Войти")
                 }
-            }
-            .padding()
-            .navigationBarTitle("Вход")
+            }.padding()
         }
     }
 }

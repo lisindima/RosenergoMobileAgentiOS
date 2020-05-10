@@ -12,8 +12,15 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             NavigationLink(destination: ListInspections()) {
-                Text("Список")
-            }
+                Text("Осмотры")
+                    .bold()
+                    .foregroundColor(.purple)
+                    .padding(50)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .foregroundColor(Color.purple.opacity(0.2))
+                )
+            }.navigationBarTitle("Мобильный агент")
         }
     }
 }
