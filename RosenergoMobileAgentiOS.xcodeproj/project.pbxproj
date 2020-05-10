@@ -3,29 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55B2466644400CDBB1A /* AppDelegate.swift */; };
 		CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55D2466644400CDBB1A /* SceneDelegate.swift */; };
 		CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
-		CB17E5632466644400CDBB1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* ContentView.swift */; };
+		CB17E5632466644400CDBB1A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
 		CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5672466644500CDBB1A /* Preview Assets.xcassets */; };
 		CB17E56B2466644500CDBB1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */; };
+		CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5732466654E00CDBB1A /* Alamofire */; };
+		CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
+		CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CB17E5582466644400CDBB1A /* RosenergoMobileAgentiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB17E5582466644400CDBB1A /* Мобильный агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Мобильный агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E55B2466644400CDBB1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB17E55D2466644400CDBB1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
-		CB17E5622466644400CDBB1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		CB17E5642466644500CDBB1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB17E5672466644500CDBB1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CB17E56A2466644500CDBB1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB17E56C2466644500CDBB1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB17E5752467A43700CDBB1A /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */,
+				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +56,7 @@
 		CB17E5592466644400CDBB1A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB17E5582466644400CDBB1A /* RosenergoMobileAgentiOS.app */,
+				CB17E5582466644400CDBB1A /* Мобильный агент.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,7 +66,8 @@
 			children = (
 				CB17E55B2466644400CDBB1A /* AppDelegate.swift */,
 				CB17E55D2466644400CDBB1A /* SceneDelegate.swift */,
-				CB17E5622466644400CDBB1A /* ContentView.swift */,
+				CB17E5622466644400CDBB1A /* SignIn.swift */,
+				CB17E5752467A43700CDBB1A /* SessionStore.swift */,
 				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */,
 				CB17E56C2466644500CDBB1A /* Info.plist */,
@@ -94,8 +101,12 @@
 			dependencies = (
 			);
 			name = RosenergoMobileAgentiOS;
+			packageProductDependencies = (
+				CB17E5732466654E00CDBB1A /* Alamofire */,
+				CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */,
+			);
 			productName = RosenergoMobileAgentiOS;
-			productReference = CB17E5582466644400CDBB1A /* RosenergoMobileAgentiOS.app */;
+			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -122,6 +133,10 @@
 				Base,
 			);
 			mainGroup = CB17E54F2466644400CDBB1A;
+			packageReferences = (
+				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -151,7 +166,8 @@
 			files = (
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */,
-				CB17E5632466644400CDBB1A /* ContentView.swift in Sources */,
+				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
+				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,8 +313,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.RosenergoMobileAgentiOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
+				PRODUCT_NAME = "Мобильный агент";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -317,8 +333,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.RosenergoMobileAgentiOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
+				PRODUCT_NAME = "Мобильный агент";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -346,6 +362,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+		CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CB17E5732466654E00CDBB1A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */ = {
