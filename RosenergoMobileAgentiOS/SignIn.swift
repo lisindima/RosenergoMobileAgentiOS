@@ -20,7 +20,7 @@ struct SignIn: View {
             VStack {
                 TextField("Эл.почта", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                SecureField("Пароль", text: $password)
+                TextField("Пароль", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
                     self.sessionStore.login(email: self.email, password: self.password)
