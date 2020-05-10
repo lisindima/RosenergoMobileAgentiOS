@@ -10,7 +10,11 @@ import SwiftUI
 
 struct MenuView: View {
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            NavigationLink(destination: ListInspections()) {
+                Text("Список")
+            }
+        }
     }
 }
 

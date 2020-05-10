@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import Combine
 import Alamofire
 
 class SessionStore: ObservableObject {
     
     @Published var loginModel: LoginModel!
+    @Published var inspections: [Inspections] = [Inspections]()
     
     static let shared = SessionStore()
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
@@ -49,6 +51,65 @@ class SessionStore: ObservableObject {
                 }
         }
     }
+    
+    func getInspections(apiToken: String) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(apiToken)",
+            "Accept": "application/json"
+        ]
+        
+        AF.request(serverURL + "inspections", method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: [Inspections].self) { response in
+                switch response.result {
+                case .success( _):
+                    guard let inspections = response.value else { return }
+                    self.inspections = inspections
+                case .failure(let error):
+                    print(error.errorDescription!)
+                }
+        }
+    }
+}
+
+struct Inspections: Codable {
+    let id, agentID: Int
+    let carModel, carRegNumber, carVin, carBodyNumber: String
+    let insuranceContractNumber: String
+    let latitude, longitude: Double
+    let createdAt, updatedAt: String
+    let photos: [Photo]
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case agentID = "agent_id"
+        case carModel = "car_model"
+        case carRegNumber = "car_reg_number"
+        case carVin = "car_vin"
+        case carBodyNumber = "car_body_number"
+        case insuranceContractNumber = "insurance_contract_number"
+        case latitude, longitude
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case photos
+    }
+}
+
+struct Photo: Codable, Hashable {
+    let id, inspectionID: Int
+    let path: String
+    let latitude, longitude: Double
+    let createdAt, updatedAt, makedPhotoAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case inspectionID = "inspection_id"
+        case path, latitude, longitude
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case makedPhotoAt = "maked_photo_at"
+    }
 }
 
 struct LoginParameters: Encodable {
@@ -56,11 +117,11 @@ struct LoginParameters: Encodable {
     let password: String
 }
 
-struct LoginModel: Codable, Hashable {
+struct LoginModel: Codable {
     let data: DataClass
 }
 
-struct DataClass: Codable, Hashable {
+struct DataClass: Codable {
     let id, roleID: Int
     let name, email, avatar: String
     let settings: Settings
@@ -78,6 +139,6 @@ struct DataClass: Codable, Hashable {
     }
 }
 
-struct Settings: Codable, Hashable {
+struct Settings: Codable {
     let locale: String
 }
