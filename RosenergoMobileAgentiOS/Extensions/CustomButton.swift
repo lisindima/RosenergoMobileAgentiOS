@@ -11,7 +11,7 @@ import SwiftUI
 struct CustomButton: View {
     
     var label: String
-    var loading: Bool
+    var loading: Bool?
     var colorButton: Color
     var action: () -> Void
     
@@ -23,7 +23,7 @@ struct CustomButton: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                if loading {
+                if loading ?? false {
                     ActivityIndicatorButton()
                 }
                 Spacer()

@@ -13,11 +13,14 @@ struct CreateInspections: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    @State private var showImagePicker: Bool = false
     @State private var latitude: Double = 0.0
     @State private var longitude: Double = 0.0
     @State private var vin: String = ""
     @State private var numberBody: String = ""
     @State private var numberPolis: String = ""
+    @State private var nameCarModel: String = ""
+    @State private var regCarNumber: String = ""
     
     var locationManager = CLLocationManager()
     
@@ -58,13 +61,24 @@ struct CreateInspections: View {
                 }.padding(.horizontal)
                 CustomInput(text: $numberPolis, name: "Номер полиса")
                     .padding(.horizontal)
+                CustomInput(text: $nameCarModel, name: "Марка автомобиля")
+                    .padding(.horizontal)
+                CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
+                    .padding(.horizontal)
                 CustomInput(text: $vin, name: "VIN")
                     .padding(.horizontal)
                 CustomInput(text: $numberBody, name: "Номер кузова")
                     .padding(.horizontal)
                 Spacer()
+                CustomButton(label: "Отправить на сервер", colorButton: .purple) {
+                    self.showImagePicker = true
+                }.padding()
             }
             .onAppear(perform: getLocation)
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker()
+                    .edgesIgnoringSafeArea(.bottom)
+            }
             .navigationBarTitle("Новый осмотр")
             .navigationBarItems(trailing: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()

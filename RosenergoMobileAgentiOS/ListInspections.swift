@@ -26,7 +26,7 @@ struct ListInspections: View {
                     }
                 } else {
                     List {
-                        Section(header: SearchBar(text: $searchText)) {
+                        //Section(header: SearchBar(text: $searchText)) {
                             ForEach(self.sessionStore.inspections.filter {
                                 self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
                             }, id: \.id) { inspection in
@@ -34,7 +34,7 @@ struct ListInspections: View {
                                     ListInspectionsItems(inspection: inspection)
                                 }
                             }
-                        }
+                        //}
                     }
                 }
             }
@@ -45,7 +45,7 @@ struct ListInspections: View {
                 Text("Закрыть")
                     .bold()
             })
-        }
+        }.accentColor(.purple)
     }
 }
 
