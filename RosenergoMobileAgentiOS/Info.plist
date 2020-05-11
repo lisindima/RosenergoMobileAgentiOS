@@ -47,6 +47,14 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>dsda</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>asdas</string>
+	<key>NSLocationUsageDescription</key>
+	<string>asdasd</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>adsdasd</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

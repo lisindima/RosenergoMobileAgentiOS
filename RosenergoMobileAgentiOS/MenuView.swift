@@ -21,7 +21,7 @@ struct MenuView: View {
             VStack {
                 HStack {
                     Button(action: {
-                        self.openListInspections = true
+                        self.openCreateInspections = true
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
