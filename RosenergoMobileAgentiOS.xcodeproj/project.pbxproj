@@ -21,6 +21,9 @@
 		CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57C2467AFC100CDBB1A /* MenuView.swift */; };
 		CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57E2467FFB600CDBB1A /* ListInspections.swift */; };
 		CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */; };
+		CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
+		CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
+		CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* KeyboardObserving */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,8 @@
 		CB17E57C2467AFC100CDBB1A /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		CB17E57E2467FFB600CDBB1A /* ListInspections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInspections.swift; sourceTree = "<group>"; };
 		CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		CB17E5822468636700CDBB1A /* CustomInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInput.swift; sourceTree = "<group>"; };
+		CB17E584246864AE00CDBB1A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +52,7 @@
 			files = (
 				CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
+				CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +83,8 @@
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
 				CB17E57E2467FFB600CDBB1A /* ListInspections.swift */,
+				CB17E5822468636700CDBB1A /* CustomInput.swift */,
+				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
 				CB17E5622466644400CDBB1A /* SignIn.swift */,
 				CB17E5752467A43700CDBB1A /* SessionStore.swift */,
 				CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */,
@@ -116,6 +124,7 @@
 			packageProductDependencies = (
 				CB17E5732466654E00CDBB1A /* Alamofire */,
 				CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */,
+				CB17E587246933B700CDBB1A /* KeyboardObserving */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
@@ -148,6 +157,7 @@
 			packageReferences = (
 				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -183,8 +193,10 @@
 				CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
+				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
 				CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
+				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +408,14 @@
 				minimumVersion = 1.4.0;
 			};
 		};
+		CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nickffox/KeyboardObserving";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -408,6 +428,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		CB17E587246933B700CDBB1A /* KeyboardObserving */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
+			productName = KeyboardObserving;
 		};
 /* End XCSwiftPackageProductDependency section */
 

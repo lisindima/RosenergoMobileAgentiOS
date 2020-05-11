@@ -14,11 +14,13 @@ class SessionStore: ObservableObject {
     
     @Published var loginModel: LoginModel!
     @Published var inspections: [Inspections] = [Inspections]()
+    @Published var loading: Bool = false
     
     static let shared = SessionStore()
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     func login(email: String, password: String) {
+        loading = true
         let parameters = LoginParameters(email: email, password: password)
         AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
@@ -27,8 +29,10 @@ class SessionStore: ObservableObject {
                 case .success( _):
                     guard let loginModel = response.value else { return }
                     self.loginModel = loginModel
+                    self.loading = false
                 case .failure(let error):
                     print(error.errorDescription!)
+                    self.loading = false
                 }
         }
     }

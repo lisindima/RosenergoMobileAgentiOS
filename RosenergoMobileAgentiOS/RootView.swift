@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RootView: View {
     
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @EnvironmentObject var sessionStore: SessionStore
     
     var body: some View {
         Group {

@@ -7,27 +7,38 @@
 //
 
 import SwiftUI
+import KeyboardObserving
 
 struct SignIn: View {
     
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @EnvironmentObject var sessionStore: SessionStore
     
     @State private var email: String = ""
     @State private var password: String = ""
     
+    
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Эл.почта", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                TextField("Пароль", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: {
+                Spacer()
+                Text("Мобильный агент")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                CustomInput(text: $email, name: "Эл.почта")
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                    .padding(.horizontal)
+                SecureField("Пароль", text: $password)
+                    .textContentType(.password)
+                    .autocapitalization(.none)
+                    .modifier(InputModifier())
+                    .padding(.horizontal)
+                CustomButton(label: sessionStore.loading ? "Загрузка" : "Войти", loading: sessionStore.loading, colorButton: .purple) {
                     self.sessionStore.login(email: self.email, password: self.password)
-                }) {
-                    Text("Войти")
-                }
-            }.padding()
+                }.padding()
+            }.keyboardObserving()
         }
     }
 }
