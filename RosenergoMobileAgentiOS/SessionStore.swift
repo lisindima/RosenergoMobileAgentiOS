@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import Alamofire
+import SPAlert
 
 class SessionStore: ObservableObject {
     
@@ -31,6 +32,7 @@ class SessionStore: ObservableObject {
                     self.loginModel = loginModel
                     self.loading = false
                 case .failure(let error):
+                    SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
                     print(error.errorDescription!)
                     self.loading = false
                 }

@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "6b7e94713a4319dc814ff0f4671fb1fc449710a5",
-          "version": "5.7.4"
+          "revision": "5818cf70fde7e9e07e24196d0d54350bc8526f26",
+          "version": "5.8.0"
         }
       },
       {
@@ -35,6 +35,15 @@
           "branch": null,
           "revision": "1ed96d9b08fa18694621e0b1de182fbf032121bc",
           "version": "1.4.0"
+        }
+      },
+      {
+        "package": "SPAlert",
+        "repositoryURL": "https://github.com/ivanvorobei/SPAlert",
+        "state": {
+          "branch": null,
+          "revision": "18862409586ac547bcdf8957cd96beb872fbc729",
+          "version": "2.1.4"
         }
       }
     ]

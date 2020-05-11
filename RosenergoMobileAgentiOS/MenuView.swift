@@ -13,6 +13,7 @@ struct MenuView: View {
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var openListInspections: Bool = false
+    @State private var openCreateInspections: Bool = false
     @State private var showActionSheetExit: Bool = false
     
     var body: some View {
@@ -40,8 +41,8 @@ struct MenuView: View {
                         }
                     }
                     .padding(.trailing, 4)
-                    .sheet(isPresented: $openListInspections) {
-                        ListInspections()
+                    .sheet(isPresented: $openCreateInspections) {
+                        CreateInspections()
                             .environmentObject(self.sessionStore)
                     }
                     Button(action: {
