@@ -59,8 +59,6 @@ struct CreateInspections: View {
                                 .foregroundColor(Color.red.opacity(0.2))
                     )
                 }.padding(.horizontal)
-                CustomInput(text: $numberPolis, name: "Номер полиса")
-                    .padding(.horizontal)
                 CustomInput(text: $nameCarModel, name: "Марка автомобиля")
                     .padding(.horizontal)
                 CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
@@ -69,9 +67,33 @@ struct CreateInspections: View {
                     .padding(.horizontal)
                 CustomInput(text: $numberBody, name: "Номер кузова")
                     .padding(.horizontal)
+                CustomInput(text: $numberPolis, name: "Номер полиса")
+                    .padding([.horizontal, .bottom])
+                HStack {
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                }.padding(.horizontal)
+                HStack {
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                }.padding(.horizontal)
                 Spacer()
                 CustomButton(label: "Отправить на сервер", colorButton: .purple) {
-                    self.showImagePicker = true
+                    print("")
                 }.padding()
             }
             .onAppear(perform: getLocation)

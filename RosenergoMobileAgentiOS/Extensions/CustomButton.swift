@@ -36,6 +36,27 @@ struct CustomButton: View {
     }
 }
 
+struct ImageButton: View {
+    
+    var action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.purple)
+                    .opacity(0.2)
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                VStack {
+                    Image(systemName: "camera")
+                        .font(.largeTitle)
+                        .foregroundColor(.purple)
+                }
+            }
+        }
+    }
+}
+
 struct ActivityIndicatorButton: UIViewRepresentable {
     
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicatorButton>) -> UIActivityIndicatorView {
