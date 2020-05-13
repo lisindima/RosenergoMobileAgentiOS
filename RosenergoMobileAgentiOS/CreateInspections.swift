@@ -11,6 +11,7 @@ import CoreLocation
 
 struct CreateInspections: View {
     
+    @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showImagePicker: Bool = false
@@ -27,8 +28,8 @@ struct CreateInspections: View {
     func getLocation() {
         locationManager.requestWhenInUseAuthorization()
         var currentLoc: CLLocation!
-        if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways) {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == .authorizedAlways {
             currentLoc = locationManager.location
             latitude = currentLoc.coordinate.latitude
             longitude = currentLoc.coordinate.longitude
@@ -93,7 +94,7 @@ struct CreateInspections: View {
                 }.padding(.horizontal)
                 Spacer()
                 CustomButton(label: "Отправить на сервер", colorButton: .purple) {
-                    print("")
+                    self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
                 }.padding()
             }
             .onAppear(perform: getLocation)

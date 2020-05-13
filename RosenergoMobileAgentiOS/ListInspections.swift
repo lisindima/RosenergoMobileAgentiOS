@@ -22,7 +22,7 @@ struct ListInspections: View {
                 if sessionStore.inspections.isEmpty {
                     ActivityIndicator(styleSpinner: .large)
                         .onAppear {
-                            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel.data.apiToken)
+                            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
                     }
                 } else {
                     List {

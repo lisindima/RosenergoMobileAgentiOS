@@ -34,7 +34,7 @@ struct MenuView: View {
                                     .foregroundColor(.purple)
                                     .padding(.bottom, 4)
                                     .fixedSize(horizontal: false, vertical: true)
-                                Text("Сделать осмотр")
+                                Text("Провести осмотр")
                                     .fontWeight(.bold)
                                     .foregroundColor(Color.purple)
                             }
@@ -84,7 +84,7 @@ struct MenuView: View {
             })
             .actionSheet(isPresented: $showActionSheetExit) {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                    print("выйти")
+                    self.sessionStore.logout(apiToken: self.sessionStore.loginModel!.data.apiToken)
                     }, .cancel()
                 ])
             }

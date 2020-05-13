@@ -13,15 +13,16 @@ import SPAlert
 
 class SessionStore: ObservableObject {
     
-    @Published var loginModel: LoginModel!
+    @Published var loginModel: LoginModel?
     @Published var inspections: [Inspections] = [Inspections]()
-    @Published var loading: Bool = false
+    @Published var loadingLogin: Bool = false
+    @Published var uploadProgress: Double = 0.0
     
     static let shared = SessionStore()
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     func login(email: String, password: String) {
-        loading = true
+        loadingLogin = true
         let parameters = LoginParameters(email: email, password: password)
         AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
@@ -30,11 +31,11 @@ class SessionStore: ObservableObject {
                 case .success( _):
                     guard let loginModel = response.value else { return }
                     self.loginModel = loginModel
-                    self.loading = false
+                    self.loadingLogin = false
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
                     print(error.errorDescription!)
-                    self.loading = false
+                    self.loadingLogin = false
                 }
         }
     }
@@ -50,9 +51,10 @@ class SessionStore: ObservableObject {
             .validate()
             .responseJSON { response in
                 switch response.result {
-                case .success(let data):
-                    print(data)
+                case .success:
+                    self.loginModel = nil
                 case .failure(let error):
+                    self.loginModel = nil
                     print(error.errorDescription!)
                 }
         }
@@ -77,6 +79,18 @@ class SessionStore: ObservableObject {
                 }
         }
     }
+    
+    func uploadInspections(apiToken: String) {
+        AF.request(serverURL + "inspection", method: .post)
+            .validate()
+            .downloadProgress { progress in
+                print("Download Progress: \(progress.fractionCompleted)")
+            }
+            .response { response in
+                debugPrint("Response: \(response)")
+            }
+    }
+    
 }
 
 struct Inspections: Codable {
@@ -84,7 +98,6 @@ struct Inspections: Codable {
     let carModel, carRegNumber, carVin, carBodyNumber: String
     let insuranceContractNumber: String
     let latitude, longitude: Double
-    let createdAt, updatedAt: String
     let photos: [Photo]
 
     enum CodingKeys: String, CodingKey {
@@ -96,8 +109,6 @@ struct Inspections: Codable {
         case carBodyNumber = "car_body_number"
         case insuranceContractNumber = "insurance_contract_number"
         case latitude, longitude
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
         case photos
     }
 }
