@@ -60,6 +60,25 @@ class SessionStore: ObservableObject {
         }
     }
     
+    func validateToken(apiToken: String) {
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(apiToken)",
+            "Accept": "application/json"
+        ]
+        
+        AF.request(serverURL + "token", method: .post, headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    print(data)
+                case .failure(let error):
+                    print(error.errorDescription!)
+                }
+        }
+    }
+    
     func getInspections(apiToken: String) {
         
         let headers: HTTPHeaders = [

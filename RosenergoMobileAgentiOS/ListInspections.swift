@@ -86,7 +86,7 @@ struct ListInspectionsDetails: View {
             WebImage(url: URL(string: inspection.photos.first!.path))
                 .resizable()
                 .indicator(.activity)
-                .frame(width: 100, height: 100)
+                .frame(width: 400, height: 400)
         }
     }
 }
