@@ -46,7 +46,7 @@ struct ImageButton: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.purple)
                     .opacity(0.2)
-                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .frame(maxWidth: .infinity, maxHeight: 70)
                 VStack {
                     Image(systemName: "camera")
                         .font(.largeTitle)

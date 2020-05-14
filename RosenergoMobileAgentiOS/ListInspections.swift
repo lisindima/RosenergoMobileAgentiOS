@@ -25,25 +25,30 @@ struct ListInspections: View {
                             self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
                     }
                 } else {
+                    SearchBar(text: $searchText)
+                        .padding(.horizontal, 6)
                     List {
-                        //Section(header: SearchBar(text: $searchText)) {
-                            ForEach(self.sessionStore.inspections.filter {
-                                self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
-                            }, id: \.id) { inspection in
-                                NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
-                                    ListInspectionsItems(inspection: inspection)
-                                }
+                        ForEach(self.sessionStore.inspections.filter {
+                            self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
+                        }, id: \.id) { inspection in
+                            NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
+                                ListInspectionsItems(inspection: inspection)
                             }
-                        //}
+                        }
                     }
                 }
             }
             .navigationBarTitle("Осмотры")
-            .navigationBarItems(trailing: Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
+            .navigationBarItems(leading: Button(action: {
+                self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
             }) {
-                Text("Закрыть")
-                    .bold()
+                Image(systemName: "arrow.2.circlepath.circle")
+                    .imageScale(.large)
+                }, trailing: Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Закрыть")
+                        .bold()
             })
         }.accentColor(.purple)
     }
@@ -52,6 +57,7 @@ struct ListInspections: View {
 struct ListInspectionsItems: View {
     
     var inspection: Inspections
+    let noImageUrl = "https://firebasestorage.googleapis.com/v0/b/altgtu-46659.appspot.com/o/placeholder%2Fplaceholder.jpeg?alt=media&token=8f554741-2bfb-41ef-82b0-fbc64f0ffdf6"
     
     var body: some View {
         HStack {
@@ -63,7 +69,7 @@ struct ListInspectionsItems: View {
                 Text(inspection.carVin)
             }
             Spacer()
-            WebImage(url: URL(string: inspection.photos.first!.path))
+            WebImage(url: URL(string: inspection.photos.first?.path ?? noImageUrl))
                 .resizable()
                 .indicator(.activity)
                 .cornerRadius(10)
@@ -75,6 +81,7 @@ struct ListInspectionsItems: View {
 struct ListInspectionsDetails: View {
     
     var inspection: Inspections
+    let noImageUrl = "https://firebasestorage.googleapis.com/v0/b/altgtu-46659.appspot.com/o/placeholder%2Fplaceholder.jpeg?alt=media&token=8f554741-2bfb-41ef-82b0-fbc64f0ffdf6"
     
     var body: some View {
         VStack {
@@ -83,7 +90,7 @@ struct ListInspectionsDetails: View {
             Text(inspection.carModel)
             Text(inspection.carVin)
             Text(inspection.carVin)
-            WebImage(url: URL(string: inspection.photos.first!.path))
+            WebImage(url: URL(string: inspection.photos.first?.path ?? noImageUrl))
                 .resizable()
                 .indicator(.activity)
                 .frame(width: 400, height: 400)
