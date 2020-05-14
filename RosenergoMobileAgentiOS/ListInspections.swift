@@ -50,7 +50,7 @@ struct ListInspections: View {
                     Text("Закрыть")
                         .bold()
             })
-        }.accentColor(.purple)
+        }.accentColor(.rosenergo)
     }
 }
 

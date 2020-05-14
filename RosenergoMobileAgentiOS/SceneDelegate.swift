@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootView = RootView()
             .environment(\.managedObjectContext, context)
             .environmentObject(sessionStore)
-            .accentColor(.purple)
+            .accentColor(.rosenergo)
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)

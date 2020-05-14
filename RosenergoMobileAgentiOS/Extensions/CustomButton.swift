@@ -44,13 +44,13 @@ struct ImageButton: View {
         Button(action: action) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.purple)
+                    .fill(Color.rosenergo)
                     .opacity(0.2)
                     .frame(maxWidth: .infinity, maxHeight: 70)
                 VStack {
                     Image(systemName: "camera")
                         .font(.largeTitle)
-                        .foregroundColor(.purple)
+                        .foregroundColor(.rosenergo)
                 }
             }
         }

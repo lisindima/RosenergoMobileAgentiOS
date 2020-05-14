@@ -93,7 +93,7 @@ struct CreateInspections: View {
                     })
                 }.padding(.horizontal)
                 Spacer()
-                CustomButton(label: "Отправить на сервер", colorButton: .purple) {
+                CustomButton(label: "Отправить на сервер", colorButton: .rosenergo) {
                     self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
                 }.padding()
             }
@@ -109,7 +109,7 @@ struct CreateInspections: View {
                 Text("Закрыть")
                     .bold()
             })
-        }.accentColor(.purple)
+        }.accentColor(.rosenergo)
     }
 }
 

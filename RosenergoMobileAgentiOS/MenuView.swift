@@ -15,6 +15,7 @@ struct MenuView: View {
     @State private var openListInspections: Bool = false
     @State private var openCreateInspections: Bool = false
     @State private var showActionSheetExit: Bool = false
+    @State private var showSettings: Bool = false
     
     var body: some View {
         NavigationView {
@@ -25,18 +26,18 @@ struct MenuView: View {
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.purple)
+                                .fill(Color.rosenergo)
                                 .opacity(0.2)
                                 .frame(maxWidth: .infinity, maxHeight: 100)
                             VStack {
                                 Image(systemName: "car")
                                     .font(.largeTitle)
-                                    .foregroundColor(.purple)
+                                    .foregroundColor(.rosenergo)
                                     .padding(.bottom, 4)
                                     .fixedSize(horizontal: false, vertical: true)
                                 Text("Провести осмотр")
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color.purple)
+                                    .foregroundColor(Color.rosenergo)
                             }
                         }
                     }
@@ -76,11 +77,20 @@ struct MenuView: View {
                 Spacer()
             }
             .navigationBarTitle("Мобильный агент")
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(leading: Button(action: {
                 self.showActionSheetExit = true
             }) {
                 Image(systemName: "flame")
                     .imageScale(.large)
+                }, trailing: Button(action: {
+                    self.showSettings = true
+                }) {
+                    Image(systemName: "gear")
+                        .imageScale(.large)
+                        .sheet(isPresented: $showSettings) {
+                            SettingsView()
+                                .environmentObject(self.sessionStore)
+                        }
             })
             .actionSheet(isPresented: $showActionSheetExit) {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
