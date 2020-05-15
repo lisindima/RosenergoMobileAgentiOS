@@ -12,7 +12,6 @@ struct MenuView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
-    @State private var showActionSheetExit: Bool = false
     @State private var showSettings: Bool = false
     
     var body: some View {
@@ -60,28 +59,17 @@ struct MenuView: View {
                 .padding(.horizontal)
                 Spacer()
             }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+                    .environmentObject(self.sessionStore)
+            }
             .navigationBarTitle("Мобильный агент")
-            .navigationBarItems(leading: Button(action: {
-                self.showActionSheetExit = true
-            }) {
-                Image(systemName: "flame")
-                    .imageScale(.large)
-                }, trailing: Button(action: {
+            .navigationBarItems(trailing: Button(action: {
                     self.showSettings = true
                 }) {
                     Image(systemName: "gear")
                         .imageScale(.large)
-                        .sheet(isPresented: $showSettings) {
-                            SettingsView()
-                                .environmentObject(self.sessionStore)
-                        }
             })
-            .actionSheet(isPresented: $showActionSheetExit) {
-                ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                    self.sessionStore.logout(apiToken: self.sessionStore.loginModel!.data.apiToken)
-                    }, .cancel()
-                ])
-            }
         }
     }
 }

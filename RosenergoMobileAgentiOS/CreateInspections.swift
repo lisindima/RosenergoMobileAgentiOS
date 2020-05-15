@@ -59,42 +59,52 @@ struct CreateInspections: View {
                             .foregroundColor(Color.red.opacity(0.2))
                 )
             }.padding(.horizontal)
-            CustomInput(text: $nameCarModel, name: "Марка автомобиля")
-                .padding(.horizontal)
-            CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
-                .padding(.horizontal)
-            CustomInput(text: $vin, name: "VIN")
-                .padding(.horizontal)
-            CustomInput(text: $numberBody, name: "Номер кузова")
-                .padding(.horizontal)
-            CustomInput(text: $numberPolis, name: "Номер полиса")
-                .padding([.horizontal, .bottom])
-            HStack {
-                ImageButton(action: {
-                    self.showImagePicker = true
-                })
-                ImageButton(action: {
-                    self.showImagePicker = true
-                })
-                ImageButton(action: {
-                    self.showImagePicker = true
-                })
-            }.padding(.horizontal)
-            HStack {
-                ImageButton(action: {
-                    self.showImagePicker = true
-                })
-                ImageButton(action: {
-                    self.showImagePicker = true
-                })
-                ImageButton(action: {
-                    self.showImagePicker = true
-                })
-            }.padding(.horizontal)
-            Spacer()
-            CustomButton(label: "Отправить на сервер", colorButton: .rosenergo) {
-                self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
-            }.padding()
+            Picker(selection: $choiseCar, label: Text("")) {
+                Text("Один автомобиль").tag(0)
+                Text("Два автомобиля").tag(1)
+            }
+            .labelsHidden()
+            .padding(.horizontal)
+            .padding(.bottom, 4)
+            .pickerStyle(SegmentedPickerStyle())
+            VStack {
+                CustomInput(text: $nameCarModel, name: "Марка автомобиля")
+                    .padding(.horizontal)
+                CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
+                    .padding(.horizontal)
+                CustomInput(text: $vin, name: "VIN")
+                    .padding(.horizontal)
+                CustomInput(text: $numberBody, name: "Номер кузова")
+                    .padding(.horizontal)
+                CustomInput(text: $numberPolis, name: "Номер полиса")
+                    .padding([.horizontal, .bottom])
+                HStack {
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                }.padding(.horizontal)
+                HStack {
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                }.padding(.horizontal)
+                Spacer()
+                CustomButton(label: "Отправить на сервер", colorButton: .rosenergo) {
+                    self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                }.padding()
+            }
         }
         .onAppear(perform: getLocation)
         .sheet(isPresented: $showImagePicker) {

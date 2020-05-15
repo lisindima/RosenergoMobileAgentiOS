@@ -17,7 +17,15 @@ struct ListInspections: View {
     
     var body: some View {
         VStack {
-            if sessionStore.inspections.isEmpty {
+            if sessionStore.loginModel == nil {
+                Text("Ошибка")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+                Text("Попробуйте перезайти в аккаунт")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            } else if sessionStore.inspections.isEmpty {
                 ActivityIndicator(styleSpinner: .large)
                     .onAppear {
                         self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
@@ -49,23 +57,39 @@ struct ListInspections: View {
 struct ListInspectionsItems: View {
     
     var inspection: Inspections
-    let noImageUrl = "https://firebasestorage.googleapis.com/v0/b/altgtu-46659.appspot.com/o/placeholder%2Fplaceholder.jpeg?alt=media&token=8f554741-2bfb-41ef-82b0-fbc64f0ffdf6"
+    let noImageUrl = "https://via.placeholder.com/100"
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(inspection.insuranceContractNumber)
-                Text(inspection.carBodyNumber)
-                Text(inspection.carModel)
-                Text(inspection.carVin)
-                Text(inspection.carVin)
+                Text("\(inspection.id)")
+                    .font(.title)
+                    .fontWeight(.bold)
+                Group {
+                    Text("Номер полиса: \(inspection.insuranceContractNumber)")
+                    Text("Модель авто: \(inspection.carModel)")
+                    Text("Рег.номер: \(inspection.carRegNumber)")
+                    Text("VIN: \(inspection.carVin)")
+                    Text("Номер кузова: \(inspection.carBodyNumber)")
+                }.font(.footnote)
             }
             Spacer()
-            WebImage(url: URL(string: inspection.photos.first?.path ?? noImageUrl))
-                .resizable()
-                .indicator(.activity)
-                .cornerRadius(10)
-                .frame(width: 100, height: 100)
+            ZStack {
+                WebImage(url: URL(string: inspection.photos.first?.path ?? noImageUrl))
+                    .resizable()
+                    .indicator(.activity)
+                    .cornerRadius(10)
+                    .frame(width: 100, height: 100)
+                if !inspection.photos.isEmpty {
+                    ZStack {
+                        Circle()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.rosenergo)
+                        Text("\(inspection.photos.count)")
+                            .foregroundColor(.white)
+                    }.offset(x: 45, y: -45)
+                }
+            }
         }
     }
 }
@@ -73,19 +97,27 @@ struct ListInspectionsItems: View {
 struct ListInspectionsDetails: View {
     
     var inspection: Inspections
-    let noImageUrl = "https://firebasestorage.googleapis.com/v0/b/altgtu-46659.appspot.com/o/placeholder%2Fplaceholder.jpeg?alt=media&token=8f554741-2bfb-41ef-82b0-fbc64f0ffdf6"
+    let noImageUrl = "https://via.placeholder.com/100"
     
     var body: some View {
         VStack {
+            HStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    ForEach(inspection.photos, id: \.id) { photo in
+                        WebImage(url: URL(string: photo.path))
+                            .resizable()
+                            .indicator(.activity)
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(10)
+                    }
+                }
+            }.padding()
             Text(inspection.insuranceContractNumber)
             Text(inspection.carBodyNumber)
             Text(inspection.carModel)
             Text(inspection.carVin)
             Text(inspection.carVin)
-            WebImage(url: URL(string: inspection.photos.first?.path ?? noImageUrl))
-                .resizable()
-                .indicator(.activity)
-                .frame(width: 400, height: 400)
-        }
+            Spacer()
+        }.navigationBarTitle("Осмотр: \(inspection.id)")
     }
 }

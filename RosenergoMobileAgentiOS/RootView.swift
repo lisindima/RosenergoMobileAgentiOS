@@ -17,7 +17,7 @@ struct RootView: View {
             if sessionStore.loginModel != nil {
                 MenuView()
             } else {
-                SignIn()
+                MenuView()
             }
         }
     }

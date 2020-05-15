@@ -31,6 +31,7 @@
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
+		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CB4B9316246CF59B006B7008 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 		CB17E5902469B4FB00CDBB1A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
 				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
 				CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */,
@@ -230,6 +233,7 @@
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */,
+				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
 				CB17E5922469B57F00CDBB1A /* ImagePicker.swift in Sources */,
 				CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */,
 				CB4B9317246CF59B006B7008 /* Color.swift in Sources */,
