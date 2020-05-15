@@ -12,45 +12,37 @@ import SDWebImageSwiftUI
 struct ListInspections: View {
     
     @EnvironmentObject var sessionStore: SessionStore
-    @Environment(\.presentationMode) var presentationMode
     
     @State private var searchText: String = ""
     
     var body: some View {
-        NavigationView {
-            VStack {
-                if sessionStore.inspections.isEmpty {
-                    ActivityIndicator(styleSpinner: .large)
-                        .onAppear {
-                            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
-                    }
-                } else {
-                    SearchBar(text: $searchText)
-                        .padding(.horizontal, 6)
-                    List {
-                        ForEach(self.sessionStore.inspections.filter {
-                            self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
-                        }, id: \.id) { inspection in
-                            NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
-                                ListInspectionsItems(inspection: inspection)
-                            }
+        VStack {
+            if sessionStore.inspections.isEmpty {
+                ActivityIndicator(styleSpinner: .large)
+                    .onAppear {
+                        self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                }
+            } else {
+                SearchBar(text: $searchText)
+                    .padding(.horizontal, 6)
+                List {
+                    ForEach(self.sessionStore.inspections.filter {
+                        self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
+                    }, id: \.id) { inspection in
+                        NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
+                            ListInspectionsItems(inspection: inspection)
                         }
                     }
                 }
             }
-            .navigationBarTitle("Осмотры")
-            .navigationBarItems(leading: Button(action: {
-                self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
-            }) {
-                Image(systemName: "arrow.2.circlepath.circle")
-                    .imageScale(.large)
-                }, trailing: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Закрыть")
-                        .bold()
-            })
-        }.accentColor(.rosenergo)
+        }
+        .navigationBarTitle("Осмотры")
+        .navigationBarItems(trailing: Button(action: {
+            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+        }) {
+            Image(systemName: "arrow.2.circlepath.circle")
+                .imageScale(.large)
+        })
     }
 }
 

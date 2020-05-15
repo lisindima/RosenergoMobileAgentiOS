@@ -12,8 +12,6 @@ struct MenuView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
-    @State private var openListInspections: Bool = false
-    @State private var openCreateInspections: Bool = false
     @State private var showActionSheetExit: Bool = false
     @State private var showSettings: Bool = false
     
@@ -21,9 +19,7 @@ struct MenuView: View {
         NavigationView {
             VStack {
                 HStack {
-                    Button(action: {
-                        self.openCreateInspections = true
-                    }) {
+                    NavigationLink(destination: CreateInspections()) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color.rosenergo)
@@ -40,15 +36,8 @@ struct MenuView: View {
                                     .foregroundColor(Color.rosenergo)
                             }
                         }
-                    }
-                    .padding(.trailing, 4)
-                    .sheet(isPresented: $openCreateInspections) {
-                        CreateInspections()
-                            .environmentObject(self.sessionStore)
-                    }
-                    Button(action: {
-                        self.openListInspections = true
-                    }) {
+                    }.padding(.trailing, 4)
+                    NavigationLink(destination: ListInspections()) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color.red)
@@ -65,12 +54,7 @@ struct MenuView: View {
                                     .foregroundColor(Color.red)
                             }
                         }
-                    }
-                    .padding(.leading, 4)
-                    .sheet(isPresented: $openListInspections) {
-                        ListInspections()
-                            .environmentObject(self.sessionStore)
-                    }
+                    }.padding(.leading, 4)
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)
