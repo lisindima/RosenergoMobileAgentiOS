@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F83c" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="LocalInspections" representedClassName="LocalInspections" syncable="YES" codeGenerationType="class">
-        <attribute name="car_body_number" optional="YES" attributeType="String"/>
-        <attribute name="car_model" optional="YES" attributeType="String"/>
-        <attribute name="car_reg_number" optional="YES" attributeType="String"/>
-        <attribute name="car_vin" optional="YES" attributeType="String"/>
+        <attribute name="carBodyNumber" optional="YES" attributeType="String"/>
+        <attribute name="carModel" optional="YES" attributeType="String"/>
+        <attribute name="carRegNumber" optional="YES" attributeType="String"/>
+        <attribute name="carVin" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="insurance_contract_number" optional="YES" attributeType="String"/>
+        <attribute name="insuranceContractNumber" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="LocalInspections" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="LocalInspections" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

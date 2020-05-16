@@ -12,12 +12,18 @@ import SDWebImageSwiftUI
 struct ListInspections: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
     @State private var searchText: String = ""
-    @State private var users = ["Paul", "Taylor", "Adele"]
     
     func delete(at offsets: IndexSet) {
-        users.remove(atOffsets: offsets)
+        for offset in offsets {
+            let localInspection = localInspections[offset]
+            moc.delete(localInspection)
+        }
+        try? moc.save()
     }
     
     var body: some View {
@@ -39,15 +45,17 @@ struct ListInspections: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal, 6)
                 List {
-                    if users != nil {
-                        Section(header: Text("Не отправленные осмотры")) {
-                            ForEach(users, id: \.self) { user in
-                                Text(user)
-                            }.onDelete(perform: delete)
-                        }
+                    Section(header: Text("Не отправленные осмотры")) {
+                        ForEach(localInspections.filter {
+                            self.searchText.isEmpty ? true : $0.insuranceContractNumber!.localizedStandardContains(self.searchText)
+                        }, id: \.id) { localInspections in
+                            NavigationLink(destination: ListLocalInspectionsDetails(localInspections: localInspections)) {
+                                ListLocalInspectionsItems(localInspections: localInspections)
+                            }
+                        }.onDelete(perform: delete)
                     }
                     Section(header: Text("Отправленные осмотры")) {
-                        ForEach(self.sessionStore.inspections.filter {
+                        ForEach(sessionStore.inspections.filter {
                             self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
                         }, id: \.id) { inspection in
                             NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
@@ -65,6 +73,74 @@ struct ListInspections: View {
             Image(systemName: "arrow.2.circlepath.circle")
                 .imageScale(.large)
         })
+    }
+}
+
+struct ListLocalInspectionsItems: View {
+    
+    var localInspections: LocalInspections
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("Не загружено")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.red)
+                Group {
+                    Text("Номер полиса: \(localInspections.insuranceContractNumber!)")
+                    Text("Модель авто: \(localInspections.carModel!)")
+                    Text("Рег.номер: \(localInspections.carRegNumber!)")
+                    Text("VIN: \(localInspections.carVin!)")
+                    Text("Номер кузова: \(localInspections.carBodyNumber!)")
+                }.font(.footnote)
+            }
+            Spacer()
+        }
+    }
+}
+
+struct ListLocalInspectionsDetails: View {
+    
+    var localInspections: LocalInspections
+    
+    var body: some View {
+        Form {
+            Section {
+                VStack(alignment: .leading) {
+                    Text("Страховой полис")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(localInspections.insuranceContractNumber!)
+                }
+                VStack(alignment: .leading) {
+                    Text("Номер кузова")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(localInspections.carBodyNumber!)
+                }
+                VStack(alignment: .leading) {
+                    Text("Модель автомобиля")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(localInspections.carModel!)
+                }
+                VStack(alignment: .leading) {
+                    Text("VIN")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(localInspections.carVin!)
+                }
+                VStack(alignment: .leading) {
+                    Text("Регистрационный номер")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(localInspections.carRegNumber!)
+                }
+            }
+        }
+        .environment(\.horizontalSizeClass, .regular)
+        .navigationBarTitle("Не загружено")
     }
 }
 
@@ -113,22 +189,54 @@ struct ListInspectionsDetails: View {
     var inspection: Inspections
     
     var body: some View {
-        VStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                ForEach(inspection.photos, id: \.id) { photo in
-                    WebImage(url: URL(string: photo.path))
-                        .resizable()
-                        .indicator(.activity)
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(10)
+        Form {
+            Section {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(inspection.photos, id: \.id) { photo in
+                            WebImage(url: URL(string: photo.path))
+                                .resizable()
+                                .indicator(.activity)
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(10)
+                        }
+                    }.padding(.vertical)
                 }
-            }.padding()
-            Text(inspection.insuranceContractNumber)
-            Text(inspection.carBodyNumber)
-            Text(inspection.carModel)
-            Text(inspection.carVin)
-            Text(inspection.carVin)
-            Spacer()
-        }.navigationBarTitle("Осмотр: \(inspection.id)")
+            }
+            Section {
+                VStack(alignment: .leading) {
+                    Text("Страховой полис")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(inspection.insuranceContractNumber)
+                }
+                VStack(alignment: .leading) {
+                    Text("Номер кузова")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(inspection.carBodyNumber)
+                }
+                VStack(alignment: .leading) {
+                    Text("Модель автомобиля")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(inspection.carModel)
+                }
+                VStack(alignment: .leading) {
+                    Text("VIN")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(inspection.carVin)
+                }
+                VStack(alignment: .leading) {
+                    Text("Регистрационный номер")
+                        .font(.system(size: 11))
+                        .foregroundColor(.secondary)
+                    Text(inspection.carRegNumber)
+                }
+            }
+        }
+        .environment(\.horizontalSizeClass, .regular)
+        .navigationBarTitle("Осмотр: \(inspection.id)")
     }
 }

@@ -12,6 +12,8 @@ import CoreLocation
 struct CreateInspections: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var moc
     
     @State private var showImagePicker: Bool = false
     @State private var choiseCar: Int = 0
@@ -77,7 +79,7 @@ struct CreateInspections: View {
                 CustomInput(text: $numberBody, name: "Номер кузова")
                     .padding(.horizontal)
                 CustomInput(text: $numberPolis, name: "Номер полиса")
-                    .padding([.horizontal, .bottom])
+                    .padding(.horizontal)
                 HStack {
                     ImageButton(action: {
                         self.showImagePicker = true
@@ -101,9 +103,22 @@ struct CreateInspections: View {
                     })
                 }.padding(.horizontal)
                 Spacer()
+                CustomButton(label: "Сохранить локально", colorButton: .rosenergo) {
+                    let localInspections = LocalInspections(context: self.moc)
+                    localInspections.latitude = self.latitude
+                    localInspections.longitude = self.longitude
+                    localInspections.carBodyNumber = self.numberBody
+                    localInspections.carModel = self.nameCarModel
+                    localInspections.carRegNumber = self.regCarNumber
+                    localInspections.carVin = self.vin
+                    localInspections.insuranceContractNumber = self.numberPolis
+                    localInspections.id = UUID()
+                    try? self.moc.save()
+                    self.presentationMode.wrappedValue.dismiss()
+                }.padding(.horizontal)
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo) {
                     self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
-                }.padding()
+                }.padding(.horizontal)
             }
         }
         .onAppear(perform: getLocation)

@@ -28,6 +28,7 @@
 		CB17E58D2469971D00CDBB1A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58C2469971D00CDBB1A /* SearchBar.swift */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
 		CB17E5922469B57F00CDBB1A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* ImagePicker.swift */; };
+		CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A1FDD24702C82006FE4E0 /* MapView.swift */; };
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
@@ -54,6 +55,7 @@
 		CB17E58C2469971D00CDBB1A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		CB17E58E24699F8400CDBB1A /* CreateInspections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInspections.swift; sourceTree = "<group>"; };
 		CB17E5912469B57F00CDBB1A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CB2A1FDD24702C82006FE4E0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Мобильный агент.entitlements"; sourceTree = "<group>"; };
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				CB17E58C2469971D00CDBB1A /* SearchBar.swift */,
 				CB17E5912469B57F00CDBB1A /* ImagePicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
+				CB2A1FDD24702C82006FE4E0 /* MapView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				CB17E5922469B57F00CDBB1A /* ImagePicker.swift in Sources */,
 				CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */,
 				CB4B9317246CF59B006B7008 /* Color.swift in Sources */,
+				CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */,
 				CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */,
 				CB17E58D2469971D00CDBB1A /* SearchBar.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
