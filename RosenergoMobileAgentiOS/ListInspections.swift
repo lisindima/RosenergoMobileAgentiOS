@@ -14,6 +14,11 @@ struct ListInspections: View {
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var searchText: String = ""
+    @State private var users = ["Paul", "Taylor", "Adele"]
+    
+    func delete(at offsets: IndexSet) {
+        users.remove(atOffsets: offsets)
+    }
     
     var body: some View {
         VStack {
@@ -34,14 +39,23 @@ struct ListInspections: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal, 6)
                 List {
-                    ForEach(self.sessionStore.inspections.filter {
-                        self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
-                    }, id: \.id) { inspection in
-                        NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
-                            ListInspectionsItems(inspection: inspection)
+                    if users != nil {
+                        Section(header: Text("Не отправленные осмотры")) {
+                            ForEach(users, id: \.self) { user in
+                                Text(user)
+                            }.onDelete(perform: delete)
                         }
                     }
-                }
+                    Section(header: Text("Отправленные осмотры")) {
+                        ForEach(self.sessionStore.inspections.filter {
+                            self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
+                        }, id: \.id) { inspection in
+                            NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
+                                ListInspectionsItems(inspection: inspection)
+                            }
+                        }
+                    }
+                }.listStyle(GroupedListStyle())
             }
         }
         .navigationBarTitle("Осмотры")
@@ -97,19 +111,16 @@ struct ListInspectionsItems: View {
 struct ListInspectionsDetails: View {
     
     var inspection: Inspections
-    let noImageUrl = "https://via.placeholder.com/100"
     
     var body: some View {
         VStack {
-            HStack {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    ForEach(inspection.photos, id: \.id) { photo in
-                        WebImage(url: URL(string: photo.path))
-                            .resizable()
-                            .indicator(.activity)
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(10)
-                    }
+            ScrollView(.horizontal, showsIndicators: false) {
+                ForEach(inspection.photos, id: \.id) { photo in
+                    WebImage(url: URL(string: photo.path))
+                        .resizable()
+                        .indicator(.activity)
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(10)
                 }
             }.padding()
             Text(inspection.insuranceContractNumber)

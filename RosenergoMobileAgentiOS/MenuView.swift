@@ -14,6 +14,15 @@ struct MenuView: View {
     
     @State private var showSettings: Bool = false
     
+    private var appVersionView: some View {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            return Text("Версия: \(version) (\(build))")
+        } else {
+            return Text("#chad")
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -58,6 +67,9 @@ struct MenuView: View {
                 .padding(.top, 8)
                 .padding(.horizontal)
                 Spacer()
+                appVersionView
+                    .foregroundColor(.secondary)
+                    .font(.system(size: 12))
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()
