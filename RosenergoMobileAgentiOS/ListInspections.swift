@@ -45,7 +45,7 @@ struct ListInspections: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal, 6)
                 List {
-                    Section(header: Text("Не отправленные осмотры")) {
+                    Section(header: Text("НЕ ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
                         ForEach(localInspections.filter {
                             self.searchText.isEmpty ? true : $0.insuranceContractNumber!.localizedStandardContains(self.searchText)
                         }, id: \.id) { localInspections in
@@ -54,7 +54,7 @@ struct ListInspections: View {
                             }
                         }.onDelete(perform: delete)
                     }
-                    Section(header: Text("Отправленные осмотры")) {
+                    Section(header: Text("ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
                         ForEach(sessionStore.inspections.filter {
                             self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
                         }, id: \.id) { inspection in
@@ -67,12 +67,19 @@ struct ListInspections: View {
             }
         }
         .navigationBarTitle("Осмотры")
-        .navigationBarItems(trailing: Button(action: {
-            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
-        }) {
-            Image(systemName: "arrow.2.circlepath.circle")
-                .imageScale(.large)
+        .navigationBarItems(trailing: HStack {
+            Button(action: {
+                self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+            }) {
+                Image(systemName: "arrow.2.circlepath.circle")
+                    .imageScale(.large)
+            }
+            NavigationLink(destination: CreateInspections()) {
+                Image(systemName: "plus.circle")
+                    .imageScale(.large)
+            }
         })
+        
     }
 }
 
@@ -106,7 +113,7 @@ struct ListLocalInspectionsDetails: View {
     
     var body: some View {
         Form {
-            Section {
+            Section(header: Text("Информация")) {
                 VStack(alignment: .leading) {
                     Text("Страховой полис")
                         .font(.system(size: 11))
@@ -190,20 +197,22 @@ struct ListInspectionsDetails: View {
     
     var body: some View {
         Form {
-            Section {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(inspection.photos, id: \.id) { photo in
-                            WebImage(url: URL(string: photo.path))
-                                .resizable()
-                                .indicator(.activity)
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(10)
-                        }
-                    }.padding(.vertical)
+            if !inspection.photos.isEmpty {
+                Section(header: Text("Фотографии")) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(inspection.photos, id: \.id) { photo in
+                                WebImage(url: URL(string: photo.path))
+                                    .resizable()
+                                    .indicator(.activity)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                        }.padding(.vertical)
+                    }
                 }
             }
-            Section {
+            Section(header: Text("Информация")) {
                 VStack(alignment: .leading) {
                     Text("Страховой полис")
                         .font(.system(size: 11))
