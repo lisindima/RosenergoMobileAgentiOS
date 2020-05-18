@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0C39E42472837000D18DD6 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0C39E32472836F00D18DD6 /* LocationView.swift */; };
 		CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55B2466644400CDBB1A /* AppDelegate.swift */; };
 		CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55D2466644400CDBB1A /* SceneDelegate.swift */; };
 		CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB0C39E32472836F00D18DD6 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		CB17E5582466644400CDBB1A /* Мобильный агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Мобильный агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E55B2466644400CDBB1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB17E55D2466644400CDBB1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				CB17E5912469B57F00CDBB1A /* ImagePicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB2A1FDD24702C82006FE4E0 /* MapView.swift */,
+				CB0C39E32472836F00D18DD6 /* LocationView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
+				CB0C39E42472837000D18DD6 /* LocationView.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

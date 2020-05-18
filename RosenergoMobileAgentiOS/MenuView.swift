@@ -41,7 +41,7 @@ struct MenuView: View {
                                     .fixedSize(horizontal: false, vertical: true)
                                 Text("Провести осмотр")
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color.rosenergo)
+                                    .foregroundColor(.rosenergo)
                             }
                         }
                     }.padding(.trailing, 4)
@@ -59,7 +59,7 @@ struct MenuView: View {
                                     .fixedSize(horizontal: false, vertical: true)
                                 Text("Осмотры")
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color.red)
+                                    .foregroundColor(.red)
                             }
                         }
                     }.padding(.leading, 4)

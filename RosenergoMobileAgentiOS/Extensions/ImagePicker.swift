@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     
+    @EnvironmentObject var sessionStore: SessionStore
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = context.coordinator
@@ -30,6 +32,10 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ photoPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             photoPicker.dismiss(animated: true)
+            let inspectionsImage = info[.originalImage] as! UIImage
+            let inspectionsImageData = inspectionsImage.jpegData(compressionQuality: 0.8)
+            parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
+            print(parent.sessionStore.imageLocalInspections)
         }
     }
     

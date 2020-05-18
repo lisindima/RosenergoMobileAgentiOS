@@ -35,7 +35,7 @@ struct SignIn: View {
                     .autocapitalization(.none)
                     .modifier(InputModifier())
                     .padding(.horizontal)
-                CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo) {
+                CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
                     self.sessionStore.login(email: self.email, password: self.password)
                 }.padding()
             }.keyboardObserving()

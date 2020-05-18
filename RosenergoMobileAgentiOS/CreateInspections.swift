@@ -24,6 +24,11 @@ struct CreateInspections: View {
     @State private var numberPolis: String = ""
     @State private var nameCarModel: String = ""
     @State private var regCarNumber: String = ""
+    @State private var vin2: String = ""
+    @State private var numberBody2: String = ""
+    @State private var numberPolis2: String = ""
+    @State private var nameCarModel2: String = ""
+    @State private var regCarNumber2: String = ""
     
     var locationManager = CLLocationManager()
     
@@ -39,7 +44,7 @@ struct CreateInspections: View {
     }
     
     var body: some View {
-        VStack {
+        ScrollView {
             HStack {
                 Text("Широта: \(latitude)")
                     .font(.footnote)
@@ -70,26 +75,12 @@ struct CreateInspections: View {
             .padding(.bottom, 4)
             .pickerStyle(SegmentedPickerStyle())
             VStack {
-                CustomInput(text: $nameCarModel, name: "Марка автомобиля")
-                    .padding(.horizontal)
-                CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
-                    .padding(.horizontal)
-                CustomInput(text: $vin, name: "VIN")
-                    .padding(.horizontal)
-                CustomInput(text: $numberBody, name: "Номер кузова")
-                    .padding(.horizontal)
-                CustomInput(text: $numberPolis, name: "Номер полиса")
-                    .padding(.horizontal)
-                HStack {
-                    ImageButton(action: {
-                        self.showImagePicker = true
-                    })
-                    ImageButton(action: {
-                        self.showImagePicker = true
-                    })
-                    ImageButton(action: {
-                        self.showImagePicker = true
-                    })
+                Group {
+                    CustomInput(text: $nameCarModel, name: "Марка автомобиля")
+                    CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
+                    CustomInput(text: $vin, name: "VIN")
+                    CustomInput(text: $numberBody, name: "Номер кузова")
+                    CustomInput(text: $numberPolis, name: "Номер полиса")
                 }.padding(.horizontal)
                 HStack {
                     ImageButton(action: {
@@ -102,28 +93,76 @@ struct CreateInspections: View {
                         self.showImagePicker = true
                     })
                 }.padding(.horizontal)
+                HStack {
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                    ImageButton(action: {
+                        self.showImagePicker = true
+                    })
+                }.padding(.horizontal)
+                if choiseCar == 1 {
+                    Divider()
+                        .padding()
+                    Group {
+                        CustomInput(text: $nameCarModel2, name: "Марка автомобиля")
+                        CustomInput(text: $regCarNumber2, name: "Рег. номер автомобиля")
+                        CustomInput(text: $vin2, name: "VIN")
+                        CustomInput(text: $numberBody2, name: "Номер кузова")
+                        CustomInput(text: $numberPolis2, name: "Номер полиса")
+                    }.padding(.horizontal)
+                    HStack {
+                        ImageButton(action: {
+                            self.showImagePicker = true
+                        })
+                        ImageButton(action: {
+                            self.showImagePicker = true
+                        })
+                        ImageButton(action: {
+                            self.showImagePicker = true
+                        })
+                    }.padding(.horizontal)
+                    HStack {
+                        ImageButton(action: {
+                            self.showImagePicker = true
+                        })
+                        ImageButton(action: {
+                            self.showImagePicker = true
+                        })
+                        ImageButton(action: {
+                            self.showImagePicker = true
+                        })
+                    }.padding(.horizontal)
+                }
                 Spacer()
-                CustomButton(label: "Сохранить локально", colorButton: .rosenergo) {
-                    let localInspections = LocalInspections(context: self.moc)
-                    localInspections.latitude = self.latitude
-                    localInspections.longitude = self.longitude
-                    localInspections.carBodyNumber = self.numberBody
-                    localInspections.carModel = self.nameCarModel
-                    localInspections.carRegNumber = self.regCarNumber
-                    localInspections.carVin = self.vin
-                    localInspections.insuranceContractNumber = self.numberPolis
-                    localInspections.id = UUID()
-                    try? self.moc.save()
-                    self.presentationMode.wrappedValue.dismiss()
-                }.padding(.horizontal)
-                CustomButton(label: "Отправить на сервер", colorButton: .rosenergo) {
-                    self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                HStack {
+                    CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
+                        self.sessionStore.uploadInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                    }.padding(.trailing, 4)
+                    CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                        let localInspections = LocalInspections(context: self.moc)
+                        localInspections.latitude = self.latitude
+                        localInspections.longitude = self.longitude
+                        localInspections.carBodyNumber = self.numberBody
+                        localInspections.carModel = self.nameCarModel
+                        localInspections.carRegNumber = self.regCarNumber
+                        localInspections.carVin = self.vin
+                        localInspections.insuranceContractNumber = self.numberPolis
+                        localInspections.photos = self.sessionStore.imageLocalInspections
+                        localInspections.id = UUID()
+                        try? self.moc.save()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }.padding(.leading, 4)
                 }.padding(.horizontal)
             }
         }
         .onAppear(perform: getLocation)
         .sheet(isPresented: $showImagePicker) {
             ImagePicker()
+                .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.bottom)
         }.navigationBarTitle("Новый осмотр")
     }

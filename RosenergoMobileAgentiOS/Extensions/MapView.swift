@@ -17,7 +17,9 @@ struct MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        mapView.centerCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let inspections = MKPointAnnotation()
+        inspections.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        mapView.addAnnotation(inspections)
         return mapView
     }
 

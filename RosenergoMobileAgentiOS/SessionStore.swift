@@ -15,6 +15,7 @@ class SessionStore: ObservableObject {
     
     @Published var loginModel: LoginModel?
     @Published var inspections: [Inspections] = [Inspections]()
+    @Published var imageLocalInspections: [Data] = [Data]()
     @Published var loadingLogin: Bool = false
     @Published var uploadProgress: Double = 0.0
     
@@ -112,10 +113,17 @@ class SessionStore: ObservableObject {
     
 }
 
-struct Inspections: Codable {
+struct LoginParameters: Encodable {
+    let email: String
+    let password: String
+}
+
+struct Inspections: Codable, Identifiable {
     let id, agentID: Int
     let carModel, carRegNumber, carVin, carBodyNumber: String
     let insuranceContractNumber: String
+    let carModel2, carRegNumber2, carVin2, carBodyNumber2: String?
+    let insuranceContractNumber2: String?
     let latitude, longitude: Double
     let photos: [Photo]
 
@@ -127,12 +135,17 @@ struct Inspections: Codable {
         case carVin = "car_vin"
         case carBodyNumber = "car_body_number"
         case insuranceContractNumber = "insurance_contract_number"
+        case carModel2 = "car_model2"
+        case carRegNumber2 = "car_reg_number2"
+        case carVin2 = "car_vin2"
+        case carBodyNumber2 = "car_body_number2"
+        case insuranceContractNumber2 = "insurance_contract_number2"
         case latitude, longitude
         case photos
     }
 }
 
-struct Photo: Codable, Hashable {
+struct Photo: Codable, Identifiable {
     let id, inspectionID: Int
     let path: String
     let latitude, longitude: Double
@@ -148,16 +161,11 @@ struct Photo: Codable, Hashable {
     }
 }
 
-struct LoginParameters: Encodable {
-    let email: String
-    let password: String
-}
-
 struct LoginModel: Codable {
     let data: DataClass
 }
 
-struct DataClass: Codable {
+struct DataClass: Codable, Identifiable {
     let id, roleID: Int
     let name, email, avatar: String
     let settings: Settings

@@ -16,6 +16,8 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showActionSheetExit: Bool = false
+    @State private var test: Int = 131
+    @State private var testLimit: Int = 500
     
     private func showMailView() {
         DispatchQueue.main.async {
@@ -33,11 +35,47 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
+                Section(header: Text("Личные данные")) {
                     Text(sessionStore.loginModel?.data.name ?? "Ошибка")
                     Text(sessionStore.loginModel?.data.email ?? "Ошибка")
                 }
-                Section {
+                Section(header: Text("Кэш изображений"), footer: Text("Если приложение занимает слишком много места, очистка кэша изображений поможет решить эту проблему.")) {
+                    ZStack {
+                        GeometryReader { geometry in
+                            ZStack(alignment: .leading) {
+                                Rectangle()
+                                    .frame(height: 60)
+                                    .cornerRadius(8)
+                                    .shadow(radius: 5)
+                                    .foregroundColor(Color.rosenergo.opacity(0.2))
+                                Rectangle()
+                                    .frame(width: (CGFloat(self.test) / CGFloat(self.testLimit)) * geometry.size.width, height: 60)
+                                    .cornerRadius(8)
+                                    .shadow(radius: 5)
+                                    .foregroundColor(.rosenergo)
+                                    .animation(.linear)
+                                HStack {
+                                    Spacer()
+                                    Text("\(self.test) MB / \(self.testLimit) MB")
+                                        .foregroundColor(.white)
+                                        .font(.custom("Futura", size: 24))
+                                    Spacer()
+                                }
+                            }
+                        }
+                    }
+                    .frame(height: 60)
+                    .padding(.vertical)
+                    HStack {
+                        Image(systemName: "trash")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Button("Очистить кэш изображений") {
+                            print("")
+                        }.foregroundColor(.primary)
+                    }
+                }
+                Section(header: Text("Другое"), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                     HStack {
                         Image(systemName: "ant")
                             .frame(width: 24)
@@ -64,6 +102,7 @@ struct SettingsView: View {
                 }.actionSheet(isPresented: $showActionSheetExit) {
                     ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
                         self.sessionStore.logout(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                        self.presentationMode.wrappedValue.dismiss()
                         }, .cancel()
                     ])
                 }

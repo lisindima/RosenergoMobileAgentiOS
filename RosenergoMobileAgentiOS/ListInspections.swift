@@ -45,14 +45,16 @@ struct ListInspections: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal, 6)
                 List {
-                    Section(header: Text("НЕ ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
-                        ForEach(localInspections.filter {
-                            self.searchText.isEmpty ? true : $0.insuranceContractNumber!.localizedStandardContains(self.searchText)
-                        }, id: \.id) { localInspections in
-                            NavigationLink(destination: ListLocalInspectionsDetails(localInspections: localInspections)) {
-                                ListLocalInspectionsItems(localInspections: localInspections)
-                            }
-                        }.onDelete(perform: delete)
+                    if !localInspections.isEmpty {
+                        Section(header: Text("НЕ ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
+                            ForEach(localInspections.filter {
+                                self.searchText.isEmpty ? true : $0.insuranceContractNumber!.localizedStandardContains(self.searchText)
+                            }, id: \.id) { localInspections in
+                                NavigationLink(destination: ListLocalInspectionsDetails(localInspections: localInspections)) {
+                                    ListLocalInspectionsItems(localInspections: localInspections)
+                                }
+                            }.onDelete(perform: delete)
+                        }
                     }
                     Section(header: Text("ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
                         ForEach(sessionStore.inspections.filter {
@@ -103,6 +105,21 @@ struct ListLocalInspectionsItems: View {
                 }.font(.footnote)
             }
             Spacer()
+            if localInspections.photos != nil {
+                ZStack {
+                    Image(uiImage: UIImage(data: (localInspections.photos!.first!))!)
+                        .resizable()
+                        .cornerRadius(10)
+                        .frame(width: 100, height: 100)
+                    ZStack {
+                        Circle()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.rosenergo)
+                        Text("\(localInspections.photos!.count)")
+                            .foregroundColor(.white)
+                    }.offset(x: 45, y: -45)
+                }
+            }
         }
     }
 }
@@ -112,39 +129,97 @@ struct ListLocalInspectionsDetails: View {
     var localInspections: LocalInspections
     
     var body: some View {
-        Form {
-            Section(header: Text("Информация")) {
-                VStack(alignment: .leading) {
-                    Text("Страховой полис")
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-                    Text(localInspections.insuranceContractNumber!)
+        VStack {
+            Form {
+                if localInspections.photos != nil {
+                    Section(header: Text("Фотографии")) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(localInspections.photos!, id: \.self) { photo in
+                                    Image(uiImage: UIImage(data: photo)!)
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(10)
+                                }
+                            }.padding(.vertical)
+                        }
+                    }
                 }
-                VStack(alignment: .leading) {
-                    Text("Номер кузова")
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-                    Text(localInspections.carBodyNumber!)
+                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация")) {
+                    VStack(alignment: .leading) {
+                        Text("Страховой полис")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.insuranceContractNumber!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Номер кузова")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.carBodyNumber!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Модель автомобиля")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.carModel!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("VIN")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.carVin!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Регистрационный номер")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.carRegNumber!)
+                    }
                 }
-                VStack(alignment: .leading) {
-                    Text("Модель автомобиля")
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-                    Text(localInspections.carModel!)
+                if localInspections.carModel2 != nil {
+                    Section(header: Text("Второй автомобиль")) {
+                        VStack(alignment: .leading) {
+                            Text("Страховой полис")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.insuranceContractNumber2!)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Номер кузова")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.carBodyNumber2!)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Модель автомобиля")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.carModel2!)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("VIN")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.carVin2!)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Регистрационный номер")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.carRegNumber2!)
+                        }
+                    }
                 }
-                VStack(alignment: .leading) {
-                    Text("VIN")
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-                    Text(localInspections.carVin!)
-                }
-                VStack(alignment: .leading) {
-                    Text("Регистрационный номер")
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-                    Text(localInspections.carRegNumber!)
+                Section(header: Text("Место проведения осмотра")) {
+                    MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
+                        .cornerRadius(10)
+                        .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
                 }
             }
+            CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
+                print("Отправить на сервер")
+            }.padding(.horizontal)
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не загружено")
@@ -154,7 +229,6 @@ struct ListLocalInspectionsDetails: View {
 struct ListInspectionsItems: View {
     
     var inspection: Inspections
-    let noImageUrl = "https://via.placeholder.com/100"
     
     var body: some View {
         HStack {
@@ -168,16 +242,30 @@ struct ListInspectionsItems: View {
                     Text("Рег.номер: \(inspection.carRegNumber)")
                     Text("VIN: \(inspection.carVin)")
                     Text("Номер кузова: \(inspection.carBodyNumber)")
-                }.font(.footnote)
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                if inspection.carModel2 != nil {
+                    Divider()
+                    Group {
+                        Text("Номер полиса: \(inspection.insuranceContractNumber2!)")
+                        Text("Модель авто: \(inspection.carModel2!)")
+                        Text("Рег.номер: \(inspection.carRegNumber2!)")
+                        Text("VIN: \(inspection.carVin2!)")
+                        Text("Номер кузова: \(inspection.carBodyNumber2!)")
+                    }
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                }
             }
             Spacer()
-            ZStack {
-                WebImage(url: URL(string: inspection.photos.first?.path ?? noImageUrl))
-                    .resizable()
-                    .indicator(.activity)
-                    .cornerRadius(10)
-                    .frame(width: 100, height: 100)
-                if !inspection.photos.isEmpty {
+            if !inspection.photos.isEmpty {
+                ZStack {
+                    WebImage(url: URL(string: inspection.photos.first!.path))
+                        .resizable()
+                        .indicator(.activity)
+                        .cornerRadius(10)
+                        .frame(width: 100, height: 100)
                     ZStack {
                         Circle()
                             .frame(width: 25, height: 25)
@@ -212,7 +300,7 @@ struct ListInspectionsDetails: View {
                     }
                 }
             }
-            Section(header: Text("Информация")) {
+            Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация")) {
                 VStack(alignment: .leading) {
                     Text("Страховой полис")
                         .font(.system(size: 11))
@@ -243,6 +331,45 @@ struct ListInspectionsDetails: View {
                         .foregroundColor(.secondary)
                     Text(inspection.carRegNumber)
                 }
+            }
+            if inspection.carModel2 != nil {
+                Section(header: Text("Второй автомобиль")) {
+                    VStack(alignment: .leading) {
+                        Text("Страховой полис")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(inspection.insuranceContractNumber2!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Номер кузова")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(inspection.carBodyNumber2!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Модель автомобиля")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(inspection.carModel2!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("VIN")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(inspection.carVin2!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Регистрационный номер")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(inspection.carRegNumber2!)
+                    }
+                }
+            }
+            Section(header: Text("Место проведения осмотра")) {
+                MapView(latitude: inspection.latitude, longitude: inspection.longitude)
+                    .cornerRadius(10)
+                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
             }
         }
         .environment(\.horizontalSizeClass, .regular)

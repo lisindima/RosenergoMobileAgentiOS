@@ -13,6 +13,7 @@ struct CustomButton: View {
     var label: String
     var loading: Bool?
     var colorButton: Color
+    var colorText: Color
     var action: () -> Void
     
     var body: some View {
@@ -21,7 +22,7 @@ struct CustomButton: View {
                 Spacer()
                 Text(label)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorText)
                     .multilineTextAlignment(.center)
                 if loading ?? false {
                     ActivityIndicatorButton()
@@ -46,7 +47,7 @@ struct ImageButton: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.rosenergo)
                     .opacity(0.2)
-                    .frame(maxWidth: .infinity, maxHeight: 70)
+                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 70, idealHeight: 70, maxHeight: 70)
                 VStack {
                     Image(systemName: "camera")
                         .font(.largeTitle)
