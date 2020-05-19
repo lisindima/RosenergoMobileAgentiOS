@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import NativeSearchBar
 import SDWebImageSwiftUI
 
 struct ListInspections: View {
@@ -16,7 +17,7 @@ struct ListInspections: View {
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
-    @ObservedObject var searchBar: SearchBar = SearchBar()
+    @ObservedObject var searchBar: SearchBar = SearchBar.shared
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {
@@ -28,7 +29,7 @@ struct ListInspections: View {
     
     var body: some View {
         VStack {
-            if sessionStore.loginModel == nil {
+            if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.failureLoadingInspections {
                 Text("Ошибка")
                     .font(.title)
                     .fontWeight(.bold)
@@ -36,11 +37,8 @@ struct ListInspections: View {
                 Text("Попробуйте перезайти в аккаунт")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-            } else if sessionStore.inspections.isEmpty {
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty {
                 ActivityIndicator(styleSpinner: .large)
-                    .onAppear {
-                        self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
-                }
             } else {
                 List {
                     if !localInspections.isEmpty {
@@ -54,12 +52,14 @@ struct ListInspections: View {
                             }.onDelete(perform: delete)
                         }
                     }
-                    Section(header: Text("ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
-                        ForEach(sessionStore.inspections.filter {
-                            searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
-                        }, id: \.id) { inspection in
-                            NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
-                                ListInspectionsItems(inspection: inspection)
+                    if !sessionStore.inspections.isEmpty {
+                        Section(header: Text("ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
+                            ForEach(sessionStore.inspections.filter {
+                                searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                            }, id: \.id) { inspection in
+                                NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
+                                    ListInspectionsItems(inspection: inspection)
+                                }
                             }
                         }
                     }
@@ -67,6 +67,9 @@ struct ListInspections: View {
                 .listStyle(GroupedListStyle())
                 .addSearchBar(searchBar)
             }
+        }
+        .onAppear {
+            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
         }
         .navigationBarTitle("Осмотры")
         .navigationBarItems(trailing: HStack {

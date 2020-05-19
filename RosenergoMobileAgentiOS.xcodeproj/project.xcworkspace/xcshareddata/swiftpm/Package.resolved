@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "NativeSearchBar",
+        "repositoryURL": "https://github.com/lisindima/NativeSearchBar",
+        "state": {
+          "branch": null,
+          "revision": "aa7a4d3189d8ffa9ff70bdf33295346c090310e6",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "SDWebImage",
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {

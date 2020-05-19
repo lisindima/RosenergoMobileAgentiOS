@@ -26,13 +26,13 @@
 		CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* KeyboardObserving */; };
 		CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E58A24695AA500CDBB1A /* SPAlert */; };
-		CB17E58D2469971D00CDBB1A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58C2469971D00CDBB1A /* SearchBar.swift */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
 		CB17E5922469B57F00CDBB1A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* ImagePicker.swift */; };
 		CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A1FDD24702C82006FE4E0 /* MapView.swift */; };
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
+		CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* NativeSearchBar */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,6 @@
 		CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		CB17E5822468636700CDBB1A /* CustomInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInput.swift; sourceTree = "<group>"; };
 		CB17E584246864AE00CDBB1A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		CB17E58C2469971D00CDBB1A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		CB17E58E24699F8400CDBB1A /* CreateInspections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInspections.swift; sourceTree = "<group>"; };
 		CB17E5912469B57F00CDBB1A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		CB2A1FDD24702C82006FE4E0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */,
+				CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
 				CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */,
@@ -136,7 +136,6 @@
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
 				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
 				CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */,
-				CB17E58C2469971D00CDBB1A /* SearchBar.swift */,
 				CB17E5912469B57F00CDBB1A /* ImagePicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB2A1FDD24702C82006FE4E0 /* MapView.swift */,
@@ -174,6 +173,7 @@
 				CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */,
 				CB17E587246933B700CDBB1A /* KeyboardObserving */,
 				CB17E58A24695AA500CDBB1A /* SPAlert */,
+				CB7955D2247381C200670552 /* NativeSearchBar */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
@@ -208,6 +208,7 @@
 				CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 				CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */,
+				CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -245,7 +246,6 @@
 				CB4B9317246CF59B006B7008 /* Color.swift in Sources */,
 				CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */,
 				CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */,
-				CB17E58D2469971D00CDBB1A /* SearchBar.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
@@ -488,6 +488,14 @@
 				minimumVersion = 2.1.4;
 			};
 		};
+		CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -510,6 +518,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
+		};
+		CB7955D2247381C200670552 /* NativeSearchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */;
+			productName = NativeSearchBar;
 		};
 /* End XCSwiftPackageProductDependency section */
 

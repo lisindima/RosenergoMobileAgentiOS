@@ -18,6 +18,7 @@ class SessionStore: ObservableObject {
     @Published var imageLocalInspections: [Data] = [Data]()
     @Published var loadingLogin: Bool = false
     @Published var uploadProgress: Double = 0.0
+    @Published var failureLoadingInspections: Bool = false
     
     static let shared = SessionStore()
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
@@ -94,7 +95,9 @@ class SessionStore: ObservableObject {
                 case .success( _):
                     guard let inspections = response.value else { return }
                     self.inspections = inspections
+                    self.failureLoadingInspections = false
                 case .failure(let error):
+                    self.failureLoadingInspections = true
                     print(error.errorDescription!)
                 }
         }
