@@ -29,15 +29,19 @@ struct ListInspections: View {
     
     var body: some View {
         VStack {
-            if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.failureLoadingInspections {
-                Text("Ошибка")
+            if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
+                Text("Нет подключения к интернету!")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
-                Text("Попробуйте перезайти в аккаунт")
-                    .font(.subheadline)
+                    .multilineTextAlignment(.center)
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
+                Text("Нет осмотров!")
+                    .font(.title)
+                    .fontWeight(.bold)
                     .foregroundColor(.secondary)
-            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty {
+                    .multilineTextAlignment(.center)
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
                 ActivityIndicator(styleSpinner: .large)
             } else {
                 List {

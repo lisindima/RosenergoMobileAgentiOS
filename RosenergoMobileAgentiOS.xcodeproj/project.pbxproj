@@ -34,6 +34,7 @@
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* NativeSearchBar */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
+		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CB4B9316246CF59B006B7008 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
+		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
 				CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */,
 				CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
@@ -147,6 +150,7 @@
 		CB2B5B83246BA8CE006F35AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CBDDDA602473CF1400FE5A7C /* CloudKit.framework */,
 				CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */,
 			);
 			name = Frameworks;

@@ -16,6 +16,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = context.coordinator
         imagePicker.sourceType = .camera
+        imagePicker.cameraFlashMode = .off
         return imagePicker
     }
     
