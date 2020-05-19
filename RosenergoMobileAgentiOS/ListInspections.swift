@@ -16,7 +16,7 @@ struct ListInspections: View {
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
-    @State private var searchText: String = ""
+    @ObservedObject var searchBar: SearchBar = SearchBar()
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {
@@ -42,13 +42,11 @@ struct ListInspections: View {
                         self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
                 }
             } else {
-                SearchBar(text: $searchText)
-                    .padding(.horizontal, 6)
                 List {
                     if !localInspections.isEmpty {
                         Section(header: Text("НЕ ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
                             ForEach(localInspections.filter {
-                                self.searchText.isEmpty ? true : $0.insuranceContractNumber!.localizedStandardContains(self.searchText)
+                                searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
                             }, id: \.id) { localInspections in
                                 NavigationLink(destination: ListLocalInspectionsDetails(localInspections: localInspections)) {
                                     ListLocalInspectionsItems(localInspections: localInspections)
@@ -58,14 +56,16 @@ struct ListInspections: View {
                     }
                     Section(header: Text("ОТПРАВЛЕННЫЕ ОСМОТРЫ")) {
                         ForEach(sessionStore.inspections.filter {
-                            self.searchText.isEmpty ? true : $0.insuranceContractNumber.localizedStandardContains(self.searchText)
+                            searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
                         }, id: \.id) { inspection in
                             NavigationLink(destination: ListInspectionsDetails(inspection: inspection)) {
                                 ListInspectionsItems(inspection: inspection)
                             }
                         }
                     }
-                }.listStyle(GroupedListStyle())
+                }
+                .listStyle(GroupedListStyle())
+                .addSearchBar(searchBar)
             }
         }
         .navigationBarTitle("Осмотры")
