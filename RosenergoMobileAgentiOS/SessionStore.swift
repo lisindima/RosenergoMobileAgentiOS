@@ -24,6 +24,7 @@ class SessionStore: ObservableObject {
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     
     static let shared = SessionStore()
+    
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     enum InspectionsLoadingState {
@@ -35,9 +36,15 @@ class SessionStore: ObservableObject {
     }
     
     func login(email: String, password: String) {
+        
         loadingLogin = true
-        let parameters = LoginParameters(email: email, password: password)
-        AF.request(serverURL + "login", method: .post, parameters: parameters)
+        
+        let parameters = LoginParameters(
+            email: email,
+            password: password
+        )
+        
+        AF.request(serverURL + "login", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .validate()
             .responseDecodable(of: LoginModel.self) { response in
                 switch response.result {
@@ -123,18 +130,18 @@ class SessionStore: ObservableObject {
             "Accept": "application/json"
         ]
         
-        let parameters: Parameters = [
-            "car_model": carModel,
-            "car_reg_number": carRegNumber,
-            "car_body_number": carBodyNumber,
-            "car_vin": carVin,
-            "insurance_contract_number": insuranceContractNumber,
-            "latitude": latitude,
-            "longitude": longitude,
-            "photos": []
-        ]
+        let parameters = InspectionParameters(
+            car_model: carModel,
+            car_reg_number: carRegNumber,
+            car_body_number: carBodyNumber,
+            car_vin: carVin,
+            insurance_contract_number: insuranceContractNumber,
+            latitude: latitude,
+            longitude: longitude,
+            photos: []
+        )
         
-        AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers)
+        AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .downloadProgress { progress in
                 self.uploadProgress = progress.fractionCompleted
@@ -143,6 +150,17 @@ class SessionStore: ObservableObject {
                 debugPrint("Response: \(response)")
             }
     }
+}
+
+struct InspectionParameters: Encodable {
+    let car_model: String
+    let car_reg_number: String
+    let car_body_number: String
+    let car_vin: String
+    let insurance_contract_number: String
+    let latitude: Double
+    let longitude: Double
+    let photos: [Photo]
 }
 
 struct LoginParameters: Encodable {
