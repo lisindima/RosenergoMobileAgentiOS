@@ -31,6 +31,7 @@
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
+		CB618CB62475235200B1341B /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = CB618CB52475235200B1341B /* Defaults */; };
 		CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* NativeSearchBar */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB618CB62475235200B1341B /* Defaults in Frameworks */,
 				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
 				CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */,
 				CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */,
@@ -175,6 +177,7 @@
 				CB17E587246933B700CDBB1A /* KeyboardObserving */,
 				CB17E58A24695AA500CDBB1A /* SPAlert */,
 				CB7955D2247381C200670552 /* NativeSearchBar */,
+				CB618CB52475235200B1341B /* Defaults */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
@@ -210,6 +213,7 @@
 				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 				CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */,
 				CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
+				CB618CB42475235200B1341B /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -488,6 +492,14 @@
 				minimumVersion = 2.1.4;
 			};
 		};
+		CB618CB42475235200B1341B /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
@@ -518,6 +530,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
+		};
+		CB618CB52475235200B1341B /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB618CB42475235200B1341B /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
 		};
 		CB7955D2247381C200670552 /* NativeSearchBar */ = {
 			isa = XCSwiftPackageProductDependency;

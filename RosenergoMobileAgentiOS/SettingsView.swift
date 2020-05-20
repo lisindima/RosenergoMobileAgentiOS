@@ -38,6 +38,7 @@ struct SettingsView: View {
                 Section(header: Text("Личные данные")) {
                     Text(sessionStore.loginModel?.data.name ?? "Ошибка")
                     Text(sessionStore.loginModel?.data.email ?? "Ошибка")
+                    Text(sessionStore.loginModel?.data.apiToken ?? "Ошибка")
                 }
                 Section(header: Text("Кэш изображений"), footer: Text("Если приложение занимает слишком много места, очистка кэша изображений поможет решить эту проблему.")) {
                     ZStack {

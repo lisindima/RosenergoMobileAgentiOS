@@ -10,10 +10,12 @@ import SwiftUI
 import Combine
 import Alamofire
 import SPAlert
+import Defaults
 
 class SessionStore: ObservableObject {
     
-    @Published var loginModel: LoginModel?
+    @Default(.loginModel) var loginModel
+    
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var imageLocalInspections: [Data] = [Data]()
     @Published var loadingLogin: Bool = false
@@ -215,4 +217,8 @@ struct DataClass: Codable, Identifiable {
 
 struct Settings: Codable {
     let locale: String
+}
+
+extension Defaults.Keys {
+    static let loginModel = Key<LoginModel?>("loginModel", default: nil)
 }
