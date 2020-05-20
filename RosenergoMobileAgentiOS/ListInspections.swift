@@ -73,12 +73,12 @@ struct ListInspections: View {
             }
         }
         .onAppear {
-            self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+            self.sessionStore.getInspections()
         }
         .navigationBarTitle("Осмотры")
         .navigationBarItems(trailing: HStack {
             Button(action: {
-                self.sessionStore.getInspections(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                self.sessionStore.getInspections()
             }) {
                 Image(systemName: "arrow.2.circlepath.circle")
                     .imageScale(.large)
@@ -109,7 +109,9 @@ struct ListLocalInspectionsItems: View {
                     Text("Рег.номер: \(localInspections.carRegNumber!)")
                     Text("VIN: \(localInspections.carVin!)")
                     Text("Номер кузова: \(localInspections.carBodyNumber!)")
-                }.font(.footnote)
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
             }
             Spacer()
             if localInspections.photos != nil {
@@ -376,6 +378,7 @@ struct ListInspectionsDetails: View {
             Section(header: Text("Место проведения осмотра")) {
                 MapView(latitude: inspection.latitude, longitude: inspection.longitude)
                     .cornerRadius(10)
+                    .padding(.vertical, 8)
                     .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
             }
         }

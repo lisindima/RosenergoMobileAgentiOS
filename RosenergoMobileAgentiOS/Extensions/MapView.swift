@@ -15,10 +15,13 @@ struct MapView: UIViewRepresentable {
     var longitude: Double
     
     func makeUIView(context: Context) -> MKMapView {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
+        mapView.setCenter(coordinate, animated: false)
+        mapView.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
         let inspections = MKPointAnnotation()
-        inspections.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        inspections.coordinate = coordinate
         mapView.addAnnotation(inspections)
         return mapView
     }

@@ -19,7 +19,7 @@ struct MailFeedback: UIViewControllerRepresentable {
         mailFeedback.setToRecipients(["lisinde@rosen.ttb.ru"])
         mailFeedback.addAttachmentData(dataEmail, mimeType: "text/plain", fileName: "log.txt")
         mailFeedback.setSubject("Сообщение об ошибке")
-        mailFeedback.setMessageBody("<p>Привет!</p>", isHTML: true)
+        mailFeedback.setMessageBody("Добрый день!", isHTML: false)
         mailFeedback.mailComposeDelegate = context.coordinator
         return mailFeedback
     }

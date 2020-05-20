@@ -18,6 +18,7 @@ class SessionStore: ObservableObject {
     @Published var imageLocalInspections: [Data] = [Data]()
     @Published var loadingLogin: Bool = false
     @Published var uploadProgress: Double = 0.0
+    @Published var inspectionUploadState: InspectionUploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     
     static let shared = SessionStore()
@@ -27,6 +28,10 @@ class SessionStore: ObservableObject {
         case loading, failure, success
     }
     
+    enum InspectionUploadState {
+        case upload, none
+    }
+    
     func login(email: String, password: String) {
         loadingLogin = true
         let parameters = LoginParameters(email: email, password: password)
@@ -34,7 +39,7 @@ class SessionStore: ObservableObject {
             .validate()
             .responseDecodable(of: LoginModel.self) { response in
                 switch response.result {
-                case .success( _):
+                case .success:
                     guard let loginModel = response.value else { return }
                     self.loginModel = loginModel
                     self.loadingLogin = false
@@ -46,10 +51,10 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func logout(apiToken: String) {
+    func logout() {
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(apiToken)",
+            "Authorization": "Bearer \(loginModel!.data.apiToken)",
             "Accept": "application/json"
         ]
         
@@ -66,10 +71,10 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func validateToken(apiToken: String) {
+    func validateToken() {
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(apiToken)",
+            "Authorization": "Bearer \(loginModel!.data.apiToken)",
             "Accept": "application/json"
         ]
         
@@ -85,10 +90,10 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func getInspections(apiToken: String) {
+    func getInspections() {
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(apiToken)",
+            "Authorization": "Bearer \(loginModel!.data.apiToken)",
             "Accept": "application/json"
         ]
         
@@ -96,7 +101,7 @@ class SessionStore: ObservableObject {
             .validate()
             .responseDecodable(of: [Inspections].self) { response in
                 switch response.result {
-                case .success( _):
+                case .success:
                     guard let inspections = response.value else { return }
                     self.inspections = inspections
                     self.inspectionsLoadingState = .success
@@ -107,17 +112,35 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(apiToken: String) {
-        AF.request(serverURL + "inspection", method: .post)
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, latitude: Double, longitude: Double) {
+        
+        inspectionUploadState = .upload
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(loginModel!.data.apiToken)",
+            "Accept": "application/json"
+        ]
+        
+        let parameters: Parameters = [
+            "car_model": carModel,
+            "car_reg_number": carRegNumber,
+            "car_body_number": carBodyNumber,
+            "car_vin": carVin,
+            "insurance_contract_number": insuranceContractNumber,
+            "latitude": latitude,
+            "longitude": longitude,
+            "photos": []
+        ]
+        
+        AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoding: URLEncoding.httpBody, headers: headers)
             .validate()
             .downloadProgress { progress in
-                print("Download Progress: \(progress.fractionCompleted)")
+                self.uploadProgress = progress.fractionCompleted
             }
             .response { response in
                 debugPrint("Response: \(response)")
             }
     }
-    
 }
 
 struct LoginParameters: Encodable {

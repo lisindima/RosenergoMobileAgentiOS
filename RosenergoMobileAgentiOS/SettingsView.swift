@@ -101,7 +101,7 @@ struct SettingsView: View {
                     }
                 }.actionSheet(isPresented: $showActionSheetExit) {
                     ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                        self.sessionStore.logout(apiToken: self.sessionStore.loginModel!.data.apiToken)
+                        self.sessionStore.logout()
                         self.presentationMode.wrappedValue.dismiss()
                         }, .cancel()
                     ])
