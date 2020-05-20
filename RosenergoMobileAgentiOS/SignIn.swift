@@ -39,6 +39,6 @@ struct SignIn: View {
                     self.sessionStore.login(email: self.email, password: self.password)
                 }.padding()
             }.keyboardObserving()
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }

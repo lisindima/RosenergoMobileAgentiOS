@@ -21,6 +21,7 @@ struct MapView: UIViewRepresentable {
         mapView.setCenter(coordinate, animated: false)
         mapView.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
         let inspections = MKPointAnnotation()
+        inspections.title = "Широта: \(latitude) - Долгота: \(longitude)"
         inspections.coordinate = coordinate
         mapView.addAnnotation(inspections)
         return mapView

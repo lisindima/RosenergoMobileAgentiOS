@@ -150,7 +150,7 @@ struct ListLocalInspectionsDetails: View {
                                         .frame(width: 100, height: 100)
                                         .cornerRadius(10)
                                 }
-                            }.padding(.vertical)
+                            }.padding(.vertical, 8)
                         }
                     }
                 }
@@ -223,6 +223,7 @@ struct ListLocalInspectionsDetails: View {
                 Section(header: Text("Место проведения осмотра")) {
                     MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
                         .cornerRadius(10)
+                        .padding(.vertical, 8)
                         .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
                 }
             }
@@ -305,7 +306,7 @@ struct ListInspectionsDetails: View {
                                     .frame(width: 100, height: 100)
                                     .cornerRadius(10)
                             }
-                        }.padding(.vertical)
+                        }.padding(.vertical, 8)
                     }
                 }
             }
