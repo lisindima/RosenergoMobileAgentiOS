@@ -17,7 +17,7 @@ class SessionStore: ObservableObject {
     @Default(.loginModel) var loginModel
     
     @Published var inspections: [Inspections] = [Inspections]()
-    @Published var imageLocalInspections: [Data] = [Data]()
+    @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
     @Published var uploadProgress: Double = 0.0
     @Published var inspectionUploadState: InspectionUploadState = .none
@@ -121,7 +121,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, latitude: Double, longitude: Double) {
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, latitude: Double, longitude: Double, file: String) {
         
         inspectionUploadState = .upload
         
@@ -138,7 +138,14 @@ class SessionStore: ObservableObject {
             insurance_contract_number: insuranceContractNumber,
             latitude: latitude,
             longitude: longitude,
-            photos: []
+            photos: [
+                PhotoParameters(
+                    latitude: latitude,
+                    longitude: longitude,
+                    file: file,
+                    maked_photo_at: "2020-05-21 09:04:54"
+                )
+            ]
         )
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
@@ -160,7 +167,14 @@ struct InspectionParameters: Encodable {
     let insurance_contract_number: String
     let latitude: Double
     let longitude: Double
-    let photos: [Photo]
+    let photos: [PhotoParameters]
+}
+
+struct PhotoParameters: Encodable {
+    let latitude: Double
+    let longitude: Double
+    let file: String
+    let maked_photo_at: String
 }
 
 struct LoginParameters: Encodable {

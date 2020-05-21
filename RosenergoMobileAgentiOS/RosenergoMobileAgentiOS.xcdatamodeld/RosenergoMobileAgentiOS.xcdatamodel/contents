@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F83c" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F94a" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="LocalInspections" representedClassName="LocalInspections" syncable="YES" codeGenerationType="class">
-        <attribute name="carBodyNumber" optional="YES" attributeType="String"/>
+        <attribute name="carBodyNumber" attributeType="String" defaultValueString=""/>
         <attribute name="carBodyNumber2" optional="YES" attributeType="String"/>
-        <attribute name="carModel" optional="YES" attributeType="String"/>
+        <attribute name="carModel" attributeType="String" defaultValueString=""/>
         <attribute name="carModel2" optional="YES" attributeType="String"/>
-        <attribute name="carRegNumber" optional="YES" attributeType="String"/>
+        <attribute name="carRegNumber" attributeType="String" defaultValueString=""/>
         <attribute name="carRegNumber2" optional="YES" attributeType="String"/>
-        <attribute name="carVin" optional="YES" attributeType="String"/>
+        <attribute name="carVin" attributeType="String" defaultValueString=""/>
         <attribute name="carVin2" optional="YES" attributeType="String"/>
+        <attribute name="dateInspections" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="insuranceContractNumber" optional="YES" attributeType="String"/>
+        <attribute name="insuranceContractNumber" attributeType="String" defaultValueString=""/>
         <attribute name="insuranceContractNumber2" optional="YES" attributeType="String"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="photos" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" customClassName="[Data]"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="photos" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" customClassName="[String]"/>
     </entity>
     <elements>
-        <element name="LocalInspections" positionX="-63" positionY="-18" width="128" height="253"/>
+        <element name="LocalInspections" positionX="-63" positionY="-18" width="128" height="268"/>
     </elements>
 </model>

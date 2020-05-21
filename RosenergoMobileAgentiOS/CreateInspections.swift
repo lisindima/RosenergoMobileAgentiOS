@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreLocation
+import KeyboardObserving
 
 struct CreateInspections: View {
     
@@ -15,6 +16,7 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
+    @State private var vinAndNumberBody: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var choiseCar: Int = 0
     @State private var latitude: Double = 0.0
@@ -106,7 +108,7 @@ struct CreateInspections: View {
                 if sessionStore.inspectionUploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            self.sessionStore.uploadInspections(carModel: self.nameCarModel, carRegNumber: self.regCarNumber, carBodyNumber: self.numberBody, carVin: self.vin, insuranceContractNumber: self.numberPolis, latitude: self.latitude, longitude: self.longitude)
+                            self.sessionStore.uploadInspections(carModel: self.nameCarModel, carRegNumber: self.regCarNumber, carBodyNumber: self.numberBody, carVin: self.vin, insuranceContractNumber: self.numberPolis, latitude: self.latitude, longitude: self.longitude, file: self.sessionStore.imageLocalInspections.first!)
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                             let localInspections = LocalInspections(context: self.moc)
@@ -117,12 +119,20 @@ struct CreateInspections: View {
                             localInspections.carRegNumber = self.regCarNumber
                             localInspections.carVin = self.vin
                             localInspections.insuranceContractNumber = self.numberPolis
+                            localInspections.carBodyNumber2 = self.numberBody2
+                            localInspections.carModel2 = self.nameCarModel2
+                            localInspections.carRegNumber2 = self.regCarNumber2
+                            localInspections.carVin2 = self.vin2
+                            localInspections.insuranceContractNumber2 = self.numberPolis2
                             localInspections.photos = self.sessionStore.imageLocalInspections
+                            localInspections.dateInspections = Date()
                             localInspections.id = UUID()
                             try? self.moc.save()
                             self.presentationMode.wrappedValue.dismiss()
                         }.padding(.leading, 4)
-                    }.padding(.horizontal)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
                 } else if sessionStore.inspectionUploadState == .upload {
                     ZStack {
                         GeometryReader { geometry in
@@ -153,6 +163,7 @@ struct CreateInspections: View {
                 }
             }
         }
+        .keyboardObserving()
         .onAppear(perform: getLocation)
         .sheet(isPresented: $showImagePicker) {
             ImagePicker()

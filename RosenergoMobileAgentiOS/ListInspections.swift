@@ -88,7 +88,6 @@ struct ListInspections: View {
                     .imageScale(.large)
             }
         })
-        
     }
 }
 
@@ -99,7 +98,7 @@ struct ListLocalInspectionsItems: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("Не загружено")
+                Text("Не отправлено")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.red)
@@ -112,11 +111,23 @@ struct ListLocalInspectionsItems: View {
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
+                if localInspections.carModel2 != nil {
+                    Divider()
+                    Group {
+                        Text("Номер полиса: \(localInspections.insuranceContractNumber2!)")
+                        Text("Модель авто: \(localInspections.carModel2!)")
+                        Text("Рег.номер: \(localInspections.carRegNumber2!)")
+                        Text("VIN: \(localInspections.carVin2!)")
+                        Text("Номер кузова: \(localInspections.carBodyNumber2!)")
+                    }
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                }
             }
             Spacer()
-            if localInspections.photos != nil {
+            if !localInspections.photos!.isEmpty {
                 ZStack {
-                    Image(uiImage: UIImage(data: (localInspections.photos!.first!))!)
+                    Image(uiImage: UIImage(data: Data.init(base64Encoded: localInspections.photos!.first!)!)!)
                         .resizable()
                         .cornerRadius(10)
                         .frame(width: 100, height: 100)
@@ -140,12 +151,12 @@ struct ListLocalInspectionsDetails: View {
     var body: some View {
         VStack {
             Form {
-                if localInspections.photos != nil {
+                if !localInspections.photos!.isEmpty {
                     Section(header: Text("Фотографии")) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
-                                    Image(uiImage: UIImage(data: photo)!)
+                                    Image(uiImage: UIImage(data: Data.init(base64Encoded: photo)!)!)
                                         .resizable()
                                         .frame(width: 100, height: 100)
                                         .cornerRadius(10)
@@ -232,7 +243,7 @@ struct ListLocalInspectionsDetails: View {
             }.padding(.horizontal)
         }
         .environment(\.horizontalSizeClass, .regular)
-        .navigationBarTitle("Не загружено")
+        .navigationBarTitle("Не отправлено")
     }
 }
 

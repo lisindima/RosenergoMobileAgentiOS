@@ -66,6 +66,28 @@ struct MenuView: View {
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)
+                HStack {
+                    NavigationLink(destination: CreateInspections()) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.purple)
+                                .opacity(0.2)
+                                .frame(maxWidth: .infinity, maxHeight: 100)
+                            VStack {
+                                Image(systemName: "tray.2")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.purple)
+                                    .padding(.bottom, 4)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Text("Выплатные дела")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.purple)
+                            }
+                        }
+                    }
+                }
+                .padding(.top, 8)
+                .padding(.horizontal)
                 Spacer()
                 appVersionView
                     .foregroundColor(.secondary)
