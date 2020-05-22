@@ -154,8 +154,16 @@ class SessionStore: ObservableObject {
                 self.uploadProgress = progress.fractionCompleted
             }
             .response { response in
-                debugPrint("Response: \(response)")
+                switch response.result {
+                case .success:
+                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
+                    self.inspectionUploadState = .none
+                case .failure(let error):
+                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
+                    self.inspectionUploadState = .none
+                    print(error.errorDescription!)
             }
+        }
     }
 }
 
