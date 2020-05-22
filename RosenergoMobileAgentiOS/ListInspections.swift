@@ -19,6 +19,8 @@ struct ListInspections: View {
     
     @ObservedObject var searchBar: SearchBar = SearchBar.shared
     
+    @State private var isLoading: Bool = false
+    
     func delete(at offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
@@ -68,26 +70,24 @@ struct ListInspections: View {
                         }
                     }
                 }
-                .listStyle(GroupedListStyle())
+                .onPull(perform: {
+                    self.isLoading = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        self.isLoading = false
+                    }
+                }, isLoading: isLoading)
                 .addSearchBar(searchBar)
+                .listStyle(GroupedListStyle())
             }
         }
-        .onAppear {
-            self.sessionStore.getInspections()
-        }
+        .onAppear(perform: sessionStore.getInspections)
         .navigationBarTitle("Осмотры")
-        .navigationBarItems(trailing: HStack {
-            Button(action: {
-                self.sessionStore.getInspections()
-            }) {
-                Image(systemName: "arrow.2.circlepath.circle")
-                    .imageScale(.large)
-            }
+        .navigationBarItems(trailing:
             NavigationLink(destination: CreateInspections()) {
                 Image(systemName: "plus.circle")
                     .imageScale(.large)
             }
-        })
+        )
     }
 }
 

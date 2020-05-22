@@ -33,6 +33,8 @@
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB618CB62475235200B1341B /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = CB618CB52475235200B1341B /* Defaults */; };
 		CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* NativeSearchBar */; };
+		CBCA3B6E2476D557006BB619 /* Rotoscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA3B6D2476D557006BB619 /* Rotoscope.swift */; };
+		CBCA3B702476D591006BB619 /* RefreshUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA3B6F2476D591006BB619 /* RefreshUI.swift */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CB4B9316246CF59B006B7008 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		CBCA3B6D2476D557006BB619 /* Rotoscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotoscope.swift; sourceTree = "<group>"; };
+		CBCA3B6F2476D591006BB619 /* RefreshUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUI.swift; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -142,6 +146,8 @@
 				CB17E5912469B57F00CDBB1A /* ImagePicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB2A1FDD24702C82006FE4E0 /* MapView.swift */,
+				CBCA3B6D2476D557006BB619 /* Rotoscope.swift */,
+				CBCA3B6F2476D591006BB619 /* RefreshUI.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -251,6 +257,7 @@
 				CB4B9317246CF59B006B7008 /* Color.swift in Sources */,
 				CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */,
 				CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */,
+				CBCA3B702476D591006BB619 /* RefreshUI.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
@@ -258,6 +265,7 @@
 				CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
+				CBCA3B6E2476D557006BB619 /* Rotoscope.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

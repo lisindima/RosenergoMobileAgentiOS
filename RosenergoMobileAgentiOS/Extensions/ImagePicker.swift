@@ -39,7 +39,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             imageView.backgroundColor = UIColor.clear
             imageView.frame = CGRect(x: 0, y: 0, width: inspectionsImage.size.width, height: inspectionsImage.size.height)
             
-            let label = UILabel(frame: CGRect(x: -10, y: 10, width: inspectionsImage.size.width, height: inspectionsImage.size.height))
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: inspectionsImage.size.width, height: inspectionsImage.size.height))
             label.backgroundColor = UIColor.clear
             label.textAlignment = .center
             label.textColor = UIColor.green
@@ -51,7 +51,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
-            let inspectionsImageData = imageWithText!.jpegData(compressionQuality: 0.8)?.base64EncodedString()
+            let inspectionsImageData = imageWithText!.jpegData(compressionQuality: 0)?.base64EncodedString()
             parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
         }
     }
