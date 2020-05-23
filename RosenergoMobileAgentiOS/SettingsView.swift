@@ -33,11 +33,11 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("ЛИЧНЫЕ ДАННЫЕ")) {
+                Section(header: Text("Личные данные".uppercased())) {
                     Text(sessionStore.loginModel?.data.name ?? "Ошибка")
                     Text(sessionStore.loginModel?.data.email ?? "Ошибка")
                 }
-                Section(header: Text("ДРУГОЕ"), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+                Section(header: Text("Другое".uppercased()), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                     HStack {
                         Image(systemName: "ant")
                             .frame(width: 24)

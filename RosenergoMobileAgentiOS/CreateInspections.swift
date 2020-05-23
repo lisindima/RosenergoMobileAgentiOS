@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreLocation
+import SPAlert
 import KeyboardObserving
 
 struct CreateInspections: View {
@@ -131,6 +132,7 @@ struct CreateInspections: View {
                             }
                             try? self.moc.save()
                             self.presentationMode.wrappedValue.dismiss()
+                            SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
                         }.padding(.leading, 4)
                     }
                     .padding(.horizontal)
