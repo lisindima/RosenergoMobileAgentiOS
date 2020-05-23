@@ -35,6 +35,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             photoPicker.dismiss(animated: true)
             let inspectionsImage = info[.originalImage] as! UIImage
             
+            /*
             let imageView = UIImageView(image: inspectionsImage)
             imageView.backgroundColor = UIColor.clear
             imageView.frame = CGRect(x: 0, y: 0, width: inspectionsImage.size.width, height: inspectionsImage.size.height)
@@ -50,8 +51,9 @@ struct ImagePicker: UIViewControllerRepresentable {
             label.layer.render(in: UIGraphicsGetCurrentContext()!)
             let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
+            */
             
-            let inspectionsImageData = imageWithText!.jpegData(compressionQuality: 0)?.base64EncodedString()
+            let inspectionsImageData = inspectionsImage.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
             parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
         }
     }

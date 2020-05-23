@@ -63,8 +63,8 @@ class SessionStore: ObservableObject {
     func logout() {
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(loginModel!.data.apiToken)",
-            "Accept": "application/json"
+            .authorization(bearerToken: loginModel!.data.apiToken),
+            .accept("application/json")
         ]
         
         AF.request(serverURL + "logout", method: .post, headers: headers)
@@ -83,8 +83,8 @@ class SessionStore: ObservableObject {
     func validateToken() {
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(loginModel!.data.apiToken)",
-            "Accept": "application/json"
+            .authorization(bearerToken: loginModel!.data.apiToken),
+            .accept("application/json")
         ]
         
         AF.request(serverURL + "token", method: .post, headers: headers)
@@ -102,8 +102,8 @@ class SessionStore: ObservableObject {
     func getInspections() {
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(loginModel!.data.apiToken)",
-            "Accept": "application/json"
+            .authorization(bearerToken: loginModel!.data.apiToken),
+            .accept("application/json")
         ]
         
         AF.request(serverURL + "inspections", method: .get, headers: headers)
@@ -126,8 +126,8 @@ class SessionStore: ObservableObject {
         inspectionUploadState = .upload
         
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(loginModel!.data.apiToken)",
-            "Accept": "application/json"
+            .authorization(bearerToken: loginModel!.data.apiToken),
+            .accept("application/json")
         ]
         
         let parameters = InspectionParameters(

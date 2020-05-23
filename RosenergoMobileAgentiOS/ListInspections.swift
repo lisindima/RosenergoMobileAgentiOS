@@ -282,7 +282,7 @@ struct ListInspectionsItems: View {
             Spacer()
             if !inspection.photos.isEmpty {
                 ZStack {
-                    WebImage(url: URL(string: inspection.photos.first!.path))
+                    WebImage(url: URL(string: inspection.photos.first!.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!))
                         .resizable()
                         .indicator(.activity)
                         .cornerRadius(10)
@@ -311,7 +311,7 @@ struct ListInspectionsDetails: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
-                                WebImage(url: URL(string: photo.path))
+                                WebImage(url: URL(string: photo.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!))
                                     .resizable()
                                     .indicator(.activity)
                                     .frame(width: 100, height: 100)

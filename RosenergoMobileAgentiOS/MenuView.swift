@@ -28,62 +28,17 @@ struct MenuView: View {
             VStack {
                 HStack {
                     NavigationLink(destination: CreateInspections()) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.rosenergo)
-                                .opacity(0.2)
-                                .frame(maxWidth: .infinity, maxHeight: 100)
-                            VStack {
-                                Image(systemName: "car")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.rosenergo)
-                                    .padding(.bottom, 4)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                Text("Провести осмотр")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.rosenergo)
-                            }
-                        }
+                        MenuButton(title: "Новый осмотр", image: "car", color: .rosenergo)
                     }.padding(.trailing, 4)
                     NavigationLink(destination: ListInspections()) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.red)
-                                .opacity(0.2)
-                                .frame(maxWidth: .infinity, maxHeight: 100)
-                            VStack {
-                                Image(systemName: "list.bullet.below.rectangle")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.red)
-                                    .padding(.bottom, 4)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                Text("Осмотры")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.red)
-                            }
-                        }
+                        MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
                     }.padding(.leading, 4)
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)
                 HStack {
-                    NavigationLink(destination: CreateInspections()) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.purple)
-                                .opacity(0.2)
-                                .frame(maxWidth: .infinity, maxHeight: 100)
-                            VStack {
-                                Image(systemName: "tray.2")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.purple)
-                                    .padding(.bottom, 4)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                Text("Выплатные дела")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.purple)
-                            }
-                        }
+                    NavigationLink(destination: CreateVyplatnyeDela()) {
+                        MenuButton(title: "Выплатные дела", image: "tray", color: .purple)
                     }
                 }
                 .padding(.top, 8)
