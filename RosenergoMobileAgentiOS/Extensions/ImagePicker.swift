@@ -34,27 +34,10 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerController(_ photoPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             photoPicker.dismiss(animated: true)
             let inspectionsImage = info[.originalImage] as! UIImage
-            
-            /*
-            let imageView = UIImageView(image: inspectionsImage)
-            imageView.backgroundColor = UIColor.clear
-            imageView.frame = CGRect(x: 0, y: 0, width: inspectionsImage.size.width, height: inspectionsImage.size.height)
-            
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: inspectionsImage.size.width, height: inspectionsImage.size.height))
-            label.backgroundColor = UIColor.clear
-            label.textAlignment = .center
-            label.textColor = UIColor.green
-            label.text = "GDGOSDGS0GS0DG"
-            
-            UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0)
-            imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
-            label.layer.render(in: UIGraphicsGetCurrentContext()!)
-            let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            */
-            
             let inspectionsImageData = inspectionsImage.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
+            parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: inspectionsImageData!, maked_photo_at: parent.sessionStore.stringDate))
             parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
+            print(parent.sessionStore.stringDate)
         }
     }
     

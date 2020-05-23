@@ -11,21 +11,27 @@ import Combine
 import Alamofire
 import SPAlert
 import Defaults
+import CoreLocation
 
 class SessionStore: ObservableObject {
     
     @Default(.loginModel) var loginModel
     
     @Published var inspections: [Inspections] = [Inspections]()
+    @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
     @Published var uploadProgress: Double = 0.0
     @Published var inspectionUploadState: InspectionUploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
+    @Published var latitude: Double = 0.0
+    @Published var longitude: Double = 0.0
     
     static let shared = SessionStore()
     
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    
+    var locationManager = CLLocationManager()
     
     enum InspectionsLoadingState {
         case loading, failure, success
@@ -33,6 +39,25 @@ class SessionStore: ObservableObject {
     
     enum InspectionUploadState {
         case upload, none
+    }
+    
+    let stringDate: String = {
+        var currentDate: Date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let createStringDate = dateFormatter.string(from: currentDate)
+        return createStringDate
+    }()
+    
+    func getLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        var currentLoc: CLLocation!
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == .authorizedAlways {
+            currentLoc = locationManager.location
+            latitude = currentLoc.coordinate.latitude
+            longitude = currentLoc.coordinate.longitude
+        }
     }
     
     func login(email: String, password: String) {
@@ -121,7 +146,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, latitude: Double, longitude: Double, file: String) {
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
         
         inspectionUploadState = .upload
         
@@ -138,14 +163,7 @@ class SessionStore: ObservableObject {
             insurance_contract_number: insuranceContractNumber,
             latitude: latitude,
             longitude: longitude,
-            photos: [
-                PhotoParameters(
-                    latitude: latitude,
-                    longitude: longitude,
-                    file: file,
-                    maked_photo_at: "2020-05-21 09:04:54"
-                )
-            ]
+            photos: photoParameters
         )
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)

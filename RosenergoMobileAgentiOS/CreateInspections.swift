@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CoreLocation
 import SPAlert
 import KeyboardObserving
 
@@ -20,8 +19,6 @@ struct CreateInspections: View {
     @State private var vinAndNumberBody: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var choiseCar: Int = 0
-    @State private var latitude: Double = 0.0
-    @State private var longitude: Double = 0.0
     @State private var vin: String = ""
     @State private var numberBody: String = ""
     @State private var numberPolis: String = ""
@@ -33,24 +30,11 @@ struct CreateInspections: View {
     @State private var nameCarModel2: String = ""
     @State private var regCarNumber2: String = ""
     
-    var locationManager = CLLocationManager()
-    
-    func getLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        var currentLoc: CLLocation!
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {
-            currentLoc = locationManager.location
-            latitude = currentLoc.coordinate.latitude
-            longitude = currentLoc.coordinate.longitude
-        }
-    }
-    
     var body: some View {
         VStack {
             ScrollView {
                 HStack {
-                    Text("Широта: \(latitude)")
+                    Text("Широта: \(sessionStore.latitude)")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(.red)
@@ -60,7 +44,7 @@ struct CreateInspections: View {
                                 .foregroundColor(Color.red.opacity(0.2))
                     )
                     Spacer()
-                    Text("Долгота: \(longitude)")
+                    Text("Долгота: \(sessionStore.longitude)")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(.red)
@@ -99,9 +83,22 @@ struct CreateInspections: View {
                             CustomInput(text: $numberBody2, name: "Номер кузова")
                             CustomInput(text: $numberPolis2, name: "Номер полиса")
                         }.padding(.horizontal)
-                        ImageButton(action: {
+                        Button(action: {
                             self.showImagePicker = true
-                        }).padding(.horizontal)
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.rosenergo)
+                                    .opacity(0.2)
+                                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 70, idealHeight: 70, maxHeight: 70)
+                                HStack {
+                                    Image(systemName: "camera")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.rosenergo)
+                                    Text("\(sessionStore.photoParameters.count) выбрано фотографий")
+                                }
+                            }
+                        }.padding(.horizontal)
                     }
                 }
             }
@@ -109,19 +106,19 @@ struct CreateInspections: View {
                 if sessionStore.inspectionUploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            self.sessionStore.uploadInspections(carModel: self.nameCarModel, carRegNumber: self.regCarNumber, carBodyNumber: self.numberBody, carVin: self.vin, insuranceContractNumber: self.numberPolis, latitude: self.latitude, longitude: self.longitude, file: self.sessionStore.imageLocalInspections.first!)
+                            self.sessionStore.uploadInspections(carModel: self.nameCarModel, carRegNumber: self.regCarNumber, carBodyNumber: self.numberBody, carVin: self.vin, insuranceContractNumber: self.numberPolis, latitude: self.sessionStore.latitude, longitude: self.sessionStore.longitude, photoParameters: self.sessionStore.photoParameters)
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                             let localInspections = LocalInspections(context: self.moc)
-                            localInspections.latitude = self.latitude
-                            localInspections.longitude = self.longitude
+                            localInspections.latitude = self.sessionStore.latitude
+                            localInspections.longitude = self.sessionStore.longitude
                             localInspections.carBodyNumber = self.numberBody
                             localInspections.carModel = self.nameCarModel
                             localInspections.carRegNumber = self.regCarNumber
                             localInspections.carVin = self.vin
                             localInspections.insuranceContractNumber = self.numberPolis
                             localInspections.photos = self.sessionStore.imageLocalInspections
-                            localInspections.dateInspections = Date()
+                            localInspections.dateInspections = self.sessionStore.stringDate
                             localInspections.id = UUID()
                             if self.choiseCar == 1 {
                                 localInspections.carBodyNumber2 = self.numberBody2
@@ -154,7 +151,7 @@ struct CreateInspections: View {
                                     .animation(.linear)
                                 HStack {
                                     Spacer()
-                                    Text("\(self.sessionStore.uploadProgress) %")
+                                    Text("\(self.sessionStore.uploadProgress * 100) %")
                                         .foregroundColor(.white)
                                         .font(.custom("Futura", size: 24))
                                     Spacer()
@@ -168,7 +165,7 @@ struct CreateInspections: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: getLocation)
+        .onAppear(perform: sessionStore.getLocation)
         .sheet(isPresented: $showImagePicker) {
             ImagePicker()
                 .environmentObject(self.sessionStore)
