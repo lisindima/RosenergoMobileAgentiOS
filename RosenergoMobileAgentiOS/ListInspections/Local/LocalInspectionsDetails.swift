@@ -32,24 +32,21 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
+                Section(header: Text("Дата осмотра".uppercased())) {
+                    Text(localInspections.dateInspections!)
+                }
                 Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
-                    VStack(alignment: .leading) {
-                        Text("Страховой полис")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.insuranceContractNumber!)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Номер кузова")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.carBodyNumber!)
-                    }
                     VStack(alignment: .leading) {
                         Text("Модель автомобиля")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(localInspections.carModel!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Регистрационный номер")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.carRegNumber!)
                     }
                     VStack(alignment: .leading) {
                         Text("VIN")
@@ -58,31 +55,31 @@ struct LocalInspectionsDetails: View {
                         Text(localInspections.carVin!)
                     }
                     VStack(alignment: .leading) {
-                        Text("Регистрационный номер")
+                        Text("Номер кузова")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
-                        Text(localInspections.carRegNumber!)
+                        Text(localInspections.carBodyNumber!)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Страховой полис")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(localInspections.insuranceContractNumber!)
                     }
                 }
                 if localInspections.carModel2 != nil {
                     Section(header: Text("Второй автомобиль".uppercased())) {
                         VStack(alignment: .leading) {
-                            Text("Страховой полис")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.insuranceContractNumber2!)
-                        }
-                        VStack(alignment: .leading) {
-                            Text("Номер кузова")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.carBodyNumber2!)
-                        }
-                        VStack(alignment: .leading) {
                             Text("Модель автомобиля")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
                             Text(localInspections.carModel2!)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Регистрационный номер")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.carRegNumber2!)
                         }
                         VStack(alignment: .leading) {
                             Text("VIN")
@@ -91,10 +88,16 @@ struct LocalInspectionsDetails: View {
                             Text(localInspections.carVin2!)
                         }
                         VStack(alignment: .leading) {
-                            Text("Регистрационный номер")
+                            Text("Номер кузова")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(localInspections.carRegNumber2!)
+                            Text(localInspections.carBodyNumber2!)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Страховой полис")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.insuranceContractNumber2!)
                         }
                     }
                 }

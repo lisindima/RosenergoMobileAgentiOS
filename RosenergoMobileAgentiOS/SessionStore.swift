@@ -214,6 +214,7 @@ struct Inspections: Codable, Identifiable {
     let insuranceContractNumber: String
     let carModel2, carRegNumber2, carVin2, carBodyNumber2: String?
     let insuranceContractNumber2: String?
+    let createdat: String
     let latitude, longitude: Double
     let photos: [Photo]
 
@@ -230,6 +231,7 @@ struct Inspections: Codable, Identifiable {
         case carVin2 = "car_vin2"
         case carBodyNumber2 = "car_body_number2"
         case insuranceContractNumber2 = "insurance_contract_number2"
+        case createdat = "created_at"
         case latitude, longitude
         case photos
     }
