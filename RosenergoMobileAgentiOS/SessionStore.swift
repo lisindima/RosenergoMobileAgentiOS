@@ -21,11 +21,11 @@ class SessionStore: ObservableObject {
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
-    @Published var uploadProgress: Double = 0.0
     @Published var inspectionUploadState: InspectionUploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
+    @Published var uploadProgress: Double = 0.0
     
     static let shared = SessionStore()
     

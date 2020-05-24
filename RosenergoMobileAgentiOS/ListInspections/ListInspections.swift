@@ -19,8 +19,6 @@ struct ListInspections: View {
     
     @ObservedObject var searchBar: SearchBar = SearchBar.shared
     
-    @State private var isLoading: Bool = false
-    
     func delete(at offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
@@ -70,12 +68,6 @@ struct ListInspections: View {
                         }
                     }
                 }
-                .onPull(perform: {
-                    self.isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        self.isLoading = false
-                    }
-                }, isLoading: isLoading)
                 .addSearchBar(searchBar)
                 .listStyle(GroupedListStyle())
             }

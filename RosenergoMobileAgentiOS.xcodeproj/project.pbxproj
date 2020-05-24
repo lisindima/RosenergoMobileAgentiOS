@@ -40,8 +40,6 @@
 		CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
-		CBCA3B6E2476D557006BB619 /* Rotoscope.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA3B6D2476D557006BB619 /* Rotoscope.swift */; };
-		CBCA3B702476D591006BB619 /* RefreshUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA3B6F2476D591006BB619 /* RefreshUI.swift */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 /* End PBXBuildFile section */
@@ -77,8 +75,6 @@
 		CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CBC52838247A504700E337B4 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
-		CBCA3B6D2476D557006BB619 /* Rotoscope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotoscope.swift; sourceTree = "<group>"; };
-		CBCA3B6F2476D591006BB619 /* RefreshUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUI.swift; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -161,8 +157,6 @@
 				CB17E5912469B57F00CDBB1A /* ImagePicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB2A1FDD24702C82006FE4E0 /* MapView.swift */,
-				CBCA3B6D2476D557006BB619 /* Rotoscope.swift */,
-				CBCA3B6F2476D591006BB619 /* RefreshUI.swift */,
 				CBB2E09124780EA50017AB00 /* MenuButton.swift */,
 			);
 			path = Extensions;
@@ -305,7 +299,6 @@
 				CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */,
 				CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */,
 				CBB2E09C2478F73B0017AB00 /* LocalInspectionsDetails.swift in Sources */,
-				CBCA3B702476D591006BB619 /* RefreshUI.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */,
@@ -316,7 +309,6 @@
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
-				CBCA3B6E2476D557006BB619 /* Rotoscope.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
