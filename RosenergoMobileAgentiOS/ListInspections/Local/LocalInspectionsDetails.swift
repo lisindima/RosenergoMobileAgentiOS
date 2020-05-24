@@ -20,10 +20,13 @@ struct LocalInspectionsDetails: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
-                                    Image(uiImage: UIImage(data: Data.init(base64Encoded: photo)!)!)
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(10)
+                                    NavigationLink(destination: LocalImageDetail(photo: photo)) {
+                                        Image(uiImage: UIImage(data: Data.init(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+                                            .renderingMode(.original)
+                                            .resizable()
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(10)
+                                    }
                                 }
                             }.padding(.vertical, 8)
                         }

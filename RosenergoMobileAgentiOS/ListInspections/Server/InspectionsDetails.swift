@@ -20,11 +20,14 @@ struct InspectionsDetails: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
-                                WebImage(url: URL(string: photo.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!))
-                                    .resizable()
-                                    .indicator(.activity)
-                                    .frame(width: 100, height: 100)
-                                    .cornerRadius(10)
+                                NavigationLink(destination: ImageDetail(photo: photo.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)) {
+                                    WebImage(url: URL(string: photo.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!))
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .indicator(.activity)
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(10)
+                                }
                             }
                         }.padding(.vertical, 8)
                     }
