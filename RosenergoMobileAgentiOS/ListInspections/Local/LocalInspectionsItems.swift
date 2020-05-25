@@ -43,19 +43,10 @@ struct LocalInspectionsItems: View {
             }
             Spacer()
             if !localInspections.photos!.isEmpty {
-                ZStack {
-                    Image(uiImage: UIImage(data: Data.init(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!)
-                        .resizable()
-                        .cornerRadius(10)
-                        .frame(width: 100, height: 100)
-                    ZStack {
-                        Circle()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(.rosenergo)
-                        Text("\(localInspections.photos!.count)")
-                            .foregroundColor(.white)
-                    }.offset(x: 45, y: -45)
-                }
+                Image(uiImage: UIImage(data: Data.init(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!)
+                    .resizable()
+                    .cornerRadius(10)
+                    .frame(width: 100, height: 100)
             }
         }
     }

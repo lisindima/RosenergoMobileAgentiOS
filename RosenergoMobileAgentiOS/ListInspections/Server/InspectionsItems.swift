@@ -43,20 +43,11 @@ struct InspectionsItems: View {
             }
             Spacer()
             if !inspection.photos.isEmpty {
-                ZStack {
-                    WebImage(url: URL(string: inspection.photos.first!.path))
-                        .resizable()
-                        .indicator(.activity)
-                        .cornerRadius(10)
-                        .frame(width: 100, height: 100)
-                    ZStack {
-                        Circle()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(.rosenergo)
-                        Text("\(inspection.photos.count)")
-                            .foregroundColor(.white)
-                    }.offset(x: 45, y: -45)
-                }
+                WebImage(url: URL(string: inspection.photos.first!.path))
+                    .resizable()
+                    .indicator(.activity)
+                    .cornerRadius(10)
+                    .frame(width: 100, height: 100)
             }
         }
     }
