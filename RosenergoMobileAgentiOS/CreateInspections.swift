@@ -106,7 +106,21 @@ struct CreateInspections: View {
                 if sessionStore.inspectionUploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            self.sessionStore.uploadInspections(carModel: self.nameCarModel, carRegNumber: self.regCarNumber, carBodyNumber: self.numberBody, carVin: self.vin, insuranceContractNumber: self.numberPolis, latitude: self.sessionStore.latitude, longitude: self.sessionStore.longitude, photoParameters: self.sessionStore.photoParameters)
+                            self.sessionStore.uploadInspections(
+                                carModel: self.nameCarModel,
+                                carRegNumber: self.regCarNumber,
+                                carBodyNumber: self.numberBody,
+                                carVin: self.vin,
+                                insuranceContractNumber: self.numberPolis,
+                                carModel2: self.nameCarModel2 == "" ? nil : self.nameCarModel2,
+                                carRegNumber2: self.regCarNumber2 == "" ? nil : self.regCarNumber2,
+                                carBodyNumber2: self.numberBody2 == "" ? nil : self.numberBody2,
+                                carVin2: self.vin2 == "" ? nil : self.vin2,
+                                insuranceContractNumber2: self.numberPolis2 == "" ? nil : self.numberPolis2,
+                                latitude: self.sessionStore.latitude,
+                                longitude: self.sessionStore.longitude,
+                                photoParameters: self.sessionStore.photoParameters
+                            )
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                             let localInspections = LocalInspections(context: self.moc)

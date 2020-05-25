@@ -146,7 +146,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
         
         inspectionUploadState = .upload
         
@@ -161,6 +161,11 @@ class SessionStore: ObservableObject {
             car_body_number: carBodyNumber,
             car_vin: carVin,
             insurance_contract_number: insuranceContractNumber,
+            car_model2: carModel2,
+            car_reg_number2: carRegNumber2,
+            car_body_number2: carBodyNumber2,
+            car_vin2: carVin2,
+            insurance_contract_number2: insuranceContractNumber2,
             latitude: latitude,
             longitude: longitude,
             photos: photoParameters
@@ -191,6 +196,11 @@ struct InspectionParameters: Encodable {
     let car_body_number: String
     let car_vin: String
     let insurance_contract_number: String
+    let car_model2: String?
+    let car_reg_number2: String?
+    let car_body_number2: String?
+    let car_vin2: String?
+    let insurance_contract_number2: String?
     let latitude: Double
     let longitude: Double
     let photos: [PhotoParameters]

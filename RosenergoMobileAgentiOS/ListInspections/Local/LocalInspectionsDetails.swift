@@ -10,6 +10,8 @@ import SwiftUI
 
 struct LocalInspectionsDetails: View {
     
+    @EnvironmentObject var sessionStore: SessionStore
+    
     var localInspections: LocalInspections
     
     var body: some View {
@@ -109,7 +111,28 @@ struct LocalInspectionsDetails: View {
                 }
             }
             CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                print("Отправить на сервер")
+                self.sessionStore.uploadInspections(
+                    carModel: self.localInspections.carModel!,
+                    carRegNumber: self.localInspections.carRegNumber!,
+                    carBodyNumber: self.localInspections.carBodyNumber!,
+                    carVin: self.localInspections.carVin!,
+                    insuranceContractNumber: self.localInspections.insuranceContractNumber!,
+                    carModel2: self.localInspections.carModel2,
+                    carRegNumber2: self.localInspections.carRegNumber2,
+                    carBodyNumber2: self.localInspections.carBodyNumber2,
+                    carVin2: self.localInspections.carVin2,
+                    insuranceContractNumber2: self.localInspections.insuranceContractNumber2,
+                    latitude: self.localInspections.latitude,
+                    longitude: self.localInspections.longitude,
+                    photoParameters: [
+                        PhotoParameters(
+                            latitude: self.localInspections.latitude,
+                            longitude: self.localInspections.longitude,
+                            file: self.localInspections.photos!.first!,
+                            maked_photo_at: self.localInspections.dateInspections!
+                        )
+                    ]
+                )
             }.padding(.horizontal)
         }
         .environment(\.horizontalSizeClass, .regular)
