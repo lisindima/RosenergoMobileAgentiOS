@@ -28,7 +28,7 @@ struct MenuView: View {
             VStack {
                 HStack {
                     NavigationLink(destination: CreateInspections()) {
-                        MenuButton(title: "Новый осмотр", image: "car", color: .rosenergo)
+                        MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }.padding(.trailing, 4)
                     NavigationLink(destination: ListInspections()) {
                         MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
@@ -38,8 +38,12 @@ struct MenuView: View {
                 .padding(.horizontal)
                 HStack {
                     NavigationLink(destination: CreateVyplatnyeDela()) {
-                        MenuButton(title: "Выплатные дела", image: "tray", color: .purple)
-                    }
+                        MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
+                    }.padding(.trailing, 4)
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.clear)
+                        .frame(maxWidth: .infinity, maxHeight: 120)
+                        .padding(.leading, 4)
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)

@@ -19,7 +19,7 @@ struct MenuButton: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(color)
                 .opacity(0.2)
-                .frame(maxWidth: .infinity, maxHeight: 100)
+                .frame(maxWidth: .infinity, maxHeight: 120)
             VStack {
                 Image(systemName: image)
                     .font(.largeTitle)
@@ -27,6 +27,7 @@ struct MenuButton: View {
                 Text(title)
                     .fontWeight(.bold)
                     .foregroundColor(color)
+                    .multilineTextAlignment(.center)
             }
         }
     }
