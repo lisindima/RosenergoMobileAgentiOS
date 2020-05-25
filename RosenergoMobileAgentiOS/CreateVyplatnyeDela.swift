@@ -61,32 +61,16 @@ struct CreateVyplatnyeDela: View {
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 } else if sessionStore.inspectionUploadState == .upload {
-                    ZStack {
-                        GeometryReader { geometry in
-                            ZStack(alignment: .leading) {
-                                Rectangle()
-                                    .frame(height: 60)
-                                    .cornerRadius(8)
-                                    .shadow(radius: 5)
-                                    .foregroundColor(Color.rosenergo.opacity(0.2))
-                                Rectangle()
-                                    .frame(width: (CGFloat(self.sessionStore.uploadProgress) / CGFloat(100.0)) * geometry.size.width, height: 60)
-                                    .cornerRadius(8)
-                                    .shadow(radius: 5)
-                                    .foregroundColor(.rosenergo)
-                                    .animation(.linear)
-                                HStack {
-                                    Spacer()
-                                    Text("\(self.sessionStore.uploadProgress) %")
-                                        .foregroundColor(.white)
-                                        .font(.custom("Futura", size: 24))
-                                    Spacer()
-                                }
-                            }
-                        }
+                    HStack {
+                        Spacer()
+                            ActivityIndicatorButton()
+                        Spacer()
                     }
-                    .frame(height: 50)
+                    .padding()
+                    .background(Color.rosenergo)
+                    .cornerRadius(8)
                     .padding(.horizontal)
+                    .padding(.bottom, 8)
                 }
             }
         }

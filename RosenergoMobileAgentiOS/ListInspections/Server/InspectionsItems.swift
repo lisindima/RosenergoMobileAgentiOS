@@ -29,9 +29,9 @@ struct InspectionsItems: View {
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 if inspection.carModel2 != nil {
-                    Divider()
                     Group {
                         Text("Номер полиса: \(inspection.insuranceContractNumber2!)")
+                            .padding(.top, 8)
                         Text("Модель авто: \(inspection.carModel2!)")
                         Text("Рег.номер: \(inspection.carRegNumber2!)")
                         Text("VIN: \(inspection.carVin2!)")

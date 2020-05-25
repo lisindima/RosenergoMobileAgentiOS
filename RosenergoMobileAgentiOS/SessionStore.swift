@@ -25,7 +25,9 @@ class SessionStore: ObservableObject {
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
-    @Published var uploadProgress: Double = 0.0
+    @Published var openCreateInspections: Bool = false
+    @Published var openListInspection: Bool = false
+    @Published var openCreateVyplatnyeDela: Bool = false
     
     static let shared = SessionStore()
     
@@ -173,14 +175,12 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
-            .downloadProgress { progress in
-                self.uploadProgress = progress.fractionCompleted
-            }
             .response { response in
                 switch response.result {
                 case .success:
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.inspectionUploadState = .none
+                    self.openCreateInspections = false
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
                     self.inspectionUploadState = .none

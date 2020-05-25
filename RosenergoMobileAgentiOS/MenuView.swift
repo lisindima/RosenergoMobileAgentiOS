@@ -27,17 +27,17 @@ struct MenuView: View {
         NavigationView {
             VStack {
                 HStack {
-                    NavigationLink(destination: CreateInspections()) {
+                    NavigationLink(destination: CreateInspections(), isActive: $sessionStore.openCreateInspections) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }.padding(.trailing, 4)
-                    NavigationLink(destination: ListInspections()) {
+                    NavigationLink(destination: ListInspections(), isActive: $sessionStore.openListInspection) {
                         MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
                     }.padding(.leading, 4)
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)
                 HStack {
-                    NavigationLink(destination: CreateVyplatnyeDela()) {
+                    NavigationLink(destination: CreateVyplatnyeDela(), isActive: $sessionStore.openCreateVyplatnyeDela) {
                         MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
                     }.padding(.trailing, 4)
                     RoundedRectangle(cornerRadius: 10)
