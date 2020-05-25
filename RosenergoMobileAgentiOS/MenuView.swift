@@ -46,7 +46,7 @@ struct MenuView: View {
                 Spacer()
                 appVersionView
                     .foregroundColor(.secondary)
-                    .font(.system(size: 12))
+                    .font(.system(size: 11))
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()

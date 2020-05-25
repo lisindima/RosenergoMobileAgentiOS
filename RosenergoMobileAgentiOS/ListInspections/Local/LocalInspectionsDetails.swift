@@ -33,7 +33,7 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 Section(header: Text("Дата осмотра".uppercased())) {
-                    Text(localInspections.dateInspections!)
+                    Text(localInspections.dateInspections!.dataLocalInspection())
                 }
                 Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
                     VStack(alignment: .leading) {
@@ -114,5 +114,18 @@ struct LocalInspectionsDetails: View {
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")
+    }
+}
+
+extension String {
+    func dataLocalInspection() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFormatter.date(from: self)
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.dateFormat = "dd MMM yyyy HH:mm"
+        newDateFormatter.locale = Locale(identifier: "ru_RU")
+        let stringDate = newDateFormatter.string(from: date!)
+        return stringDate
     }
 }
