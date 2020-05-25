@@ -44,7 +44,7 @@ struct InspectionsItems: View {
             Spacer()
             if !inspection.photos.isEmpty {
                 ZStack {
-                    WebImage(url: URL(string: inspection.photos.first!.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!))
+                    WebImage(url: URL(string: inspection.photos.first!.path))
                         .resizable()
                         .indicator(.activity)
                         .cornerRadius(10)

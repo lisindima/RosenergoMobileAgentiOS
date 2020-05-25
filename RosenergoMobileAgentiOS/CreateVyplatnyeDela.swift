@@ -16,29 +16,14 @@ struct CreateVyplatnyeDela: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showImagePicker: Bool = false
-    @State private var latitude: Double = 0.0
-    @State private var longitude: Double = 0.0
-    @State private var nameCarModel: String = ""
-    @State private var regCarNumber: String = ""
-    
-    var locationManager = CLLocationManager()
-    
-    func getLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        var currentLoc: CLLocation!
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {
-            currentLoc = locationManager.location
-            latitude = currentLoc.coordinate.latitude
-            longitude = currentLoc.coordinate.longitude
-        }
-    }
+    @State private var numberPolis: String = ""
+    @State private var numberZayavlenia: String = ""
     
     var body: some View {
         VStack {
             ScrollView {
                 HStack {
-                    Text("Широта: \(latitude)")
+                    Text("Широта: \(sessionStore.latitude)")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(.red)
@@ -48,7 +33,7 @@ struct CreateVyplatnyeDela: View {
                                 .foregroundColor(Color.red.opacity(0.2))
                     )
                     Spacer()
-                    Text("Долгота: \(longitude)")
+                    Text("Долгота: \(sessionStore.longitude)")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(.red)
@@ -60,8 +45,8 @@ struct CreateVyplatnyeDela: View {
                 }.padding(.horizontal)
                 VStack {
                     Group {
-                        CustomInput(text: $nameCarModel, name: "Марка автомобиля")
-                        CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
+                        CustomInput(text: $numberPolis, name: "Номер полиса")
+                        CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
                     ImageButton(action: {
                         self.showImagePicker = true
@@ -106,7 +91,7 @@ struct CreateVyplatnyeDela: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: getLocation)
+        .onAppear(perform: sessionStore.getLocation)
         .sheet(isPresented: $showImagePicker) {
             ImagePicker()
                 .environmentObject(self.sessionStore)

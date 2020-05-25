@@ -20,8 +20,8 @@ struct InspectionsDetails: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
-                                NavigationLink(destination: ImageDetail(photo: photo.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)) {
-                                    WebImage(url: URL(string: photo.path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!))
+                                NavigationLink(destination: ImageDetail(photo: photo.path)) {
+                                    WebImage(url: URL(string: photo.path))
                                         .renderingMode(.original)
                                         .resizable()
                                         .indicator(.activity)
