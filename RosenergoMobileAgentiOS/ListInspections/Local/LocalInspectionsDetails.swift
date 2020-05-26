@@ -14,6 +14,8 @@ struct LocalInspectionsDetails: View {
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     
+    var localInspections: LocalInspections
+    
     func preparationPhotoArray() {
         if !localInspections.photos!.isEmpty {
             for photo in localInspections.photos! {
@@ -21,8 +23,6 @@ struct LocalInspectionsDetails: View {
             }
         }
     }
-    
-    var localInspections: LocalInspections
     
     var body: some View {
         VStack {
@@ -168,8 +168,7 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date = dateFormatter.date(from: self)
         let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "dd MMM yyyy HH:mm"
-        newDateFormatter.locale = Locale(identifier: "ru_RU")
+        newDateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
         let stringDate = newDateFormatter.string(from: date!)
         return stringDate
     }

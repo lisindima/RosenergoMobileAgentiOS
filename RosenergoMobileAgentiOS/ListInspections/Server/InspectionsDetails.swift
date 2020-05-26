@@ -120,8 +120,7 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
         let date = dateFormatter.date(from: self)
         let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "dd MMM yyyy HH:mm"
-        newDateFormatter.locale = Locale(identifier: "ru_RU")
+        newDateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
         let stringDate = newDateFormatter.string(from: date!)
         return stringDate
     }

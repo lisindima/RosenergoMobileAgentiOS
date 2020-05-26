@@ -106,3 +106,7 @@ struct DataClass: Codable, Identifiable {
 struct Settings: Codable {
     let locale: String
 }
+
+struct VyplatnyeDelaParameters: Encodable {
+    
+}

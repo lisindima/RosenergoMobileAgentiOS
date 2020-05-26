@@ -190,6 +190,31 @@ class SessionStore: ObservableObject {
             }
         }
     }
+    
+    func uploadVyplatnyeDela() {
+        
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: loginModel!.data.apiToken),
+            .accept("application/json")
+        ]
+        
+        let parameters = VyplatnyeDelaParameters()
+        
+        AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success:
+                    SPAlert.present(title: "Успешно!", message: "Выплатные дела успешно загружено на сервер.", preset: .done)
+                    self.inspectionUploadState = .none
+                    self.openCreateInspections = false
+                case .failure(let error):
+                    SPAlert.present(title: "Ошибка!", message: "Попробуйте загрузить позднее.", preset: .error)
+                    self.inspectionUploadState = .none
+                    print(error.errorDescription!)
+            }
+        }
+    }
 }
 
 extension Defaults.Keys {
