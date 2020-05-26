@@ -50,7 +50,7 @@ struct ListInspections: View {
                             ForEach(localInspections.filter {
                                 searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
                             }, id: \.id) { localInspections in
-                                NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
+                                NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections), isActive: self.$sessionStore.openLocalInspectionDetails) {
                                     LocalInspectionsItems(localInspections: localInspections)
                                 }
                             }.onDelete(perform: delete)

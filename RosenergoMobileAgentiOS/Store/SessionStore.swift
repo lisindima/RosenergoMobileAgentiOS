@@ -28,6 +28,7 @@ class SessionStore: ObservableObject {
     @Published var openCreateInspections: Bool = false
     @Published var openListInspection: Bool = false
     @Published var openCreateVyplatnyeDela: Bool = false
+    @Published var openLocalInspectionDetails: Bool = false
     
     static let shared = SessionStore()
     
@@ -181,6 +182,7 @@ class SessionStore: ObservableObject {
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.inspectionUploadState = .none
                     self.openCreateInspections = false
+                    self.openLocalInspectionDetails = false
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
                     self.inspectionUploadState = .none

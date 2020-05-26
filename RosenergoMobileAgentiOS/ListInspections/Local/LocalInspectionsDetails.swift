@@ -12,6 +12,16 @@ struct LocalInspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
+    @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
+    
+    func preparationPhotoArray() {
+        if !localInspections.photos!.isEmpty {
+            for photo in localInspections.photos! {
+                localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
+            }
+        }
+    }
+    
     var localInspections: LocalInspections
     
     var body: some View {
@@ -110,30 +120,42 @@ struct LocalInspectionsDetails: View {
                         .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
                 }
             }
-            CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                self.sessionStore.uploadInspections(
-                    carModel: self.localInspections.carModel!,
-                    carRegNumber: self.localInspections.carRegNumber!,
-                    carBodyNumber: self.localInspections.carBodyNumber!,
-                    carVin: self.localInspections.carVin!,
-                    insuranceContractNumber: self.localInspections.insuranceContractNumber!,
-                    carModel2: self.localInspections.carModel2,
-                    carRegNumber2: self.localInspections.carRegNumber2,
-                    carBodyNumber2: self.localInspections.carBodyNumber2,
-                    carVin2: self.localInspections.carVin2,
-                    insuranceContractNumber2: self.localInspections.insuranceContractNumber2,
-                    latitude: self.localInspections.latitude,
-                    longitude: self.localInspections.longitude,
-                    photoParameters: [
-                        PhotoParameters(
-                            latitude: self.localInspections.latitude,
-                            longitude: self.localInspections.longitude,
-                            file: self.localInspections.photos!.first!,
-                            maked_photo_at: self.localInspections.dateInspections!
-                        )
-                    ]
-                )
-            }.padding(.horizontal)
+            if sessionStore.inspectionUploadState == .none {
+                CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
+                    self.sessionStore.uploadInspections(
+                        carModel: self.localInspections.carModel!,
+                        carRegNumber: self.localInspections.carRegNumber!,
+                        carBodyNumber: self.localInspections.carBodyNumber!,
+                        carVin: self.localInspections.carVin!,
+                        insuranceContractNumber: self.localInspections.insuranceContractNumber!,
+                        carModel2: self.localInspections.carModel2,
+                        carRegNumber2: self.localInspections.carRegNumber2,
+                        carBodyNumber2: self.localInspections.carBodyNumber2,
+                        carVin2: self.localInspections.carVin2,
+                        insuranceContractNumber2: self.localInspections.insuranceContractNumber2,
+                        latitude: self.localInspections.latitude,
+                        longitude: self.localInspections.longitude,
+                        photoParameters: self.localPhotoParameters
+                    )
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 8)
+            } else if sessionStore.inspectionUploadState == .upload {
+                HStack {
+                    Spacer()
+                    ActivityIndicatorButton()
+                    Spacer()
+                }
+                .padding()
+                .background(Color.rosenergo)
+                .cornerRadius(8)
+                .padding(.horizontal)
+                .padding(.bottom, 8)
+            }
+        }
+        .onAppear(perform: preparationPhotoArray)
+        .onDisappear {
+            self.localPhotoParameters.removeAll()
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")

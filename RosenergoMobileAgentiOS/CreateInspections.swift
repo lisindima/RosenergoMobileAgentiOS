@@ -151,7 +151,7 @@ struct CreateInspections: View {
                 } else if sessionStore.inspectionUploadState == .upload {
                     HStack {
                         Spacer()
-                            ActivityIndicatorButton()
+                        ActivityIndicatorButton()
                         Spacer()
                     }
                     .padding()
