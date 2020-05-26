@@ -76,6 +76,10 @@ struct CreateVyplatnyeDela: View {
         }
         .keyboardObserving()
         .onAppear(perform: sessionStore.getLocation)
+        .onDisappear {
+            self.sessionStore.photoParameters.removeAll()
+            self.sessionStore.imageLocalInspections.removeAll()
+        }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker()
                 .environmentObject(self.sessionStore)
