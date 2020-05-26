@@ -40,6 +40,7 @@
 		CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
+		CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CBC52838247A504700E337B4 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
+		CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreModel.swift; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -121,15 +123,15 @@
 				CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */,
 				CB17E55B2466644400CDBB1A /* AppDelegate.swift */,
 				CB17E55D2466644400CDBB1A /* SceneDelegate.swift */,
+				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CBB2E0952478F3380017AB00 /* ListInspections */,
+				CBC5283A247CB4AC00E337B4 /* Store */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
-				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CB4B9314246CF235006B7008 /* SettingsView.swift */,
 				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
 				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
 				CB17E5622466644400CDBB1A /* SignIn.swift */,
-				CB17E5752467A43700CDBB1A /* SessionStore.swift */,
 				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */,
 				CB17E56C2466644500CDBB1A /* Info.plist */,
@@ -198,6 +200,23 @@
 				CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */,
 			);
 			path = Server;
+			sourceTree = "<group>";
+		};
+		CBC5283A247CB4AC00E337B4 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				CBC5283B247CB4D300E337B4 /* SessionStoreModel */,
+				CB17E5752467A43700CDBB1A /* SessionStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		CBC5283B247CB4D300E337B4 /* SessionStoreModel */ = {
+			isa = PBXGroup;
+			children = (
+				CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */,
+			);
+			path = SessionStoreModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +326,7 @@
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
 				CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
+				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
