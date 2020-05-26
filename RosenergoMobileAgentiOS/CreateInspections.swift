@@ -103,7 +103,7 @@ struct CreateInspections: View {
                 }
             }
             Group {
-                if sessionStore.inspectionUploadState == .none {
+                if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                             self.sessionStore.uploadInspections(
@@ -148,7 +148,7 @@ struct CreateInspections: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 8)
-                } else if sessionStore.inspectionUploadState == .upload {
+                } else if sessionStore.uploadState == .upload {
                     HStack {
                         Spacer()
                         ActivityIndicatorButton()

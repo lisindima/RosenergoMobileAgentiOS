@@ -120,7 +120,7 @@ struct LocalInspectionsDetails: View {
                         .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
                 }
             }
-            if sessionStore.inspectionUploadState == .none {
+            if sessionStore.uploadState == .none {
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
                     self.sessionStore.uploadInspections(
                         carModel: self.localInspections.carModel!,
@@ -140,7 +140,7 @@ struct LocalInspectionsDetails: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
-            } else if sessionStore.inspectionUploadState == .upload {
+            } else if sessionStore.uploadState == .upload {
                 HStack {
                     Spacer()
                     ActivityIndicatorButton()

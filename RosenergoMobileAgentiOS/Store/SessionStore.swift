@@ -21,7 +21,7 @@ class SessionStore: ObservableObject {
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
-    @Published var inspectionUploadState: InspectionUploadState = .none
+    @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
@@ -40,7 +40,7 @@ class SessionStore: ObservableObject {
         case loading, failure, success
     }
     
-    enum InspectionUploadState {
+    enum UploadState {
         case upload, none
     }
     
@@ -151,7 +151,7 @@ class SessionStore: ObservableObject {
     
     func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
         
-        inspectionUploadState = .upload
+        uploadState = .upload
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
@@ -180,18 +180,20 @@ class SessionStore: ObservableObject {
                 switch response.result {
                 case .success:
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
-                    self.inspectionUploadState = .none
+                    self.uploadState = .none
                     self.openCreateInspections = false
                     self.openLocalInspectionDetails = false
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
-                    self.inspectionUploadState = .none
+                    self.uploadState = .none
                     print(error.errorDescription!)
             }
         }
     }
     
     func uploadVyplatnyeDela() {
+        
+        uploadState = .upload
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
@@ -206,11 +208,11 @@ class SessionStore: ObservableObject {
                 switch response.result {
                 case .success:
                     SPAlert.present(title: "Успешно!", message: "Выплатные дела успешно загружено на сервер.", preset: .done)
-                    self.inspectionUploadState = .none
-                    self.openCreateInspections = false
+                    self.uploadState = .none
+                    self.openCreateVyplatnyeDela = false
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте загрузить позднее.", preset: .error)
-                    self.inspectionUploadState = .none
+                    self.uploadState = .none
                     print(error.errorDescription!)
             }
         }
