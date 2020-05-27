@@ -7,19 +7,76 @@
 //
 
 import SwiftUI
+import Alamofire
+import SPAlert
 
 struct LocalInspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.managedObjectContext) var moc
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     
     var localInspections: LocalInspections
     
+    let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    
     func preparationPhotoArray() {
         if !localInspections.photos!.isEmpty {
             for photo in localInspections.photos! {
                 localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
+            }
+        }
+    }
+    
+    func uploadLocalInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters], localInspections: LocalInspections) {
+        
+        sessionStore.uploadState = .upload
+        
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: sessionStore.loginModel!.data.apiToken),
+            .accept("application/json")
+        ]
+        
+        let parameters = InspectionParameters(
+            car_model: carModel,
+            car_reg_number: carRegNumber,
+            car_body_number: carBodyNumber,
+            car_vin: carVin,
+            insurance_contract_number: insuranceContractNumber,
+            car_model2: carModel2,
+            car_reg_number2: carRegNumber2,
+            car_body_number2: carBodyNumber2,
+            car_vin2: carVin2,
+            insurance_contract_number2: insuranceContractNumber2,
+            latitude: latitude,
+            longitude: longitude,
+            photos: photoParameters
+        )
+        
+        AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
+            .validate()
+            .downloadProgress { progress in
+                print(progress.fractionCompleted)
+            }
+            .response { response in
+                switch response.result {
+                case .success:
+                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
+                    self.sessionStore.uploadState = .none
+                    self.sessionStore.openLocalInspectionDetails = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.moc.delete(localInspections)
+                        do {
+                            try self.moc.save()
+                        } catch {
+                            print(error)
+                        }
+                    }
+                case .failure(let error):
+                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
+                    self.sessionStore.uploadState = .none
+                    print(error.errorDescription!)
             }
         }
     }
@@ -122,7 +179,7 @@ struct LocalInspectionsDetails: View {
             }
             if sessionStore.uploadState == .none {
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                    self.sessionStore.uploadInspections(
+                    self.uploadLocalInspections(
                         carModel: self.localInspections.carModel!,
                         carRegNumber: self.localInspections.carRegNumber!,
                         carBodyNumber: self.localInspections.carBodyNumber!,
@@ -135,7 +192,8 @@ struct LocalInspectionsDetails: View {
                         insuranceContractNumber2: self.localInspections.insuranceContractNumber2,
                         latitude: self.localInspections.latitude,
                         longitude: self.localInspections.longitude,
-                        photoParameters: self.localPhotoParameters
+                        photoParameters: self.localPhotoParameters,
+                        localInspections: self.localInspections
                     )
                 }
                 .padding(.horizontal)
@@ -156,6 +214,7 @@ struct LocalInspectionsDetails: View {
         .onAppear(perform: preparationPhotoArray)
         .onDisappear {
             self.localPhotoParameters.removeAll()
+            print("ОЧИЩАЕМ")
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")
