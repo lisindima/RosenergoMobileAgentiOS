@@ -70,13 +70,7 @@ struct SettingsView: View {
                 }
             }
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Настройки")
-            .navigationBarItems(trailing: Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Закрыть")
-                    .bold()
-            })
+            .navigationBarTitle("Настройки", displayMode: .inline)
         }
         .accentColor(.rosenergo)
         .navigationViewStyle(StackNavigationViewStyle())

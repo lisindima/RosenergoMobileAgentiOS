@@ -58,10 +58,10 @@ struct MenuView: View {
             }
             .navigationBarTitle("Мобильный агент")
             .navigationBarItems(trailing: Button(action: {
-                    self.showSettings = true
-                }) {
-                    Image(systemName: "gear")
-                        .imageScale(.large)
+                self.showSettings = true
+            }) {
+                Image(systemName: "gear")
+                    .imageScale(.large)
             })
         }.navigationViewStyle(StackNavigationViewStyle())
     }
