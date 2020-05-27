@@ -12,6 +12,15 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     @EnvironmentObject var sessionStore: SessionStore
     
+    let dateOnImage: String = {
+        var currentDate: Date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        let dateString = dateFormatter.string(from: currentDate)
+        return dateString
+    }()
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = context.coordinator
@@ -35,7 +44,8 @@ struct ImagePicker: UIViewControllerRepresentable {
             photoPicker.dismiss(animated: true)
             let inspectionsImage = info[.originalImage] as! UIImage
             let fixImage = inspectionsImage.fixOrientation()
-            let inspectionsImageData = fixImage.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
+            let imageWithText = fixImage.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.dateOnImage)", point: CGPoint(x: 20, y: 20))
+            let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
             parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: inspectionsImageData!, maked_photo_at: parent.sessionStore.stringDate))
             parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
         }
@@ -47,6 +57,28 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 extension UIImage {
+    
+    func addText(text: String, point: CGPoint) -> UIImage{
+        let textColor = UIColor(named: "textColor")
+        let textFont = UIFont(name: "Helvetica Bold", size: 40)!
+
+        UIGraphicsBeginImageContextWithOptions(self.size, false, 1)
+
+        let textFontAttributes = [
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: textColor!,
+            ] as [NSAttributedString.Key : Any]
+        self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
+
+        let rect = CGRect(origin: point, size: self.size)
+        text.draw(in: rect, withAttributes: textFontAttributes)
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
+    }
+    
     func fixOrientation() -> UIImage {
         if self.imageOrientation == .up {
             return self
