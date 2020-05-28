@@ -28,7 +28,6 @@ class SessionStore: ObservableObject {
     @Published var openCreateInspections: Bool = false
     @Published var openListInspection: Bool = false
     @Published var openCreateVyplatnyeDela: Bool = false
-    @Published var openLocalInspectionDetails: Bool = false
     
     static let shared = SessionStore()
     
@@ -182,7 +181,6 @@ class SessionStore: ObservableObject {
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.uploadState = .none
                     self.openCreateInspections = false
-                    self.openLocalInspectionDetails = false
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
                     self.uploadState = .none
@@ -191,7 +189,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadVyplatnyeDela() {
+    func uploadVyplatnyeDela(insuranceContractNumber: String, numberZayavlenia: String, latitude: Double, longitude: Double, photos: [PhotoParameters]) {
         
         uploadState = .upload
         
@@ -200,7 +198,13 @@ class SessionStore: ObservableObject {
             .accept("application/json")
         ]
         
-        let parameters = VyplatnyeDelaParameters()
+        let parameters = VyplatnyeDelaParameters(
+            insurance_contract_number: insuranceContractNumber,
+            number_zayavlenia: numberZayavlenia,
+            latitude: latitude,
+            longitude: longitude,
+            photos: photos
+        )
         
         AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()

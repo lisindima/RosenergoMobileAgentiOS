@@ -56,15 +56,11 @@ struct LocalInspectionsDetails: View {
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
-            .downloadProgress { progress in
-                print(progress.fractionCompleted)
-            }
             .response { response in
                 switch response.result {
                 case .success:
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.sessionStore.uploadState = .none
-                    self.sessionStore.openLocalInspectionDetails = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.moc.delete(localInspections)
                         do {

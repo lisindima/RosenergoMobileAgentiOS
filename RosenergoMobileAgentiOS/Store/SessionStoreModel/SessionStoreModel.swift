@@ -8,6 +8,14 @@
 
 import SwiftUI
 
+struct VyplatnyeDelaParameters: Encodable {
+    let insurance_contract_number: String
+    let number_zayavlenia: String
+    let latitude: Double
+    let longitude: Double
+    let photos: [PhotoParameters]
+}
+
 struct InspectionParameters: Encodable {
     let car_model: String
     let car_reg_number: String
@@ -105,8 +113,4 @@ struct DataClass: Codable, Identifiable {
 
 struct Settings: Codable {
     let locale: String
-}
-
-struct VyplatnyeDelaParameters: Encodable {
-    
 }

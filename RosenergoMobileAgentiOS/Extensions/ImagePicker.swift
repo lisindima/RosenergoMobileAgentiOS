@@ -61,21 +61,19 @@ extension UIImage {
     func addText(text: String, point: CGPoint) -> UIImage{
         let textColor = UIColor(named: "textColor")
         let textFont = UIFont(name: "Helvetica Bold", size: 40)!
-
         UIGraphicsBeginImageContextWithOptions(self.size, false, 1)
-
+        
         let textFontAttributes = [
             NSAttributedString.Key.font: textFont,
             NSAttributedString.Key.foregroundColor: textColor!,
             ] as [NSAttributedString.Key : Any]
+        
         self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
-
         let rect = CGRect(origin: point, size: self.size)
         text.draw(in: rect, withAttributes: textFontAttributes)
-
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return newImage!
     }
     

@@ -16,7 +16,7 @@ struct CreateVyplatnyeDela: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showImagePicker: Bool = false
-    @State private var numberPolis: String = ""
+    @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
     
     var body: some View {
@@ -45,7 +45,7 @@ struct CreateVyplatnyeDela: View {
                 }.padding(.horizontal)
                 VStack {
                     Group {
-                        CustomInput(text: $numberPolis, name: "Номер полиса")
+                        CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
                     ImageButton(action: {
@@ -56,7 +56,13 @@ struct CreateVyplatnyeDela: View {
             Group {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                        self.sessionStore.uploadVyplatnyeDela()
+                        self.sessionStore.uploadVyplatnyeDela(
+                            insuranceContractNumber: self.insuranceContractNumber,
+                            numberZayavlenia: self.numberZayavlenia,
+                            latitude: self.sessionStore.latitude,
+                            longitude: self.sessionStore.longitude,
+                            photos: self.sessionStore.photoParameters
+                        )
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 8)
