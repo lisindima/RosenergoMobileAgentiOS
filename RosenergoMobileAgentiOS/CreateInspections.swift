@@ -156,7 +156,7 @@ struct CreateInspections: View {
             self.sessionStore.imageLocalInspections.removeAll()
         }
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker()
+            CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.bottom)
         }.navigationBarTitle("Новый осмотр")

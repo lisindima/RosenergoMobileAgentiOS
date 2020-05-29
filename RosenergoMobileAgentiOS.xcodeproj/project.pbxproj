@@ -26,7 +26,9 @@
 		CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* KeyboardObserving */; };
 		CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E58A24695AA500CDBB1A /* SPAlert */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
-		CB17E5922469B57F00CDBB1A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* ImagePicker.swift */; };
+		CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */; };
+		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
+		CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */; };
 		CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2A1FDD24702C82006FE4E0 /* MapView.swift */; };
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
@@ -63,7 +65,9 @@
 		CB17E5822468636700CDBB1A /* CustomInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInput.swift; sourceTree = "<group>"; };
 		CB17E584246864AE00CDBB1A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		CB17E58E24699F8400CDBB1A /* CreateInspections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInspections.swift; sourceTree = "<group>"; };
-		CB17E5912469B57F00CDBB1A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
+		CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraController.swift; sourceTree = "<group>"; };
+		CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraRepresentable.swift; sourceTree = "<group>"; };
 		CB2A1FDD24702C82006FE4E0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Мобильный агент.entitlements"; sourceTree = "<group>"; };
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
@@ -152,16 +156,26 @@
 		CB17E5902469B4FB00CDBB1A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CB20FB782480CAD0004CB9C1 /* CameraView */,
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
 				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
 				CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */,
-				CB17E5912469B57F00CDBB1A /* ImagePicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB2A1FDD24702C82006FE4E0 /* MapView.swift */,
 				CBB2E09124780EA50017AB00 /* MenuButton.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CB20FB782480CAD0004CB9C1 /* CameraView */ = {
+			isa = PBXGroup;
+			children = (
+				CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */,
+				CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */,
+				CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */,
+			);
+			path = CameraView;
 			sourceTree = "<group>";
 		};
 		CB2B5B83246BA8CE006F35AC /* Frameworks */ = {
@@ -311,7 +325,7 @@
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
-				CB17E5922469B57F00CDBB1A /* ImagePicker.swift in Sources */,
+				CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */,
 				CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */,
 				CB4B9317246CF59B006B7008 /* Color.swift in Sources */,
 				CB2A1FDE24702C82006FE4E0 /* MapView.swift in Sources */,
@@ -323,6 +337,7 @@
 				CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
+				CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */,
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
 				CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
@@ -330,6 +345,7 @@
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
+				CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

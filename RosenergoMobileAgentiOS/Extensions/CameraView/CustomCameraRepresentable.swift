@@ -1,16 +1,19 @@
 //
-//  ImagePicker.swift
+//  CustomCameraRepresentable.swift
 //  RosenergoMobileAgentiOS
 //
-//  Created by Дмитрий Лисин on 11.05.2020.
+//  Created by Дмитрий Лисин on 29.05.2020.
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
 import SwiftUI
+import AVFoundation
 
-struct ImagePicker: UIViewControllerRepresentable {
+struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var didTapCapture: Bool
     
     let dateOnImage: String = {
         var currentDate: Date = Date()
@@ -20,39 +23,40 @@ struct ImagePicker: UIViewControllerRepresentable {
         let dateString = dateFormatter.string(from: currentDate)
         return dateString
     }()
-    
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = context.coordinator
-        imagePicker.sourceType = .camera
-        imagePicker.cameraFlashMode = .off
-        return imagePicker
+
+    func makeUIViewController(context: Context) -> CustomCameraController {
+        let controller = CustomCameraController()
+        controller.delegate = context.coordinator
+        return controller
+    }
+
+    func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
+        if self.didTapCapture {
+            cameraViewController.didTapRecord()
+        }
     }
     
-    func makeCoordinator() -> ImagePicker.Coordinator {
-        return Coordinator(self)
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
     }
-    
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        var parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
+        let parent: CustomCameraRepresentable
+
+        init(_ parent: CustomCameraRepresentable) {
             self.parent = parent
         }
-        
-        func imagePickerController(_ photoPicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            photoPicker.dismiss(animated: true)
-            let inspectionsImage = info[.originalImage] as! UIImage
-            let fixImage = inspectionsImage.fixOrientation()
-            let imageWithText = fixImage.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.dateOnImage)", point: CGPoint(x: 20, y: 20))
-            let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
-            parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: inspectionsImageData!, maked_photo_at: parent.sessionStore.stringDate))
-            parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
+
+        func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+            parent.didTapCapture = false
+            if let imageData = photo.fileDataRepresentation() {
+                let uiimage = UIImage(data: imageData)
+                let imageWithText = uiimage!.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.dateOnImage)", point: CGPoint(x: 20, y: 20))
+                let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
+                parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: inspectionsImageData!, maked_photo_at: parent.sessionStore.stringDate))
+                parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
+            }
         }
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-        
     }
 }
 
