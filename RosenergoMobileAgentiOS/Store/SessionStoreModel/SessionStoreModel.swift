@@ -32,7 +32,7 @@ struct InspectionParameters: Encodable {
     let photos: [PhotoParameters]
 }
 
-struct PhotoParameters: Encodable {
+struct PhotoParameters: Encodable, Equatable {
     let latitude: Double
     let longitude: Double
     let file: String
