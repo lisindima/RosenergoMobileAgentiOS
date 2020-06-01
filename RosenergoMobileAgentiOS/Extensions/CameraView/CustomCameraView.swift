@@ -47,22 +47,22 @@ struct CustomCameraView: View {
                                     .imageScale(.large)
                                     .foregroundColor(.red)
                             }.offset(x: 50, y: -50)
-                        }
+                        }.padding(.trailing, 8)
                     }
                 }.padding()
             }
             HStack {
-                Button(action: {
-                    
-                }) {
+                Button(action: {}) {
                     Image(systemName: "camera.rotate")
                         .frame(width: 24)
                         .imageScale(.large)
                         .padding(30)
-                        .background(Color.rosenergo.opacity(0.2))
-                        .foregroundColor(.rosenergo)
+                        .background(Color.rosenergo.opacity(0.0))
+                        .foregroundColor(Color.rosenergo.opacity(0.0))
                         .clipShape(Circle())
-                }.padding(.bottom, 30)
+                }
+                .padding(.bottom, 30)
+                .disabled(true)
                 Button(action: {
                     self.didTapCapture = true
                 }) {
