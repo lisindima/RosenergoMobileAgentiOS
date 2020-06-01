@@ -17,17 +17,17 @@ class CustomCameraController: UIViewController {
     var currentCamera: AVCaptureDevice?
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
-
     var delegate: AVCapturePhotoCaptureDelegate?
-
-    func didTapRecord() {
-        let settings = AVCapturePhotoSettings()
-        photoOutput?.capturePhoto(with: settings, delegate: delegate!)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    func didTapRecord(flashMode: AVCaptureDevice.FlashMode) {
+        let settings = AVCapturePhotoSettings()
+        settings.flashMode = flashMode
+        photoOutput?.capturePhoto(with: settings, delegate: delegate!)
     }
     
     func setup() {

@@ -14,6 +14,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     @Binding var didTapCapture: Bool
+    @Binding var flashMode: AVCaptureDevice.FlashMode
     
     let dateOnImage: String = {
         var currentDate: Date = Date()
@@ -32,7 +33,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
 
     func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
         if self.didTapCapture {
-            cameraViewController.didTapRecord()
+            cameraViewController.didTapRecord(flashMode: flashMode)
         }
     }
     

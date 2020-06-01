@@ -22,7 +22,7 @@ struct ImageDetail: View {
                 .aspectRatio(contentMode: .fit)
                 .scaleEffect(scale)
                 .gesture(MagnificationGesture()
-                    .updating($scale, body: { (value, scale, trans) in
+                    .updating($scale, body: { value, scale, trans in
                         scale = value.magnitude
                     }
                 )
@@ -44,7 +44,7 @@ struct LocalImageDetail: View {
                 .aspectRatio(contentMode: .fit)
                 .scaleEffect(scale)
                 .gesture(MagnificationGesture()
-                    .updating($scale, body: { (value, scale, trans) in
+                    .updating($scale, body: { value, scale, trans in
                         scale = value.magnitude
                     }
                 )

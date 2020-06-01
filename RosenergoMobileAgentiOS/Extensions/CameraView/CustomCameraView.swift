@@ -7,16 +7,28 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CustomCameraView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     @State private var didTapCapture: Bool = false
     @State private var flashOn: Bool = false
+    @State private var flashMode: AVCaptureDevice.FlashMode = .off
+    
+    func flashState() {
+        if flashMode == .on {
+            flashMode = .off
+            flashOn = false
+        } else if flashMode == .off {
+            flashMode = .on
+            flashOn = true
+        }
+    }
     
     var body: some View {
         VStack {
-            CustomCameraRepresentable(didTapCapture: $didTapCapture)
+            CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(sessionStore.photoParameters, id: \.file) { photo in
@@ -62,9 +74,7 @@ struct CustomCameraView: View {
                         .foregroundColor(.white)
                         .clipShape(Circle())
                 }.padding(.bottom, 30)
-                Button(action: {
-                    self.flashOn.toggle()
-                }) {
+                Button(action: flashState) {
                     Image(systemName: flashOn ? "bolt" : "bolt.slash")
                         .frame(width: 24)
                         .imageScale(.large)
