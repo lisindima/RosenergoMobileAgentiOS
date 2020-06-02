@@ -138,178 +138,71 @@ struct Settings: Codable {
 
 struct YandexGeo: Codable, Hashable {
     let response: Response
+    
+    enum CodingKeys: String, CodingKey {
+        case response = "response"
+    }
 }
 
 struct Response: Codable, Hashable {
     let geoObjectCollection: GeoObjectCollection
 
     enum CodingKeys: String, CodingKey {
-        case geoObjectCollection
+        case geoObjectCollection = "GeoObjectCollection"
     }
 }
 
 struct GeoObjectCollection: Codable, Hashable {
-    let metaDataProperty: GeoObjectCollectionMetaDataProperty
     let featureMember: [FeatureMember]
+    
+    enum CodingKeys: String, CodingKey {
+        case featureMember = "featureMember"
+    }
 }
 
 struct FeatureMember: Codable, Hashable {
     let geoObject: GeoObject
 
     enum CodingKeys: String, CodingKey {
-        case geoObject
+        case geoObject = "GeoObject"
     }
 }
 
 struct GeoObject: Codable, Hashable {
-    let metaDataProperty: GeoObjectMetaDataProperty
-    let name, geoObjectDescription: String
-    let boundedBy: BoundedBy
-    let point: Point
+    let metaDataProperty: MetaDataProperty
+    let name, description: String?
 
     enum CodingKeys: String, CodingKey {
-        case metaDataProperty, name
-        case geoObjectDescription
-        case boundedBy
-        case point
+        case metaDataProperty = "metaDataProperty"
+        case name = "name"
+        case description = "description"
     }
 }
 
-struct BoundedBy: Codable, Hashable {
-    let envelope: Envelope
-
-    enum CodingKeys: String, CodingKey {
-        case envelope
-    }
-}
-
-
-struct Envelope: Codable, Hashable {
-    let lowerCorner, upperCorner: String
-}
-
-struct GeoObjectMetaDataProperty: Codable, Hashable {
+struct MetaDataProperty: Codable, Hashable {
     let geocoderMetaData: GeocoderMetaData
 
     enum CodingKeys: String, CodingKey {
-        case geocoderMetaData
+        case geocoderMetaData = "GeocoderMetaData"
     }
 }
 
 struct GeocoderMetaData: Codable, Hashable {
-    let precision, text, kind: String
+    let precision, text, kind: String?
     let address: Address
-    let addressDetails: AddressDetails
 
     enum CodingKeys: String, CodingKey {
         case precision, text, kind
-        case address
-        case addressDetails
+        case address = "Address"
     }
 }
 
 struct Address: Codable, Hashable {
-    let countryCode, formatted, postalCode: String
-    let components: [Component]
+    let countryCode, formatted, postalCode: String?
 
     enum CodingKeys: String, CodingKey {
-        case countryCode
-        case formatted
-        case postalCode
-        case components
-    }
-}
-
-struct Component: Codable, Hashable {
-    let kind, name: String
-}
-
-struct AddressDetails: Codable, Hashable {
-    let country: Country
-
-    enum CodingKeys: String, CodingKey {
-        case country
-    }
-}
-
-struct Country: Codable, Hashable {
-    let addressLine, countryNameCode, countryName: String
-    let administrativeArea: AdministrativeArea
-
-    enum CodingKeys: String, CodingKey {
-        case addressLine
-        case countryNameCode
-        case countryName
-        case administrativeArea
-    }
-}
-
-struct AdministrativeArea: Codable, Hashable {
-    let administrativeAreaName: String
-    let locality: Locality
-
-    enum CodingKeys: String, CodingKey {
-        case administrativeAreaName
-        case locality
-    }
-}
-
-struct Locality: Codable, Hashable {
-    let localityName: String
-    let thoroughfare: Thoroughfare
-
-    enum CodingKeys: String, CodingKey {
-        case localityName
-        case thoroughfare
-    }
-}
-
-struct Thoroughfare: Codable, Hashable {
-    let thoroughfareName: String
-    let premise: Premise
-
-    enum CodingKeys: String, CodingKey {
-        case thoroughfareName
-        case premise
-    }
-}
-
-struct Premise: Codable, Hashable {
-    let premiseNumber: String
-    let postalCode: PostalCode
-
-    enum CodingKeys: String, CodingKey {
-        case premiseNumber
-        case postalCode
-    }
-}
-
-struct PostalCode: Codable, Hashable {
-    let postalCodeNumber: String
-
-    enum CodingKeys: String, CodingKey {
-        case postalCodeNumber
-    }
-}
-
-struct Point: Codable, Hashable {
-    let pos: String
-}
-
-struct GeoObjectCollectionMetaDataProperty: Codable, Hashable {
-    let geocoderResponseMetaData: GeocoderResponseMetaData
-
-    enum CodingKeys: String, CodingKey {
-        case geocoderResponseMetaData
-    }
-}
-
-struct GeocoderResponseMetaData: Codable, Hashable {
-    let point: Point
-    let request, results, found: String
-
-    enum CodingKeys: String, CodingKey {
-        case point
-        case request, results, found
+        case countryCode = "country_code"
+        case formatted = "formatted"
+        case postalCode = "postal_code"
     }
 }

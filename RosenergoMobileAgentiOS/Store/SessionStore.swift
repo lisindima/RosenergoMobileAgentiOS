@@ -38,14 +38,6 @@ class SessionStore: ObservableObject {
     
     var locationManager = CLLocationManager()
     
-    enum InspectionsLoadingState {
-        case loading, failure, success
-    }
-    
-    enum UploadState {
-        case upload, none
-    }
-    
     let stringDate: String = {
         var currentDate: Date = Date()
         let dateFormatter = DateFormatter()
@@ -224,29 +216,18 @@ class SessionStore: ObservableObject {
             }
         }
     }
-    
-    func loadYandexGeoResponse(latitude: Double, longitude: Double) {
-        
-        let parameters = YandexGeoParameters(
-            apikey: apiKeyForYandexGeo,
-            format: "json",
-            geocode: "\(latitude),\(longitude)",
-            results: "1"
-        )
-            
-        AF.request(yandexGeoURL, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: YandexGeo.self) { response in
-                switch response.result {
-                case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    print(yandexGeo)
-                case .failure(let error):
-                    print(error.errorDescription!)
-                }
-        }
-    }
+}
+
+enum InspectionsLoadingState {
+    case loading, failure, success
+}
+
+enum UploadState {
+    case upload, none
+}
+
+enum YandexGeoState {
+    case loading, failure, success
 }
 
 extension Defaults.Keys {
