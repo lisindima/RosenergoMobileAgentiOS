@@ -12,17 +12,15 @@ import AVFoundation
 struct CustomCameraView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    
     @State private var didTapCapture: Bool = false
-    @State private var flashOn: Bool = false
     @State private var flashMode: AVCaptureDevice.FlashMode = .off
     
     func flashState() {
         if flashMode == .on {
             flashMode = .off
-            flashOn = false
         } else if flashMode == .off {
             flashMode = .on
-            flashOn = true
         }
     }
     
@@ -75,7 +73,7 @@ struct CustomCameraView: View {
                         .clipShape(Circle())
                 }.padding(.bottom, 30)
                 Button(action: flashState) {
-                    Image(systemName: flashOn ? "bolt" : "bolt.slash")
+                    Image(systemName: flashMode == .on ? "bolt" : "bolt.slash")
                         .frame(width: 24)
                         .imageScale(.large)
                         .padding(30)
