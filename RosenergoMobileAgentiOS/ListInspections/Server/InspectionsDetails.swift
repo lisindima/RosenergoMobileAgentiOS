@@ -11,6 +11,8 @@ import SDWebImageSwiftUI
 
 struct InspectionsDetails: View {
     
+    @EnvironmentObject var sessionStore: SessionStore
+    
     var inspection: Inspections
     
     var body: some View {

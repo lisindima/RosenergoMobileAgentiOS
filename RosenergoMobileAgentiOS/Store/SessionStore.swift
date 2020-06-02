@@ -19,6 +19,7 @@ class SessionStore: ObservableObject {
     
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
+    @Published var yandexGeo: YandexGeo?
     @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
     @Published var uploadState: UploadState = .none
@@ -32,6 +33,8 @@ class SessionStore: ObservableObject {
     static let shared = SessionStore()
     
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    let yandexGeoURL: String = "https://geocode-maps.yandex.ru/1.x/"
+    let apiKeyForYandexGeo: String = "deccec14-fb7f-40da-8be0-be3f7e6f2d8c"
     
     var locationManager = CLLocationManager()
     
@@ -219,6 +222,29 @@ class SessionStore: ObservableObject {
                     self.uploadState = .none
                     print(error.errorDescription!)
             }
+        }
+    }
+    
+    func loadYandexGeoResponse(latitude: Double, longitude: Double) {
+        
+        let parameters = YandexGeoParameters(
+            apikey: apiKeyForYandexGeo,
+            format: "json",
+            geocode: "\(latitude),\(longitude)",
+            results: "1"
+        )
+            
+        AF.request(yandexGeoURL, method: .get, parameters: parameters)
+            .validate()
+            .responseDecodable(of: YandexGeo.self) { response in
+                switch response.result {
+                case .success:
+                    guard let yandexGeo = response.value else { return }
+                    self.yandexGeo = yandexGeo
+                    print(yandexGeo)
+                case .failure(let error):
+                    print(error.errorDescription!)
+                }
         }
     }
 }
