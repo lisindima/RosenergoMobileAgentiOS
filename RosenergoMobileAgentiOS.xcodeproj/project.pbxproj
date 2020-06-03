@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		113F04FC2505AEBC546B8CC3 /* Pods_RosenergoMobileAgentiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */; };
 		CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55B2466644400CDBB1A /* AppDelegate.swift */; };
 		CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55D2466644400CDBB1A /* SceneDelegate.swift */; };
 		CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
@@ -14,17 +15,17 @@
 		CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
 		CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5672466644500CDBB1A /* Preview Assets.xcassets */; };
 		CB17E56B2466644500CDBB1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */; };
-		CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5732466654E00CDBB1A /* Alamofire */; };
+		CB17E5742466654E00CDBB1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5732466654E00CDBB1A /* SwiftPackageProductDependency */; };
 		CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
-		CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */; };
+		CB17E5792467A54700CDBB1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5782467A54700CDBB1A /* SwiftPackageProductDependency */; };
 		CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
 		CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57C2467AFC100CDBB1A /* MenuView.swift */; };
 		CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57E2467FFB600CDBB1A /* ListInspections.swift */; };
 		CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58024681E2900CDBB1A /* ActivityIndicator.swift */; };
 		CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
 		CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
-		CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* KeyboardObserving */; };
-		CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E58A24695AA500CDBB1A /* SPAlert */; };
+		CB17E588246933B700CDBB1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* SwiftPackageProductDependency */; };
+		CB17E58B24695AA500CDBB1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E58A24695AA500CDBB1A /* SwiftPackageProductDependency */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
 		CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */; };
 		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
@@ -33,7 +34,7 @@
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
-		CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* NativeSearchBar */; };
+		CB7955D3247381C200670552 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* SwiftPackageProductDependency */; };
 		CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09124780EA50017AB00 /* MenuButton.swift */; };
 		CBB2E0942478E5B20017AB00 /* CreateVyplatnyeDela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */; };
 		CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
@@ -42,11 +43,15 @@
 		CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
 		CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
+		CBD07BA32487E62000A863D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBD07BA22487E62000A863D6 /* GoogleService-Info.plist */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1217DC4A82FB38333164DB84 /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosenergoMobileAgentiOS.debug.xcconfig"; path = "Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		16B3DE6712221979793EC85A /* Pods-RosenergoMobileAgentiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosenergoMobileAgentiOS.release.xcconfig"; path = "Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS.release.xcconfig"; sourceTree = "<group>"; };
+		28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RosenergoMobileAgentiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E55B2466644400CDBB1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB17E55D2466644400CDBB1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CBC52838247A504700E337B4 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreModel.swift; sourceTree = "<group>"; };
+		CBD07BA22487E62000A863D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -90,24 +96,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
-				CB17E5792467A54700CDBB1A /* SDWebImageSwiftUI in Frameworks */,
-				CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */,
+				CB17E5792467A54700CDBB1A /* BuildFile in Frameworks */,
+				CB7955D3247381C200670552 /* BuildFile in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
-				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
-				CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */,
-				CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */,
+				CB17E5742466654E00CDBB1A /* BuildFile in Frameworks */,
+				CB17E58B24695AA500CDBB1A /* BuildFile in Frameworks */,
+				CB17E588246933B700CDBB1A /* BuildFile in Frameworks */,
+				113F04FC2505AEBC546B8CC3 /* Pods_RosenergoMobileAgentiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD1EE32388603AC74C80AB5C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1217DC4A82FB38333164DB84 /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */,
+				16B3DE6712221979793EC85A /* Pods-RosenergoMobileAgentiOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CB17E54F2466644400CDBB1A = {
 			isa = PBXGroup;
 			children = (
 				CB17E55A2466644400CDBB1A /* RosenergoMobileAgentiOS */,
 				CB17E5592466644400CDBB1A /* Products */,
 				CB2B5B83246BA8CE006F35AC /* Frameworks */,
+				AD1EE32388603AC74C80AB5C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */,
+				CBD07BA22487E62000A863D6 /* GoogleService-Info.plist */,
 				CB17E55B2466644400CDBB1A /* AppDelegate.swift */,
 				CB17E55D2466644400CDBB1A /* SceneDelegate.swift */,
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
@@ -181,6 +200,7 @@
 			children = (
 				CBDDDA602473CF1400FE5A7C /* CloudKit.framework */,
 				CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */,
+				28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -238,9 +258,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB17E56F2466644500CDBB1A /* Build configuration list for PBXNativeTarget "RosenergoMobileAgentiOS" */;
 			buildPhases = (
+				F9250341F50F29863A5DFD8E /* [CP] Check Pods Manifest.lock */,
 				CB17E5542466644400CDBB1A /* Sources */,
 				CB17E5552466644400CDBB1A /* Frameworks */,
 				CB17E5562466644400CDBB1A /* Resources */,
+				863E494B1430E1B27E0E2262 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -248,11 +270,11 @@
 			);
 			name = RosenergoMobileAgentiOS;
 			packageProductDependencies = (
-				CB17E5732466654E00CDBB1A /* Alamofire */,
-				CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */,
-				CB17E587246933B700CDBB1A /* KeyboardObserving */,
-				CB17E58A24695AA500CDBB1A /* SPAlert */,
-				CB7955D2247381C200670552 /* NativeSearchBar */,
+				CB17E5732466654E00CDBB1A /* SwiftPackageProductDependency */,
+				CB17E5782467A54700CDBB1A /* SwiftPackageProductDependency */,
+				CB17E587246933B700CDBB1A /* SwiftPackageProductDependency */,
+				CB17E58A24695AA500CDBB1A /* SwiftPackageProductDependency */,
+				CB7955D2247381C200670552 /* SwiftPackageProductDependency */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
@@ -283,11 +305,11 @@
 			);
 			mainGroup = CB17E54F2466644400CDBB1A;
 			packageReferences = (
-				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
-				CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
-				CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */,
-				CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
+				CB17E5722466654E00CDBB1A /* RemoteSwiftPackageReference */,
+				CB17E5772467A54700CDBB1A /* RemoteSwiftPackageReference */,
+				CB17E586246933B600CDBB1A /* RemoteSwiftPackageReference */,
+				CB17E58924695AA500CDBB1A /* RemoteSwiftPackageReference */,
+				CB7955D1247381C200670552 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -304,12 +326,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB17E56B2466644500CDBB1A /* LaunchScreen.storyboard in Resources */,
+				CBD07BA32487E62000A863D6 /* GoogleService-Info.plist in Resources */,
 				CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */,
 				CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		863E494B1430E1B27E0E2262 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9250341F50F29863A5DFD8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RosenergoMobileAgentiOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CB17E5542466644400CDBB1A /* Sources */ = {
@@ -476,6 +541,7 @@
 		};
 		CB17E5702466644500CDBB1A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1217DC4A82FB38333164DB84 /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
@@ -501,6 +567,7 @@
 		};
 		CB17E5712466644500CDBB1A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16B3DE6712221979793EC85A /* Pods-RosenergoMobileAgentiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
@@ -548,7 +615,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		CB17E5722466654E00CDBB1A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
@@ -556,7 +623,7 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+		CB17E5772467A54700CDBB1A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
 			requirement = {
@@ -564,7 +631,7 @@
 				minimumVersion = 1.4.0;
 			};
 		};
-		CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */ = {
+		CB17E586246933B600CDBB1A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nickffox/KeyboardObserving";
 			requirement = {
@@ -572,7 +639,7 @@
 				minimumVersion = 0.3.0;
 			};
 		};
-		CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */ = {
+		CB17E58924695AA500CDBB1A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ivanvorobei/SPAlert";
 			requirement = {
@@ -580,7 +647,7 @@
 				minimumVersion = 2.1.4;
 			};
 		};
-		CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {
+		CB7955D1247381C200670552 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
 			requirement = {
@@ -591,29 +658,29 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB17E5732466654E00CDBB1A /* Alamofire */ = {
+		CB17E5732466654E00CDBB1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = CB17E5722466654E00CDBB1A /* RemoteSwiftPackageReference */;
 			productName = Alamofire;
 		};
-		CB17E5782467A54700CDBB1A /* SDWebImageSwiftUI */ = {
+		CB17E5782467A54700CDBB1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB17E5772467A54700CDBB1A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			package = CB17E5772467A54700CDBB1A /* RemoteSwiftPackageReference */;
 			productName = SDWebImageSwiftUI;
 		};
-		CB17E587246933B700CDBB1A /* KeyboardObserving */ = {
+		CB17E587246933B700CDBB1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
+			package = CB17E586246933B600CDBB1A /* RemoteSwiftPackageReference */;
 			productName = KeyboardObserving;
 		};
-		CB17E58A24695AA500CDBB1A /* SPAlert */ = {
+		CB17E58A24695AA500CDBB1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */;
+			package = CB17E58924695AA500CDBB1A /* RemoteSwiftPackageReference */;
 			productName = SPAlert;
 		};
-		CB7955D2247381C200670552 /* NativeSearchBar */ = {
+		CB7955D2247381C200670552 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB7955D1247381C200670552 /* XCRemoteSwiftPackageReference "NativeSearchBar" */;
+			package = CB7955D1247381C200670552 /* RemoteSwiftPackageReference */;
 			productName = NativeSearchBar;
 		};
 /* End XCSwiftPackageProductDependency section */
