@@ -225,8 +225,9 @@ class SessionStore: ObservableObject {
         let parameters = YandexGeoParameters(
             apikey: apiKeyForYandexGeo,
             format: "json",
-            geocode: "\(latitude), \(longitude)",
-            results: "1"
+            geocode: "\(longitude), \(latitude)",
+            results: "1",
+            kind: "house"
         )
         
         AF.request(yandexGeoURL, method: .get, parameters: parameters)

@@ -16,7 +16,6 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @State private var vinAndNumberBody: Bool = false
     @State private var showImagePicker: Bool = false
     @State private var choiseCar: Int = 0
     @State private var vin: String = ""

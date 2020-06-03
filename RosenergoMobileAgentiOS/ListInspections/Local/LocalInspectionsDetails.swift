@@ -19,8 +19,6 @@ struct LocalInspectionsDetails: View {
     
     var localInspections: LocalInspections
     
-    let serverURL: String = "https://rosenergo.calcn1.ru/api/"
-    
     func preparationPhotoArray() {
         if !localInspections.photos!.isEmpty {
             for photo in localInspections.photos! {
@@ -54,7 +52,7 @@ struct LocalInspectionsDetails: View {
             photos: photoParameters
         )
         
-        AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
+        AF.request(sessionStore.serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
@@ -306,7 +304,6 @@ struct LocalInspectionsDetails: View {
             self.localPhotoParameters.removeAll()
             self.sessionStore.yandexGeo = nil
             self.sessionStore.yandexGeoState = .loading
-            print("ОЧИЩАЕМ")
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")

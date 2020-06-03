@@ -48,6 +48,7 @@ struct YandexGeoParameters: Encodable {
     let format: String
     let geocode: String
     let results: String
+    let kind: String
 }
 
 // MARK: Параметры для логина в приложение.
