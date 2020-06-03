@@ -10,12 +10,16 @@ import SwiftUI
 import Combine
 import Alamofire
 import SPAlert
-import Defaults
 import CoreLocation
 
 class SessionStore: ObservableObject {
     
-    @Default(.loginModel) var loginModel
+    @CodableUserDefault(key: "loginModel", default: nil)
+    var loginModel: LoginModel? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
@@ -246,6 +250,40 @@ class SessionStore: ObservableObject {
     }
 }
 
+@propertyWrapper
+struct CodableUserDefault <T: Codable> {
+    let key: String
+    let defaultValue: T
+    
+    init(key: String, default: T) {
+        self.key = key
+        defaultValue = `default`
+    }
+    
+    var wrappedValue: T {
+        get {
+            guard let jsonString = UserDefaults.standard.string(forKey: key) else {
+                return defaultValue
+                
+            }
+            guard let jsonData = jsonString.data(using: .utf8) else {
+                return defaultValue
+            }
+            guard let value = try? JSONDecoder().decode(T.self, from: jsonData) else {
+                return defaultValue
+            }
+            return value
+        }
+        set {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+            guard let jsonData = try? encoder.encode(newValue) else { return }
+            let jsonString = String(bytes: jsonData, encoding: .utf8)
+            UserDefaults.standard.set(jsonString, forKey: key)
+        }
+    }
+}
+
 enum InspectionsLoadingState {
     case loading, failure, success
 }
@@ -258,6 +296,3 @@ enum YandexGeoState {
     case loading, failure, success
 }
 
-extension Defaults.Keys {
-    static let loginModel = Key<LoginModel?>("loginModel", default: nil)
-}
