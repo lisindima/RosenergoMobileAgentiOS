@@ -13,6 +13,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
+    
     @Binding var didTapCapture: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
     

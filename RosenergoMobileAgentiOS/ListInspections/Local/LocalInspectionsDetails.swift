@@ -98,75 +98,166 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 Section(header: Text("Дата осмотра".uppercased())) {
-                    Text(localInspections.dateInspections!.dataLocalInspection())
+                    HStack {
+                        Image(systemName: "timer")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Text(localInspections.dateInspections!.dataLocalInspection())
+                    }
                 }
                 Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
-                    VStack(alignment: .leading) {
-                        Text("Модель автомобиля")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.carModel!)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Регистрационный номер")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.carRegNumber!)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("VIN")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.carVin!)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Номер кузова")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.carBodyNumber!)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Страховой полис")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(localInspections.insuranceContractNumber!)
-                    }
-                }
-                if localInspections.carModel2 != nil {
-                    Section(header: Text("Второй автомобиль".uppercased())) {
+                    HStack {
+                        Image(systemName: "car")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
                             Text("Модель автомобиля")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(localInspections.carModel2!)
+                            Text(localInspections.carModel!)
                         }
+                    }
+                    HStack {
+                        Image(systemName: "number")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
                             Text("Регистрационный номер")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(localInspections.carRegNumber2!)
+                            Text(localInspections.carRegNumber!)
                         }
+                    }
+                    HStack {
+                        Image(systemName: "map")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
                             Text("VIN")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(localInspections.carVin2!)
+                            Text(localInspections.carVin!)
                         }
+                    }
+                    HStack {
+                        Image(systemName: "map")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
                             Text("Номер кузова")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(localInspections.carBodyNumber2!)
+                            Text(localInspections.carBodyNumber!)
                         }
+                    }
+                    HStack {
+                        Image(systemName: "list.bullet.below.rectangle")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
                             Text("Страховой полис")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(localInspections.insuranceContractNumber2!)
+                            Text(localInspections.insuranceContractNumber!)
+                        }
+                    }
+                }
+                if localInspections.carModel2 != nil {
+                    Section(header: Text("Второй автомобиль".uppercased())) {
+                        HStack {
+                            Image(systemName: "car")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Модель автомобиля")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carModel2!)
+                            }
+                        }
+                        HStack {
+                            Image(systemName: "number")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Регистрационный номер")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carRegNumber2!)
+                            }
+                        }
+                        HStack {
+                            Image(systemName: "map")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("VIN")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carVin2!)
+                            }
+                        }
+                        HStack {
+                            Image(systemName: "map")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Номер кузова")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carBodyNumber2!)
+                            }
+                        }
+                        HStack {
+                            Image(systemName: "list.bullet.below.rectangle")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Страховой полис")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.insuranceContractNumber2!)
+                            }
                         }
                     }
                 }
                 Section(header: Text("Место проведения осмотра".uppercased())) {
+                    if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                        HStack {
+                            Image(systemName: "map")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Адрес места проведения осмотра")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                            }
+                        }
+                    } else if sessionStore.yandexGeoState == .failure {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .frame(width: 24)
+                                .foregroundColor(.yellow)
+                            VStack(alignment: .leading) {
+                                Text("Ошибка, не удалось определить адрес")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text("Проверьте подключение к интернету!")
+                            }
+                        }
+                    } else if sessionStore.yandexGeoState == .loading {
+                       HStack {
+                            ActivityIndicator(styleSpinner: .medium)
+                                .frame(width: 24)
+                            VStack(alignment: .leading) {
+                                Text("Определяем адрес осмотра")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text("Загрузка")
+                            }
+                        }
+                    }
                     MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
                         .cornerRadius(10)
                         .padding(.vertical, 8)
@@ -207,9 +298,14 @@ struct LocalInspectionsDetails: View {
                 .padding(.bottom, 8)
             }
         }
-        .onAppear(perform: preparationPhotoArray)
+        .onAppear {
+            self.preparationPhotoArray()
+            self.sessionStore.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
+        }
         .onDisappear {
             self.localPhotoParameters.removeAll()
+            self.sessionStore.yandexGeo = nil
+            self.sessionStore.yandexGeoState = .loading
             print("ОЧИЩАЕМ")
         }
         .environment(\.horizontalSizeClass, .regular)

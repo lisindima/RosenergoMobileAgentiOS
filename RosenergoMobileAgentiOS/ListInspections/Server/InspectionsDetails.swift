@@ -14,34 +14,7 @@ struct InspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
-    @State private var yandexGeoState: YandexGeoState = .loading
-    @State private var yandexGeo: YandexGeo?
-    
     var inspection: Inspections
-    
-    func loadYandexGeoResponse(latitude: Double, longitude: Double) {
-        
-        let parameters = YandexGeoParameters(
-            apikey: sessionStore.apiKeyForYandexGeo,
-            format: "json",
-            geocode: "\(latitude), \(longitude)",
-            results: "1"
-        )
-        
-        AF.request(sessionStore.yandexGeoURL, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: YandexGeo.self) { response in
-                switch response.result {
-                case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    self.yandexGeoState = .success
-                case .failure(let error):
-                    print(error)
-                    self.yandexGeoState = .failure
-                }
-        }
-    }
     
     var body: some View {
         Form {
@@ -188,7 +161,7 @@ struct InspectionsDetails: View {
                 }
             }
             Section(header: Text("Место проведения осмотра".uppercased())) {
-                if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                     HStack {
                         Image(systemName: "map")
                             .frame(width: 24)
@@ -197,10 +170,10 @@ struct InspectionsDetails: View {
                             Text("Адрес места проведения осмотра")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                            Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
                         }
                     }
-                } else if yandexGeoState == .failure {
+                } else if sessionStore.yandexGeoState == .failure {
                     HStack {
                         Image(systemName: "exclamationmark.triangle")
                             .frame(width: 24)
@@ -212,7 +185,7 @@ struct InspectionsDetails: View {
                             Text("Проверьте подключение к интернету!")
                         }
                     }
-                } else if yandexGeoState == .loading {
+                } else if sessionStore.yandexGeoState == .loading {
                    HStack {
                         ActivityIndicator(styleSpinner: .medium)
                             .frame(width: 24)
@@ -233,7 +206,11 @@ struct InspectionsDetails: View {
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Осмотр: \(inspection.id)")
         .onAppear {
-            self.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
+            self.sessionStore.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
+        }
+        .onDisappear {
+            self.sessionStore.yandexGeo = nil
+            self.sessionStore.yandexGeoState = .loading
         }
     }
 }
