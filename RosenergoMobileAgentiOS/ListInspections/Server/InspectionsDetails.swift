@@ -41,7 +41,12 @@ struct InspectionsDetails: View {
                     Image(systemName: "timer")
                         .frame(width: 24)
                         .foregroundColor(.rosenergo)
-                    Text(inspection.createdat.dataInspection())
+                    VStack(alignment: .leading) {
+                        Text("Дата загрузки осмотра на сервер")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(inspection.createdat.dataInspection())
+                    }
                 }
             }
             Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {

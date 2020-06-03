@@ -100,7 +100,12 @@ struct LocalInspectionsDetails: View {
                         Image(systemName: "timer")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
-                        Text(localInspections.dateInspections!.dataLocalInspection())
+                        VStack(alignment: .leading) {
+                            Text("Дата создания осмотра")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(localInspections.dateInspections!.dataLocalInspection())
+                        }
                     }
                 }
                 Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {

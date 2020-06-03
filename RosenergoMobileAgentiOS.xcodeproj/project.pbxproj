@@ -47,7 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CB17E5582466644400CDBB1A /* Мобильный агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Мобильный агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E55B2466644400CDBB1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB17E55D2466644400CDBB1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 		CB17E5592466644400CDBB1A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB17E5582466644400CDBB1A /* Мобильный агент.app */,
+				CB17E5582466644400CDBB1A /* Агент.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -255,7 +255,7 @@
 				CB7955D2247381C200670552 /* NativeSearchBar */,
 			);
 			productName = RosenergoMobileAgentiOS;
-			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
+			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -480,7 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -492,7 +492,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
-				PRODUCT_NAME = "Мобильный агент";
+				PRODUCT_NAME = "Агент";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -505,7 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -517,7 +517,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
-				PRODUCT_NAME = "Мобильный агент";
+				PRODUCT_NAME = "Агент";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
