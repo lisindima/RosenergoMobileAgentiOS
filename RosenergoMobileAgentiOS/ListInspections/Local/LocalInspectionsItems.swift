@@ -28,6 +28,7 @@ struct LocalInspectionsItems: View {
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
+                .lineLimit(1)
                 if localInspections.carModel2 != nil {
                     Group {
                         Text("Номер полиса: \(localInspections.insuranceContractNumber2!)")
@@ -39,6 +40,7 @@ struct LocalInspectionsItems: View {
                     }
                     .font(.footnote)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
                 }
             }
             Spacer()

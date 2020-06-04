@@ -121,7 +121,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                     HStack {
-                        Image(systemName: "number")
+                        Image(systemName: "rectangle")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
@@ -132,7 +132,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                     HStack {
-                        Image(systemName: "map")
+                        Image(systemName: "v.circle")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
@@ -143,7 +143,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                     HStack {
-                        Image(systemName: "map")
+                        Image(systemName: "textformat.123")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
@@ -154,7 +154,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                     HStack {
-                        Image(systemName: "list.bullet.below.rectangle")
+                        Image(systemName: "text.justify")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
                         VStack(alignment: .leading) {
@@ -179,7 +179,7 @@ struct LocalInspectionsDetails: View {
                             }
                         }
                         HStack {
-                            Image(systemName: "number")
+                            Image(systemName: "rectangle")
                                 .frame(width: 24)
                                 .foregroundColor(.rosenergo)
                             VStack(alignment: .leading) {
@@ -190,7 +190,7 @@ struct LocalInspectionsDetails: View {
                             }
                         }
                         HStack {
-                            Image(systemName: "map")
+                            Image(systemName: "v.circle")
                                 .frame(width: 24)
                                 .foregroundColor(.rosenergo)
                             VStack(alignment: .leading) {
@@ -201,7 +201,7 @@ struct LocalInspectionsDetails: View {
                             }
                         }
                         HStack {
-                            Image(systemName: "map")
+                            Image(systemName: "textformat.123")
                                 .frame(width: 24)
                                 .foregroundColor(.rosenergo)
                             VStack(alignment: .leading) {
@@ -212,7 +212,7 @@ struct LocalInspectionsDetails: View {
                             }
                         }
                         HStack {
-                            Image(systemName: "list.bullet.below.rectangle")
+                            Image(systemName: "text.justify")
                                 .frame(width: 24)
                                 .foregroundColor(.rosenergo)
                             VStack(alignment: .leading) {
