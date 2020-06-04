@@ -18,16 +18,16 @@ struct CreateInspections: View {
     
     @State private var showImagePicker: Bool = false
     @State private var choiseCar: Int = 0
-    @State private var vin: String = ""
-    @State private var numberBody: String = ""
-    @State private var numberPolis: String = ""
-    @State private var nameCarModel: String = ""
-    @State private var regCarNumber: String = ""
-    @State private var vin2: String = ""
-    @State private var numberBody2: String = ""
-    @State private var numberPolis2: String = ""
-    @State private var nameCarModel2: String = ""
-    @State private var regCarNumber2: String = ""
+    @State private var carModel: String = ""
+    @State private var carModel2: String = ""
+    @State private var carVin: String = ""
+    @State private var carVin2: String = ""
+    @State private var carBodyNumber: String = ""
+    @State private var carBodyNumber2: String = ""
+    @State private var carRegNumber: String = ""
+    @State private var carRegNumber2: String = ""
+    @State private var insuranceContractNumber: String = ""
+    @State private var insuranceContractNumber2: String = ""
     
     var body: some View {
         VStack {
@@ -53,7 +53,7 @@ struct CreateInspections: View {
                                 .foregroundColor(Color.red.opacity(0.2))
                     )
                 }.padding(.horizontal)
-                Picker(selection: $choiseCar, label: Text("")) {
+                Picker("", selection: $choiseCar) {
                     Text("Один автомобиль").tag(0)
                     Text("Два автомобиля").tag(1)
                 }
@@ -61,13 +61,20 @@ struct CreateInspections: View {
                 .padding(.horizontal)
                 .padding(.bottom, 4)
                 .pickerStyle(SegmentedPickerStyle())
-                VStack {
+                VStack(alignment: .leading) {
+                    Text("Первый автомобиль")
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                    Text("Введите данные о первом автомобиле")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .padding(.leading)
                     Group {
-                        CustomInput(text: $nameCarModel, name: "Марка автомобиля")
-                        CustomInput(text: $regCarNumber, name: "Рег. номер автомобиля")
-                        CustomInput(text: $vin, name: "VIN")
-                        CustomInput(text: $numberBody, name: "Номер кузова")
-                        CustomInput(text: $numberPolis, name: "Номер полиса")
+                        CustomInput(text: $carModel, name: "Марка автомобиля")
+                        CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
+                        CustomInput(text: $carVin, name: "VIN")
+                        CustomInput(text: $carBodyNumber, name: "Номер кузова")
+                        CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                     }.padding(.horizontal)
                     ImageButton(action: {
                         self.showImagePicker = true
@@ -75,12 +82,19 @@ struct CreateInspections: View {
                     if choiseCar == 1 {
                         Divider()
                             .padding()
+                        Text("Второй автомобиль")
+                            .fontWeight(.bold)
+                            .padding(.leading)
+                        Text("Введите данные о втором автомобиле")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .padding(.leading)
                         Group {
-                            CustomInput(text: $nameCarModel2, name: "Марка автомобиля")
-                            CustomInput(text: $regCarNumber2, name: "Рег. номер автомобиля")
-                            CustomInput(text: $vin2, name: "VIN")
-                            CustomInput(text: $numberBody2, name: "Номер кузова")
-                            CustomInput(text: $numberPolis2, name: "Номер полиса")
+                            CustomInput(text: $carModel2, name: "Марка автомобиля")
+                            CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
+                            CustomInput(text: $carVin2, name: "VIN")
+                            CustomInput(text: $carBodyNumber2, name: "Номер кузова")
+                            CustomInput(text: $insuranceContractNumber2, name: "Номер полиса")
                         }.padding(.horizontal)
                         ImageButton(action: {
                             self.showImagePicker = true
@@ -93,16 +107,16 @@ struct CreateInspections: View {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                             self.sessionStore.uploadInspections(
-                                carModel: self.nameCarModel,
-                                carRegNumber: self.regCarNumber,
-                                carBodyNumber: self.numberBody,
-                                carVin: self.vin,
-                                insuranceContractNumber: self.numberPolis,
-                                carModel2: self.nameCarModel2 == "" ? nil : self.nameCarModel2,
-                                carRegNumber2: self.regCarNumber2 == "" ? nil : self.regCarNumber2,
-                                carBodyNumber2: self.numberBody2 == "" ? nil : self.numberBody2,
-                                carVin2: self.vin2 == "" ? nil : self.vin2,
-                                insuranceContractNumber2: self.numberPolis2 == "" ? nil : self.numberPolis2,
+                                carModel: self.carModel,
+                                carRegNumber: self.carRegNumber,
+                                carBodyNumber: self.carBodyNumber,
+                                carVin: self.carVin,
+                                insuranceContractNumber: self.insuranceContractNumber,
+                                carModel2: self.carModel2 == "" ? nil : self.carModel2,
+                                carRegNumber2: self.carRegNumber2 == "" ? nil : self.carRegNumber2,
+                                carBodyNumber2: self.carBodyNumber2 == "" ? nil : self.carBodyNumber2,
+                                carVin2: self.carVin2 == "" ? nil : self.carVin2,
+                                insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
                                 latitude: self.sessionStore.latitude,
                                 longitude: self.sessionStore.longitude,
                                 photoParameters: self.sessionStore.photoParameters
@@ -112,20 +126,20 @@ struct CreateInspections: View {
                             let localInspections = LocalInspections(context: self.moc)
                             localInspections.latitude = self.sessionStore.latitude
                             localInspections.longitude = self.sessionStore.longitude
-                            localInspections.carBodyNumber = self.numberBody
-                            localInspections.carModel = self.nameCarModel
-                            localInspections.carRegNumber = self.regCarNumber
-                            localInspections.carVin = self.vin
-                            localInspections.insuranceContractNumber = self.numberPolis
+                            localInspections.carBodyNumber = self.carBodyNumber
+                            localInspections.carModel = self.carModel
+                            localInspections.carRegNumber = self.carRegNumber
+                            localInspections.carVin = self.carVin
+                            localInspections.insuranceContractNumber = self.insuranceContractNumber
                             localInspections.photos = self.sessionStore.imageLocalInspections
                             localInspections.dateInspections = self.sessionStore.stringDate
                             localInspections.id = UUID()
                             if self.choiseCar == 1 {
-                                localInspections.carBodyNumber2 = self.numberBody2
-                                localInspections.carModel2 = self.nameCarModel2
-                                localInspections.carRegNumber2 = self.regCarNumber2
-                                localInspections.carVin2 = self.vin2
-                                localInspections.insuranceContractNumber2 = self.numberPolis2
+                                localInspections.carBodyNumber2 = self.carBodyNumber2
+                                localInspections.carModel2 = self.carModel2
+                                localInspections.carRegNumber2 = self.carRegNumber2
+                                localInspections.carVin2 = self.carVin2
+                                localInspections.insuranceContractNumber2 = self.insuranceContractNumber2
                             }
                             try? self.moc.save()
                             self.presentationMode.wrappedValue.dismiss()
