@@ -11,6 +11,7 @@ import Combine
 import Alamofire
 import SPAlert
 import CoreLocation
+import FirebaseCrashlytics
 
 class SessionStore: ObservableObject {
     
@@ -79,6 +80,7 @@ class SessionStore: ObservableObject {
                     guard let loginModel = response.value else { return }
                     self.loginModel = loginModel
                     self.loadingLogin = false
+                    Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
                     print(error.errorDescription!)
@@ -100,8 +102,10 @@ class SessionStore: ObservableObject {
                 switch response.result {
                 case .success:
                     self.loginModel = nil
+                    Crashlytics.crashlytics().setUserID("")
                 case .failure(let error):
                     self.loginModel = nil
+                    Crashlytics.crashlytics().setUserID("")
                     print(error.errorDescription!)
                 }
         }
