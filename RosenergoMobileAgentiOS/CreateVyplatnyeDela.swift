@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreLocation
+import SPAlert
 import KeyboardObserving
 
 struct CreateVyplatnyeDela: View {
@@ -15,9 +16,17 @@ struct CreateVyplatnyeDela: View {
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var showImagePicker: Bool = false
+    @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
+    
+    func openCamera() {
+        if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
+            SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
+        } else {
+            showCustomCameraView = true
+        }
+    }
     
     var body: some View {
         VStack {
@@ -48,21 +57,24 @@ struct CreateVyplatnyeDela: View {
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
-                    ImageButton(action: {
-                        self.showImagePicker = true
-                    }).padding(.horizontal)
+                    ImageButton(action: openCamera)
+                        .padding(.horizontal)
                 }
             }
             Group {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                        self.sessionStore.uploadVyplatnyeDela(
-                            insuranceContractNumber: self.insuranceContractNumber,
-                            numberZayavlenia: self.numberZayavlenia,
-                            latitude: self.sessionStore.latitude,
-                            longitude: self.sessionStore.longitude,
-                            photos: self.sessionStore.photoParameters
-                        )
+                        if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
+                            SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                        } else {
+                            self.sessionStore.uploadVyplatnyeDela(
+                                insuranceContractNumber: self.insuranceContractNumber,
+                                numberZayavlenia: self.numberZayavlenia,
+                                latitude: self.sessionStore.latitude,
+                                longitude: self.sessionStore.longitude,
+                                photos: self.sessionStore.photoParameters
+                            )
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 8)
@@ -86,7 +98,7 @@ struct CreateVyplatnyeDela: View {
             self.sessionStore.photoParameters.removeAll()
             self.sessionStore.imageLocalInspections.removeAll()
         }
-        .sheet(isPresented: $showImagePicker) {
+        .sheet(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.bottom)

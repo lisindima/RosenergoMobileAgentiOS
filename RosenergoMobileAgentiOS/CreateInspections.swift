@@ -16,7 +16,7 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @State private var showImagePicker: Bool = false
+    @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
     @State private var carModel: String = ""
     @State private var carModel2: String = ""
@@ -28,6 +28,14 @@ struct CreateInspections: View {
     @State private var carRegNumber2: String = ""
     @State private var insuranceContractNumber: String = ""
     @State private var insuranceContractNumber2: String = ""
+    
+    func openCamera() {
+        if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
+            SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
+        } else {
+            showCustomCameraView = true
+        }
+    }
     
     var body: some View {
         VStack {
@@ -76,9 +84,8 @@ struct CreateInspections: View {
                         CustomInput(text: $carBodyNumber, name: "Номер кузова")
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                     }.padding(.horizontal)
-                    ImageButton(action: {
-                        self.showImagePicker = true
-                    }).padding(.horizontal)
+                    ImageButton(action: openCamera)
+                        .padding(.horizontal)
                     if choiseCar == 1 {
                         Divider()
                             .padding()
@@ -96,9 +103,8 @@ struct CreateInspections: View {
                             CustomInput(text: $carBodyNumber2, name: "Номер кузова")
                             CustomInput(text: $insuranceContractNumber2, name: "Номер полиса")
                         }.padding(.horizontal)
-                        ImageButton(action: {
-                            self.showImagePicker = true
-                        }).padding(.horizontal)
+                        ImageButton(action: openCamera)
+                            .padding(.horizontal)
                     }
                 }
             }
@@ -106,44 +112,52 @@ struct CreateInspections: View {
                 if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            self.sessionStore.uploadInspections(
-                                carModel: self.carModel,
-                                carRegNumber: self.carRegNumber,
-                                carBodyNumber: self.carBodyNumber,
-                                carVin: self.carVin,
-                                insuranceContractNumber: self.insuranceContractNumber,
-                                carModel2: self.carModel2 == "" ? nil : self.carModel2,
-                                carRegNumber2: self.carRegNumber2 == "" ? nil : self.carRegNumber2,
-                                carBodyNumber2: self.carBodyNumber2 == "" ? nil : self.carBodyNumber2,
-                                carVin2: self.carVin2 == "" ? nil : self.carVin2,
-                                insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
-                                latitude: self.sessionStore.latitude,
-                                longitude: self.sessionStore.longitude,
-                                photoParameters: self.sessionStore.photoParameters
-                            )
+                            if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
+                                SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                            } else {
+                                self.sessionStore.uploadInspections(
+                                    carModel: self.carModel,
+                                    carRegNumber: self.carRegNumber,
+                                    carBodyNumber: self.carBodyNumber,
+                                    carVin: self.carVin,
+                                    insuranceContractNumber: self.insuranceContractNumber,
+                                    carModel2: self.carModel2 == "" ? nil : self.carModel2,
+                                    carRegNumber2: self.carRegNumber2 == "" ? nil : self.carRegNumber2,
+                                    carBodyNumber2: self.carBodyNumber2 == "" ? nil : self.carBodyNumber2,
+                                    carVin2: self.carVin2 == "" ? nil : self.carVin2,
+                                    insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
+                                    latitude: self.sessionStore.latitude,
+                                    longitude: self.sessionStore.longitude,
+                                    photoParameters: self.sessionStore.photoParameters
+                                )
+                            }
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                            let localInspections = LocalInspections(context: self.moc)
-                            localInspections.latitude = self.sessionStore.latitude
-                            localInspections.longitude = self.sessionStore.longitude
-                            localInspections.carBodyNumber = self.carBodyNumber
-                            localInspections.carModel = self.carModel
-                            localInspections.carRegNumber = self.carRegNumber
-                            localInspections.carVin = self.carVin
-                            localInspections.insuranceContractNumber = self.insuranceContractNumber
-                            localInspections.photos = self.sessionStore.imageLocalInspections
-                            localInspections.dateInspections = self.sessionStore.stringDate
-                            localInspections.id = UUID()
-                            if self.choiseCar == 1 {
-                                localInspections.carBodyNumber2 = self.carBodyNumber2
-                                localInspections.carModel2 = self.carModel2
-                                localInspections.carRegNumber2 = self.carRegNumber2
-                                localInspections.carVin2 = self.carVin2
-                                localInspections.insuranceContractNumber2 = self.insuranceContractNumber2
+                            if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
+                                SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                            } else {
+                                let localInspections = LocalInspections(context: self.moc)
+                                localInspections.latitude = self.sessionStore.latitude
+                                localInspections.longitude = self.sessionStore.longitude
+                                localInspections.carBodyNumber = self.carBodyNumber
+                                localInspections.carModel = self.carModel
+                                localInspections.carRegNumber = self.carRegNumber
+                                localInspections.carVin = self.carVin
+                                localInspections.insuranceContractNumber = self.insuranceContractNumber
+                                localInspections.photos = self.sessionStore.imageLocalInspections
+                                localInspections.dateInspections = self.sessionStore.stringDate
+                                localInspections.id = UUID()
+                                if self.choiseCar == 1 {
+                                    localInspections.carBodyNumber2 = self.carBodyNumber2
+                                    localInspections.carModel2 = self.carModel2
+                                    localInspections.carRegNumber2 = self.carRegNumber2
+                                    localInspections.carVin2 = self.carVin2
+                                    localInspections.insuranceContractNumber2 = self.insuranceContractNumber2
+                                }
+                                try? self.moc.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                                SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
                             }
-                            try? self.moc.save()
-                            self.presentationMode.wrappedValue.dismiss()
-                            SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
                         }.padding(.leading, 4)
                     }
                     .padding(.horizontal)
@@ -168,7 +182,7 @@ struct CreateInspections: View {
             self.sessionStore.photoParameters.removeAll()
             self.sessionStore.imageLocalInspections.removeAll()
         }
-        .sheet(isPresented: $showImagePicker) {
+        .sheet(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.bottom)
