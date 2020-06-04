@@ -14,6 +14,8 @@ struct InspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
+    @State private var presentMapActionSheet: Bool = false
+    
     var inspection: Inspections
     
     var body: some View {
@@ -202,14 +204,26 @@ struct InspectionsDetails: View {
                         }
                     }
                 }
-                MapView(latitude: inspection.latitude, longitude: inspection.longitude)
-                    .cornerRadius(10)
-                    .padding(.vertical, 8)
-                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                Button(action: {
+                    self.presentMapActionSheet = true
+                }) {
+                    MapView(latitude: inspection.latitude, longitude: inspection.longitude)
+                        .cornerRadius(10)
+                        .padding(.vertical, 8)
+                        .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                }
             }
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Осмотр: \(inspection.id)")
+        .actionSheet(isPresented: $presentMapActionSheet) {
+            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
+                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.inspection.latitude),\(self.inspection.longitude)")!)
+                }, .default(Text("Яндекс.Карты")) {
+                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
+                }, .cancel()
+            ])
+        }
         .onAppear {
             self.sessionStore.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
         }

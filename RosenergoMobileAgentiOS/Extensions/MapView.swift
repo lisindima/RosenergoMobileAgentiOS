@@ -20,6 +20,8 @@ struct MapView: UIViewRepresentable {
         mapView.delegate = context.coordinator
         mapView.setCenter(coordinate, animated: false)
         mapView.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
+        mapView.mapType = .hybrid
+        mapView.isScrollEnabled = false
         let inspections = MKPointAnnotation()
         inspections.title = "Широта: \(latitude) Долгота: \(longitude)"
         inspections.coordinate = coordinate

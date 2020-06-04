@@ -16,6 +16,7 @@ struct LocalInspectionsDetails: View {
     @Environment(\.managedObjectContext) var moc
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
+    @State private var presentMapActionSheet: Bool = false
     
     var localInspections: LocalInspections
     
@@ -261,10 +262,14 @@ struct LocalInspectionsDetails: View {
                             }
                         }
                     }
-                    MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
-                        .cornerRadius(10)
-                        .padding(.vertical, 8)
-                        .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                    Button(action: {
+                        self.presentMapActionSheet = true
+                    }) {
+                        MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
+                            .cornerRadius(10)
+                            .padding(.vertical, 8)
+                            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                    }
                 }
             }
             if sessionStore.uploadState == .none {
@@ -312,6 +317,14 @@ struct LocalInspectionsDetails: View {
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")
+        .actionSheet(isPresented: $presentMapActionSheet) {
+            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
+                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.localInspections.latitude),\(self.localInspections.longitude)")!)
+                }, .default(Text("Яндекс.Карты")) {
+                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.localInspections.longitude),\(self.localInspections.latitude)")!)
+                }, .cancel()
+            ])
+        }
     }
 }
 
