@@ -31,48 +31,44 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Личные данные".uppercased())) {
-                    Text(sessionStore.loginModel?.data.name ?? "Ошибка")
-                    Text(sessionStore.loginModel?.data.email ?? "Ошибка")
-                }
-                Section(header: Text("Другое".uppercased()), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
-                    HStack {
-                        Image(systemName: "ant")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        Button("Сообщить об ошибке") {
-                            if MFMailComposeViewController.canSendMail() {
-                                self.showMailView()
-                            } else {
-                                SPAlert.present(title: "Не установлено приложение \"Почта\".", message: "Установите его из App Store." , preset: .error)
-                            }
-                        }.foregroundColor(.primary)
-                    }
-                }
-                Section {
-                    Button(action:  {
-                        self.showActionSheetExit = true
-                    }) {
-                        HStack {
-                            Image(systemName: "flame")
-                                .frame(width: 24)
-                            Text("Выйти из аккаунта")
-                        }.foregroundColor(.red)
-                    }
-                }.actionSheet(isPresented: $showActionSheetExit) {
-                    ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                        self.presentationMode.wrappedValue.dismiss()
-                        self.sessionStore.logout()
-                        }, .cancel()
-                    ])
+        Form {
+            Section(header: Text("Личные данные".uppercased())) {
+                Text(sessionStore.loginModel?.data.name ?? "Ошибка")
+                Text(sessionStore.loginModel?.data.email ?? "Ошибка")
+            }
+            Section(header: Text("Другое".uppercased()), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+                HStack {
+                    Image(systemName: "ant")
+                        .frame(width: 24)
+                        .foregroundColor(.rosenergo)
+                    Button("Сообщить об ошибке") {
+                        if MFMailComposeViewController.canSendMail() {
+                            self.showMailView()
+                        } else {
+                            SPAlert.present(title: "Не установлено приложение \"Почта\".", message: "Установите его из App Store." , preset: .error)
+                        }
+                    }.foregroundColor(.primary)
                 }
             }
-            .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Настройки", displayMode: .inline)
+            Section {
+                Button(action:  {
+                    self.showActionSheetExit = true
+                }) {
+                    HStack {
+                        Image(systemName: "flame")
+                            .frame(width: 24)
+                        Text("Выйти из аккаунта")
+                    }.foregroundColor(.red)
+                }
+            }.actionSheet(isPresented: $showActionSheetExit) {
+                ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
+                    self.presentationMode.wrappedValue.dismiss()
+                    self.sessionStore.logout()
+                    }, .cancel()
+                ])
+            }
         }
-        .accentColor(.rosenergo)
-        .navigationViewStyle(StackNavigationViewStyle())
+        .environment(\.horizontalSizeClass, .regular)
+        .navigationBarTitle("Настройки")
     }
 }

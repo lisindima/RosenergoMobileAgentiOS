@@ -12,8 +12,6 @@ struct MenuView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
-    @State private var showSettings: Bool = false
-    
     private var appVersionView: some View {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
@@ -52,15 +50,9 @@ struct MenuView: View {
                     .foregroundColor(.secondary)
                     .font(.system(size: 11))
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsView()
-                    .environmentObject(self.sessionStore)
-            }
             .navigationBarTitle("Мобильный агент")
-            .navigationBarItems(trailing: Button(action: {
-                self.showSettings = true
-            }) {
-                Image(systemName: "gear")
+            .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {
+               Image(systemName: "gear")
                     .imageScale(.large)
             })
         }.navigationViewStyle(StackNavigationViewStyle())
