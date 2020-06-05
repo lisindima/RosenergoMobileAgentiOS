@@ -58,7 +58,7 @@ struct CreateVyplatnyeDela: View {
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
                     ImageButton(action: openCamera)
-                        .padding(.horizontal)
+                        .padding()
                 }
             }
             Group {
@@ -79,16 +79,9 @@ struct CreateVyplatnyeDela: View {
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 } else if sessionStore.uploadState == .upload {
-                    HStack {
-                        Spacer()
-                        ActivityIndicatorButton()
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.rosenergo)
-                    .cornerRadius(8)
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
+                    UploadIndicator(progress: $sessionStore.uploadProgress, color: .rosenergo)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
                 }
             }
         }

@@ -46,12 +46,11 @@ struct ImageButton: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.rosenergo)
-                    .opacity(0.2)
-                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 70, idealHeight: 70, maxHeight: 70)
+                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 53, idealHeight: 53, maxHeight: 53)
                 VStack {
                     Image(systemName: "camera")
-                        .font(.largeTitle)
-                        .foregroundColor(.rosenergo)
+                        .font(.title)
+                        .foregroundColor(.white)
                 }
             }
         }

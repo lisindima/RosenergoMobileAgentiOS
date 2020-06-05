@@ -85,7 +85,7 @@ struct CreateInspections: View {
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                     }.padding(.horizontal)
                     ImageButton(action: openCamera)
-                        .padding(.horizontal)
+                        .padding()
                     if choiseCar == 1 {
                         Divider()
                             .padding()
@@ -104,7 +104,7 @@ struct CreateInspections: View {
                             CustomInput(text: $insuranceContractNumber2, name: "Номер полиса")
                         }.padding(.horizontal)
                         ImageButton(action: openCamera)
-                            .padding(.horizontal)
+                            .padding()
                     }
                 }
             }
@@ -163,16 +163,9 @@ struct CreateInspections: View {
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 } else if sessionStore.uploadState == .upload {
-                    HStack {
-                        Spacer()
-                        ActivityIndicatorButton()
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.rosenergo)
-                    .cornerRadius(8)
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
+                    UploadIndicator(progress: $sessionStore.uploadProgress, color: .rosenergo)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
                 }
             }
         }

@@ -30,10 +30,10 @@ class SessionStore: ObservableObject {
     @Published var loadingLogin: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
+    @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
     @Published var openCreateInspections: Bool = false
-    @Published var openListInspection: Bool = false
     @Published var openCreateVyplatnyeDela: Bool = false
     
     static let shared = SessionStore()
@@ -181,6 +181,9 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
+            .uploadProgress { progress in
+                self.uploadProgress = progress.fractionCompleted
+            }
             .response { response in
                 switch response.result {
                 case .success:
@@ -214,6 +217,9 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
+            .uploadProgress { progress in
+                self.uploadProgress = progress.fractionCompleted
+            }
             .response { response in
                 switch response.result {
                 case .success:
