@@ -12,6 +12,7 @@ import AVFoundation
 struct CustomCameraView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.presentationMode) var presentationMode
     
     @State private var didTapCapture: Bool = false
     @State private var flashMode: AVCaptureDevice.FlashMode = .off
@@ -50,17 +51,18 @@ struct CustomCameraView: View {
                 }.padding()
             }
             HStack {
-                Button(action: {}) {
-                    Image(systemName: "camera.rotate")
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "xmark")
                         .frame(width: 24)
                         .imageScale(.large)
                         .padding(30)
-                        .background(Color.rosenergo.opacity(0.0))
-                        .foregroundColor(Color.rosenergo.opacity(0.0))
+                        .background(Color.red.opacity(0.2))
+                        .foregroundColor(.red)
                         .clipShape(Circle())
                 }
                 .padding(.bottom, 30)
-                .disabled(true)
                 Button(action: {
                     self.didTapCapture = true
                 }) {

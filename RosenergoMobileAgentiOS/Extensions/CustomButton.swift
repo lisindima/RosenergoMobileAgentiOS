@@ -40,6 +40,7 @@ struct CustomButton: View {
 struct ImageButton: View {
     
     var action: () -> Void
+    var photoParameters: [PhotoParameters]
     
     var body: some View {
         Button(action: action) {
@@ -48,9 +49,15 @@ struct ImageButton: View {
                     .fill(Color.rosenergo)
                     .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 53, idealHeight: 53, maxHeight: 53)
                 VStack {
-                    Image(systemName: "camera")
-                        .font(.title)
-                        .foregroundColor(.white)
+                    if photoParameters.count == 0 {
+                        Image(systemName: "camera")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    } else {
+                        Text("\(photoParameters.count) фотографий добавлено")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
                 }
             }
         }

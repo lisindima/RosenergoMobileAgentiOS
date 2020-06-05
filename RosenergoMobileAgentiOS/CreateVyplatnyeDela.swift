@@ -57,7 +57,7 @@ struct CreateVyplatnyeDela: View {
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
-                    ImageButton(action: openCamera)
+                    ImageButton(action: openCamera, photoParameters: sessionStore.photoParameters)
                         .padding()
                 }
             }

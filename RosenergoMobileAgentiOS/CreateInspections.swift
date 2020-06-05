@@ -84,7 +84,7 @@ struct CreateInspections: View {
                         CustomInput(text: $carBodyNumber, name: "Номер кузова")
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                     }.padding(.horizontal)
-                    ImageButton(action: openCamera)
+                    ImageButton(action: openCamera, photoParameters: sessionStore.photoParameters)
                         .padding()
                     if choiseCar == 1 {
                         Divider()
@@ -103,7 +103,7 @@ struct CreateInspections: View {
                             CustomInput(text: $carBodyNumber2, name: "Номер кузова")
                             CustomInput(text: $insuranceContractNumber2, name: "Номер полиса")
                         }.padding(.horizontal)
-                        ImageButton(action: openCamera)
+                        ImageButton(action: openCamera, photoParameters: sessionStore.photoParameters)
                             .padding()
                     }
                 }
