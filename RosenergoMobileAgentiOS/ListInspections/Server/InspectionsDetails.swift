@@ -9,14 +9,26 @@
 import SwiftUI
 import Alamofire
 import SDWebImageSwiftUI
+import MapKit
 
 struct InspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
+    @State private var mapSnap: UIImage? = nil
     
     var inspection: Inspections
+    
+    private func loadMapSnap() {
+        let options = MKMapSnapshotter.Options()
+        let coordinate = CLLocationCoordinate2D(latitude: inspection.latitude, longitude: inspection.longitude)
+        options.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
+        options.mapType = .hybrid
+        MKMapSnapshotter(options: options).start { snapshot, error in
+            self.mapSnap = snapshot?.image
+        }
+    }
     
     var body: some View {
         Form {
@@ -204,13 +216,16 @@ struct InspectionsDetails: View {
                         }
                     }
                 }
-                Button(action: {
-                    self.presentMapActionSheet = true
-                }) {
-                    MapView(latitude: inspection.latitude, longitude: inspection.longitude)
-                        .cornerRadius(10)
-                        .padding(.vertical, 8)
-                        .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                if mapSnap != nil {
+                    Button(action: {
+                        self.presentMapActionSheet = true
+                    }) {
+                        Image(uiImage: mapSnap!)
+                            .renderingMode(.original)
+                            .cornerRadius(10)
+                            .padding(.vertical, 8)
+                            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                    }
                 }
             }
         }
@@ -226,6 +241,7 @@ struct InspectionsDetails: View {
         }
         .onAppear {
             self.sessionStore.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
+            self.loadMapSnap()
         }
         .onDisappear {
             self.sessionStore.yandexGeo = nil

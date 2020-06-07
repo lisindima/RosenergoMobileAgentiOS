@@ -9,6 +9,7 @@
 import SwiftUI
 import Alamofire
 import SPAlert
+import MapKit
 
 struct LocalInspectionsDetails: View {
     
@@ -17,6 +18,7 @@ struct LocalInspectionsDetails: View {
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     @State private var presentMapActionSheet: Bool = false
+    @State private var mapSnap: UIImage? = nil
     
     var localInspections: LocalInspections
     
@@ -25,6 +27,16 @@ struct LocalInspectionsDetails: View {
             for photo in localInspections.photos! {
                 localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
             }
+        }
+    }
+    
+    private func loadMapSnap() {
+        let options = MKMapSnapshotter.Options()
+        let coordinate = CLLocationCoordinate2D(latitude: localInspections.latitude, longitude: localInspections.longitude)
+        options.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
+        options.mapType = .hybrid
+        MKMapSnapshotter(options: options).start { snapshot, error in
+            self.mapSnap = snapshot?.image
         }
     }
     
@@ -262,13 +274,16 @@ struct LocalInspectionsDetails: View {
                             }
                         }
                     }
-                    Button(action: {
-                        self.presentMapActionSheet = true
-                    }) {
-                        MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
-                            .cornerRadius(10)
-                            .padding(.vertical, 8)
-                            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                    if mapSnap != nil {
+                        Button(action: {
+                            self.presentMapActionSheet = true
+                        }) {
+                            Image(uiImage: mapSnap!)
+                                .renderingMode(.original)
+                                .cornerRadius(10)
+                                .padding(.vertical, 8)
+                                .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
+                        }
                     }
                 }
             }
@@ -307,6 +322,7 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
+            self.loadMapSnap()
             self.preparationPhotoArray()
             self.sessionStore.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
         }
