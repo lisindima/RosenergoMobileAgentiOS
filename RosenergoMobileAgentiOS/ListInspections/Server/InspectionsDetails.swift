@@ -9,26 +9,14 @@
 import SwiftUI
 import Alamofire
 import SDWebImageSwiftUI
-import MapKit
 
 struct InspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
-    @State private var mapSnap: UIImage? = nil
     
     var inspection: Inspections
-    
-    private func loadMapSnap() {
-        let options = MKMapSnapshotter.Options()
-        let coordinate = CLLocationCoordinate2D(latitude: inspection.latitude, longitude: inspection.longitude)
-        options.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-        options.mapType = .hybrid
-        MKMapSnapshotter(options: options).start { snapshot, error in
-            self.mapSnap = snapshot?.image
-        }
-    }
     
     var body: some View {
         Form {
@@ -180,51 +168,47 @@ struct InspectionsDetails: View {
                 }
             }
             Section(header: Text("Место проведения осмотра".uppercased())) {
-                if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
-                    HStack {
-                        Image(systemName: "map")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Адрес места проведения осмотра")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                Button(action: {
+                    self.presentMapActionSheet = true
+                }) {
+                    if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                        HStack {
+                            Image(systemName: "map")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Адрес места проведения осмотра")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                                    .foregroundColor(.primary)
+                            }
                         }
-                    }
-                } else if sessionStore.yandexGeoState == .failure {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .frame(width: 24)
-                            .foregroundColor(.yellow)
-                        VStack(alignment: .leading) {
-                            Text("Ошибка, не удалось определить адрес")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text("Проверьте подключение к интернету!")
+                    } else if sessionStore.yandexGeoState == .failure {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                                .frame(width: 24)
+                                .foregroundColor(.yellow)
+                            VStack(alignment: .leading) {
+                                Text("Ошибка, не удалось определить адрес")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text("Проверьте подключение к интернету!")
+                                     .foregroundColor(.primary)
+                            }
                         }
-                    }
-                } else if sessionStore.yandexGeoState == .loading {
-                   HStack {
-                        ActivityIndicator(styleSpinner: .medium)
-                            .frame(width: 24)
-                        VStack(alignment: .leading) {
-                            Text("Определяем адрес осмотра")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text("Загрузка")
+                    } else if sessionStore.yandexGeoState == .loading {
+                        HStack {
+                            ActivityIndicator(styleSpinner: .medium)
+                                .frame(width: 24)
+                            VStack(alignment: .leading) {
+                                Text("Определяем адрес осмотра")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text("Загрузка")
+                                     .foregroundColor(.primary)
+                            }
                         }
-                    }
-                }
-                if mapSnap != nil {
-                    Button(action: {
-                        self.presentMapActionSheet = true
-                    }) {
-                        Image(uiImage: mapSnap!)
-                            .renderingMode(.original)
-                            .cornerRadius(10)
-                            .padding(.vertical, 8)
-                            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
                     }
                 }
             }
@@ -235,13 +219,12 @@ struct InspectionsDetails: View {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
                 UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.inspection.latitude),\(self.inspection.longitude)")!)
                 }, .default(Text("Яндекс.Карты")) {
-                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
+                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
                 }, .cancel()
             ])
         }
         .onAppear {
             self.sessionStore.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
-            self.loadMapSnap()
         }
         .onDisappear {
             self.sessionStore.yandexGeo = nil

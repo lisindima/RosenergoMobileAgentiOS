@@ -9,7 +9,6 @@
 import SwiftUI
 import Alamofire
 import SPAlert
-import MapKit
 
 struct LocalInspectionsDetails: View {
     
@@ -18,7 +17,7 @@ struct LocalInspectionsDetails: View {
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     @State private var presentMapActionSheet: Bool = false
-    @State private var mapSnap: UIImage? = nil
+    @State private var uploadProgress: Double = 0.0
     
     var localInspections: LocalInspections
     
@@ -27,16 +26,6 @@ struct LocalInspectionsDetails: View {
             for photo in localInspections.photos! {
                 localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
             }
-        }
-    }
-    
-    private func loadMapSnap() {
-        let options = MKMapSnapshotter.Options()
-        let coordinate = CLLocationCoordinate2D(latitude: localInspections.latitude, longitude: localInspections.longitude)
-        options.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-        options.mapType = .hybrid
-        MKMapSnapshotter(options: options).start { snapshot, error in
-            self.mapSnap = snapshot?.image
         }
     }
     
@@ -67,6 +56,9 @@ struct LocalInspectionsDetails: View {
         
         AF.request(sessionStore.serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
+            .uploadProgress { progress in
+                self.uploadProgress = progress.fractionCompleted
+            }
             .response { response in
                 switch response.result {
                 case .success:
@@ -238,51 +230,47 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 Section(header: Text("Место проведения осмотра".uppercased())) {
-                    if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
-                        HStack {
-                            Image(systemName: "map")
-                                .frame(width: 24)
-                                .foregroundColor(.rosenergo)
-                            VStack(alignment: .leading) {
-                                Text("Адрес места проведения осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                    Button(action: {
+                        self.presentMapActionSheet = true
+                    }) {
+                        if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                            HStack {
+                                Image(systemName: "map")
+                                    .frame(width: 24)
+                                    .foregroundColor(.rosenergo)
+                                VStack(alignment: .leading) {
+                                    Text("Адрес места проведения осмотра")
+                                        .font(.system(size: 11))
+                                        .foregroundColor(.secondary)
+                                    Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                                         .foregroundColor(.primary)
+                                }
                             }
-                        }
-                    } else if sessionStore.yandexGeoState == .failure {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle")
-                                .frame(width: 24)
-                                .foregroundColor(.yellow)
-                            VStack(alignment: .leading) {
-                                Text("Ошибка, не удалось определить адрес")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text("Проверьте подключение к интернету!")
+                        } else if sessionStore.yandexGeoState == .failure {
+                            HStack {
+                                Image(systemName: "exclamationmark.triangle")
+                                    .frame(width: 24)
+                                    .foregroundColor(.yellow)
+                                VStack(alignment: .leading) {
+                                    Text("Ошибка, не удалось определить адрес")
+                                        .font(.system(size: 11))
+                                        .foregroundColor(.secondary)
+                                    Text("Проверьте подключение к интернету!")
+                                         .foregroundColor(.primary)
+                                }
                             }
-                        }
-                    } else if sessionStore.yandexGeoState == .loading {
-                       HStack {
-                            ActivityIndicator(styleSpinner: .medium)
-                                .frame(width: 24)
-                            VStack(alignment: .leading) {
-                                Text("Определяем адрес осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text("Загрузка")
+                        } else if sessionStore.yandexGeoState == .loading {
+                            HStack {
+                                ActivityIndicator(styleSpinner: .medium)
+                                    .frame(width: 24)
+                                VStack(alignment: .leading) {
+                                    Text("Определяем адрес осмотра")
+                                        .font(.system(size: 11))
+                                        .foregroundColor(.secondary)
+                                    Text("Загрузка")
+                                         .foregroundColor(.primary)
+                                }
                             }
-                        }
-                    }
-                    if mapSnap != nil {
-                        Button(action: {
-                            self.presentMapActionSheet = true
-                        }) {
-                            Image(uiImage: mapSnap!)
-                                .renderingMode(.original)
-                                .cornerRadius(10)
-                                .padding(.vertical, 8)
-                                .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 300, idealHeight: 300, maxHeight: 300)
                         }
                     }
                 }
@@ -309,20 +297,12 @@ struct LocalInspectionsDetails: View {
                 .padding(.horizontal)
                 .padding(.bottom, 8)
             } else if sessionStore.uploadState == .upload {
-                HStack {
-                    Spacer()
-                    ActivityIndicatorButton()
-                    Spacer()
-                }
-                .padding()
-                .background(Color.rosenergo)
-                .cornerRadius(8)
-                .padding(.horizontal)
-                .padding(.bottom, 8)
+                UploadIndicator(progress: $uploadProgress, color: .rosenergo)
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
             }
         }
         .onAppear {
-            self.loadMapSnap()
             self.preparationPhotoArray()
             self.sessionStore.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
         }
