@@ -53,7 +53,7 @@ struct YandexGeoParameters: Encodable {
 
 // MARK: Параметры для логина в приложение.
 
-struct LoginParameters: Encodable {
+struct LoginParameters: Codable {
     let email: String
     let password: String
 }

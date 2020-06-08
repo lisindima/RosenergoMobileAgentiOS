@@ -22,6 +22,13 @@ class SessionStore: ObservableObject {
         }
     }
     
+    @CodableUserDefault(key: "loginParameters", default: nil)
+    var loginParameters: LoginParameters? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var yandexGeo: YandexGeo?
@@ -79,6 +86,7 @@ class SessionStore: ObservableObject {
                 case .success:
                     guard let loginModel = response.value else { return }
                     self.loginModel = loginModel
+                    self.loginParameters = parameters
                     self.loadingLogin = false
                     Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
                 case .failure(let error):
@@ -121,13 +129,18 @@ class SessionStore: ObservableObject {
         AF.request(serverURL + "token", method: .post, headers: headers)
             .validate()
             .responseJSON { response in
+                let code = response.response?.statusCode
                 switch response.result {
                 case .success:
                     break
-                case .failure(let error):
-                    SPAlert.present(title: "Ошибка!", message: "Введите свои учетные данные.", preset: .error)
-                    self.loginModel = nil
-                    print(error.errorDescription!)
+                case .failure:
+                    if code == 401 {
+                        self.login(email: self.loginParameters!.email, password: self.loginParameters!.password)
+                    } else if code == nil {
+                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
+                    } else {
+                        break
+                    }
                 }
         }
     }

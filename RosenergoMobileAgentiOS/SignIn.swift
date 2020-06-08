@@ -21,6 +21,9 @@ struct SignIn: View {
         NavigationView {
             VStack {
                 Spacer()
+                Image("rosenergo")
+                    .resizable()
+                    .frame(width: 300, height: 169)
                 Text("Мобильный агент")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -38,7 +41,9 @@ struct SignIn: View {
                 CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
                     self.sessionStore.login(email: self.email, password: self.password)
                 }.padding()
-            }.keyboardObserving()
+            }
+            .keyboardObserving()
+            .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }

@@ -49,6 +49,7 @@ struct MenuView: View {
                 appVersionView
                     .foregroundColor(.secondary)
                     .font(.system(size: 11))
+                    .padding(.bottom, 8)
             }
             .navigationBarTitle("Мобильный агент")
             .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {

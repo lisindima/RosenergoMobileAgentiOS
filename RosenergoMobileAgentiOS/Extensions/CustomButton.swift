@@ -46,17 +46,17 @@ struct ImageButton: View {
         Button(action: action) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.rosenergo)
-                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 53, idealHeight: 53, maxHeight: 53)
+                    .fill(Color.rosenergo.opacity(0.2))
+                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 72, idealHeight: 72, maxHeight: 72)
                 VStack {
                     if photoParameters.count == 0 {
                         Image(systemName: "camera")
                             .font(.title)
-                            .foregroundColor(.white)
+                            .foregroundColor(.rosenergo)
                     } else {
-                        Text("\(photoParameters.count) фотографий добавлено")
+                        Text("Фотографий добавлено: \(photoParameters.count)")
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.rosenergo)
                     }
                 }
             }
