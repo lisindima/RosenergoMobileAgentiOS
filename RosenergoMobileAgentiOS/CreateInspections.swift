@@ -70,13 +70,6 @@ struct CreateInspections: View {
                 .padding(.bottom, 4)
                 .pickerStyle(SegmentedPickerStyle())
                 VStack(alignment: .leading) {
-                    Text("Первый автомобиль")
-                        .fontWeight(.bold)
-                        .padding(.leading)
-                    Text("Введите данные о первом автомобиле")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding(.leading)
                     Group {
                         CustomInput(text: $carModel, name: "Марка автомобиля")
                         CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
@@ -89,13 +82,6 @@ struct CreateInspections: View {
                     if choiseCar == 1 {
                         Divider()
                             .padding()
-                        Text("Второй автомобиль")
-                            .fontWeight(.bold)
-                            .padding(.leading)
-                        Text("Введите данные о втором автомобиле")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .padding(.leading)
                         Group {
                             CustomInput(text: $carModel2, name: "Марка автомобиля")
                             CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")

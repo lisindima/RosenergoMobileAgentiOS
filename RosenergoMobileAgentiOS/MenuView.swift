@@ -51,6 +51,7 @@ struct MenuView: View {
                     .font(.system(size: 11))
                     .padding(.bottom, 8)
             }
+            .onAppear(perform: sessionStore.getLocation)
             .navigationBarTitle("Мобильный агент")
             .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {
                Image(systemName: "gear")

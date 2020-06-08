@@ -116,23 +116,18 @@ struct LoginModel: Codable {
 struct DataClass: Codable, Identifiable {
     let id, roleID: Int
     let name, email, avatar: String
-    let settings: Settings
     let createdAt, updatedAt, apiToken: String
     let agentID: Int
     
     enum CodingKeys: String, CodingKey {
         case id
         case roleID = "role_id"
-        case name, email, avatar, settings
+        case name, email, avatar
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case apiToken = "api_token"
         case agentID = "agent_id"
     }
-}
-
-struct Settings: Codable {
-    let locale: String
 }
 
 // MARK: Codable модель для загрузки Яндекс Геокодера.

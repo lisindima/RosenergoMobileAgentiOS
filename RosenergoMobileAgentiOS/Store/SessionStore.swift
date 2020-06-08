@@ -91,7 +91,7 @@ class SessionStore: ObservableObject {
                     Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
                 case .failure(let error):
                     SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
-                    print(error.errorDescription!)
+                    print(error)
                     self.loadingLogin = false
                 }
         }
@@ -238,7 +238,7 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    SPAlert.present(title: "Успешно!", message: "Выплатные дела успешно загружено на сервер.", preset: .done)
+                    SPAlert.present(title: "Успешно!", message: "Выплатное дело успешно загружено на сервер.", preset: .done)
                     self.uploadState = .none
                     self.openCreateVyplatnyeDela = false
                 case .failure(let error):
