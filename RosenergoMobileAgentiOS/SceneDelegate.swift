@@ -34,11 +34,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         switch shortcutItem.type {
         case "CreateVyplatnyeDela":
-            print("Выплатные дела")
+            self.sessionStore.openCreateVyplatnyeDela = true
+            break
         case "ListInspections":
-            print("Осмотры")
+            self.sessionStore.openListInspections = true
+            break
         case "CreateInspections":
-            print("Новый осмотр")
+            self.sessionStore.openCreateInspections = true
+            break
         default:
             break
         }

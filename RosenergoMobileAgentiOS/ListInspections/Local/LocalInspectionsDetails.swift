@@ -14,6 +14,7 @@ struct LocalInspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     @State private var presentMapActionSheet: Bool = false
@@ -62,6 +63,7 @@ struct LocalInspectionsDetails: View {
             .response { response in
                 switch response.result {
                 case .success:
+                    self.presentationMode.wrappedValue.dismiss()
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.sessionStore.uploadState = .none
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -277,6 +279,7 @@ struct LocalInspectionsDetails: View {
             }
             if sessionStore.uploadState == .none {
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
+                    UIApplication.shared.hideKeyboard()
                     self.uploadLocalInspections(
                         carModel: self.localInspections.carModel!,
                         carRegNumber: self.localInspections.carRegNumber!,

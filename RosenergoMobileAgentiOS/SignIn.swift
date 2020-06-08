@@ -39,11 +39,18 @@ struct SignIn: View {
                     .modifier(InputModifier())
                     .padding(.horizontal)
                 CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
+                    UIApplication.shared.hideKeyboard()
                     self.sessionStore.login(email: self.email, password: self.password)
                 }.padding()
             }
             .keyboardObserving()
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
         }.navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+extension UIApplication {
+    func hideKeyboard() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

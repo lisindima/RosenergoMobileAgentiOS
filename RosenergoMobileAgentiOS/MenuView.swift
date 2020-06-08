@@ -28,7 +28,7 @@ struct MenuView: View {
                     NavigationLink(destination: CreateInspections(), isActive: $sessionStore.openCreateInspections) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }.padding(.trailing, 4)
-                    NavigationLink(destination: ListInspections()) {
+                    NavigationLink(destination: ListInspections(), isActive: $sessionStore.openListInspections) {
                         MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
                     }.padding(.leading, 4)
                 }

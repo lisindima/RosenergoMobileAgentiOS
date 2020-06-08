@@ -40,6 +40,7 @@ class SessionStore: ObservableObject {
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
+    @Published var openListInspections: Bool = false
     @Published var openCreateInspections: Bool = false
     @Published var openCreateVyplatnyeDela: Bool = false
     

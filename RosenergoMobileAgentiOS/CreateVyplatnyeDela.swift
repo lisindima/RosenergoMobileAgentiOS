@@ -46,8 +46,11 @@ struct CreateVyplatnyeDela: View {
             Group {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
+                        UIApplication.shared.hideKeyboard()
                         if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
                             SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                        } else if self.sessionStore.photoParameters.isEmpty {
+                            SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
                         } else {
                             self.sessionStore.uploadVyplatnyeDela(
                                 insuranceContractNumber: self.insuranceContractNumber,

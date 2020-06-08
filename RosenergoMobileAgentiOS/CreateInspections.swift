@@ -79,8 +79,11 @@ struct CreateInspections: View {
                 if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
+                            UIApplication.shared.hideKeyboard()
                             if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
                                 SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                            } else if self.sessionStore.photoParameters.isEmpty {
+                                SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
                             } else {
                                 self.sessionStore.uploadInspections(
                                     carModel: self.carModel,
@@ -100,8 +103,11 @@ struct CreateInspections: View {
                             }
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                            UIApplication.shared.hideKeyboard()
                             if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
                                 SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                            } else if self.sessionStore.photoParameters.isEmpty {
+                                SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
                             } else {
                                 let localInspections = LocalInspections(context: self.moc)
                                 localInspections.latitude = self.sessionStore.latitude
