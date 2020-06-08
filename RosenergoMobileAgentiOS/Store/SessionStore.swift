@@ -140,8 +140,10 @@ class SessionStore: ObservableObject {
                 case .success:
                     break
                 case .failure:
-                    if code == 401 {
+                    if code == 401 && self.loginParameters != nil {
                         self.login(email: self.loginParameters!.email, password: self.loginParameters!.password)
+                    } else if code == 401 && self.loginParameters == nil {
+                        self.loginModel = nil
                     } else if code == nil {
                         SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
                     } else {

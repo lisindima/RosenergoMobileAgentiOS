@@ -40,34 +40,15 @@ struct CreateInspections: View {
     var body: some View {
         VStack {
             ScrollView {
-                HStack {
-                    Text("Широта: \(sessionStore.latitude)")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundColor(Color.red.opacity(0.2))
-                    )
-                    Spacer()
-                    Text("Долгота: \(sessionStore.longitude)")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundColor(Color.red.opacity(0.2))
-                    )
-                }.padding(.horizontal)
+                GeoIndicator()
+                    .padding(.horizontal)
                 Picker("", selection: $choiseCar) {
                     Text("Один автомобиль").tag(0)
                     Text("Два автомобиля").tag(1)
                 }
                 .labelsHidden()
                 .padding(.horizontal)
-                .padding(.bottom, 4)
+                .padding(.bottom)
                 .pickerStyle(SegmentedPickerStyle())
                 VStack(alignment: .leading) {
                     Group {
