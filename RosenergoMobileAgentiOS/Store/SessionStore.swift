@@ -111,10 +111,14 @@ class SessionStore: ObservableObject {
                 case .success:
                     self.loginModel = nil
                     self.loginParameters = nil
+                    self.inspections.removeAll()
+                    self.inspectionsLoadingState = .loading
                     Crashlytics.crashlytics().setUserID("")
                 case .failure(let error):
                     self.loginModel = nil
                     self.loginParameters = nil
+                    self.inspections.removeAll()
+                    self.inspectionsLoadingState = .loading
                     Crashlytics.crashlytics().setUserID("")
                     print(error.errorDescription!)
                 }
