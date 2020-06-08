@@ -110,9 +110,11 @@ class SessionStore: ObservableObject {
                 switch response.result {
                 case .success:
                     self.loginModel = nil
+                    self.loginParameters = nil
                     Crashlytics.crashlytics().setUserID("")
                 case .failure(let error):
                     self.loginModel = nil
+                    self.loginParameters = nil
                     Crashlytics.crashlytics().setUserID("")
                     print(error.errorDescription!)
                 }
