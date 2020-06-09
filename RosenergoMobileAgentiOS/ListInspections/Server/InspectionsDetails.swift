@@ -194,7 +194,7 @@ struct InspectionsDetails: View {
                                     .font(.system(size: 11))
                                     .foregroundColor(.secondary)
                                 Text("Проверьте подключение к интернету!")
-                                     .foregroundColor(.primary)
+                                    .foregroundColor(.primary)
                             }
                         }
                     } else if sessionStore.yandexGeoState == .loading {
@@ -206,7 +206,7 @@ struct InspectionsDetails: View {
                                     .font(.system(size: 11))
                                     .foregroundColor(.secondary)
                                 Text("Загрузка")
-                                     .foregroundColor(.primary)
+                                    .foregroundColor(.primary)
                             }
                         }
                     }

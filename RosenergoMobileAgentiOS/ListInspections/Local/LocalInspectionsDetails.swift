@@ -245,7 +245,7 @@ struct LocalInspectionsDetails: View {
                                         .font(.system(size: 11))
                                         .foregroundColor(.secondary)
                                     Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
-                                         .foregroundColor(.primary)
+                                        .foregroundColor(.primary)
                                 }
                             }
                         } else if sessionStore.yandexGeoState == .failure {
@@ -258,7 +258,7 @@ struct LocalInspectionsDetails: View {
                                         .font(.system(size: 11))
                                         .foregroundColor(.secondary)
                                     Text("Проверьте подключение к интернету!")
-                                         .foregroundColor(.primary)
+                                        .foregroundColor(.primary)
                                 }
                             }
                         } else if sessionStore.yandexGeoState == .loading {
@@ -270,7 +270,7 @@ struct LocalInspectionsDetails: View {
                                         .font(.system(size: 11))
                                         .foregroundColor(.secondary)
                                     Text("Загрузка")
-                                         .foregroundColor(.primary)
+                                        .foregroundColor(.primary)
                                 }
                             }
                         }
