@@ -42,27 +42,26 @@ class NotificationStore: ObservableObject {
                 }
             }
         }
-        UIApplication.shared.registerForRemoteNotifications()
     }
     
-    func setNotification() -> Void {
+    func setNotification(id: String) {
         let manager = NotificationStore()
-        manager.addNotification(title: "Отправьте сохраненый осмотр", body: "Вы забыли отправить сохраненый осмотр на сервер!")
+        manager.addNotification(id: id, title: "Отправьте сохраненый осмотр.", body: "Вы забыли отправить сохраненый осмотр на сервер!")
         manager.schedule()
     }
     
-    func addNotification(title: String, body: String) -> Void {
-        notifications.append(Notification(id: UUID().uuidString, title: title, body: body))
+    func addNotification(id: String, title: String, body: String) {
+        notifications.append(Notification(id: id, title: title, body: body))
     }
     
-    func scheduleNotifications() -> Void {
+    func scheduleNotifications() {
         for notification in notifications {
             let content = UNMutableNotificationContent()
             content.badge = 1
             content.sound = .default
             content.title = notification.title
             content.body = notification.body
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(60 * 1), repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 86400, repeats: false)
             let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { error in
                 guard error == nil else { return }
@@ -71,7 +70,7 @@ class NotificationStore: ObservableObject {
         }
     }
     
-    func schedule() -> Void {
+    func schedule() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             switch settings.authorizationStatus {
             case .notDetermined:
@@ -82,6 +81,10 @@ class NotificationStore: ObservableObject {
                 break
             }
         }
+    }
+    
+    func cancelNotifications(id: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
 }
 

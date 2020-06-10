@@ -15,7 +15,7 @@ struct SettingsView: View {
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject private var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     
     @State private var showActionSheetExit: Bool = false
     
@@ -26,7 +26,7 @@ struct SettingsView: View {
                     .edgesIgnoringSafeArea(.bottom)
                     .accentColor(.rosenergo)
             )
-            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.presentedViewController?.present(
+            UIApplication.shared.windows.first?.rootViewController?.present(
                 mailFeedback, animated: true, completion: nil
             )
         }

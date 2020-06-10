@@ -18,11 +18,13 @@ struct ListInspections: View {
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
     @ObservedObject var searchBar: SearchBar = SearchBar.shared
+    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
+            notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
         }
         try? moc.save()
     }

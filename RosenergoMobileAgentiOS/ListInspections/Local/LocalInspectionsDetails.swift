@@ -16,6 +16,8 @@ struct LocalInspectionsDetails: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     
+    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     @State private var presentMapActionSheet: Bool = false
     @State private var uploadProgress: Double = 0.0
@@ -66,6 +68,7 @@ struct LocalInspectionsDetails: View {
                     self.presentationMode.wrappedValue.dismiss()
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.sessionStore.uploadState = .none
+                    self.notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.moc.delete(localInspections)
                         do {

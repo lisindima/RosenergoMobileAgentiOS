@@ -16,7 +16,7 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @ObservedObject private var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     
     @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
@@ -111,6 +111,7 @@ struct CreateInspections: View {
                             } else if self.sessionStore.photoParameters.isEmpty {
                                 SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
                             } else {
+                                let id = UUID()
                                 let localInspections = LocalInspections(context: self.moc)
                                 localInspections.latitude = self.sessionStore.latitude
                                 localInspections.longitude = self.sessionStore.longitude
@@ -121,7 +122,7 @@ struct CreateInspections: View {
                                 localInspections.insuranceContractNumber = self.insuranceContractNumber
                                 localInspections.photos = self.sessionStore.imageLocalInspections
                                 localInspections.dateInspections = self.sessionStore.stringDate
-                                localInspections.id = UUID()
+                                localInspections.id = id
                                 if self.choiseCar == 1 {
                                     localInspections.carBodyNumber2 = self.carBodyNumber2
                                     localInspections.carModel2 = self.carModel2
@@ -132,7 +133,7 @@ struct CreateInspections: View {
                                 try? self.moc.save()
                                 self.presentationMode.wrappedValue.dismiss()
                                 SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
-                                self.notificationStore.setNotification()
+                                self.notificationStore.setNotification(id: id.uuidString)
                             }
                         }.padding(.leading, 4)
                     }
