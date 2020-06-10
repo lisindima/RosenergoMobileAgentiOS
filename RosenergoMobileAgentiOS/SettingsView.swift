@@ -15,6 +15,8 @@ struct SettingsView: View {
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
+    @ObservedObject private var notificationStore: NotificationStore = NotificationStore.shared
+    
     @State private var showActionSheetExit: Bool = false
     
     private func showMailView() {
@@ -30,11 +32,84 @@ struct SettingsView: View {
         }
     }
     
+    private func openSettings() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL)
+            else {
+                return
+        }
+        UIApplication.shared.open(settingsURL)
+    }
+    
+    var footerNotification: Text {
+        switch notificationStore.enabled {
+        case .denied:
+            return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
+        case .notDetermined:
+            return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
+        case .authorized:
+            return Text("Вам придет уведомление, когда вы забудете отправить сохраненный осмотр на сервер.")
+        default:
+            return Text("")
+        }
+    }
+    
     var body: some View {
         Form {
             Section(header: Text("Личные данные".uppercased())) {
-                Text(sessionStore.loginModel?.data.name ?? "Ошибка")
-                Text(sessionStore.loginModel?.data.email ?? "Ошибка")
+                HStack {
+                    Image(systemName: "person")
+                        .frame(width: 24)
+                        .foregroundColor(.rosenergo)
+                    VStack(alignment: .leading) {
+                        Text("Агент")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(sessionStore.loginModel?.data.name ?? "Ошибка")
+                    }
+                }
+                HStack {
+                    Image(systemName: "envelope")
+                        .frame(width: 24)
+                        .foregroundColor(.rosenergo)
+                    VStack(alignment: .leading) {
+                        Text("Эл.почта")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(sessionStore.loginModel?.data.email ?? "Ошибка")
+                    }
+                }
+            }
+            Section(header: Text("Уведомления".uppercased()), footer: footerNotification) {
+                if notificationStore.enabled == .authorized {
+                    HStack {
+                        Image(systemName: "bell")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Button("Выключить уведомления") {
+                            self.openSettings()
+                        }.foregroundColor(.primary)
+                    }
+                }
+                if notificationStore.enabled == .notDetermined {
+                    HStack {
+                        Image(systemName: "bell")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Button("Включить уведомления") {
+                            self.notificationStore.requestPermission()
+                        }.foregroundColor(.primary)
+                    }
+                }
+                if notificationStore.enabled == .denied {
+                    HStack {
+                        Image(systemName: "bell")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Button("Включить уведомления") {
+                            self.openSettings()
+                        }.foregroundColor(.primary)
+                    }
+                }
             }
             Section(header: Text("Другое".uppercased()), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                 HStack {

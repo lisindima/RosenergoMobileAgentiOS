@@ -33,6 +33,7 @@
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
+		CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB7955D3247381C200670552 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7955D2247381C200670552 /* NativeSearchBar */; };
 		CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09124780EA50017AB00 /* MenuButton.swift */; };
@@ -77,6 +78,7 @@
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CB4B9316246CF59B006B7008 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStore.swift; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
 		CBB2E09124780EA50017AB00 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateVyplatnyeDela.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				CB17E55B2466644400CDBB1A /* AppDelegate.swift */,
 				CB17E55D2466644400CDBB1A /* SceneDelegate.swift */,
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
+				CB4CD7BD24909A56007FE4AB /* Notification */,
 				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CBB2E0952478F3380017AB00 /* ListInspections */,
 				CBC5283A247CB4AC00E337B4 /* Store */,
@@ -205,6 +208,14 @@
 				28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB4CD7BD24909A56007FE4AB /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		CBB2E0952478F3380017AB00 /* ListInspections */ = {
@@ -406,6 +417,7 @@
 				CB17E58124681E2900CDBB1A /* ActivityIndicator.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
+				CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */,
 				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,

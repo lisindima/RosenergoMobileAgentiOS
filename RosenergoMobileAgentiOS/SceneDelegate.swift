@@ -57,6 +57,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        NotificationStore.shared.refreshNotificationStatus()
         if SessionStore.shared.loginModel != nil {
             SessionStore.shared.validateToken()
         }
@@ -87,7 +89,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
 

@@ -16,6 +16,8 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
+    @ObservedObject private var notificationStore: NotificationStore = NotificationStore.shared
+    
     @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
     @State private var carModel: String = ""
@@ -130,6 +132,7 @@ struct CreateInspections: View {
                                 try? self.moc.save()
                                 self.presentationMode.wrappedValue.dismiss()
                                 SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
+                                self.notificationStore.setNotification()
                             }
                         }.padding(.leading, 4)
                     }
