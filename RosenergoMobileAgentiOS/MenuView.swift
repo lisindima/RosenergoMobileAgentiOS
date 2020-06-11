@@ -12,7 +12,7 @@ struct MenuView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
-    private var appVersionView: some View {
+    private var appVersionView: Text {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             return Text("Версия: \(version) (\(build))")

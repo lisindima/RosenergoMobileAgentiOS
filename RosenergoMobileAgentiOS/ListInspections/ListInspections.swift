@@ -63,7 +63,7 @@ struct ListInspections: View {
                     }
                     if !sessionStore.inspections.isEmpty {
                         Section(header: Text("Отправленные осмотры".uppercased())) {
-                            ForEach(sessionStore.inspections.sorted { $0.id > $1.id }.filter {
+                            ForEach(sessionStore.inspections.reversed().filter {
                                 searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
                             }, id: \.id) { inspection in
                                 NavigationLink(destination: InspectionsDetails(inspection: inspection)) {

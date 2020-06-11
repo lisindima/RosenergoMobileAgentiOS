@@ -30,9 +30,9 @@ struct CustomCameraView: View {
             CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(sessionStore.photoParameters, id: \.file) { photo in
+                    ForEach(sessionStore.photoParameters.reversed(), id: \.file) { photo in
                         ZStack {
-                            Image(uiImage: UIImage(data: Data.init(base64Encoded: photo.file, options: .ignoreUnknownCharacters)!)!)
+                            Image(uiImage: UIImage(data: Data(base64Encoded: photo.file, options: .ignoreUnknownCharacters)!)!)
                                 .renderingMode(.original)
                                 .resizable()
                                 .frame(width: 100, height: 100)

@@ -17,8 +17,7 @@ struct MenuButton: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(color)
-                .opacity(0.2)
+                .fill(color.opacity(0.2))
                 .frame(maxWidth: .infinity, maxHeight: 120)
             VStack {
                 Image(systemName: image)

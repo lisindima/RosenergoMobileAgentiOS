@@ -39,7 +39,7 @@ struct LocalImageDetail: View {
     
     var body: some View {
         VStack {
-            Image(uiImage: UIImage(data: Data.init(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+            Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .scaleEffect(scale)

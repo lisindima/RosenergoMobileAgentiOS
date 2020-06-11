@@ -94,7 +94,7 @@ struct LocalInspectionsDetails: View {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
                                     NavigationLink(destination: LocalImageDetail(photo: photo)) {
-                                        Image(uiImage: UIImage(data: Data.init(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
                                             .renderingMode(.original)
                                             .resizable()
                                             .frame(width: 100, height: 100)

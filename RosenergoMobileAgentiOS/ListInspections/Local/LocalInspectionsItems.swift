@@ -45,7 +45,7 @@ struct LocalInspectionsItems: View {
             }
             Spacer()
             if !localInspections.photos!.isEmpty {
-                Image(uiImage: UIImage(data: Data.init(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!)
+                Image(uiImage: UIImage(data: Data(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!)
                     .resizable()
                     .cornerRadius(10)
                     .frame(width: 100, height: 100)
