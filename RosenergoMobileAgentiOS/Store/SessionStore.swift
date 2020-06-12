@@ -32,9 +32,9 @@ class SessionStore: ObservableObject {
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var yandexGeo: YandexGeo?
-    @Published var yandexGeoState: YandexGeoState = .loading
     @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
+    @Published var yandexGeoState: YandexGeoState = .loading
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var uploadProgress: Double = 0.0
@@ -296,7 +296,6 @@ struct CodableUserDefault <T: Codable> {
         get {
             guard let jsonString = UserDefaults.standard.string(forKey: key) else {
                 return defaultValue
-                
             }
             guard let jsonData = jsonString.data(using: .utf8) else {
                 return defaultValue

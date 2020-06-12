@@ -18,6 +18,6 @@
         <attribute name="photos" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" customClassName="[String]"/>
     </entity>
     <elements>
-        <element name="LocalInspections" positionX="-63" positionY="-18" width="128" height="268"/>
+        <element name="LocalInspections" positionX="-17482.13671875" positionY="-7232.69140625" width="128" height="268"/>
     </elements>
 </model>
