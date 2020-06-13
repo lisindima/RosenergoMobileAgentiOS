@@ -32,7 +32,7 @@ struct CustomCameraView: View {
                 HStack {
                     ForEach(sessionStore.photoParameters.reversed(), id: \.file) { photo in
                         ZStack {
-                            Image(uiImage: UIImage(data: Data(base64Encoded: photo.file, options: .ignoreUnknownCharacters)!)!)
+                            Image(uiImage: UIImage(data: Data(base64Encoded: photo.file, options: .ignoreUnknownCharacters)!)!.resizedImage(size: CGSize(width: 100, height: 100)))
                                 .renderingMode(.original)
                                 .resizable()
                                 .frame(width: 100, height: 100)

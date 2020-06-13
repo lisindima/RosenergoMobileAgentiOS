@@ -47,7 +47,7 @@ struct SettingsView: View {
         case .notDetermined:
             return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
         case .authorized:
-            return Text("Вам придет уведомление, когда вы забудете отправить сохраненный осмотр на сервер.")
+            return Text("Укажите, через какое время вам придет уведомление после сохранённого осмотра.")
         default:
             return Text("")
         }
@@ -88,6 +88,12 @@ struct SettingsView: View {
                         Button("Выключить уведомления") {
                             self.openSettings()
                         }.foregroundColor(.primary)
+                    }
+                    Stepper(value: $notificationStore.notifyHour, in: 1...24) {
+                        Image(systemName: "timer")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Text("\(notificationStore.notifyHour) ч.")
                     }
                 }
                 if notificationStore.enabled == .notDetermined {

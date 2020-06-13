@@ -20,7 +20,6 @@ struct LocalInspectionsDetails: View {
     
     @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     @State private var presentMapActionSheet: Bool = false
-    @State private var uploadProgress: Double = 0.0
     
     var localInspections: LocalInspections
     
@@ -60,7 +59,7 @@ struct LocalInspectionsDetails: View {
         AF.request(sessionStore.serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .uploadProgress { progress in
-                self.uploadProgress = progress.fractionCompleted
+                self.sessionStore.uploadProgress = progress.fractionCompleted
             }
             .response { response in
                 switch response.result {
@@ -94,7 +93,7 @@ struct LocalInspectionsDetails: View {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
                                     NavigationLink(destination: LocalImageDetail(photo: photo)) {
-                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!.resizedImage(size: CGSize(width: 100, height: 100)))
                                             .renderingMode(.original)
                                             .resizable()
                                             .frame(width: 100, height: 100)
@@ -303,7 +302,7 @@ struct LocalInspectionsDetails: View {
                 .padding(.horizontal)
                 .padding(.bottom, 8)
             } else if sessionStore.uploadState == .upload {
-                UploadIndicator(progress: $uploadProgress, color: .rosenergo)
+                UploadIndicator(progress: $sessionStore.uploadProgress, color: .rosenergo)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
             }

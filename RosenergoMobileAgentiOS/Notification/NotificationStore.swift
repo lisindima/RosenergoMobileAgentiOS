@@ -7,9 +7,17 @@
 //
 
 import SwiftUI
+import Combine
+import Defaults
 import UserNotifications
 
 class NotificationStore: ObservableObject {
+    
+    @Default(.notifyHour) var notifyHour {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     
     @Published var enabled: UNAuthorizationStatus = .notDetermined
     
@@ -61,7 +69,7 @@ class NotificationStore: ObservableObject {
             content.sound = .default
             content.title = notification.title
             content.body = notification.body
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 86400, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(3600 * notifyHour), repeats: false)
             let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { error in
                 guard error == nil else { return }
@@ -92,4 +100,8 @@ struct Notification: Identifiable {
     var id: String
     var title: String
     var body: String
+}
+
+extension Defaults.Keys {
+    static let notifyHour = Key<Int>("notifyHour", default: 24)
 }

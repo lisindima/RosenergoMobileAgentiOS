@@ -11,19 +11,18 @@ import Combine
 import Alamofire
 import SPAlert
 import CoreLocation
+import Defaults
 import FirebaseCrashlytics
 
 class SessionStore: ObservableObject {
     
-    @CodableUserDefault(key: "loginModel", default: nil)
-    var loginModel: LoginModel? {
+    @Default(.loginModel) var loginModel {
         willSet {
             objectWillChange.send()
         }
     }
     
-    @CodableUserDefault(key: "loginParameters", default: nil)
-    var loginParameters: LoginParameters? {
+    @Default(.loginParameters) var loginParameters {
         willSet {
             objectWillChange.send()
         }
@@ -282,37 +281,9 @@ class SessionStore: ObservableObject {
     }
 }
 
-@propertyWrapper
-struct CodableUserDefault <T: Codable> {
-    let key: String
-    let defaultValue: T
-    
-    init(key: String, default: T) {
-        self.key = key
-        defaultValue = `default`
-    }
-    
-    var wrappedValue: T {
-        get {
-            guard let jsonString = UserDefaults.standard.string(forKey: key) else {
-                return defaultValue
-            }
-            guard let jsonData = jsonString.data(using: .utf8) else {
-                return defaultValue
-            }
-            guard let value = try? JSONDecoder().decode(T.self, from: jsonData) else {
-                return defaultValue
-            }
-            return value
-        }
-        set {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-            guard let jsonData = try? encoder.encode(newValue) else { return }
-            let jsonString = String(bytes: jsonData, encoding: .utf8)
-            UserDefaults.standard.set(jsonString, forKey: key)
-        }
-    }
+extension Defaults.Keys {
+    static let loginModel = Key<LoginModel?>("loginModel", default: nil)
+    static let loginParameters = Key<LoginParameters?>("loginParameters", default: nil)
 }
 
 enum InspectionsLoadingState {
