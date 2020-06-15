@@ -31,7 +31,6 @@ class SessionStore: ObservableObject {
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var yandexGeo: YandexGeo?
-    @Published var imageLocalInspections: [String] = [String]()
     @Published var loadingLogin: Bool = false
     @Published var yandexGeoState: YandexGeoState = .loading
     @Published var uploadState: UploadState = .none
@@ -57,6 +56,7 @@ class SessionStore: ObservableObject {
         return createStringDate
     }()
     
+    var imageLocalInspections: [String] = [String]()
     var locationManager = CLLocationManager()
     
     func getLocation() {

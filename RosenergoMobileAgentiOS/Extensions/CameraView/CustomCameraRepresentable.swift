@@ -53,9 +53,10 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
                 let imageWithText = uiimage!.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.dateOnImage)", point: CGPoint(x: 20, y: 20))
-                let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)?.base64EncodedString(options: .lineLength64Characters)
-                parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: inspectionsImageData!, maked_photo_at: parent.sessionStore.stringDate))
-                parent.sessionStore.imageLocalInspections.append(inspectionsImageData!)
+                let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)
+                let file = inspectionsImageData!.base64EncodedString()
+                parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: file, maked_photo_at: parent.sessionStore.stringDate))
+                parent.sessionStore.imageLocalInspections.append(file)
             }
         }
     }
