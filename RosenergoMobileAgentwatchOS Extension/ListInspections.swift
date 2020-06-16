@@ -16,7 +16,7 @@ struct ListInspections: View {
         List {
             ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
                 NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
-                    Text("\(inspection.id)")
+                    InspectionsItems(inspection: inspection)
                 }
             }
         }

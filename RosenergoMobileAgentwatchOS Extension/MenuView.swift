@@ -22,11 +22,11 @@ struct MenuView: View {
     var body: some View {
         VStack {
             NavigationLink(destination: ListInspections()) {
-                MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
-            }
+                MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .rosenergo)
+            }.buttonStyle(PlainButtonStyle())
             NavigationLink(destination: SettingsView()) {
-                MenuButton(title: "Настройки", image: "gear", color: .purple)
-            }
+                MenuButton(title: "Настройки", image: "gear", color: .red)
+            }.buttonStyle(PlainButtonStyle())
             appVersionView
                 .foregroundColor(.secondary)
                 .font(.footnote)

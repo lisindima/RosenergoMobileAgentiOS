@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 
 struct ImageDetail: View {
     
-    @State private var scale: Double = 1.0
+    @State private var scale: CGFloat = 1.0
     
     var photo: String
     
@@ -19,7 +19,7 @@ struct ImageDetail: View {
         WebImage(url: URL(string: photo))
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .scaleEffect(CGFloat(scale))
+            .scaleEffect(scale)
             .focusable(true)
             .digitalCrownRotation($scale, from: 1, through: 5, by: 0.1, sensitivity: .low, isContinuous: false, isHapticFeedbackEnabled: true)
     }
