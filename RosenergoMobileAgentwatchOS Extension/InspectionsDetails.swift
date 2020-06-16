@@ -19,24 +19,6 @@ struct InspectionsDetails: View {
     
     var body: some View {
         Form {
-            if !inspection.photos.isEmpty {
-                Section(header: Text("Фотографии".uppercased())) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(inspection.photos, id: \.id) { photo in
-                                //NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    WebImage(url: URL(string: photo.path))
-                                        .renderingMode(.original)
-                                        //.resizable()
-                                        //.indicator(.activity)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(10)
-                                //}
-                            }
-                        }.padding(.vertical, 8)
-                    }
-                }
-            }
             Section(header: Text("Дата осмотра".uppercased())) {
                 HStack {
                     Image(systemName: "timer")
@@ -163,6 +145,24 @@ struct InspectionsDetails: View {
                                 .foregroundColor(.secondary)
                             Text(inspection.insuranceContractNumber2!)
                         }
+                    }
+                }
+            }
+            if !inspection.photos.isEmpty {
+                Section(header: Text("Фотографии".uppercased())) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(inspection.photos, id: \.id) { photo in
+                                NavigationLink(destination: ImageDetail(photo: photo.path)) {
+                                    WebImage(url: URL(string: photo.path))
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        //.indicator(.activity)
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }.padding(.vertical, 8)
                     }
                 }
             }

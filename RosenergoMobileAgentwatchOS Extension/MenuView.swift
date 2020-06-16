@@ -24,7 +24,7 @@ struct MenuView: View {
             NavigationLink(destination: ListInspections()) {
                 MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
             }
-            NavigationLink(destination: ListInspections()) {
+            NavigationLink(destination: SettingsView()) {
                 MenuButton(title: "Настройки", image: "gear", color: .purple)
             }
             appVersionView

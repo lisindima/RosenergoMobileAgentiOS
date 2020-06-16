@@ -22,32 +22,3 @@ struct RootView: View {
         }
     }
 }
-
-// MARK: На случай если все таки вернусь к WatchConnectivity!
-
-//struct LoginView: View {
-//
-//    @State private var error: Bool = true
-//
-//    var body: some View {
-//        VStack {
-//            if error {
-//                Text("Произошла ошибка")
-//                    .fontWeight(.bold)
-//                Text("Откройте приложение \"Агент\" на iPhone и нажмите на кнопку \"Повторить\".")
-//                    .foregroundColor(.secondary)
-//                    .font(.footnote)
-//                Spacer()
-//                Button(action: {}) {
-//                    Text("Повторить")
-//                }
-//            } else {
-//                Text("Выполняется вход")
-//                    .fontWeight(.bold)
-//                Text("Подождите")
-//                    .foregroundColor(.secondary)
-//                    .font(.footnote)
-//            }
-//        }
-//    }
-//}

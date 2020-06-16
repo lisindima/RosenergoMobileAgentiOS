@@ -20,6 +20,17 @@ struct ListInspections: View {
                 }
             }
         }
+        .contextMenu(menuItems: {
+            Button(action: {
+                self.sessionStore.getInspections()
+            }, label: {
+                VStack{
+                    Image(systemName: "arrow.clockwise")
+                        .font(.title)
+                    Text("Обновить список")
+                }
+            })
+        })
         .onAppear(perform: sessionStore.getInspections)
         .navigationBarTitle("Осмотры")
     }
