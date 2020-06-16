@@ -9,10 +9,12 @@
 import SwiftUI
 import Combine
 import Alamofire
-import SPAlert
-import CoreLocation
 import Defaults
+#if !os(watchOS)
+import CoreLocation
+import SPAlert
 import FirebaseCrashlytics
+#endif
 
 class SessionStore: ObservableObject {
     
@@ -59,6 +61,7 @@ class SessionStore: ObservableObject {
     var imageLocalInspections: [String] = [String]()
     var locationManager = CLLocationManager()
     
+    #if !os(watchOS)
     func getLocation() {
         locationManager.requestWhenInUseAuthorization()
         var currentLoc: CLLocation!
@@ -69,6 +72,7 @@ class SessionStore: ObservableObject {
             longitude = currentLoc.coordinate.longitude
         }
     }
+    #endif
     
     func login(email: String, password: String) {
         
@@ -88,9 +92,13 @@ class SessionStore: ObservableObject {
                     self.loginModel = loginModel
                     self.loginParameters = parameters
                     self.loadingLogin = false
+                    #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
+                    #endif
                 case .failure(let error):
+                    #if !os(watchOS)
                     SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
+                    #endif
                     print(error)
                     self.loadingLogin = false
                 }
@@ -113,13 +121,17 @@ class SessionStore: ObservableObject {
                     self.loginParameters = nil
                     self.inspections.removeAll()
                     self.inspectionsLoadingState = .loading
+                    #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID("")
+                    #endif
                 case .failure(let error):
                     self.loginModel = nil
                     self.loginParameters = nil
                     self.inspections.removeAll()
                     self.inspectionsLoadingState = .loading
+                    #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID("")
+                    #endif
                     print(error.errorDescription!)
                 }
         }
@@ -145,7 +157,9 @@ class SessionStore: ObservableObject {
                     } else if code == 401 && self.loginParameters == nil {
                         self.loginModel = nil
                     } else if code == nil {
+                        #if !os(watchOS)
                         SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
+                        #endif
                     } else {
                         break
                     }
@@ -208,11 +222,15 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
+                    #if !os(watchOS)
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
+                    #endif
                     self.uploadState = .none
                     self.openCreateInspections = false
                 case .failure(let error):
+                    #if !os(watchOS)
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
+                    #endif
                     self.uploadState = .none
                     print(error.errorDescription!)
             }
@@ -244,11 +262,15 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
+                    #if !os(watchOS)
                     SPAlert.present(title: "Успешно!", message: "Выплатное дело успешно загружено на сервер.", preset: .done)
                     self.uploadState = .none
                     self.openCreateVyplatnyeDela = false
+                    #endif
                 case .failure(let error):
+                    #if !os(watchOS)
                     SPAlert.present(title: "Ошибка!", message: "Попробуйте загрузить позднее.", preset: .error)
+                    #endif
                     self.uploadState = .none
                     print(error.errorDescription!)
             }
