@@ -27,6 +27,7 @@ struct SettingsView: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(sessionStore.loginModel?.data.name ?? "Ошибка")
+                            .font(.footnote)
                     }
                 }
                 HStack {
@@ -38,6 +39,7 @@ struct SettingsView: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(sessionStore.loginModel?.data.email ?? "Ошибка")
+                            .font(.footnote)
                     }
                 }
             }
@@ -48,7 +50,7 @@ struct SettingsView: View {
                     HStack {
                         Image(systemName: "flame")
                             .frame(width: 24)
-                        Text("Выйти из аккаунта")
+                        Text("Выйти")
                     }.foregroundColor(.red)
                 }
             }.actionSheet(isPresented: $showActionSheetExit) {

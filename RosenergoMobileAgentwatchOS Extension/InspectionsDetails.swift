@@ -8,12 +8,11 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Espera
 
 struct InspectionsDetails: View {
     
     @ObservedObject var sessionStore: SessionStore = SessionStore.shared
-    
-    @State private var presentMapActionSheet: Bool = false
     
     var inspection: Inspections
     
@@ -26,12 +25,11 @@ struct InspectionsDetails: View {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
                                     WebImage(url: URL(string: photo.path))
-                                        .renderingMode(.original)
                                         .resizable()
                                         //.indicator(.activity)
                                         .frame(width: 75, height: 75)
                                         .cornerRadius(10)
-                                }
+                                }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)
                     }
@@ -43,10 +41,11 @@ struct InspectionsDetails: View {
                         .frame(width: 24)
                         .foregroundColor(.rosenergo)
                     VStack(alignment: .leading) {
-                        Text("Дата загрузки осмотра на сервер")
+                        Text("Дата загрузки осмотра")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.createdat.dataInspection())
+                            .font(.footnote)
                     }
                 }
             }
@@ -60,6 +59,7 @@ struct InspectionsDetails: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.carModel)
+                            .font(.footnote)
                     }
                 }
                 HStack {
@@ -71,6 +71,7 @@ struct InspectionsDetails: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.carRegNumber)
+                            .font(.footnote)
                     }
                 }
                 HStack {
@@ -82,6 +83,7 @@ struct InspectionsDetails: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.carVin)
+                            .font(.footnote)
                     }
                 }
                 HStack {
@@ -93,6 +95,7 @@ struct InspectionsDetails: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.carBodyNumber)
+                            .font(.footnote)
                     }
                 }
                 HStack {
@@ -104,6 +107,7 @@ struct InspectionsDetails: View {
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.insuranceContractNumber)
+                            .font(.footnote)
                     }
                 }
             }
@@ -118,6 +122,7 @@ struct InspectionsDetails: View {
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
                             Text(inspection.carModel2!)
+                                .font(.footnote)
                         }
                     }
                     HStack {
@@ -129,6 +134,7 @@ struct InspectionsDetails: View {
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
                             Text(inspection.carRegNumber2!)
+                                .font(.footnote)
                         }
                     }
                     HStack {
@@ -140,6 +146,7 @@ struct InspectionsDetails: View {
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
                             Text(inspection.carVin2!)
+                                .font(.footnote)
                         }
                     }
                     HStack {
@@ -151,6 +158,7 @@ struct InspectionsDetails: View {
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
                             Text(inspection.carBodyNumber2!)
+                                .font(.footnote)
                         }
                     }
                     HStack {
@@ -162,65 +170,54 @@ struct InspectionsDetails: View {
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
                             Text(inspection.insuranceContractNumber2!)
+                                .font(.footnote)
                         }
                     }
                 }
             }
             Section(header: Text("Место проведения осмотра".uppercased())) {
-                Button(action: {
-                    self.presentMapActionSheet = true
-                }) {
-                    if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
-                        HStack {
-                            Image(systemName: "map")
-                                .frame(width: 24)
-                                .foregroundColor(.rosenergo)
-                            VStack(alignment: .leading) {
-                                Text("Адрес места проведения осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
-                                    .foregroundColor(.primary)
-                            }
+                if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                    HStack {
+                        Image(systemName: "map")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        VStack(alignment: .leading) {
+                            Text("Адрес места проведения осмотра")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                                .font(.footnote)
                         }
-                    } else if sessionStore.yandexGeoState == .failure {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle")
-                                .frame(width: 24)
-                                .foregroundColor(.yellow)
-                            VStack(alignment: .leading) {
-                                Text("Ошибка, не удалось определить адрес")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text("Проверьте подключение к интернету!")
-                                    .foregroundColor(.primary)
-                            }
+                    }
+                } else if sessionStore.yandexGeoState == .failure {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle")
+                            .frame(width: 24)
+                            .foregroundColor(.yellow)
+                        VStack(alignment: .leading) {
+                            Text("Ошибка, не удалось определить адрес")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text("Проверьте подключение к интернету!")
+                                .font(.footnote)
                         }
-                    } else if sessionStore.yandexGeoState == .loading {
-                        HStack {
-                            //ActivityIndicator(styleSpinner: .medium)
-                            //    .frame(width: 24)
-                            VStack(alignment: .leading) {
-                                Text("Определяем адрес осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text("Загрузка")
-                                    .foregroundColor(.primary)
-                            }
+                    }
+                } else if sessionStore.yandexGeoState == .loading {
+                    HStack {
+                        LoadingFlowerView()
+                            .frame(width: 24, height: 24)
+                        VStack(alignment: .leading) {
+                            Text("Определяем адрес осмотра")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            Text("Загрузка")
+                                .font(.footnote)
                         }
                     }
                 }
             }
         }
         .navigationBarTitle("\(inspection.id)")
-        .actionSheet(isPresented: $presentMapActionSheet) {
-            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
-                
-                }, .default(Text("Яндекс.Карты")) {
-                    
-                }, .cancel()
-            ])
-        }
         .onAppear {
             self.sessionStore.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
         }

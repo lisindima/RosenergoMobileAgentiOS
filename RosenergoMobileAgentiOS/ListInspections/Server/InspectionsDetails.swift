@@ -44,7 +44,7 @@ struct InspectionsDetails: View {
                         .frame(width: 24)
                         .foregroundColor(.rosenergo)
                     VStack(alignment: .leading) {
-                        Text("Дата загрузки осмотра на сервер")
+                        Text("Дата загрузки осмотра")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                         Text(inspection.createdat.dataInspection())

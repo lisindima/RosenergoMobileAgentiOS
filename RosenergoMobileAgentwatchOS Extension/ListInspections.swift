@@ -7,30 +7,53 @@
 //
 
 import SwiftUI
+import Espera
 
 struct ListInspections: View {
     
     @ObservedObject var sessionStore: SessionStore = SessionStore.shared
     
     var body: some View {
-        List {
-            ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
-                NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
-                    InspectionsItems(inspection: inspection)
+        Group {
+            if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
+                Text("Нет подключения к интернету!")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
+                Text("Нет осмотров")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                Text("Добавьте свой первый осмотр и он отобразиться здесь.")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
+                LoadingFlowerView()
+                    .frame(width: 24, height: 24)
+            } else {
+                List {
+                    ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
+                        NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
+                            InspectionsItems(inspection: inspection)
+                        }
+                    }
                 }
+                .contextMenu(menuItems: {
+                    Button(action: {
+                        self.sessionStore.getInspections()
+                    }, label: {
+                        VStack{
+                            Image(systemName: "arrow.clockwise")
+                                .font(.title)
+                            Text("Обновить список")
+                        }
+                    })
+                })
             }
         }
-        .contextMenu(menuItems: {
-            Button(action: {
-                self.sessionStore.getInspections()
-            }, label: {
-                VStack{
-                    Image(systemName: "arrow.clockwise")
-                        .font(.title)
-                    Text("Обновить список")
-                }
-            })
-        })
         .onAppear(perform: sessionStore.getInspections)
         .navigationBarTitle("Осмотры")
     }
