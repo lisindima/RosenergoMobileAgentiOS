@@ -38,7 +38,7 @@ struct ListInspections: View {
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
-                Text("Нет осмотров.")
+                Text("Нет осмотров")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)

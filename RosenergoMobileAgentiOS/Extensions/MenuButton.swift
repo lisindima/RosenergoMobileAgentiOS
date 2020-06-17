@@ -27,6 +27,7 @@ struct MenuButton: View {
                     .fontWeight(.bold)
                     .foregroundColor(color)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
