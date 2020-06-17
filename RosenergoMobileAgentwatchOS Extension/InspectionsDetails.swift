@@ -24,9 +24,12 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    WebImage(url: URL(string: photo.path))
+                                    WebImage(url: URL(string: photo.path), options: .scaleDownLargeImages)
                                         .resizable()
-                                        //.indicator(.activity)
+                                        .placeholder {
+                                            LoadingFlowerView()
+                                                .frame(width: 24, height: 24)
+                                        }
                                         .frame(width: 75, height: 75)
                                         .cornerRadius(10)
                                 }.buttonStyle(PlainButtonStyle())
