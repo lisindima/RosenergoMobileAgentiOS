@@ -24,7 +24,7 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    URLImage(URL(string: photo.path)!) { proxy in
+                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 75.0, height: 75.0), scale: WKInterfaceDevice.current().screenScale)]) { proxy in
                                         proxy.image
                                             .resizable()
                                     }
@@ -40,7 +40,7 @@ struct InspectionsDetails: View {
                 HStack {
                     Image(systemName: "timer")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Дата загрузки осмотра")
                             .font(.system(size: 11))
@@ -54,7 +54,7 @@ struct InspectionsDetails: View {
                 HStack {
                     Image(systemName: "car")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Модель автомобиля")
                             .font(.system(size: 11))
@@ -66,7 +66,7 @@ struct InspectionsDetails: View {
                 HStack {
                     Image(systemName: "rectangle")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Регистрационный номер")
                             .font(.system(size: 11))
@@ -78,7 +78,7 @@ struct InspectionsDetails: View {
                 HStack {
                     Image(systemName: "v.circle")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("VIN")
                             .font(.system(size: 11))
@@ -90,7 +90,7 @@ struct InspectionsDetails: View {
                 HStack {
                     Image(systemName: "textformat.123")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Номер кузова")
                             .font(.system(size: 11))
@@ -102,7 +102,7 @@ struct InspectionsDetails: View {
                 HStack {
                     Image(systemName: "text.justify")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Страховой полис")
                             .font(.system(size: 11))
@@ -117,7 +117,7 @@ struct InspectionsDetails: View {
                     HStack {
                         Image(systemName: "car")
                             .frame(width: 24)
-                            .foregroundColor(.rosenergo)
+                            .foregroundColor(.purple)
                         VStack(alignment: .leading) {
                             Text("Модель автомобиля")
                                 .font(.system(size: 11))
@@ -129,7 +129,7 @@ struct InspectionsDetails: View {
                     HStack {
                         Image(systemName: "rectangle")
                             .frame(width: 24)
-                            .foregroundColor(.rosenergo)
+                            .foregroundColor(.purple)
                         VStack(alignment: .leading) {
                             Text("Регистрационный номер")
                                 .font(.system(size: 11))
@@ -141,7 +141,7 @@ struct InspectionsDetails: View {
                     HStack {
                         Image(systemName: "v.circle")
                             .frame(width: 24)
-                            .foregroundColor(.rosenergo)
+                            .foregroundColor(.purple)
                         VStack(alignment: .leading) {
                             Text("VIN")
                                 .font(.system(size: 11))
@@ -153,7 +153,7 @@ struct InspectionsDetails: View {
                     HStack {
                         Image(systemName: "textformat.123")
                             .frame(width: 24)
-                            .foregroundColor(.rosenergo)
+                            .foregroundColor(.purple)
                         VStack(alignment: .leading) {
                             Text("Номер кузова")
                                 .font(.system(size: 11))
@@ -165,7 +165,7 @@ struct InspectionsDetails: View {
                     HStack {
                         Image(systemName: "text.justify")
                             .frame(width: 24)
-                            .foregroundColor(.rosenergo)
+                            .foregroundColor(.purple)
                         VStack(alignment: .leading) {
                             Text("Страховой полис")
                                 .font(.system(size: 11))
@@ -181,7 +181,7 @@ struct InspectionsDetails: View {
                     HStack {
                         Image(systemName: "map")
                             .frame(width: 24)
-                            .foregroundColor(.rosenergo)
+                            .foregroundColor(.purple)
                         VStack(alignment: .leading) {
                             Text("Адрес места проведения осмотра")
                                 .font(.system(size: 11))

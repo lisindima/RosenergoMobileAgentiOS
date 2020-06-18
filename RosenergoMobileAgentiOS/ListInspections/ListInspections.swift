@@ -81,7 +81,7 @@ struct ListInspections: View {
         .navigationBarTitle("Осмотры")
         .navigationBarItems(trailing:
             NavigationLink(destination: CreateInspections()) {
-                Image(systemName: "plus.circle")
+                Image(systemName: "plus.circle.fill")
                     .imageScale(.large)
             }
         )

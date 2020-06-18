@@ -21,7 +21,7 @@ struct SettingsView: View {
                 HStack {
                     Image(systemName: "person")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Агент")
                             .font(.system(size: 11))
@@ -33,7 +33,7 @@ struct SettingsView: View {
                 HStack {
                     Image(systemName: "envelope")
                         .frame(width: 24)
-                        .foregroundColor(.rosenergo)
+                        .foregroundColor(.purple)
                     VStack(alignment: .leading) {
                         Text("Эл.почта")
                             .font(.system(size: 11))
