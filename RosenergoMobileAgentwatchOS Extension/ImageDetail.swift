@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import URLImage
 
 struct ImageDetail: View {
     
@@ -18,26 +18,28 @@ struct ImageDetail: View {
     var photo: String
     
     var body: some View {
-        WebImage(url: URL(string: photo))
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .scaleEffect(scale)
-            .focusable(true)
-            .digitalCrownRotation($scale, from: 1.0, through: 5.0, by: 0.1, sensitivity: .low, isContinuous: false, isHapticFeedbackEnabled: true)
-            .offset(x: self.currentPosition.width, y: self.currentPosition.height)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        if self.scale != 1.0 {
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                        }
+        URLImage(URL(string: photo)!) { proxy in
+            proxy.image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }
+        .scaleEffect(scale)
+        .focusable(true)
+        .digitalCrownRotation($scale, from: 1.0, through: 5.0, by: 0.1, sensitivity: .low, isContinuous: false, isHapticFeedbackEnabled: true)
+        .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    if self.scale != 1.0 {
+                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
                     }
-                    .onEnded { value in
-                        if self.scale != 1.0 {
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                            self.newPosition = self.currentPosition
-                        }
-                    }
-            )
+            }
+            .onEnded { value in
+                if self.scale != 1.0 {
+                    self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                    self.newPosition = self.currentPosition
+                }
+            }
+        )
     }
 }

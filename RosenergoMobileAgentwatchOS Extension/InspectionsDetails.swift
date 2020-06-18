@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import URLImage
 import Espera
 
 struct InspectionsDetails: View {
@@ -24,14 +24,12 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    WebImage(url: URL(string: photo.path), options: .scaleDownLargeImages)
-                                        .resizable()
-                                        .placeholder {
-                                            LoadingFlowerView()
-                                                .frame(width: 24, height: 24)
-                                        }
-                                        .frame(width: 75, height: 75)
-                                        .cornerRadius(10)
+                                    URLImage(URL(string: photo.path)!) { proxy in
+                                        proxy.image
+                                            .resizable()
+                                    }
+                                    .frame(width: 75, height: 75)
+                                    .cornerRadius(10)
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)

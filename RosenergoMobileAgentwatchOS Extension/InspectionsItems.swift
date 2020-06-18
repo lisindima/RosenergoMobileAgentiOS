@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Espera
-import SDWebImageSwiftUI
+import URLImage
 
 struct InspectionsItems: View {
     
@@ -46,14 +46,12 @@ struct InspectionsItems: View {
             }
             Spacer()
             if !inspection.photos.isEmpty {
-                WebImage(url: URL(string: inspection.photos.first!.path), options: .scaleDownLargeImages)
-                    .resizable()
-                    .placeholder {
-                        LoadingFlowerView()
-                            .frame(width: 24, height: 24)
-                    }
-                    .cornerRadius(10)
-                    .frame(width: 75, height: 75)
+                URLImage(URL(string: inspection.photos.first!.path)!) { proxy in
+                    proxy.image
+                        .resizable()
+                }
+                .cornerRadius(10)
+                .frame(width: 75, height: 75)
             }
         }
     }
