@@ -46,7 +46,10 @@ struct InspectionsItems: View {
             }
             Spacer()
             if !inspection.photos.isEmpty {
-                URLImage(URL(string: inspection.photos.first!.path)!, processors: [Resize(size: CGSize(width: 75.0, height: 75.0), scale: WKInterfaceDevice.current().screenScale)]) { proxy in
+                URLImage(URL(string: inspection.photos.first!.path)!, processors: [Resize(size: CGSize(width: 75.0, height: 75.0), scale: WKInterfaceDevice.current().screenScale)], placeholder: { _ in
+                    LoadingFlowerView()
+                        .frame(width: 24, height: 24)
+                }) { proxy in
                     proxy.image
                         .resizable()
                 }

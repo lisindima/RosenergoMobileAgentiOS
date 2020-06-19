@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import URLImage
 
 struct InspectionsItems: View {
     
@@ -45,11 +45,14 @@ struct InspectionsItems: View {
             }
             Spacer()
             if !inspection.photos.isEmpty {
-                WebImage(url: URL(string: inspection.photos.first!.path))
-                    .resizable()
-                    .indicator(.activity)
-                    .cornerRadius(10)
-                    .frame(width: 100, height: 100)
+                URLImage(URL(string: inspection.photos.first!.path)!, processors: [Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale)], placeholder: { _ in
+                    ActivityIndicator(styleSpinner: .medium)
+                }) { proxy in
+                    proxy.image
+                        .resizable()
+                }
+                .cornerRadius(10)
+                .frame(width: 100, height: 100)
             }
         }
     }

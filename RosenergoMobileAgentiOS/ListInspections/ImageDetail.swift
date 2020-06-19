@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import URLImage
 
 struct ImageDetail: View {
     
@@ -17,16 +17,18 @@ struct ImageDetail: View {
     
     var body: some View {
         VStack {
-            WebImage(url: URL(string: photo))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .scaleEffect(scale)
-                .gesture(MagnificationGesture()
-                    .updating($scale, body: { value, scale, trans in
-                        scale = value.magnitude
-                    }
-                )
-            )
+            URLImage(URL(string: photo)!, placeholder: { _ in
+                ActivityIndicator(styleSpinner: .medium)
+            }) { proxy in
+                proxy.image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+            .scaleEffect(scale)
+            .gesture(MagnificationGesture()
+            .updating($scale, body: { value, scale, trans in
+                scale = value.magnitude
+            }))
         }.navigationBarTitle("Фотография", displayMode: .inline)
     }
 }

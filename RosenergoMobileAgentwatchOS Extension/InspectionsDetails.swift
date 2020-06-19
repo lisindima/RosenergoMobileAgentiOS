@@ -24,7 +24,10 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 75.0, height: 75.0), scale: WKInterfaceDevice.current().screenScale)]) { proxy in
+                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 75.0, height: 75.0), scale: WKInterfaceDevice.current().screenScale)], placeholder: { _ in
+                                        LoadingFlowerView()
+                                            .frame(width: 24, height: 24)
+                                    }) { proxy in
                                         proxy.image
                                             .resizable()
                                     }

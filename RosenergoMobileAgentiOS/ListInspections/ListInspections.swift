@@ -8,7 +8,6 @@
 
 import SwiftUI
 import NativeSearchBar
-import SDWebImageSwiftUI
 
 struct ListInspections: View {
     

@@ -7,8 +7,7 @@
 //
 
 import SwiftUI
-import Alamofire
-import SDWebImageSwiftUI
+import URLImage
 
 struct InspectionsDetails: View {
     
@@ -26,12 +25,15 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    WebImage(url: URL(string: photo.path))
-                                        .renderingMode(.original)
-                                        .resizable()
-                                        .indicator(.activity)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(10)
+                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale)], placeholder: { _ in
+                                        ActivityIndicator(styleSpinner: .medium)
+                                    }) { proxy in
+                                        proxy.image
+                                            .renderingMode(.original)
+                                            .resizable()
+                                    }
+                                    .cornerRadius(10)
+                                    .frame(width: 100, height: 100)
                                 }
                             }
                         }.padding(.vertical, 8)

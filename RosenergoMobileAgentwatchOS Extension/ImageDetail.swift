@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Espera
 import URLImage
 
 struct ImageDetail: View {
@@ -18,7 +19,10 @@ struct ImageDetail: View {
     var photo: String
     
     var body: some View {
-        URLImage(URL(string: photo)!) { proxy in
+        URLImage(URL(string: photo)!, placeholder: { _ in
+            LoadingFlowerView()
+                .frame(width: 24, height: 24)
+        }) { proxy in
             proxy.image
                 .resizable()
                 .aspectRatio(contentMode: .fit)
