@@ -111,6 +111,10 @@ struct CreateInspections: View {
                             } else if self.sessionStore.photoParameters.isEmpty {
                                 SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
                             } else {
+                                var localPhotos: [String] = []
+                                for photo in self.sessionStore.photoParameters {
+                                    localPhotos.append(photo.file)
+                                }
                                 let id = UUID()
                                 let localInspections = LocalInspections(context: self.moc)
                                 localInspections.latitude = self.sessionStore.latitude
@@ -120,7 +124,7 @@ struct CreateInspections: View {
                                 localInspections.carRegNumber = self.carRegNumber
                                 localInspections.carVin = self.carVin
                                 localInspections.insuranceContractNumber = self.insuranceContractNumber
-                                localInspections.photos = self.sessionStore.imageLocalInspections
+                                localInspections.photos = localPhotos
                                 localInspections.dateInspections = self.sessionStore.stringDate
                                 localInspections.id = id
                                 if self.choiseCar == 1 {
@@ -150,7 +154,6 @@ struct CreateInspections: View {
         .onAppear(perform: sessionStore.getLocation)
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
-            self.sessionStore.imageLocalInspections.removeAll()
         }
         .sheet(isPresented: $showCustomCameraView) {
             CustomCameraView()

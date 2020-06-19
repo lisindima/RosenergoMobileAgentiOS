@@ -74,7 +74,6 @@ struct CreateVyplatnyeDela: View {
         .onAppear(perform: sessionStore.getLocation)
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
-            self.sessionStore.imageLocalInspections.removeAll()
         }
         .sheet(isPresented: $showCustomCameraView) {
             CustomCameraView()

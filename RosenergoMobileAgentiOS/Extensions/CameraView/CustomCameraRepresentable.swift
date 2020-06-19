@@ -56,7 +56,6 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)
                 let file = inspectionsImageData!.base64EncodedString()
                 parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: file, maked_photo_at: parent.sessionStore.stringDate))
-                parent.sessionStore.imageLocalInspections.append(file)
             }
         }
     }

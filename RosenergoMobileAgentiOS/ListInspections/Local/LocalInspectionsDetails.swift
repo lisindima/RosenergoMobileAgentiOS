@@ -18,22 +18,19 @@ struct LocalInspectionsDetails: View {
     
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     
-    @State private var localPhotoParameters: [PhotoParameters] = [PhotoParameters]()
     @State private var presentMapActionSheet: Bool = false
     
     var localInspections: LocalInspections
     
-    func preparationPhotoArray() {
-        if !localInspections.photos!.isEmpty {
-            for photo in localInspections.photos! {
-                localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
-            }
-        }
-    }
-    
-    func uploadLocalInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters], localInspections: LocalInspections) {
+    func uploadLocalInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double) {
         
         sessionStore.uploadState = .upload
+        
+        var localPhotoParameters: [PhotoParameters] = []
+        
+        for photo in localInspections.photos! {
+            localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
+        }
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel!.data.apiToken),
@@ -53,7 +50,7 @@ struct LocalInspectionsDetails: View {
             insurance_contract_number2: insuranceContractNumber2,
             latitude: latitude,
             longitude: longitude,
-            photos: photoParameters
+            photos: localPhotoParameters
         )
         
         AF.request(sessionStore.serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
@@ -67,9 +64,9 @@ struct LocalInspectionsDetails: View {
                     self.presentationMode.wrappedValue.dismiss()
                     SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.sessionStore.uploadState = .none
-                    self.notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
+                    self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.moc.delete(localInspections)
+                        self.moc.delete(self.localInspections)
                         do {
                             try self.moc.save()
                         } catch {
@@ -294,9 +291,7 @@ struct LocalInspectionsDetails: View {
                         carVin2: self.localInspections.carVin2,
                         insuranceContractNumber2: self.localInspections.insuranceContractNumber2,
                         latitude: self.localInspections.latitude,
-                        longitude: self.localInspections.longitude,
-                        photoParameters: self.localPhotoParameters,
-                        localInspections: self.localInspections
+                        longitude: self.localInspections.longitude
                     )
                 }
                 .padding(.horizontal)
@@ -308,11 +303,9 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
-            self.preparationPhotoArray()
             self.sessionStore.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
         }
         .onDisappear {
-            self.localPhotoParameters.removeAll()
             self.sessionStore.yandexGeo = nil
             self.sessionStore.yandexGeoState = .loading
         }
