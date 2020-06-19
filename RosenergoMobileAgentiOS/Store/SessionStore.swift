@@ -70,6 +70,9 @@ class SessionStore: ObservableObject {
             currentLoc = locationManager.location
             latitude = currentLoc.coordinate.latitude
             longitude = currentLoc.coordinate.longitude
+        } else {
+            latitude = 0.0
+            longitude = 0.0
         }
     }
     #endif

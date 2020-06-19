@@ -17,13 +17,13 @@ struct ListInspections: View {
         Group {
             if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
                 Text("Нет подключения к интернету!")
-                    .font(.title)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
                 Text("Нет осмотров")
-                    .font(.title)
+                    .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
