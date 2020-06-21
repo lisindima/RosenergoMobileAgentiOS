@@ -9,12 +9,41 @@
 import SwiftUI
 import URLImage
 import Espera
+import Alamofire
 
 struct InspectionsDetails: View {
     
     @ObservedObject var sessionStore: SessionStore = SessionStore.shared
     
+    @State private var yandexGeoState: YandexGeoState = .loading
+    @State private var yandexGeo: YandexGeo?
+    
     var inspection: Inspections
+    
+    private func loadYandexGeoResponse(latitude: Double, longitude: Double) {
+        
+        let parameters = YandexGeoParameters(
+            apikey: sessionStore.apiKeyForYandexGeo,
+            format: "json",
+            geocode: "\(longitude), \(latitude)",
+            results: "1",
+            kind: "house"
+        )
+        
+        AF.request(sessionStore.yandexGeoURL, method: .get, parameters: parameters)
+            .validate()
+            .responseDecodable(of: YandexGeo.self) { response in
+                switch response.result {
+                case .success:
+                    guard let yandexGeo = response.value else { return }
+                    self.yandexGeo = yandexGeo
+                    self.yandexGeoState = .success
+                case .failure(let error):
+                    print(error)
+                    self.yandexGeoState = .failure
+                }
+        }
+    }
     
     var body: some View {
         Form {
@@ -180,7 +209,7 @@ struct InspectionsDetails: View {
                 }
             }
             Section(header: Text("Место проведения осмотра".uppercased())) {
-                if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                     HStack {
                         Image(systemName: "map")
                             .frame(width: 24)
@@ -189,11 +218,11 @@ struct InspectionsDetails: View {
                             Text("Адрес места проведения осмотра")
                                 .font(.system(size: 11))
                                 .foregroundColor(.secondary)
-                            Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                            Text(yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
                                 .font(.footnote)
                         }
                     }
-                } else if sessionStore.yandexGeoState == .failure {
+                } else if yandexGeoState == .failure {
                     HStack {
                         Image(systemName: "exclamationmark.triangle")
                             .frame(width: 24)
@@ -206,7 +235,7 @@ struct InspectionsDetails: View {
                                 .font(.footnote)
                         }
                     }
-                } else if sessionStore.yandexGeoState == .loading {
+                } else if yandexGeoState == .loading {
                     HStack {
                         LoadingFlowerView()
                             .frame(width: 24, height: 24)
@@ -223,11 +252,9 @@ struct InspectionsDetails: View {
         }
         .navigationBarTitle("\(inspection.id)")
         .onAppear {
-            self.sessionStore.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
-        }
-        .onDisappear {
-            self.sessionStore.yandexGeo = nil
-            self.sessionStore.yandexGeoState = .loading
+            if self.yandexGeo == nil {
+                self.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
+            }
         }
     }
 }

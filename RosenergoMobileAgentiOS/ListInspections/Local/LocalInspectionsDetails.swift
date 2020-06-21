@@ -19,10 +19,37 @@ struct LocalInspectionsDetails: View {
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     
     @State private var presentMapActionSheet: Bool = false
+    @State private var yandexGeoState: YandexGeoState = .loading
+    @State private var yandexGeo: YandexGeo?
     
     var localInspections: LocalInspections
     
-    func uploadLocalInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double) {
+    private func loadYandexGeoResponse(latitude: Double, longitude: Double) {
+        
+        let parameters = YandexGeoParameters(
+            apikey: sessionStore.apiKeyForYandexGeo,
+            format: "json",
+            geocode: "\(longitude), \(latitude)",
+            results: "1",
+            kind: "house"
+        )
+        
+        AF.request(sessionStore.yandexGeoURL, method: .get, parameters: parameters)
+            .validate()
+            .responseDecodable(of: YandexGeo.self) { response in
+                switch response.result {
+                case .success:
+                    guard let yandexGeo = response.value else { return }
+                    self.yandexGeo = yandexGeo
+                    self.yandexGeoState = .success
+                case .failure(let error):
+                    print(error)
+                    self.yandexGeoState = .failure
+                }
+        }
+    }
+    
+    private func uploadLocalInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double) {
         
         sessionStore.uploadState = .upload
         
@@ -234,7 +261,7 @@ struct LocalInspectionsDetails: View {
                     Button(action: {
                         self.presentMapActionSheet = true
                     }) {
-                        if sessionStore.yandexGeoState == .success && sessionStore.yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
+                        if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                             HStack {
                                 Image(systemName: "map")
                                     .frame(width: 24)
@@ -243,11 +270,11 @@ struct LocalInspectionsDetails: View {
                                     Text("Адрес места проведения осмотра")
                                         .font(.system(size: 11))
                                         .foregroundColor(.secondary)
-                                    Text(sessionStore.yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
+                                    Text(yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
                                         .foregroundColor(.primary)
                                 }
                             }
-                        } else if sessionStore.yandexGeoState == .failure {
+                        } else if yandexGeoState == .failure {
                             HStack {
                                 Image(systemName: "exclamationmark.triangle")
                                     .frame(width: 24)
@@ -260,7 +287,7 @@ struct LocalInspectionsDetails: View {
                                         .foregroundColor(.primary)
                                 }
                             }
-                        } else if sessionStore.yandexGeoState == .loading {
+                        } else if yandexGeoState == .loading {
                             HStack {
                                 ActivityIndicator(styleSpinner: .medium)
                                     .frame(width: 24)
@@ -303,11 +330,9 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
-            self.sessionStore.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
-        }
-        .onDisappear {
-            self.sessionStore.yandexGeo = nil
-            self.sessionStore.yandexGeoState = .loading
+            if self.yandexGeo == nil {
+                self.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
+            }
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")

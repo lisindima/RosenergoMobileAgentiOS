@@ -32,9 +32,7 @@ class SessionStore: ObservableObject {
     
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
-    @Published var yandexGeo: YandexGeo?
     @Published var loadingLogin: Bool = false
-    @Published var yandexGeoState: YandexGeoState = .loading
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var uploadProgress: Double = 0.0
@@ -277,31 +275,6 @@ class SessionStore: ObservableObject {
                     self.uploadState = .none
                     print(error.errorDescription!)
             }
-        }
-    }
-    
-    func loadYandexGeoResponse(latitude: Double, longitude: Double) {
-        
-        let parameters = YandexGeoParameters(
-            apikey: apiKeyForYandexGeo,
-            format: "json",
-            geocode: "\(longitude), \(latitude)",
-            results: "1",
-            kind: "house"
-        )
-        
-        AF.request(yandexGeoURL, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: YandexGeo.self) { response in
-                switch response.result {
-                case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    self.yandexGeoState = .success
-                case .failure(let error):
-                    print(error)
-                    self.yandexGeoState = .failure
-                }
         }
     }
 }
