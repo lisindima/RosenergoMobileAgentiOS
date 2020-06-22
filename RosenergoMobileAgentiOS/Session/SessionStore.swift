@@ -56,7 +56,6 @@ class SessionStore: ObservableObject {
         return createStringDate
     }()
     
-    //var imageLocalInspections: [String] = [String]()
     var locationManager = CLLocationManager()
     
     #if !os(watchOS)
