@@ -20,12 +20,12 @@ struct InspectionsDetails: View {
     
     var inspection: Inspections
     
-    private func loadYandexGeoResponse(latitude: Double, longitude: Double) {
+    private func loadYandexGeoResponse() {
         
         let parameters = YandexGeoParameters(
             apikey: sessionStore.apiKeyForYandexGeo,
             format: "json",
-            geocode: "\(longitude), \(latitude)",
+            geocode: "\(inspection.longitude), \(inspection.latitude)",
             results: "1",
             kind: "house"
         )
@@ -255,7 +255,7 @@ struct InspectionsDetails: View {
         }
         .onAppear {
             if self.yandexGeo == nil {
-                self.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
+                self.loadYandexGeoResponse()
             }
         }
     }

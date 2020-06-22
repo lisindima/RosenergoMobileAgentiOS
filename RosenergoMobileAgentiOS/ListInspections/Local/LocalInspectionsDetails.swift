@@ -24,12 +24,12 @@ struct LocalInspectionsDetails: View {
     
     var localInspections: LocalInspections
     
-    private func loadYandexGeoResponse(latitude: Double, longitude: Double) {
+    private func loadYandexGeoResponse() {
         
         let parameters = YandexGeoParameters(
             apikey: sessionStore.apiKeyForYandexGeo,
             format: "json",
-            geocode: "\(longitude), \(latitude)",
+            geocode: "\(localInspections.longitude), \(localInspections.latitude)",
             results: "1",
             kind: "house"
         )
@@ -49,7 +49,7 @@ struct LocalInspectionsDetails: View {
         }
     }
     
-    private func uploadLocalInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double) {
+    private func uploadLocalInspections() {
         
         sessionStore.uploadState = .upload
         
@@ -65,18 +65,18 @@ struct LocalInspectionsDetails: View {
         ]
         
         let parameters = InspectionParameters(
-            car_model: carModel,
-            car_reg_number: carRegNumber,
-            car_body_number: carBodyNumber,
-            car_vin: carVin,
-            insurance_contract_number: insuranceContractNumber,
-            car_model2: carModel2,
-            car_reg_number2: carRegNumber2,
-            car_body_number2: carBodyNumber2,
-            car_vin2: carVin2,
-            insurance_contract_number2: insuranceContractNumber2,
-            latitude: latitude,
-            longitude: longitude,
+            car_model: localInspections.carModel!,
+            car_reg_number: localInspections.carRegNumber!,
+            car_body_number: localInspections.carBodyNumber!,
+            car_vin: localInspections.carVin!,
+            insurance_contract_number: localInspections.insuranceContractNumber!,
+            car_model2: localInspections.carModel2,
+            car_reg_number2: localInspections.carRegNumber2,
+            car_body_number2: localInspections.carBodyNumber2,
+            car_vin2: localInspections.carVin2,
+            insurance_contract_number2: localInspections.insuranceContractNumber2,
+            latitude: localInspections.latitude,
+            longitude: localInspections.longitude,
             photos: localPhotoParameters
         )
         
@@ -306,20 +306,7 @@ struct LocalInspectionsDetails: View {
             if sessionStore.uploadState == .none {
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
                     UIApplication.shared.hideKeyboard()
-                    self.uploadLocalInspections(
-                        carModel: self.localInspections.carModel!,
-                        carRegNumber: self.localInspections.carRegNumber!,
-                        carBodyNumber: self.localInspections.carBodyNumber!,
-                        carVin: self.localInspections.carVin!,
-                        insuranceContractNumber: self.localInspections.insuranceContractNumber!,
-                        carModel2: self.localInspections.carModel2,
-                        carRegNumber2: self.localInspections.carRegNumber2,
-                        carBodyNumber2: self.localInspections.carBodyNumber2,
-                        carVin2: self.localInspections.carVin2,
-                        insuranceContractNumber2: self.localInspections.insuranceContractNumber2,
-                        latitude: self.localInspections.latitude,
-                        longitude: self.localInspections.longitude
-                    )
+                    self.uploadLocalInspections()
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
@@ -331,7 +318,7 @@ struct LocalInspectionsDetails: View {
         }
         .onAppear {
             if self.yandexGeo == nil {
-                self.loadYandexGeoResponse(latitude: self.localInspections.latitude, longitude: self.localInspections.longitude)
+                self.loadYandexGeoResponse()
             }
         }
         .environment(\.horizontalSizeClass, .regular)
