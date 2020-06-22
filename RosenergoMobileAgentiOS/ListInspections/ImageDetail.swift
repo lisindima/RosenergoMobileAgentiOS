@@ -32,19 +32,11 @@ struct ImageDetail: View {
             .gesture(
                 DragGesture()
                     .onChanged { value in
-                        if self.currentAmount + self.finalAmount != 1.0 {
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                        } else {
-                            self.currentPosition = .zero
-                        }
+                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
                     }
                     .onEnded { value in
-                        if self.currentAmount + self.finalAmount != 1.0 {
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                            self.newPosition = self.currentPosition
-                        } else {
-                            self.currentPosition = .zero
-                        }
+                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                        self.newPosition = self.currentPosition
                     }
             )
             .gesture(
@@ -80,19 +72,11 @@ struct LocalImageDetail: View {
                 .gesture(
                     DragGesture()
                         .onChanged { value in
-                            if self.currentAmount + self.finalAmount != 1.0 {
-                                self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                            } else {
-                                self.currentPosition = .zero
-                            }
+                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
                         }
                         .onEnded { value in
-                            if self.currentAmount + self.finalAmount != 1.0 {
-                                self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                                self.newPosition = self.currentPosition
-                            } else {
-                                self.currentPosition = .zero
-                            }
+                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                            self.newPosition = self.currentPosition
                         }
                 )
                 .gesture(

@@ -39,6 +39,58 @@ struct CreateInspections: View {
         }
     }
     
+    private func uploadInspections() {
+        self.sessionStore.uploadInspections(
+            carModel: self.carModel,
+            carRegNumber: self.carRegNumber,
+            carBodyNumber: self.carBodyNumber,
+            carVin: self.carVin,
+            insuranceContractNumber: self.insuranceContractNumber,
+            carModel2: self.carModel2 == "" ? nil : self.carModel2,
+            carRegNumber2: self.carRegNumber2 == "" ? nil : self.carRegNumber2,
+            carBodyNumber2: self.carBodyNumber2 == "" ? nil : self.carBodyNumber2,
+            carVin2: self.carVin2 == "" ? nil : self.carVin2,
+            insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
+            latitude: self.sessionStore.latitude,
+            longitude: self.sessionStore.longitude,
+            photoParameters: self.sessionStore.photoParameters
+        )
+    }
+    
+    private func saveInspections() {
+        var localPhotos: [String] = []
+        
+        for photo in self.sessionStore.photoParameters {
+            localPhotos.append(photo.file)
+        }
+        
+        let id = UUID()
+        let localInspections = LocalInspections(context: self.moc)
+        localInspections.latitude = self.sessionStore.latitude
+        localInspections.longitude = self.sessionStore.longitude
+        localInspections.carBodyNumber = self.carBodyNumber
+        localInspections.carModel = self.carModel
+        localInspections.carRegNumber = self.carRegNumber
+        localInspections.carVin = self.carVin
+        localInspections.insuranceContractNumber = self.insuranceContractNumber
+        localInspections.photos = localPhotos
+        localInspections.dateInspections = self.sessionStore.stringDate
+        localInspections.id = id
+        
+        if self.choiseCar == 1 {
+            localInspections.carBodyNumber2 = self.carBodyNumber2
+            localInspections.carModel2 = self.carModel2
+            localInspections.carRegNumber2 = self.carRegNumber2
+            localInspections.carVin2 = self.carVin2
+            localInspections.insuranceContractNumber2 = self.insuranceContractNumber2
+        }
+        
+        try? self.moc.save()
+        self.presentationMode.wrappedValue.dismiss()
+        SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
+        self.notificationStore.setNotification(id: id.uuidString)
+    }
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -82,62 +134,42 @@ struct CreateInspections: View {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                             UIApplication.shared.hideKeyboard()
-                            if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
-                                SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
-                            } else if self.sessionStore.photoParameters.isEmpty {
-                                SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
-                            } else {
-                                self.sessionStore.uploadInspections(
-                                    carModel: self.carModel,
-                                    carRegNumber: self.carRegNumber,
-                                    carBodyNumber: self.carBodyNumber,
-                                    carVin: self.carVin,
-                                    insuranceContractNumber: self.insuranceContractNumber,
-                                    carModel2: self.carModel2 == "" ? nil : self.carModel2,
-                                    carRegNumber2: self.carRegNumber2 == "" ? nil : self.carRegNumber2,
-                                    carBodyNumber2: self.carBodyNumber2 == "" ? nil : self.carBodyNumber2,
-                                    carVin2: self.carVin2 == "" ? nil : self.carVin2,
-                                    insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
-                                    latitude: self.sessionStore.latitude,
-                                    longitude: self.sessionStore.longitude,
-                                    photoParameters: self.sessionStore.photoParameters
-                                )
+                            if self.choiseCar == 0 {
+                                if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
+                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                } else if self.sessionStore.photoParameters.isEmpty {
+                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                } else {
+                                    self.uploadInspections()
+                                }
+                            } else if self.choiseCar == 1 {
+                                if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" || self.carModel2 == "" || self.carRegNumber2 == "" || self.carBodyNumber2 == "" || self.carVin2 == "" || self.insuranceContractNumber2 == "" {
+                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                } else if self.sessionStore.photoParameters.isEmpty {
+                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                } else {
+                                    self.uploadInspections()
+                                }
                             }
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                             UIApplication.shared.hideKeyboard()
-                            if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
-                                SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
-                            } else if self.sessionStore.photoParameters.isEmpty {
-                                SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
-                            } else {
-                                var localPhotos: [String] = []
-                                for photo in self.sessionStore.photoParameters {
-                                    localPhotos.append(photo.file)
+                            if self.choiseCar == 0 {
+                                if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
+                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                } else if self.sessionStore.photoParameters.isEmpty {
+                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                } else {
+                                    self.saveInspections()
                                 }
-                                let id = UUID()
-                                let localInspections = LocalInspections(context: self.moc)
-                                localInspections.latitude = self.sessionStore.latitude
-                                localInspections.longitude = self.sessionStore.longitude
-                                localInspections.carBodyNumber = self.carBodyNumber
-                                localInspections.carModel = self.carModel
-                                localInspections.carRegNumber = self.carRegNumber
-                                localInspections.carVin = self.carVin
-                                localInspections.insuranceContractNumber = self.insuranceContractNumber
-                                localInspections.photos = localPhotos
-                                localInspections.dateInspections = self.sessionStore.stringDate
-                                localInspections.id = id
-                                if self.choiseCar == 1 {
-                                    localInspections.carBodyNumber2 = self.carBodyNumber2
-                                    localInspections.carModel2 = self.carModel2
-                                    localInspections.carRegNumber2 = self.carRegNumber2
-                                    localInspections.carVin2 = self.carVin2
-                                    localInspections.insuranceContractNumber2 = self.insuranceContractNumber2
+                            } else if self.choiseCar == 1 {
+                                if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" || self.carModel2 == "" || self.carRegNumber2 == "" || self.carBodyNumber2 == "" || self.carVin2 == "" || self.insuranceContractNumber2 == "" {
+                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                } else if self.sessionStore.photoParameters.isEmpty {
+                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                } else {
+                                    self.saveInspections()
                                 }
-                                try? self.moc.save()
-                                self.presentationMode.wrappedValue.dismiss()
-                                SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
-                                self.notificationStore.setNotification(id: id.uuidString)
                             }
                         }.padding(.leading, 4)
                     }
