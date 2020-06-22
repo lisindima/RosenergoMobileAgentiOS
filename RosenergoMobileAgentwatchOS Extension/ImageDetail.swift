@@ -36,14 +36,20 @@ struct ImageDetail: View {
                 .onChanged { value in
                     if self.scale != 1.0 {
                         self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                    } else {
+                        self.currentPosition = .zero
                     }
-            }
-            .onEnded { value in
-                if self.scale != 1.0 {
-                    self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                    self.newPosition = self.currentPosition
                 }
-            }
+                .onEnded { value in
+                    if self.scale != 1.0 {
+                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                        self.newPosition = self.currentPosition
+                    } else {
+                        self.currentPosition = .zero
+                    }
+                }
         )
+        .animation(.interactiveSpring())
+        .navigationBarTitle("Фотография")
     }
 }

@@ -11,7 +11,10 @@ import URLImage
 
 struct ImageDetail: View {
     
-    @GestureState var scale: CGFloat = 1.0
+    @State private var currentPosition: CGSize = .zero
+    @State private var newPosition: CGSize = .zero
+    @State private var currentAmount: CGFloat = 0
+    @State private var finalAmount: CGFloat = 1
     
     var photo: String
     
@@ -24,18 +27,46 @@ struct ImageDetail: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            .scaleEffect(scale)
-            .gesture(MagnificationGesture()
-            .updating($scale, body: { value, scale, trans in
-                scale = value.magnitude
-            }))
+            .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+            .scaleEffect(finalAmount + currentAmount)
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        if self.currentAmount + self.finalAmount != 1.0 {
+                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                        } else {
+                            self.currentPosition = .zero
+                        }
+                    }
+                    .onEnded { value in
+                        if self.currentAmount + self.finalAmount != 1.0 {
+                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                            self.newPosition = self.currentPosition
+                        } else {
+                            self.currentPosition = .zero
+                        }
+                    }
+            )
+            .gesture(
+                MagnificationGesture()
+                    .onChanged { amount in
+                        self.currentAmount = amount - 1
+                    }
+                    .onEnded { amount in
+                        self.finalAmount += self.currentAmount
+                        self.currentAmount = 0
+                    }
+            )
         }.navigationBarTitle("Фотография", displayMode: .inline)
     }
 }
 
 struct LocalImageDetail: View {
     
-    @GestureState var scale: CGFloat = 1.0
+    @State private var currentPosition: CGSize = .zero
+    @State private var newPosition: CGSize = .zero
+    @State private var currentAmount: CGFloat = 0
+    @State private var finalAmount: CGFloat = 1
     
     var photo: String
     
@@ -44,13 +75,36 @@ struct LocalImageDetail: View {
             Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .scaleEffect(scale)
-                .gesture(MagnificationGesture()
-                    .updating($scale, body: { value, scale, trans in
-                        scale = value.magnitude
-                    }
+                .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+                .scaleEffect(finalAmount + currentAmount)
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            if self.currentAmount + self.finalAmount != 1.0 {
+                                self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                            } else {
+                                self.currentPosition = .zero
+                            }
+                        }
+                        .onEnded { value in
+                            if self.currentAmount + self.finalAmount != 1.0 {
+                                self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                                self.newPosition = self.currentPosition
+                            } else {
+                                self.currentPosition = .zero
+                            }
+                        }
                 )
-            )
+                .gesture(
+                    MagnificationGesture()
+                        .onChanged { amount in
+                            self.currentAmount = amount - 1
+                        }
+                        .onEnded { amount in
+                            self.finalAmount += self.currentAmount
+                            self.currentAmount = 0
+                        }
+                )
         }.navigationBarTitle("Фотография", displayMode: .inline)
     }
 }
