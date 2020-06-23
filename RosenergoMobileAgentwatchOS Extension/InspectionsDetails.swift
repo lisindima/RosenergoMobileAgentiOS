@@ -8,7 +8,6 @@
 
 import SwiftUI
 import URLImage
-import Espera
 import Alamofire
 
 struct InspectionsDetails: View {
@@ -54,7 +53,7 @@ struct InspectionsDetails: View {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
                                     URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 75.0, height: 75.0), scale: WKInterfaceDevice.current().screenScale)], placeholder: { _ in
-                                        LoadingFlowerView()
+                                        ProgressView()
                                             .frame(width: 24, height: 24)
                                     }) { proxy in
                                         proxy.image
@@ -237,7 +236,7 @@ struct InspectionsDetails: View {
                     }
                 } else if yandexGeoState == .loading {
                     HStack {
-                        LoadingFlowerView()
+                        ProgressView()
                             .frame(width: 24, height: 24)
                         VStack(alignment: .leading) {
                             Text("Определяем адрес осмотра")

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Espera
 
 struct ListInspections: View {
     
@@ -31,7 +30,7 @@ struct ListInspections: View {
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
-                LoadingFlowerView()
+                ProgressView()
                     .frame(width: 24, height: 24)
             } else {
                 List {
@@ -41,17 +40,6 @@ struct ListInspections: View {
                         }
                     }
                 }
-                .contextMenu(menuItems: {
-                    Button(action: {
-                        self.sessionStore.getInspections()
-                    }, label: {
-                        VStack{
-                            Image(systemName: "arrow.clockwise")
-                                .font(.title)
-                            Text("Обновить список")
-                        }
-                    })
-                })
             }
         }
         .onAppear(perform: sessionStore.getInspections)

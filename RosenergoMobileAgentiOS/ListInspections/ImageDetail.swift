@@ -21,7 +21,7 @@ struct ImageDetail: View {
     var body: some View {
         VStack {
             URLImage(URL(string: photo)!, placeholder: { _ in
-                ActivityIndicator(styleSpinner: .medium)
+                ProgressView()
             }) { proxy in
                 proxy.image
                     .resizable()

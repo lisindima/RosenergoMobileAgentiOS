@@ -46,7 +46,7 @@ struct ListInspections: View {
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
-                ActivityIndicator(styleSpinner: .large)
+                ProgressView()
             } else {
                 List {
                     if !localInspections.isEmpty {

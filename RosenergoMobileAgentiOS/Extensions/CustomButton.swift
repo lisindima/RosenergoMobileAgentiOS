@@ -25,7 +25,8 @@ struct CustomButton: View {
                     .foregroundColor(colorText)
                     .multilineTextAlignment(.center)
                 if loading ?? false {
-                    ActivityIndicatorButton()
+                    ProgressView()
+                        .padding(.horizontal)
                 }
                 Spacer()
             }
@@ -61,19 +62,5 @@ struct ImageButton: View {
                 }
             }
         }
-    }
-}
-
-struct ActivityIndicatorButton: UIViewRepresentable {
-    
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicatorButton>) -> UIActivityIndicatorView {
-        let indicator = UIActivityIndicatorView()
-        indicator.startAnimating()
-        indicator.color = .white
-        return indicator
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicatorButton>) {
-        
     }
 }

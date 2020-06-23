@@ -46,7 +46,7 @@ struct InspectionsItems: View {
             Spacer()
             if !inspection.photos.isEmpty {
                 URLImage(URL(string: inspection.photos.first!.path)!, processors: [Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale)], placeholder: { _ in
-                    ActivityIndicator(styleSpinner: .medium)
+                    ProgressView()
                 }) { proxy in
                     proxy.image
                         .resizable()

@@ -54,7 +54,7 @@ struct InspectionsDetails: View {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
                                     URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale)], placeholder: { _ in
-                                        ActivityIndicator(styleSpinner: .medium)
+                                        ProgressView()
                                     }) { proxy in
                                         proxy.image
                                             .renderingMode(.original)
@@ -229,7 +229,7 @@ struct InspectionsDetails: View {
                         }
                     } else if yandexGeoState == .loading {
                         HStack {
-                            ActivityIndicator(styleSpinner: .medium)
+                            ProgressView()
                                 .frame(width: 24)
                             VStack(alignment: .leading) {
                                 Text("Определяем адрес осмотра")

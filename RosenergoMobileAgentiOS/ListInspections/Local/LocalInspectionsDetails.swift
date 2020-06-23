@@ -289,7 +289,7 @@ struct LocalInspectionsDetails: View {
                             }
                         } else if yandexGeoState == .loading {
                             HStack {
-                                ActivityIndicator(styleSpinner: .medium)
+                                ProgressView()
                                     .frame(width: 24)
                                 VStack(alignment: .leading) {
                                     Text("Определяем адрес осмотра")
