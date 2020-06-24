@@ -62,8 +62,8 @@ class SessionStore: ObservableObject {
     func getLocation() {
         locationManager.requestWhenInUseAuthorization()
         var currentLoc: CLLocation!
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {
+        if locationManager.authorizationStatus() == .authorizedWhenInUse ||
+            locationManager.authorizationStatus() == .authorizedAlways {
             currentLoc = locationManager.location
             latitude = currentLoc.coordinate.latitude
             longitude = currentLoc.coordinate.longitude
