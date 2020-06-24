@@ -20,7 +20,7 @@ struct MenuView: View {
     }
     
     var body: some View {
-        VStack {
+        ScrollView {
             NavigationLink(destination: ListInspections()) {
                 MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .purple)
             }.buttonStyle(PlainButtonStyle())

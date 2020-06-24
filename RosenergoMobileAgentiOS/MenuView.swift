@@ -53,7 +53,7 @@ struct MenuView: View {
                 Image(systemName: "gear")
                     .imageScale(.large)
             })
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
     }
 }
 

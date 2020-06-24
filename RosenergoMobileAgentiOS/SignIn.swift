@@ -18,34 +18,32 @@ struct SignIn: View {
     
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Spacer()
-                Image("rosenergo")
-                    .resizable()
-                    .frame(width: 300, height: 169)
-                Text("Мобильный агент")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Spacer()
-                CustomInput(text: $email, name: "Эл.почта")
-                    .textContentType(.emailAddress)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                    .padding(.horizontal)
-                SecureField("Пароль", text: $password)
-                    .textContentType(.password)
-                    .autocapitalization(.none)
-                    .modifier(InputModifier())
-                    .padding(.horizontal)
-                CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
-                    UIApplication.shared.hideKeyboard()
-                    self.sessionStore.login(email: self.email, password: self.password)
-                }.padding()
-            }
-            .keyboardObserving()
-            .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-        }.navigationViewStyle(StackNavigationViewStyle())
+        VStack {
+            Spacer()
+            Image("rosenergo")
+                .resizable()
+                .frame(width: 300, height: 169)
+            Text("Мобильный агент")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            Spacer()
+            CustomInput(text: $email, name: "Эл.почта")
+                .textContentType(.emailAddress)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .padding(.horizontal)
+            SecureField("Пароль", text: $password)
+                .textContentType(.password)
+                .autocapitalization(.none)
+                .modifier(InputModifier())
+                .padding(.horizontal)
+            CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
+                UIApplication.shared.hideKeyboard()
+                self.sessionStore.login(email: self.email, password: self.password)
+            }.padding()
+        }
+        .keyboardObserving()
+        .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
     }
 }
 

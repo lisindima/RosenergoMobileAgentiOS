@@ -71,7 +71,6 @@ struct CreateVyplatnyeDela: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: sessionStore.getLocation)
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
         }

@@ -39,7 +39,6 @@
 		CB7267AE24987D5900E138BD /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267AD24987D5900E138BD /* InspectionsDetails.swift */; };
 		CB7267B12498858100E138BD /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
 		CB7267B624988B0900E138BD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B524988B0900E138BD /* SettingsView.swift */; };
-		CB7267B824988F3500E138BD /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B724988F3500E138BD /* MenuButton.swift */; };
 		CB7267BB249891A900E138BD /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267BA249891A900E138BD /* ImageDetail.swift */; };
 		CB7267BD2498B4F100E138BD /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267BC2498B4F100E138BD /* InspectionsItems.swift */; };
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
@@ -62,6 +61,7 @@
 		CB9DE95A249759F500F4E72A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
 		CB9DE95E24975A4100F4E72A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB9DE95D24975A4100F4E72A /* Alamofire */; };
 		CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
+		CBA5870C24A3499F009631C1 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09124780EA50017AB00 /* MenuButton.swift */; };
 		CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09124780EA50017AB00 /* MenuButton.swift */; };
 		CBB2E0942478E5B20017AB00 /* CreateVyplatnyeDela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */; };
 		CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
@@ -150,7 +150,6 @@
 		CB7267AD24987D5900E138BD /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CB7267B02498858100E138BD /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		CB7267B524988B0900E138BD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		CB7267B724988F3500E138BD /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		CB7267BA249891A900E138BD /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		CB7267BC2498B4F100E138BD /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -341,7 +340,6 @@
 			children = (
 				CB7267BA249891A900E138BD /* ImageDetail.swift */,
 				CB7267BC2498B4F100E138BD /* InspectionsItems.swift */,
-				CB7267B724988F3500E138BD /* MenuButton.swift */,
 				CB9DE959249759F500F4E72A /* ListInspections.swift */,
 				CB7267B524988B0900E138BD /* SettingsView.swift */,
 				CB7267AD24987D5900E138BD /* InspectionsDetails.swift */,
@@ -659,12 +657,12 @@
 				CB7267BD2498B4F100E138BD /* InspectionsItems.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
 				CB7267BB249891A900E138BD /* ImageDetail.swift in Sources */,
+				CBA5870C24A3499F009631C1 /* MenuButton.swift in Sources */,
 				CB9DE942249758B400F4E72A /* ExtensionDelegate.swift in Sources */,
 				CB7267B12498858100E138BD /* MenuView.swift in Sources */,
 				CB9DE946249758B400F4E72A /* NotificationView.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
 				CB9DE95A249759F500F4E72A /* ListInspections.swift in Sources */,
-				CB7267B824988F3500E138BD /* MenuButton.swift in Sources */,
 				CB7267B624988B0900E138BD /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

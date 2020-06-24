@@ -11,7 +11,6 @@ import Combine
 import Alamofire
 import Defaults
 #if !os(watchOS)
-import CoreLocation
 import SPAlert
 import FirebaseCrashlytics
 #endif
@@ -55,24 +54,6 @@ class SessionStore: ObservableObject {
         let createStringDate = dateFormatter.string(from: currentDate)
         return createStringDate
     }()
-    
-    var locationManager = CLLocationManager()
-    
-    #if !os(watchOS)
-    func getLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        var currentLoc: CLLocation!
-        if locationManager.authorizationStatus() == .authorizedWhenInUse ||
-            locationManager.authorizationStatus() == .authorizedAlways {
-            currentLoc = locationManager.location
-            latitude = currentLoc.coordinate.latitude
-            longitude = currentLoc.coordinate.longitude
-        } else {
-            latitude = 0.0
-            longitude = 0.0
-        }
-    }
-    #endif
     
     func login(email: String, password: String) {
         
