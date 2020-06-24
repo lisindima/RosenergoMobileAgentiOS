@@ -112,7 +112,7 @@ struct LocalInspectionsDetails: View {
         VStack {
             Form {
                 if !localInspections.photos!.isEmpty {
-                    Section(header: Text("Фотографии".uppercased())) {
+                    Section(header: Text("Фотографии").fontWeight(.bold)) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
@@ -128,7 +128,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
-                Section(header: Text("Дата осмотра".uppercased())) {
+                Section(header: Text("Дата осмотра").fontWeight(.bold)) {
                     HStack {
                         Image(systemName: "timer")
                             .frame(width: 24)
@@ -141,7 +141,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
-                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
+                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                     HStack {
                         Image(systemName: "car")
                             .frame(width: 24)
@@ -199,7 +199,7 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 if localInspections.carModel2 != nil {
-                    Section(header: Text("Второй автомобиль".uppercased())) {
+                    Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                         HStack {
                             Image(systemName: "car")
                                 .frame(width: 24)
@@ -257,7 +257,7 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
-                Section(header: Text("Место проведения осмотра".uppercased())) {
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
                     Button(action: {
                         self.presentMapActionSheet = true
                     }) {

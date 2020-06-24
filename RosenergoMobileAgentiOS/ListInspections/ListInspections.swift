@@ -50,7 +50,7 @@ struct ListInspections: View {
             } else {
                 List {
                     if !localInspections.isEmpty {
-                        Section(header: Text("Не отправленные осмотры".uppercased())) {
+                        Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
                             ForEach(localInspections.filter {
                                 searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
                             }, id: \.id) { localInspections in
@@ -61,7 +61,7 @@ struct ListInspections: View {
                         }
                     }
                     if !sessionStore.inspections.isEmpty {
-                        Section(header: Text("Отправленные осмотры".uppercased())) {
+                        Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
                             ForEach(sessionStore.inspections.reversed().filter {
                                 searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
                             }, id: \.id) { inspection in

@@ -55,7 +55,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Личные данные".uppercased())) {
+            Section(header: Text("Личные данные").fontWeight(.bold)) {
                 HStack {
                     Image(systemName: "person")
                         .frame(width: 24)
@@ -79,7 +79,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            Section(header: Text("Уведомления".uppercased()), footer: footerNotification) {
+            Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
                 if notificationStore.enabled == .authorized {
                     HStack {
                         Image(systemName: "bell")
@@ -117,7 +117,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            Section(header: Text("Другое".uppercased()), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                 HStack {
                     Image(systemName: "ant")
                         .frame(width: 24)

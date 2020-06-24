@@ -47,7 +47,7 @@ struct InspectionsDetails: View {
     var body: some View {
         Form {
             if !inspection.photos.isEmpty {
-                Section(header: Text("Фотографии".uppercased())) {
+                Section(header: Text("Фотографии").fontWeight(.bold)) {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
@@ -67,7 +67,7 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            Section(header: Text("Дата осмотра".uppercased())) {
+            Section(header: Text("Дата осмотра").fontWeight(.bold)) {
                 HStack {
                     Image(systemName: "timer")
                         .frame(width: 24)
@@ -81,7 +81,7 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
+            Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                 HStack {
                     Image(systemName: "car")
                         .frame(width: 24)
@@ -144,7 +144,7 @@ struct InspectionsDetails: View {
                 }
             }
             if inspection.carModel2 != nil {
-                Section(header: Text("Второй автомобиль".uppercased())) {
+                Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                     HStack {
                         Image(systemName: "car")
                             .frame(width: 24)
@@ -207,7 +207,7 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            Section(header: Text("Место проведения осмотра".uppercased())) {
+            Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
                 if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                     HStack {
                         Image(systemName: "map")

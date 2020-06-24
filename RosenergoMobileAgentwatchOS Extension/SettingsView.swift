@@ -17,7 +17,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Личные данные".uppercased())) {
+            Section(header: Text("Личные данные").fontWeight(.bold)) {
                 HStack {
                     Image(systemName: "person")
                         .frame(width: 24)
