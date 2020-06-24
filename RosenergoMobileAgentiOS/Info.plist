@@ -23,15 +23,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует доступ к камере вашего устройства, для сохранения фотографий осмотра на сервер ООО "НСГ-"РОСЭНЕРГО"</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует доступ к камере вашего устройства, для сохранения фотографий осмотра на сервер ООО &quot;НСГ-&quot;РОСЭНЕРГО&quot;</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -53,8 +53,6 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -63,6 +61,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string></string>
+	</dict>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

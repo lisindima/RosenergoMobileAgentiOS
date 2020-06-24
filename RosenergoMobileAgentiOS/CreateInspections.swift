@@ -187,10 +187,10 @@ struct CreateInspections: View {
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
         }
-        .sheet(isPresented: $showCustomCameraView) {
+        .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
-                .edgesIgnoringSafeArea(.bottom)
+                .edgesIgnoringSafeArea(.vertical)
         }.navigationBarTitle("Новый осмотр")
     }
 }

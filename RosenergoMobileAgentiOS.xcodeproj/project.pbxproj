@@ -14,7 +14,6 @@
 		CB17E5632466644400CDBB1A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
 		CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5672466644500CDBB1A /* Preview Assets.xcassets */; };
-		CB17E56B2466644500CDBB1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */; };
 		CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5732466654E00CDBB1A /* Alamofire */; };
 		CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
 		CB17E57B2467AEE400CDBB1A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
@@ -130,7 +129,6 @@
 		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		CB17E5642466644500CDBB1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB17E5672466644500CDBB1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CB17E56A2466644500CDBB1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB17E56C2466644500CDBB1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB17E5752467A43700CDBB1A /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		CB17E57A2467AEE400CDBB1A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -270,7 +268,6 @@
 				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
 				CB17E5622466644400CDBB1A /* SignIn.swift */,
 				CB17E5642466644500CDBB1A /* Assets.xcassets */,
-				CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */,
 				CB17E56C2466644500CDBB1A /* Info.plist */,
 				CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */,
 				CB17E5662466644500CDBB1A /* Preview Content */,
@@ -543,7 +540,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB17E56B2466644500CDBB1A /* LaunchScreen.storyboard in Resources */,
 				CBD07BA32487E62000A863D6 /* GoogleService-Info.plist in Resources */,
 				CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */,
 				CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */,
@@ -689,14 +685,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CB17E5692466644500CDBB1A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CB17E56A2466644500CDBB1A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		CB9DE92E249758B100F4E72A /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
