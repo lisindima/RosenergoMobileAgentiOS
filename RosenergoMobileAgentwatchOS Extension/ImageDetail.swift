@@ -20,7 +20,6 @@ struct ImageDetail: View {
     var body: some View {
         URLImage(URL(string: photo)!, placeholder: { _ in
             ProgressView()
-                .frame(width: 24, height: 24)
         }) { proxy in
             proxy.image
                 .resizable()

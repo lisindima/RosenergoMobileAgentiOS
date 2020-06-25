@@ -31,7 +31,6 @@ struct ListInspections: View {
                     .multilineTextAlignment(.center)
             } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
                 ProgressView()
-                    .frame(width: 24, height: 24)
             } else {
                 List {
                     ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in

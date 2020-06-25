@@ -12,7 +12,11 @@ import Alamofire
 
 struct InspectionsDetails: View {
     
+    #if os(watchOS)
+    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    #else
     @EnvironmentObject var sessionStore: SessionStore
+    #endif
     
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
@@ -45,7 +49,32 @@ struct InspectionsDetails: View {
         }
     }
     
-    var body: some View {
+    var scale: CGFloat {
+        #if os(watchOS)
+        return WKInterfaceDevice.current().screenScale
+        #else
+        return UIScreen.main.scale
+        #endif
+    }
+    
+    var size: Double {
+        #if os(watchOS)
+        return 75.0
+        #else
+        return 100.0
+        #endif
+    }
+    
+    @ViewBuilder var body: some View {
+        #if os(watchOS)
+        details
+        #else
+        details
+            .environment(\.horizontalSizeClass, .regular)
+        #endif
+    }
+    
+    var details: some View {
         Form {
             if !inspection.photos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {
@@ -53,16 +82,15 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale)], placeholder: { _ in
+                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                                         ProgressView()
                                     }) { proxy in
                                         proxy.image
-                                            .renderingMode(.original)
                                             .resizable()
                                     }
                                     .cornerRadius(10)
-                                    .frame(width: 100, height: 100)
-                                }
+                                    .frame(width: CGFloat(size), height: CGFloat(size))
+                                }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)
                     }
@@ -176,13 +204,16 @@ struct InspectionsDetails: View {
                 }
             }
         }
-        .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Осмотр: \(inspection.id)")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
+                #if !os(watchOS)
                 UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.inspection.latitude),\(self.inspection.longitude)")!)
+                #endif
             }, .default(Text("Яндекс.Карты")) {
+                #if !os(watchOS)
                 UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
+                #endif
             }, .cancel()
             ])
         }

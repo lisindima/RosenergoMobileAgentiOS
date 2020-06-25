@@ -32,11 +32,11 @@
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
 		CB5DD59A2494D8ED007AF70B /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = CB5DD5992494D8ED007AF70B /* Defaults */; };
+		CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
 		CB7267AA24987AA700E138BD /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = CB7267A924987AA700E138BD /* Defaults */; };
 		CB7267AC24987B6F00E138BD /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267AB24987B6F00E138BD /* SignIn.swift */; };
-		CB7267AE24987D5900E138BD /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267AD24987D5900E138BD /* InspectionsDetails.swift */; };
 		CB7267B12498858100E138BD /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
 		CB7267BB249891A900E138BD /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267BA249891A900E138BD /* ImageDetail.swift */; };
 		CB7267BD2498B4F100E138BD /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267BC2498B4F100E138BD /* InspectionsItems.swift */; };
@@ -149,7 +149,6 @@
 		CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStore.swift; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
 		CB7267AB24987B6F00E138BD /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
-		CB7267AD24987D5900E138BD /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CB7267B02498858100E138BD /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		CB7267BA249891A900E138BD /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		CB7267BC2498B4F100E138BD /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
@@ -343,7 +342,6 @@
 				CB7267BA249891A900E138BD /* ImageDetail.swift */,
 				CB7267BC2498B4F100E138BD /* InspectionsItems.swift */,
 				CB9DE959249759F500F4E72A /* ListInspections.swift */,
-				CB7267AD24987D5900E138BD /* InspectionsDetails.swift */,
 				CB7267AB24987B6F00E138BD /* SignIn.swift */,
 				CB7267B02498858100E138BD /* MenuView.swift */,
 				CB9DE93F249758B400F4E72A /* HostingController.swift */,
@@ -653,7 +651,6 @@
 				CB7267AC24987B6F00E138BD /* SignIn.swift in Sources */,
 				CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */,
 				CB9DE944249758B400F4E72A /* NotificationController.swift in Sources */,
-				CB7267AE24987D5900E138BD /* InspectionsDetails.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB7267BD2498B4F100E138BD /* InspectionsItems.swift in Sources */,
@@ -665,6 +662,7 @@
 				CB7267B12498858100E138BD /* MenuView.swift in Sources */,
 				CB9DE946249758B400F4E72A /* NotificationView.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
+				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,
 				CB9DE95A249759F500F4E72A /* ListInspections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
