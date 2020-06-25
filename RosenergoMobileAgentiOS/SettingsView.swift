@@ -7,39 +7,58 @@
 //
 
 import SwiftUI
-import SPAlert
+#if !os(watchOS)
 import MessageUI
+import SPAlert
+#endif
 
 struct SettingsView: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
+    #if os(watchOS)
+    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    #else
+    @EnvironmentObject var sessionStore: SessionStore
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    #endif
     
     @State private var showActionSheetExit: Bool = false
     
+    #if !os(watchOS)
     private func showMailView() {
         DispatchQueue.main.async {
             let mailFeedback = UIHostingController(rootView:
-                MailFeedback()
-                    .edgesIgnoringSafeArea(.bottom)
-                    .accentColor(.rosenergo)
+                                                    MailFeedback()
+                                                    .edgesIgnoringSafeArea(.bottom)
+                                                    .accentColor(.rosenergo)
             )
             UIApplication.shared.windows.first?.rootViewController?.present(
                 mailFeedback, animated: true, completion: nil
             )
         }
     }
+    #endif
     
+    #if !os(watchOS)
     private func openSettings() {
         guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL)
-            else {
-                return
+        else {
+            return
         }
         UIApplication.shared.open(settingsURL)
     }
+    #endif
     
+    @ViewBuilder var body: some View {
+        #if os(watchOS)
+        watchSetting
+        #else
+        phoneSetting
+        #endif
+    }
+    
+    #if !os(watchOS)
     var footerNotification: Text {
         switch notificationStore.enabled {
         case .denied:
@@ -52,8 +71,10 @@ struct SettingsView: View {
             return Text("")
         }
     }
+    #endif
     
-    var body: some View {
+    #if !os(watchOS)
+    var phoneSetting: some View {
         Form {
             Section(header: Text("Личные данные").fontWeight(.bold)) {
                 HStack {
@@ -145,11 +166,60 @@ struct SettingsView: View {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
                     self.presentationMode.wrappedValue.dismiss()
                     self.sessionStore.logout()
-                    }, .cancel()
+                }, .cancel()
                 ])
             }
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Настройки")
+    }
+    #endif
+    
+    var watchSetting: some View {
+        Form {
+            Section(header: Text("Личные данные").fontWeight(.bold)) {
+                HStack {
+                    Image(systemName: "person")
+                        .frame(width: 24)
+                        .foregroundColor(.purple)
+                    VStack(alignment: .leading) {
+                        Text("Агент")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(sessionStore.loginModel?.data.name ?? "Ошибка")
+                            .font(.footnote)
+                    }
+                }
+                HStack {
+                    Image(systemName: "envelope")
+                        .frame(width: 24)
+                        .foregroundColor(.purple)
+                    VStack(alignment: .leading) {
+                        Text("Эл.почта")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                        Text(sessionStore.loginModel?.data.email ?? "Ошибка")
+                            .font(.footnote)
+                    }
+                }
+            }
+            Section {
+                Button(action:  {
+                    self.showActionSheetExit = true
+                }) {
+                    HStack {
+                        Image(systemName: "flame")
+                            .frame(width: 24)
+                        Text("Выйти")
+                    }.foregroundColor(.red)
+                }
+            }.actionSheet(isPresented: $showActionSheetExit) {
+                ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
+                    self.presentationMode.wrappedValue.dismiss()
+                    self.sessionStore.logout()
+                }, .cancel()
+                ])
+            }
+        }.navigationBarTitle("Настройки")
     }
 }

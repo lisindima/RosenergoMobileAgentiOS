@@ -10,15 +10,17 @@ import SwiftUI
 
 struct RootView: View {
     
+    #if os(watchOS)
+    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    #else
     @EnvironmentObject var sessionStore: SessionStore
+    #endif
     
-    var body: some View {
-        Group {
-            if sessionStore.loginModel != nil {
-                MenuView()
-            } else {
-                SignIn()
-            }
+    @ViewBuilder var body: some View {
+        if sessionStore.loginModel != nil {
+            MenuView()
+        } else {
+            SignIn()
         }
     }
 }
