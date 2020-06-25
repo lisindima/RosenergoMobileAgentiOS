@@ -69,132 +69,77 @@ struct InspectionsDetails: View {
                 }
             }
             Section(header: Text("Дата осмотра").fontWeight(.bold)) {
-                HStack {
-                    Image(systemName: "timer")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    VStack(alignment: .leading) {
-                        Text("Дата загрузки осмотра")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(inspection.createdat.dataInspection())
-                    }
-                }
+                SectionItem(
+                    imageName: "timer",
+                    imageColor: .rosenergo,
+                    subTitle: "Дата загрузки осмотра",
+                    title: inspection.createdat.dataInspection()
+                )
             }
             Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
-                HStack {
-                    Image(systemName: "car")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    VStack(alignment: .leading) {
-                        Text("Модель автомобиля")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(inspection.carModel)
-                    }
-                }
-                HStack {
-                    Image(systemName: "rectangle")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    VStack(alignment: .leading) {
-                        Text("Регистрационный номер")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(inspection.carRegNumber)
-                    }
-                }
-                HStack {
-                    Image(systemName: "v.circle")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    VStack(alignment: .leading) {
-                        Text("VIN")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(inspection.carVin)
-                    }
-                }
-                HStack {
-                    Image(systemName: "textformat.123")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    VStack(alignment: .leading) {
-                        Text("Номер кузова")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(inspection.carBodyNumber)
-                    }
-                }
-                HStack {
-                    Image(systemName: "text.justify")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    VStack(alignment: .leading) {
-                        Text("Страховой полис")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
-                        Text(inspection.insuranceContractNumber)
-                    }
-                }
+                SectionItem(
+                    imageName: "car",
+                    imageColor: .rosenergo,
+                    subTitle: "Модель автомобиля",
+                    title: inspection.carModel
+                )
+                SectionItem(
+                    imageName: "rectangle",
+                    imageColor: .rosenergo,
+                    subTitle: "Регистрационный номер",
+                    title: inspection.carRegNumber
+                )
+                SectionItem(
+                    imageName: "v.circle",
+                    imageColor: .rosenergo,
+                    subTitle: "VIN",
+                    title: inspection.carVin
+                )
+                SectionItem(
+                    imageName: "textformat.123",
+                    imageColor: .rosenergo,
+                    subTitle: "Номер кузова",
+                    title: inspection.carBodyNumber
+                )
+                SectionItem(
+                    imageName: "text.justify",
+                    imageColor: .rosenergo,
+                    subTitle: "Страховой полис",
+                    title: inspection.insuranceContractNumber
+                )
             }
             if inspection.carModel2 != nil {
                 Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
-                    HStack {
-                        Image(systemName: "car")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Модель автомобиля")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(inspection.carModel2!)
-                        }
-                    }
-                    HStack {
-                        Image(systemName: "rectangle")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Регистрационный номер")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(inspection.carRegNumber2!)
-                        }
-                    }
-                    HStack {
-                        Image(systemName: "v.circle")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("VIN")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(inspection.carVin2!)
-                        }
-                    }
-                    HStack {
-                        Image(systemName: "textformat.123")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Номер кузова")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(inspection.carBodyNumber2!)
-                        }
-                    }
-                    HStack {
-                        Image(systemName: "text.justify")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Страховой полис")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(inspection.insuranceContractNumber2!)
-                        }
-                    }
+                    SectionItem(
+                        imageName: "car",
+                        imageColor: .rosenergo,
+                        subTitle: "Модель автомобиля",
+                        title: inspection.carModel2!
+                    )
+                    SectionItem(
+                        imageName: "rectangle",
+                        imageColor: .rosenergo,
+                        subTitle: "Регистрационный номер",
+                        title: inspection.carRegNumber2!
+                    )
+                    SectionItem(
+                        imageName: "v.circle",
+                        imageColor: .rosenergo,
+                        subTitle: "VIN",
+                        title: inspection.carVin2!
+                    )
+                    SectionItem(
+                        imageName: "textformat.123",
+                        imageColor: .rosenergo,
+                        subTitle: "Номер кузова",
+                        title: inspection.carBodyNumber2!
+                    )
+                    SectionItem(
+                        imageName: "text.justify",
+                        imageColor: .rosenergo,
+                        subTitle: "Страховой полис",
+                        title: inspection.insuranceContractNumber2!
+                    )
                 }
             }
             Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
@@ -202,31 +147,19 @@ struct InspectionsDetails: View {
                     self.presentMapActionSheet = true
                 }) {
                     if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
-                        HStack {
-                            Image(systemName: "map")
-                                .frame(width: 24)
-                                .foregroundColor(.rosenergo)
-                            VStack(alignment: .leading) {
-                                Text("Адрес места проведения осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text(yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
-                                    .foregroundColor(.primary)
-                            }
-                        }
+                        SectionItem(
+                            imageName: "map",
+                            imageColor: .rosenergo,
+                            subTitle: "Адрес места проведения осмотра",
+                            title: yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!
+                        )
                     } else if yandexGeoState == .failure {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle")
-                                .frame(width: 24)
-                                .foregroundColor(.yellow)
-                            VStack(alignment: .leading) {
-                                Text("Ошибка, не удалось определить адрес")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
-                                Text("Проверьте подключение к интернету!")
-                                    .foregroundColor(.primary)
-                            }
-                        }
+                        SectionItem(
+                            imageName: "exclamationmark.triangle",
+                            imageColor: .yellow,
+                            subTitle: "Ошибка, не удалось определить адрес",
+                            title: "Проверьте подключение к интернету!"
+                        )
                     } else if yandexGeoState == .loading {
                         HStack {
                             ProgressView()
@@ -248,9 +181,9 @@ struct InspectionsDetails: View {
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
                 UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.inspection.latitude),\(self.inspection.longitude)")!)
-                }, .default(Text("Яндекс.Карты")) {
-                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
-                }, .cancel()
+            }, .default(Text("Яндекс.Карты")) {
+                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
+            }, .cancel()
             ])
         }
         .onAppear {
