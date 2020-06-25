@@ -34,7 +34,7 @@ struct MenuView: View {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }
                     NavigationLink(destination: ListInspections(), isActive: $sessionStore.openListInspections) {
-                        MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
+                        MenuButton(title: "Осмотры", image: "pc", color: .red)
                     }
                     NavigationLink(destination: CreateVyplatnyeDela(), isActive: $sessionStore.openCreateVyplatnyeDela) {
                         MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
