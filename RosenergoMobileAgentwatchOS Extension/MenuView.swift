@@ -22,7 +22,7 @@ struct MenuView: View {
     var body: some View {
         ScrollView {
             NavigationLink(destination: ListInspections()) {
-                MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .purple)
+                MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .rosenergo)
             }.buttonStyle(PlainButtonStyle())
             NavigationLink(destination: SettingsView()) {
                 MenuButton(title: "Настройки", image: "gear", color: .secondary)
