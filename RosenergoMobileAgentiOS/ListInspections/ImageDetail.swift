@@ -11,8 +11,6 @@ import URLImage
 
 struct ImageDetail: View {
     
-    @State private var currentPosition: CGSize = .zero
-    @State private var newPosition: CGSize = .zero
     @State private var currentAmount: CGFloat = 0
     @State private var finalAmount: CGFloat = 1
     
@@ -27,18 +25,7 @@ struct ImageDetail: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            .offset(x: self.currentPosition.width, y: self.currentPosition.height)
             .scaleEffect(finalAmount + currentAmount)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                    }
-                    .onEnded { value in
-                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                        self.newPosition = self.currentPosition
-                    }
-            )
             .gesture(
                 MagnificationGesture()
                     .onChanged { amount in
@@ -55,8 +42,6 @@ struct ImageDetail: View {
 
 struct LocalImageDetail: View {
     
-    @State private var currentPosition: CGSize = .zero
-    @State private var newPosition: CGSize = .zero
     @State private var currentAmount: CGFloat = 0
     @State private var finalAmount: CGFloat = 1
     
@@ -67,18 +52,7 @@ struct LocalImageDetail: View {
             Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .offset(x: self.currentPosition.width, y: self.currentPosition.height)
                 .scaleEffect(finalAmount + currentAmount)
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                        }
-                        .onEnded { value in
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                            self.newPosition = self.currentPosition
-                        }
-                )
                 .gesture(
                     MagnificationGesture()
                         .onChanged { amount in

@@ -30,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: rootView)
             self.window = window
+            window.tintColor = UIColor(.rosenergo)
             window.makeKeyAndVisible()
         }
     }
