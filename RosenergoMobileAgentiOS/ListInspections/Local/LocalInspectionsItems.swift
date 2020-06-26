@@ -20,28 +20,23 @@ struct LocalInspectionsItems: View {
                     .fontWeight(.bold)
                     .foregroundColor(.red)
                 Group {
-                    Text("Номер полиса: \(localInspections.insuranceContractNumber!)")
-                    Text("Модель авто: \(localInspections.carModel!)")
-                    Text("Рег.номер: \(localInspections.carRegNumber!)")
-                    Text("VIN: \(localInspections.carVin!)")
-                    Text("Номер кузова: \(localInspections.carBodyNumber!)")
+                    Text(localInspections.insuranceContractNumber!)
+                    Text(localInspections.carModel!)
+                    Text(localInspections.carRegNumber!)
+                    Text(localInspections.carVin!)
+                    Text(localInspections.carBodyNumber!)
+                    if localInspections.carModel2 != nil {
+                        Text(localInspections.insuranceContractNumber2!)
+                            .padding(.top, 8)
+                        Text(localInspections.carModel2!)
+                        Text(localInspections.carRegNumber2!)
+                        Text(localInspections.carVin2!)
+                        Text(localInspections.carBodyNumber2!)
+                    }
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
-                if localInspections.carModel2 != nil {
-                    Group {
-                        Text("Номер полиса: \(localInspections.insuranceContractNumber2!)")
-                            .padding(.top, 8)
-                        Text("Модель авто: \(localInspections.carModel2!)")
-                        Text("Рег.номер: \(localInspections.carRegNumber2!)")
-                        Text("VIN: \(localInspections.carVin2!)")
-                        Text("Номер кузова: \(localInspections.carBodyNumber2!)")
-                    }
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-                }
             }
             Spacer()
             if !localInspections.photos!.isEmpty {
