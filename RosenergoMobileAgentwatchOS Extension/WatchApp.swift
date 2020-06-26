@@ -12,20 +12,25 @@ import SwiftUI
 struct WatchApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject private var sessionStore = SessionStore()
     
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 RootView()
-                    .environmentObject(sessionStore)
             }
-        }.onChange(of: scenePhase) { newScenePhase in
-            if newScenePhase == .active {
+        }
+        .onChange(of: scenePhase) { newScenePhase in
+            switch newScenePhase {
+            case .active:
                 if SessionStore.shared.loginModel != nil {
-                    print("HF,JNFTN")
                     SessionStore.shared.validateToken()
                 }
+            case .inactive:
+                print("scene is now inactive!")
+            case .background:
+                print("scene is now in the background!")
+            @unknown default:
+                print("Apple must have added something new!")
             }
         }
     }

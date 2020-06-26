@@ -73,7 +73,7 @@ struct ListInspections: View {
                     }
                 }
                 .addSearchBar(searchBar)
-                .listStyle(GroupedListStyle())
+                .listStyle(InsetGroupedListStyle())
             }
         }
         .onAppear(perform: sessionStore.getInspections)
