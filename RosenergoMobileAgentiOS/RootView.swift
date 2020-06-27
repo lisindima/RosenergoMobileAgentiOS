@@ -14,11 +14,20 @@ struct RootView: View {
     @ObservedObject var sessionStore: SessionStore = SessionStore.shared
     #else
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
     @ViewBuilder var body: some View {
         if sessionStore.loginModel != nil {
+            #if os(iOS)
+            if horizontalSizeClass == .compact {
+                MenuView()
+            } else {
+                SideBar()
+            }
+            #else
             MenuView()
+            #endif
         } else {
             SignIn()
         }

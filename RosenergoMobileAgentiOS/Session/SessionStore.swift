@@ -12,7 +12,6 @@ import Alamofire
 import Defaults
 #if !os(watchOS)
 import SPAlert
-import FirebaseCrashlytics
 #endif
 
 class SessionStore: ObservableObject {
@@ -73,9 +72,6 @@ class SessionStore: ObservableObject {
                     self.loginModel = loginModel
                     self.loginParameters = parameters
                     self.loadingLogin = false
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
-                    #endif
                 case .failure(let error):
                     #if !os(watchOS)
                     SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
@@ -102,17 +98,11 @@ class SessionStore: ObservableObject {
                     self.loginParameters = nil
                     self.inspections.removeAll()
                     self.inspectionsLoadingState = .loading
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID("")
-                    #endif
                 case .failure(let error):
                     self.loginModel = nil
                     self.loginParameters = nil
                     self.inspections.removeAll()
                     self.inspectionsLoadingState = .loading
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID("")
-                    #endif
                     print(error.errorDescription!)
                 }
         }
