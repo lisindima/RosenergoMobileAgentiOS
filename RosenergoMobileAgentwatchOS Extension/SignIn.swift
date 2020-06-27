@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SignIn: View {
     
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @EnvironmentObject var sessionStore: SessionStore
     
     @State private var email: String = ""
     @State private var password: String = ""

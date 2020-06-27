@@ -12,11 +12,7 @@ import Alamofire
 
 struct InspectionsDetails: View {
     
-    #if os(watchOS)
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
-    #else
     @EnvironmentObject var sessionStore: SessionStore
-    #endif
     
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading

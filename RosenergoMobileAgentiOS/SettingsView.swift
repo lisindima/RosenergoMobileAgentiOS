@@ -15,11 +15,9 @@ import SPAlert
 struct SettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    
-    #if os(watchOS)
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
-    #else
     @EnvironmentObject var sessionStore: SessionStore
+    
+    #if !os(watchOS)
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     #endif
     

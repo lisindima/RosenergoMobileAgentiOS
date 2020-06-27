@@ -10,10 +10,8 @@ import SwiftUI
 
 struct RootView: View {
     
-    #if os(watchOS)
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
-    #else
     @EnvironmentObject var sessionStore: SessionStore
+    #if !os(watchOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     

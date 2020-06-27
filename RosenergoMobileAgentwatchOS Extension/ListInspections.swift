@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ListInspections: View {
     
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @EnvironmentObject var sessionStore: SessionStore
     
     var body: some View {
         Group {
@@ -34,7 +34,7 @@ struct ListInspections: View {
             } else {
                 List {
                     ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
-                        NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
+                        NavigationLink(destination: InspectionsDetails(inspection: inspection).environmentObject(sessionStore)) {
                             InspectionsItems(inspection: inspection)
                         }
                     }

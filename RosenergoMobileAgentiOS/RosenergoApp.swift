@@ -13,12 +13,13 @@ struct WatchApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
     
-    let sessionStore = SessionStore.shared
+    @StateObject var sessionStore = SessionStore()
     
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 RootView()
+                    .environmentObject(sessionStore)
             }
         }
         .onChange(of: scenePhase) { newScenePhase in

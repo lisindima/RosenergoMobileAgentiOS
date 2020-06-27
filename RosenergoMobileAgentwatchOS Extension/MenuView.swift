@@ -10,6 +10,8 @@ import SwiftUI
 
 struct MenuView: View {
     
+    @EnvironmentObject var sessionStore: SessionStore
+    
     private var appVersionView: Text {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
@@ -21,10 +23,10 @@ struct MenuView: View {
     
     var body: some View {
         ScrollView {
-            NavigationLink(destination: ListInspections()) {
+            NavigationLink(destination: ListInspections().environmentObject(sessionStore)) {
                 MenuButton(title: "Осмотры", image: "pc", color: .rosenergo)
             }.buttonStyle(PlainButtonStyle())
-            NavigationLink(destination: SettingsView()) {
+            NavigationLink(destination: SettingsView().environmentObject(sessionStore)) {
                 MenuButton(title: "Настройки", image: "gear", color: .secondary)
             }.buttonStyle(PlainButtonStyle())
             appVersionView
