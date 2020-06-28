@@ -11,6 +11,7 @@ import SwiftUI
 struct ListInspections: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @State private var text: String = ""
     
     var body: some View {
         Group {
@@ -33,9 +34,14 @@ struct ListInspections: View {
                 ProgressView()
             } else {
                 List {
-                    ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
-                        NavigationLink(destination: InspectionsDetails(inspection: inspection).environmentObject(sessionStore)) {
-                            InspectionsItems(inspection: inspection)
+                    Section {
+                        TextField("Поиск", text: $text)
+                    }
+                    Section {
+                        ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
+                            NavigationLink(destination: InspectionsDetails(inspection: inspection).environmentObject(sessionStore)) {
+                                InspectionsItems(inspection: inspection)
+                            }
                         }
                     }
                 }

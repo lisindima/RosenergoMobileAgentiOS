@@ -11,13 +11,13 @@ import NativeSearchBar
 
 struct ListInspections: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
-    @ObservedObject var searchBar: SearchBar = SearchBar.shared
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @StateObject private var searchBar = SearchBar.shared
+    @StateObject private var notificationStore = NotificationStore.shared
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {

@@ -12,11 +12,11 @@ import SPAlert
 
 struct LocalInspectionsDetails: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @StateObject private var notificationStore = NotificationStore.shared
     
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading

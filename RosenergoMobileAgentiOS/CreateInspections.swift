@@ -12,11 +12,11 @@ import KeyboardObserving
 
 struct CreateInspections: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @StateObject private var notificationStore = NotificationStore.shared
     
     @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
