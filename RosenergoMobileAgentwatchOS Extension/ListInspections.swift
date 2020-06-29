@@ -11,36 +11,63 @@ import SwiftUI
 struct ListInspections: View {
     
     @EnvironmentObject var sessionStore: SessionStore
-    @State private var text: String = ""
+    @State private var searchText: String = ""
+    
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
+    
+    func delete(at offsets: IndexSet) {
+        for offset in offsets {
+            let localInspection = localInspections[offset]
+            moc.delete(localInspection)
+        }
+        try? moc.save()
+    }
     
     var body: some View {
         Group {
-            if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
+            if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
                 Text("Нет подключения к интернету!")
-                    .font(.headline)
+                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
                 Text("Нет осмотров")
-                    .font(.headline)
+                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                 Text("Добавьте свой первый осмотр и он отобразиться здесь.")
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
                 ProgressView()
             } else {
                 List {
                     Section {
-                        TextField("Поиск", text: $text)
+                        TextField("Поиск", text: $searchText)
                     }
-                    Section {
-                        ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
-                            NavigationLink(destination: InspectionsDetails(inspection: inspection).environmentObject(sessionStore)) {
-                                InspectionsItems(inspection: inspection)
+                    if !localInspections.isEmpty {
+                        Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
+                            ForEach(localInspections.filter {
+                                searchText.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchText)
+                            }, id: \.id) { localInspections in
+                                NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections).environmentObject(sessionStore)) {
+                                    LocalInspectionsItems(localInspections: localInspections)
+                                }
+                            }.onDelete(perform: delete)
+                        }
+                    }
+                    if !sessionStore.inspections.isEmpty {
+                        Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
+                            ForEach(sessionStore.inspections.reversed().filter {
+                                searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
+                            }, id: \.id) { inspection in
+                                NavigationLink(destination: InspectionsDetails(inspection: inspection).environmentObject(sessionStore)) {
+                                    InspectionsItems(inspection: inspection)
+                                }
                             }
                         }
                     }

@@ -14,9 +14,9 @@ struct LocalInspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
-    
+    #if !os(watchOS)
     @StateObject private var notificationStore = NotificationStore.shared
-    
+    #endif
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
@@ -91,7 +91,9 @@ struct LocalInspectionsDetails: View {
                     self.sessionStore.alertType = .success
                     self.sessionStore.showAlert = true
                     self.sessionStore.uploadState = .none
+                    #if !os(watchOS)
                     self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
+                    #endif
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.moc.delete(self.localInspections)
                         do {
@@ -109,7 +111,32 @@ struct LocalInspectionsDetails: View {
         }
     }
     
-    var body: some View {
+    var scale: CGFloat {
+        #if os(watchOS)
+        return WKInterfaceDevice.current().screenScale
+        #else
+        return UIScreen.main.scale
+        #endif
+    }
+    
+    var size: Double {
+        #if os(watchOS)
+        return 75.0
+        #else
+        return 100.0
+        #endif
+    }
+    
+    @ViewBuilder var body: some View {
+        #if os(watchOS)
+        details
+        #else
+        details
+            .environment(\.horizontalSizeClass, .regular)
+        #endif
+    }
+    
+    var details: some View {
         VStack {
             Form {
                 if !localInspections.photos!.isEmpty {
@@ -118,11 +145,19 @@ struct LocalInspectionsDetails: View {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
                                     NavigationLink(destination: LocalImageDetail(photo: photo)) {
-                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!.resize(size: CGSize(width: 100, height: 100), scale: UIScreen.main.scale))
+                                        #if os(iOS)
+                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!.resize(size: CGSize(width: size, height: size), scale: scale))
                                             .renderingMode(.original)
                                             .resizable()
-                                            .frame(width: 100, height: 100)
+                                            .frame(width: CGFloat(size), height: CGFloat(size))
                                             .cornerRadius(10)
+                                        #else
+                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+                                            .renderingMode(.original)
+                                            .resizable()
+                                            .frame(width: CGFloat(size), height: CGFloat(size))
+                                            .cornerRadius(10)
+                                        #endif
                                     }
                                 }
                             }.padding(.vertical, 8)
@@ -239,7 +274,6 @@ struct LocalInspectionsDetails: View {
             }
             if sessionStore.uploadState == .none {
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                    UIApplication.shared.hideKeyboard()
                     self.uploadLocalInspections()
                 }
                 .padding(.horizontal)
@@ -255,14 +289,17 @@ struct LocalInspectionsDetails: View {
                 self.loadYandexGeoResponse()
             }
         }
-        .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
+                #if !os(watchOS)
                 UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.localInspections.latitude),\(self.localInspections.longitude)")!)
-                }, .default(Text("Яндекс.Карты")) {
+                #endif
+            }, .default(Text("Яндекс.Карты")) {
+                #if !os(watchOS)
                 UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.localInspections.longitude),\(self.localInspections.latitude)")!)
-                }, .cancel()
+                #endif
+            }, .cancel()
             ])
         }
         .alert(isPresented: $sessionStore.showAlert) {

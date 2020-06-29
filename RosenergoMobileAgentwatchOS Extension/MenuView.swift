@@ -11,6 +11,7 @@ import SwiftUI
 struct MenuView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.managedObjectContext) var moc
     
     private var appVersionView: Text {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
@@ -23,7 +24,12 @@ struct MenuView: View {
     
     var body: some View {
         ScrollView {
-            NavigationLink(destination: ListInspections().environmentObject(sessionStore)) {
+            NavigationLink(destination:
+                            ListInspections()
+                                .environmentObject(sessionStore)
+                                .environment(\.managedObjectContext, moc)
+                           
+            ) {
                 MenuButton(title: "Осмотры", image: "pc", color: .rosenergo)
             }.buttonStyle(PlainButtonStyle())
             NavigationLink(destination: SettingsView().environmentObject(sessionStore)) {
