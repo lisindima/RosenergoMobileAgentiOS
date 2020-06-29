@@ -18,7 +18,7 @@ struct MenuButton: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(color.opacity(0.2))
-                .frame(maxWidth: .infinity, maxHeight: 120)
+                .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
             VStack {
                 Image(systemName: image)
                     .font(.largeTitle)

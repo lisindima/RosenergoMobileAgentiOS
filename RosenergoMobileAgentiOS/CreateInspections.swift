@@ -7,16 +7,15 @@
 //
 
 import SwiftUI
-import SPAlert
 import KeyboardObserving
 
 struct CreateInspections: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @StateObject private var notificationStore = NotificationStore.shared
     
     @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
@@ -33,7 +32,8 @@ struct CreateInspections: View {
     
     func openCamera() {
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
-            SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
+            sessionStore.alertType = .emptyLocation
+            sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
@@ -86,8 +86,8 @@ struct CreateInspections: View {
         }
         
         try? self.moc.save()
-        self.presentationMode.wrappedValue.dismiss()
-        SPAlert.present(title: "Успешно!", message: "Осмотр успешно сохранен на устройстве.", preset: .done)
+        sessionStore.alertType = .success
+        sessionStore.showAlert = true
         self.notificationStore.setNotification(id: id.uuidString)
     }
     
@@ -133,40 +133,46 @@ struct CreateInspections: View {
                 if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            UIApplication.shared.hideKeyboard()
                             if self.choiseCar == 0 {
                                 if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
-                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                    sessionStore.alertType = .emptyTextField
+                                    sessionStore.showAlert = true
                                 } else if self.sessionStore.photoParameters.isEmpty {
-                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                    sessionStore.alertType = .emptyPhoto
+                                    sessionStore.showAlert = true
                                 } else {
                                     self.uploadInspections()
                                 }
                             } else if self.choiseCar == 1 {
                                 if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" || self.carModel2 == "" || self.carRegNumber2 == "" || self.carBodyNumber2 == "" || self.carVin2 == "" || self.insuranceContractNumber2 == "" {
-                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                    sessionStore.alertType = .emptyTextField
+                                    sessionStore.showAlert = true
                                 } else if self.sessionStore.photoParameters.isEmpty {
-                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                    sessionStore.alertType = .emptyPhoto
+                                    sessionStore.showAlert = true
                                 } else {
                                     self.uploadInspections()
                                 }
                             }
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                            UIApplication.shared.hideKeyboard()
                             if self.choiseCar == 0 {
                                 if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
-                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                    sessionStore.alertType = .emptyTextField
+                                    sessionStore.showAlert = true
                                 } else if self.sessionStore.photoParameters.isEmpty {
-                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                    sessionStore.alertType = .emptyPhoto
+                                    sessionStore.showAlert = true
                                 } else {
                                     self.saveInspections()
                                 }
                             } else if self.choiseCar == 1 {
                                 if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" || self.carModel2 == "" || self.carRegNumber2 == "" || self.carBodyNumber2 == "" || self.carVin2 == "" || self.insuranceContractNumber2 == "" {
-                                    SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                                    sessionStore.alertType = .emptyTextField
+                                    sessionStore.showAlert = true
                                 } else if self.sessionStore.photoParameters.isEmpty {
-                                    SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                                    sessionStore.alertType = .emptyPhoto
+                                    sessionStore.showAlert = true
                                 } else {
                                     self.saveInspections()
                                 }
@@ -183,14 +189,28 @@ struct CreateInspections: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: sessionStore.getLocation)
-        .onDisappear {
-            self.sessionStore.photoParameters.removeAll()
-        }
-        .sheet(isPresented: $showCustomCameraView) {
+        .onDisappear { self.sessionStore.photoParameters.removeAll() }
+        .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
-                .edgesIgnoringSafeArea(.bottom)
-        }.navigationBarTitle("Новый осмотр")
+                .edgesIgnoringSafeArea(.vertical)
+        }
+        .navigationBarTitle("Новый осмотр")
+        .alert(isPresented: $sessionStore.showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }))
+            case .error:
+                return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+            case .emptyLocation:
+                return Alert(title: Text("Ошибка!"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
+            case .emptyPhoto:
+                return Alert(title: Text("Ошибка!"), message: Text("Прикрепите хотя бы одну фотографию"), dismissButton: .default(Text("Закрыть")))
+            case .emptyTextField:
+                return Alert(title: Text("Ошибка!"), message: Text("Заполните все представленные пункты."), dismissButton: .default(Text("Закрыть")))
+            }
+        }
     }
 }

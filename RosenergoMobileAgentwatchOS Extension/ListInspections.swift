@@ -7,51 +7,71 @@
 //
 
 import SwiftUI
-import Espera
 
 struct ListInspections: View {
     
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @EnvironmentObject var sessionStore: SessionStore
+    @State private var searchText: String = ""
+    
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
+    
+    func delete(at offsets: IndexSet) {
+        for offset in offsets {
+            let localInspection = localInspections[offset]
+            moc.delete(localInspection)
+        }
+        try? moc.save()
+    }
     
     var body: some View {
         Group {
-            if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
+            if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
                 Text("Нет подключения к интернету!")
-                    .font(.headline)
+                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
                 Text("Нет осмотров")
-                    .font(.headline)
+                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                 Text("Добавьте свой первый осмотр и он отобразиться здесь.")
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
-                LoadingFlowerView()
-                    .frame(width: 24, height: 24)
+            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
+                ProgressView()
             } else {
                 List {
-                    ForEach(sessionStore.inspections.reversed(), id: \.id) { inspection in
-                        NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
-                            InspectionsItems(inspection: inspection)
+                    Section {
+                        TextField("Поиск", text: $searchText)
+                    }
+                    if !localInspections.isEmpty {
+                        Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
+                            ForEach(localInspections.filter {
+                                searchText.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchText)
+                            }, id: \.id) { localInspections in
+                                NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections).environmentObject(sessionStore)) {
+                                    LocalInspectionsItems(localInspections: localInspections)
+                                }
+                            }.onDelete(perform: delete)
+                        }
+                    }
+                    if !sessionStore.inspections.isEmpty {
+                        Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
+                            ForEach(sessionStore.inspections.reversed().filter {
+                                searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
+                            }, id: \.id) { inspection in
+                                NavigationLink(destination: InspectionsDetails(inspection: inspection).environmentObject(sessionStore)) {
+                                    InspectionsItems(inspection: inspection)
+                                }
+                            }
                         }
                     }
                 }
-                .contextMenu(menuItems: {
-                    Button(action: {
-                        self.sessionStore.getInspections()
-                    }, label: {
-                        VStack{
-                            Image(systemName: "arrow.clockwise")
-                                .font(.title)
-                            Text("Обновить список")
-                        }
-                    })
-                })
             }
         }
         .onAppear(perform: sessionStore.getInspections)

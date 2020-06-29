@@ -8,14 +8,17 @@
 
 import UIKit
 import SwiftUI
+import CoreLocation
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
     
     let sessionStore = SessionStore.shared
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
+        CLLocationManager().delegate = self
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let rootView = RootView()
@@ -27,7 +30,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: rootView)
             self.window = window
+            window.tintColor = UIColor(.rosenergo)
             window.makeKeyAndVisible()
+        }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        var currentLoc: CLLocation!
+        manager.requestWhenInUseAuthorization()
+        switch manager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            currentLoc = manager.location
+            sessionStore.latitude = currentLoc.coordinate.latitude
+            sessionStore.longitude = currentLoc.coordinate.longitude
+        case .notDetermined, .restricted, .denied:
+            sessionStore.latitude = 0.0
+            sessionStore.longitude = 0.0
+        @unknown default:
+            sessionStore.latitude = 0.0
+            sessionStore.longitude = 0.0
         }
     }
     

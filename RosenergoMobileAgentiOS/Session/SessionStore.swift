@@ -10,11 +10,6 @@ import SwiftUI
 import Combine
 import Alamofire
 import Defaults
-#if !os(watchOS)
-import CoreLocation
-import SPAlert
-import FirebaseCrashlytics
-#endif
 
 class SessionStore: ObservableObject {
     
@@ -35,6 +30,8 @@ class SessionStore: ObservableObject {
     @Published var loadingLogin: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
+    @Published var alertType: AlertType = .success
+    @Published var showAlert: Bool = false
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
@@ -56,24 +53,6 @@ class SessionStore: ObservableObject {
         return createStringDate
     }()
     
-    var locationManager = CLLocationManager()
-    
-    #if !os(watchOS)
-    func getLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        var currentLoc: CLLocation!
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {
-            currentLoc = locationManager.location
-            latitude = currentLoc.coordinate.latitude
-            longitude = currentLoc.coordinate.longitude
-        } else {
-            latitude = 0.0
-            longitude = 0.0
-        }
-    }
-    #endif
-    
     func login(email: String, password: String) {
         
         loadingLogin = true
@@ -92,15 +71,10 @@ class SessionStore: ObservableObject {
                     self.loginModel = loginModel
                     self.loginParameters = parameters
                     self.loadingLogin = false
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
-                    #endif
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
-                    #endif
-                    print(error)
+                    self.showAlert = true
                     self.loadingLogin = false
+                    print(error)
                 }
         }
     }
@@ -121,17 +95,11 @@ class SessionStore: ObservableObject {
                     self.loginParameters = nil
                     self.inspections.removeAll()
                     self.inspectionsLoadingState = .loading
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID("")
-                    #endif
                 case .failure(let error):
                     self.loginModel = nil
                     self.loginParameters = nil
                     self.inspections.removeAll()
                     self.inspectionsLoadingState = .loading
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID("")
-                    #endif
                     print(error.errorDescription!)
                 }
         }
@@ -157,9 +125,9 @@ class SessionStore: ObservableObject {
                     } else if code == 401 && self.loginParameters == nil {
                         self.loginModel = nil
                     } else if code == nil {
-                        #if !os(watchOS)
-                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
-                        #endif
+//                        #if !os(watchOS)
+//                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
+//                        #endif
                     } else {
                         break
                     }
@@ -222,16 +190,13 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
-                    #endif
+                    self.alertType = .success
                     self.uploadState = .none
-                    self.openCreateInspections = false
+                    self.showAlert = true
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
-                    #endif
+                    self.alertType = .error
                     self.uploadState = .none
+                    self.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -262,16 +227,13 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Успешно!", message: "Выплатное дело успешно загружено на сервер.", preset: .done)
+                    self.alertType = .success
                     self.uploadState = .none
-                    self.openCreateVyplatnyeDela = false
-                    #endif
+                    self.showAlert = true
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте загрузить позднее.", preset: .error)
-                    #endif
+                    self.alertType = .error
                     self.uploadState = .none
+                    self.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -293,5 +255,13 @@ enum UploadState {
 
 enum YandexGeoState {
     case loading, failure, success
+}
+
+enum AlertMailType {
+    case sent, saved, failed, error
+}
+
+enum AlertType {
+    case success, error, emptyLocation, emptyPhoto, emptyTextField
 }
 

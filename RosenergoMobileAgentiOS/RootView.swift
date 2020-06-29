@@ -11,14 +11,23 @@ import SwiftUI
 struct RootView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    #if !os(watchOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
     
-    var body: some View {
-        Group {
-            if sessionStore.loginModel != nil {
+    @ViewBuilder var body: some View {
+        if sessionStore.loginModel != nil {
+            #if os(iOS)
+            if horizontalSizeClass == .compact {
                 MenuView()
             } else {
-                SignIn()
+                SideBar()
             }
+            #else
+            MenuView()
+            #endif
+        } else {
+            SignIn()
         }
     }
 }

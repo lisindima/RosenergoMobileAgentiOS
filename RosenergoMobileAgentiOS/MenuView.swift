@@ -21,27 +21,24 @@ struct MenuView: View {
         }
     }
     
+    let layout = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
+                LazyVGrid(columns: layout) {
                     NavigationLink(destination: CreateInspections(), isActive: $sessionStore.openCreateInspections) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
-                    }.padding(.trailing, 4)
+                    }
                     NavigationLink(destination: ListInspections(), isActive: $sessionStore.openListInspections) {
-                        MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
-                    }.padding(.leading, 4)
-                }
-                .padding(.top, 8)
-                .padding(.horizontal)
-                HStack {
+                        MenuButton(title: "Осмотры", image: "pc", color: .red)
+                    }
                     NavigationLink(destination: CreateVyplatnyeDela(), isActive: $sessionStore.openCreateVyplatnyeDela) {
                         MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
-                    }.padding(.trailing, 4)
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.clear)
-                        .frame(maxWidth: .infinity, maxHeight: 120)
-                        .padding(.leading, 4)
+                    }
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)
@@ -51,12 +48,12 @@ struct MenuView: View {
                     .font(.system(size: 11))
                     .padding(.bottom, 8)
             }
-            .navigationBarTitle("Мобильный агент")
+            .navigationBarTitle("Мобильный агент", displayMode: .large)
             .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {
-               Image(systemName: "gear")
+                Image(systemName: "gear")
                     .imageScale(.large)
             })
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
     }
 }
 

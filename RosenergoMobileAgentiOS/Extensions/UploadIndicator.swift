@@ -18,7 +18,7 @@ struct UploadIndicator: View {
             if progress == 1.0 {
                 HStack {
                     Spacer()
-                    ActivityIndicatorButton()
+                    ProgressView()
                     Spacer()
                 }
                 .padding()

@@ -13,6 +13,22 @@ struct InspectionsItems: View {
     
     var inspection: Inspections
     
+    var scale: CGFloat {
+        #if os(watchOS)
+        return WKInterfaceDevice.current().screenScale
+        #else
+        return UIScreen.main.scale
+        #endif
+    }
+    
+    var size: Double {
+        #if os(watchOS)
+        return 75.0
+        #else
+        return 100.0
+        #endif
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -20,39 +36,35 @@ struct InspectionsItems: View {
                     .font(.title)
                     .fontWeight(.bold)
                 Group {
-                    Text("Номер полиса: \(inspection.insuranceContractNumber)")
-                    Text("Модель авто: \(inspection.carModel)")
-                    Text("Рег.номер: \(inspection.carRegNumber)")
-                    Text("VIN: \(inspection.carVin)")
-                    Text("Номер кузова: \(inspection.carBodyNumber)")
+                    Text(inspection.insuranceContractNumber)
+                    Text(inspection.carModel)
+                    Text(inspection.carRegNumber)
+                    Text(inspection.carVin)
+                    Text(inspection.carBodyNumber)
+                    if inspection.carModel2 != nil {
+                        Text(inspection.insuranceContractNumber2!)
+                            .padding(.top, 8)
+                        Text(inspection.carModel2!)
+                        Text(inspection.carRegNumber2!)
+                        Text(inspection.carVin2!)
+                        Text(inspection.carBodyNumber2!)
+                        
+                    }
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
-                if inspection.carModel2 != nil {
-                    Group {
-                        Text("Номер полиса: \(inspection.insuranceContractNumber2!)")
-                            .padding(.top, 8)
-                        Text("Модель авто: \(inspection.carModel2!)")
-                        Text("Рег.номер: \(inspection.carRegNumber2!)")
-                        Text("VIN: \(inspection.carVin2!)")
-                        Text("Номер кузова: \(inspection.carBodyNumber2!)")
-                    }
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-                }
             }
             Spacer()
             if !inspection.photos.isEmpty {
-                URLImage(URL(string: inspection.photos.first!.path)!, processors: [Resize(size: CGSize(width: 100.0, height: 100.0), scale: UIScreen.main.scale)], placeholder: { _ in
-                    ActivityIndicator(styleSpinner: .medium)
-                }) { proxy in
-                    proxy.image
-                        .resizable()
-                }
+                URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                    ProgressView()
+                }, content: {
+                    $0.image
+                    .resizable()
+                })
                 .cornerRadius(10)
-                .frame(width: 100, height: 100)
+                .frame(width: CGFloat(size), height: CGFloat(size))
             }
         }
     }

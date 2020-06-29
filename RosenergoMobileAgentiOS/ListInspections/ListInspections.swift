@@ -11,13 +11,13 @@ import NativeSearchBar
 
 struct ListInspections: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
-    @ObservedObject var searchBar: SearchBar = SearchBar.shared
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @StateObject private var searchBar = SearchBar.shared
+    @StateObject private var notificationStore = NotificationStore.shared
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {
@@ -46,11 +46,11 @@ struct ListInspections: View {
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
-                ActivityIndicator(styleSpinner: .large)
+                ProgressView()
             } else {
                 List {
                     if !localInspections.isEmpty {
-                        Section(header: Text("Не отправленные осмотры".uppercased())) {
+                        Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
                             ForEach(localInspections.filter {
                                 searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
                             }, id: \.id) { localInspections in
@@ -61,7 +61,7 @@ struct ListInspections: View {
                         }
                     }
                     if !sessionStore.inspections.isEmpty {
-                        Section(header: Text("Отправленные осмотры".uppercased())) {
+                        Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
                             ForEach(sessionStore.inspections.reversed().filter {
                                 searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
                             }, id: \.id) { inspection in
@@ -73,7 +73,7 @@ struct ListInspections: View {
                     }
                 }
                 .addSearchBar(searchBar)
-                .listStyle(GroupedListStyle())
+                .listStyle(InsetGroupedListStyle())
             }
         }
         .onAppear(perform: sessionStore.getInspections)

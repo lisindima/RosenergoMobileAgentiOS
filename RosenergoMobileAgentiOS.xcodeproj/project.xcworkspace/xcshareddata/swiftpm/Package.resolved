@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Defaults",
+        "repositoryURL": "https://github.com/sindresorhus/Defaults/",
+        "state": {
+          "branch": null,
+          "revision": "11c4b968ef490dd3eb2e214906a8a124b7655a1f",
+          "version": "4.0.0"
+        }
+      },
+      {
         "package": "KeyboardObserving",
         "repositoryURL": "https://github.com/nickffox/KeyboardObserving",
         "state": {
@@ -24,35 +33,17 @@
         "repositoryURL": "https://github.com/lisindima/NativeSearchBar",
         "state": {
           "branch": null,
-          "revision": "da8c17dc1a246ce366968ff4f8aa447157390a94",
-          "version": "1.0.3"
+          "revision": "d6f9a744bc5cb8a7eeb45602428068b6941ee427",
+          "version": "2.0.1"
         }
       },
       {
-        "package": "SDWebImage",
-        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "package": "URLImage",
+        "repositoryURL": "https://github.com/dmytro-anokhin/url-image",
         "state": {
           "branch": null,
-          "revision": "5818cf70fde7e9e07e24196d0d54350bc8526f26",
-          "version": "5.8.0"
-        }
-      },
-      {
-        "package": "SDWebImageSwiftUI",
-        "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI",
-        "state": {
-          "branch": null,
-          "revision": "4c7f169e39bc35d6b80d42b8eb8301bee9cd0907",
-          "version": "1.5.0"
-        }
-      },
-      {
-        "package": "SPAlert",
-        "repositoryURL": "https://github.com/ivanvorobei/SPAlert",
-        "state": {
-          "branch": null,
-          "revision": "18862409586ac547bcdf8957cd96beb872fbc729",
-          "version": "2.1.4"
+          "revision": "475cc75beb7d2be17c9cf8bf7215112ebb96830e",
+          "version": "0.9.17"
         }
       }
     ]

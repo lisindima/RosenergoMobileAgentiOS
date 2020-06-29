@@ -8,7 +8,6 @@
 
 import SwiftUI
 import CoreLocation
-import SPAlert
 import KeyboardObserving
 
 struct CreateVyplatnyeDela: View {
@@ -22,7 +21,8 @@ struct CreateVyplatnyeDela: View {
     
     func openCamera() {
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
-            SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
+            sessionStore.alertType = .emptyLocation
+            sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
@@ -46,11 +46,12 @@ struct CreateVyplatnyeDela: View {
             Group {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                        UIApplication.shared.hideKeyboard()
                         if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
-                            SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                            sessionStore.alertType = .emptyTextField
+                            sessionStore.showAlert = true
                         } else if self.sessionStore.photoParameters.isEmpty {
-                            SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                            sessionStore.alertType = .emptyPhoto
+                            sessionStore.showAlert = true
                         } else {
                             self.sessionStore.uploadVyplatnyeDela(
                                 insuranceContractNumber: self.insuranceContractNumber,
@@ -71,14 +72,30 @@ struct CreateVyplatnyeDela: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: sessionStore.getLocation)
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
         }
-        .sheet(isPresented: $showCustomCameraView) {
+        .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
-                .edgesIgnoringSafeArea(.bottom)
-        }.navigationBarTitle("Выплатные дела")
+                .edgesIgnoringSafeArea(.vertical)
+        }
+        .navigationBarTitle("Выплатные дела")
+        .alert(isPresented: $sessionStore.showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }))
+            case .error:
+                return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить выплатное дело позже."), dismissButton: .default(Text("Закрыть")))
+            case .emptyLocation:
+                return Alert(title: Text("Ошибка!"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
+            case .emptyPhoto:
+                return Alert(title: Text("Ошибка!"), message: Text("Прикрепите хотя бы одну фотографию"), dismissButton: .default(Text("Закрыть")))
+            case .emptyTextField:
+                return Alert(title: Text("Ошибка!"), message: Text("Заполните все представленные пункты."), dismissButton: .default(Text("Закрыть")))
+            }
+        }
     }
 }
