@@ -190,6 +190,15 @@ struct CreateInspections: View {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.vertical)
-        }.navigationBarTitle("Новый осмотр")
+        }
+        .navigationBarTitle("Новый осмотр")
+        .alert(isPresented: $sessionStore.showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+            case .error:
+                return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+            }
+        }
     }
 }

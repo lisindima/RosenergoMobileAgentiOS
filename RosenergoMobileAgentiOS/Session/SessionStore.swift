@@ -10,9 +10,6 @@ import SwiftUI
 import Combine
 import Alamofire
 import Defaults
-#if !os(watchOS)
-import SPAlert
-#endif
 
 class SessionStore: ObservableObject {
     
@@ -33,6 +30,8 @@ class SessionStore: ObservableObject {
     @Published var loadingLogin: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
+    @Published var alertType: AlertType = .success
+    @Published var showAlert: Bool = false
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
@@ -73,11 +72,9 @@ class SessionStore: ObservableObject {
                     self.loginParameters = parameters
                     self.loadingLogin = false
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
-                    #endif
-                    print(error)
+                    self.showAlert = true
                     self.loadingLogin = false
+                    print(error)
                 }
         }
     }
@@ -128,9 +125,9 @@ class SessionStore: ObservableObject {
                     } else if code == 401 && self.loginParameters == nil {
                         self.loginModel = nil
                     } else if code == nil {
-                        #if !os(watchOS)
-                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
-                        #endif
+//                        #if !os(watchOS)
+//                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
+//                        #endif
                     } else {
                         break
                     }
@@ -193,16 +190,13 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
-                    #endif
+                    self.alertType = .success
                     self.uploadState = .none
-                    self.openCreateInspections = false
+                    self.showAlert = true
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
-                    #endif
+                    self.alertType = .error
                     self.uploadState = .none
+                    self.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -233,16 +227,13 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Успешно!", message: "Выплатное дело успешно загружено на сервер.", preset: .done)
+                    self.alertType = .success
                     self.uploadState = .none
-                    self.openCreateVyplatnyeDela = false
-                    #endif
+                    self.showAlert = true
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте загрузить позднее.", preset: .error)
-                    #endif
+                    self.alertType = .error
                     self.uploadState = .none
+                    self.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -264,5 +255,9 @@ enum UploadState {
 
 enum YandexGeoState {
     case loading, failure, success
+}
+
+enum AlertType {
+    case error, success
 }
 

@@ -963,8 +963,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.15;
+				kind = exactVersion;
+				version = 0.9.15;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

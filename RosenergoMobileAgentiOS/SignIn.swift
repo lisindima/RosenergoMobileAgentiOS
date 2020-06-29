@@ -44,6 +44,9 @@ struct SignIn: View {
         }
         .keyboardObserving()
         .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
+        .alert(isPresented: $sessionStore.showAlert) {
+            Alert(title: Text("Ошибка!"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+        }
     }
 }
 

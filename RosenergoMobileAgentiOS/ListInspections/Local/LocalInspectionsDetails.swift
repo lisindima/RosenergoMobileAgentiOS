@@ -18,6 +18,7 @@ struct LocalInspectionsDetails: View {
     
     @StateObject private var notificationStore = NotificationStore.shared
     
+    @State private var showAlert: Bool = false
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
@@ -263,6 +264,14 @@ struct LocalInspectionsDetails: View {
                 UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.localInspections.longitude),\(self.localInspections.latitude)")!)
                 }, .cancel()
             ])
+        }
+        .alert(isPresented: $showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+            case .error:
+                return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+            }
         }
     }
 }

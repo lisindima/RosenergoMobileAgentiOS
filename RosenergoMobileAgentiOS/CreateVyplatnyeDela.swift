@@ -78,6 +78,15 @@ struct CreateVyplatnyeDela: View {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.vertical)
-        }.navigationBarTitle("Выплатные дела")
+        }
+        .navigationBarTitle("Выплатные дела")
+        .alert(isPresented: $sessionStore.showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно!"), message: Text("Выплатное дело успешно загружено на сервер."), dismissButton: .default(Text("Закрыть")))
+            case .error:
+                return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить выплатное дело позже."), dismissButton: .default(Text("Закрыть")))
+            }
+        }
     }
 }
