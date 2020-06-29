@@ -70,18 +70,9 @@ struct SignIn: View {
                 .modifier(InputModifier())
                 .padding(.horizontal)
             CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
-                UIApplication.shared.hideKeyboard()
                 self.sessionStore.login(email: self.email, password: self.password)
             }.padding()
         }
     }
     #endif
 }
-
-#if !os(watchOS)
-extension UIApplication {
-    func hideKeyboard() {
-        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
-#endif

@@ -133,7 +133,6 @@ struct CreateInspections: View {
                 if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            UIApplication.shared.hideKeyboard()
                             if self.choiseCar == 0 {
                                 if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
                                     sessionStore.alertType = .emptyTextField
@@ -157,7 +156,6 @@ struct CreateInspections: View {
                             }
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                            UIApplication.shared.hideKeyboard()
                             if self.choiseCar == 0 {
                                 if self.carModel == "" || self.carRegNumber == "" || self.carBodyNumber == "" || self.carVin == "" || self.insuranceContractNumber == "" {
                                     sessionStore.alertType = .emptyTextField

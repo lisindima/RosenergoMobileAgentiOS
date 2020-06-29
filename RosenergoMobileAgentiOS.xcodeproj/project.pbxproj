@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB03D6B824A7A76600C515C6 /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
-		CB03D6BB24A7A90F00C515C6 /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB03D6BA24A7A90F00C515C6 /* NativeSearchBar */; };
 		CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
 		CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55B2466644400CDBB1A /* AppDelegate.swift */; };
@@ -48,6 +46,12 @@
 		CB7267C62498B7C900E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
 		CB7CEF9924A9C86C009DF93A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
 		CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
+		CB7CEFA224A9D6C2009DF93A /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */; };
+		CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
+		CB7CEFA424A9D99A009DF93A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
+		CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD07BA4248A082800A863D6 /* UploadIndicator.swift */; };
+		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
+		CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
@@ -186,9 +190,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
-				CB03D6BB24A7A90F00C515C6 /* NativeSearchBar in Frameworks */,
 				CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */,
 				CB5DD59A2494D8ED007AF70B /* Defaults in Frameworks */,
+				CB7CEFA224A9D6C2009DF93A /* NativeSearchBar in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
 				CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */,
@@ -407,7 +411,7 @@
 				CB17E587246933B700CDBB1A /* KeyboardObserving */,
 				CB5DD5992494D8ED007AF70B /* Defaults */,
 				CB870229249C5FF400B5DA72 /* URLImage */,
-				CB03D6BA24A7A90F00C515C6 /* NativeSearchBar */,
+				CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
@@ -488,7 +492,7 @@
 				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 				CB5DD5982494D8ED007AF70B /* XCRemoteSwiftPackageReference "Defaults" */,
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
-				CB03D6B924A7A90F00C515C6 /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
+				CB7CEFA024A9D6C2009DF93A /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -579,8 +583,9 @@
 			files = (
 				CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */,
 				CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */,
+				CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */,
+				CB7CEFA424A9D99A009DF93A /* CustomButton.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
-				CB03D6B824A7A76600C515C6 /* ListInspections.swift in Sources */,
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
 				CB7CEF9924A9C86C009DF93A /* CustomInput.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
@@ -589,11 +594,14 @@
 				CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
 				CBA5870C24A3499F009631C1 /* MenuButton.swift in Sources */,
+				CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */,
+				CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */,
 				CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */,
 				CB7267B12498858100E138BD /* MenuView.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
 				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,
+				CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,7 +742,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
@@ -760,7 +768,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -785,7 +793,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
@@ -806,7 +814,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
@@ -826,7 +834,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -852,7 +860,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -915,14 +923,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CB03D6B924A7A90F00C515C6 /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.1;
-			};
-		};
 		CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -947,6 +947,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		CB7CEFA024A9D6C2009DF93A /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 		CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
@@ -958,11 +966,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB03D6BA24A7A90F00C515C6 /* NativeSearchBar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB03D6B924A7A90F00C515C6 /* XCRemoteSwiftPackageReference "NativeSearchBar" */;
-			productName = NativeSearchBar;
-		};
 		CB17E5732466654E00CDBB1A /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -982,6 +985,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB5DD5982494D8ED007AF70B /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
+		};
+		CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7CEFA024A9D6C2009DF93A /* XCRemoteSwiftPackageReference "NativeSearchBar" */;
+			productName = NativeSearchBar;
 		};
 		CB85CDB8249B34A500AAEF04 /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;

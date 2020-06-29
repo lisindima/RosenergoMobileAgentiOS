@@ -46,7 +46,6 @@ struct CreateVyplatnyeDela: View {
             Group {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                        UIApplication.shared.hideKeyboard()
                         if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
                             sessionStore.alertType = .emptyTextField
                             sessionStore.showAlert = true
