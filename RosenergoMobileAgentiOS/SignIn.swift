@@ -7,7 +7,9 @@
 //
 
 import SwiftUI
+#if !os(watchOS)
 import KeyboardObserving
+#endif
 
 struct SignIn: View {
     
@@ -16,8 +18,38 @@ struct SignIn: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
+   @ViewBuilder var body: some View {
+        #if os(watchOS)
+        watch
+            .alert(isPresented: $sessionStore.showAlert) {
+                Alert(title: Text("Ошибка!"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+            }
+        #else
+        phone
+            .keyboardObserving()
+            .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
+            .alert(isPresented: $sessionStore.showAlert) {
+                Alert(title: Text("Ошибка!"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+            }
+        #endif
+    }
     
-    var body: some View {
+    var watch: some View {
+        VStack {
+            TextField("Эл.почта", text: $email)
+                .textContentType(.emailAddress)
+            SecureField("Пароль", text: $password)
+                .textContentType(.password)
+            Button(action: {
+                self.sessionStore.login(email: self.email, password: self.password)
+            }) {
+                Text("Войти")
+            }
+        }.navigationBarTitle("Агент")
+    }
+    
+    #if !os(watchOS)
+    var phone: some View {
         VStack {
             Spacer()
             Image("rosenergo")
@@ -42,16 +74,14 @@ struct SignIn: View {
                 self.sessionStore.login(email: self.email, password: self.password)
             }.padding()
         }
-        .keyboardObserving()
-        .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-        .alert(isPresented: $sessionStore.showAlert) {
-            Alert(title: Text("Ошибка!"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
-        }
     }
+    #endif
 }
 
+#if !os(watchOS)
 extension UIApplication {
     func hideKeyboard() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
+#endif

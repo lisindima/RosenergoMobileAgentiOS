@@ -42,11 +42,12 @@
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
 		CB7267AA24987AA700E138BD /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = CB7267A924987AA700E138BD /* Defaults */; };
-		CB7267AC24987B6F00E138BD /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267AB24987B6F00E138BD /* SignIn.swift */; };
 		CB7267B12498858100E138BD /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB7267C52498B79A00E138BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB7267C62498B7C900E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
+		CB7CEF9924A9C86C009DF93A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
+		CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
@@ -146,7 +147,6 @@
 		CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImageDetail.swift; sourceTree = "<group>"; };
 		CB66D74A24A5D989005C616A /* RosenergoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoApp.swift; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
-		CB7267AB24987B6F00E138BD /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		CB7267B02498858100E138BD /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,7 +321,6 @@
 			isa = PBXGroup;
 			children = (
 				CB9DE959249759F500F4E72A /* ListInspections.swift */,
-				CB7267AB24987B6F00E138BD /* SignIn.swift */,
 				CB7267B02498858100E138BD /* MenuView.swift */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
@@ -578,11 +577,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB7267AC24987B6F00E138BD /* SignIn.swift in Sources */,
 				CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */,
+				CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB03D6B824A7A76600C515C6 /* ListInspections.swift in Sources */,
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
+				CB7CEF9924A9C86C009DF93A /* CustomInput.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
