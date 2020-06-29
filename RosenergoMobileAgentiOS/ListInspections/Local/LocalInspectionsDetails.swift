@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Alamofire
-import SPAlert
 
 struct LocalInspectionsDetails: View {
     
@@ -18,7 +17,6 @@ struct LocalInspectionsDetails: View {
     
     @StateObject private var notificationStore = NotificationStore.shared
     
-    @State private var showAlert: Bool = false
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
@@ -90,7 +88,8 @@ struct LocalInspectionsDetails: View {
                 switch response.result {
                 case .success:
                     self.presentationMode.wrappedValue.dismiss()
-                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
+                    self.sessionStore.alertType = .success
+                    self.sessionStore.showAlert = true
                     self.sessionStore.uploadState = .none
                     self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -102,7 +101,8 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 case .failure(let error):
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
+                    self.sessionStore.alertType = .error
+                    self.sessionStore.showAlert = true
                     self.sessionStore.uploadState = .none
                     print(error.errorDescription!)
             }
@@ -265,12 +265,18 @@ struct LocalInspectionsDetails: View {
                 }, .cancel()
             ])
         }
-        .alert(isPresented: $showAlert) {
+        .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:
                 return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
             case .error:
                 return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+            case .emptyLocation:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+            case .emptyPhoto:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+            case .emptyTextField:
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
             }
         }
     }

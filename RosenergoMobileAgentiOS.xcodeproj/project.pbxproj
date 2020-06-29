@@ -25,7 +25,6 @@
 		CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
 		CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* KeyboardObserving */; };
-		CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E58A24695AA500CDBB1A /* SPAlert */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
 		CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */; };
 		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
@@ -192,7 +191,6 @@
 				CB5DD59A2494D8ED007AF70B /* Defaults in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
-				CB17E58B24695AA500CDBB1A /* SPAlert in Frameworks */,
 				CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,7 +406,6 @@
 			packageProductDependencies = (
 				CB17E5732466654E00CDBB1A /* Alamofire */,
 				CB17E587246933B700CDBB1A /* KeyboardObserving */,
-				CB17E58A24695AA500CDBB1A /* SPAlert */,
 				CB5DD5992494D8ED007AF70B /* Defaults */,
 				CB870229249C5FF400B5DA72 /* URLImage */,
 				CB03D6BA24A7A90F00C515C6 /* NativeSearchBar */,
@@ -490,7 +487,6 @@
 			packageReferences = (
 				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
-				CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */,
 				CB5DD5982494D8ED007AF70B /* XCRemoteSwiftPackageReference "Defaults" */,
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
 				CB03D6B924A7A90F00C515C6 /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
@@ -943,14 +939,6 @@
 				minimumVersion = 0.3.0;
 			};
 		};
-		CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ivanvorobei/SPAlert";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.4;
-			};
-		};
 		CB5DD5982494D8ED007AF70B /* XCRemoteSwiftPackageReference "Defaults" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/Defaults/";
@@ -984,11 +972,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
 			productName = KeyboardObserving;
-		};
-		CB17E58A24695AA500CDBB1A /* SPAlert */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB17E58924695AA500CDBB1A /* XCRemoteSwiftPackageReference "SPAlert" */;
-			productName = SPAlert;
 		};
 		CB5DD5992494D8ED007AF70B /* Defaults */ = {
 			isa = XCSwiftPackageProductDependency;

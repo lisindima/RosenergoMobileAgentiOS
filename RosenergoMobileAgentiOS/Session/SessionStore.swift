@@ -257,7 +257,11 @@ enum YandexGeoState {
     case loading, failure, success
 }
 
+enum AlertMailType {
+    case sent, saved, failed, error
+}
+
 enum AlertType {
-    case error, success
+    case success, error, emptyLocation, emptyPhoto, emptyTextField
 }
 
