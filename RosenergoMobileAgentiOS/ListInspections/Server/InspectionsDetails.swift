@@ -78,12 +78,12 @@ struct InspectionsDetails: View {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photo: photo.path)) {
-                                    URLImage(URL(string: photo.path)!, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                                    URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                                         ProgressView()
-                                    }) { proxy in
-                                        proxy.image
-                                            .resizable()
-                                    }
+                                    }, content: {
+                                        $0.image
+                                        .resizable()
+                                    })
                                     .cornerRadius(10)
                                     .frame(width: CGFloat(size), height: CGFloat(size))
                                 }.buttonStyle(PlainButtonStyle())

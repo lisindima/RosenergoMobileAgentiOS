@@ -57,12 +57,12 @@ struct InspectionsItems: View {
             }
             Spacer()
             if !inspection.photos.isEmpty {
-                URLImage(URL(string: inspection.photos.first!.path)!, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                     ProgressView()
-                }) { proxy in
-                    proxy.image
-                        .resizable()
-                }
+                }, content: {
+                    $0.image
+                    .resizable()
+                })
                 .cornerRadius(10)
                 .frame(width: CGFloat(size), height: CGFloat(size))
             }

@@ -72,10 +72,9 @@ struct ImageDetail: View {
     var imageDetail: some View {
         URLImage(URL(string: photo)!, placeholder: { _ in
             ProgressView()
-        }) { proxy in
-            proxy.image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-        }
+        }, content: {
+            $0.image
+            .resizable()
+        }).aspectRatio(contentMode: .fit)
     }
 }
