@@ -52,6 +52,7 @@
 		CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD07BA4248A082800A863D6 /* UploadIndicator.swift */; };
 		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
+		CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7CEFA924AAC202009DF93A /* CloudKit.framework */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
@@ -152,6 +153,8 @@
 		CB66D74A24A5D989005C616A /* RosenergoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoApp.swift; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
 		CB7267B02498858100E138BD /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RosenergoMobileAgentwatchOS Extension.entitlements"; sourceTree = "<group>"; };
+		CB7CEFA924AAC202009DF93A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9DE931249758B300F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB7267AA24987AA700E138BD /* Defaults in Frameworks */,
+				CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */,
 				CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */,
 				CB9DE95E24975A4100F4E72A /* Alamofire in Frameworks */,
 			);
@@ -298,6 +302,7 @@
 		CB2B5B83246BA8CE006F35AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB7CEFA924AAC202009DF93A /* CloudKit.framework */,
 				CBDDDA602473CF1400FE5A7C /* CloudKit.framework */,
 				CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */,
 			);
@@ -324,6 +329,7 @@
 		CB9DE93C249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */,
 				CB9DE959249759F500F4E72A /* ListInspections.swift */,
 				CB7267B02498858100E138BD /* MenuView.swift */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
@@ -833,6 +839,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentwatchOS Extension/RosenergoMobileAgentwatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
@@ -859,6 +866,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentwatchOS Extension/RosenergoMobileAgentwatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";

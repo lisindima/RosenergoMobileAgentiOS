@@ -75,6 +75,7 @@ struct ImageDetail: View {
         }, content: {
             $0.image
             .resizable()
-        }).aspectRatio(contentMode: .fit)
+            .aspectRatio(contentMode: .fit)
+        })
     }
 }
