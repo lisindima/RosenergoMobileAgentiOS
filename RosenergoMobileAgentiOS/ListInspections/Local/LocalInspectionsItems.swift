@@ -12,14 +12,6 @@ struct LocalInspectionsItems: View {
     
     var localInspections: LocalInspections
     
-    var scale: CGFloat {
-        #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
-        #else
-        return UIScreen.main.scale
-        #endif
-    }
-    
     var size: Double {
         #if os(watchOS)
         return 75.0
@@ -31,10 +23,9 @@ struct LocalInspectionsItems: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("Не отправлено")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.red)
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.yellow)
                 Group {
                     Text(localInspections.insuranceContractNumber!)
                     Text(localInspections.carModel!)
@@ -53,20 +44,13 @@ struct LocalInspectionsItems: View {
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
-            }
+            }.padding(.vertical, 6)
             Spacer()
             if !localInspections.photos!.isEmpty {
-                #if os(iOS)
-                Image(uiImage: UIImage(data: Data(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!.resize(size: CGSize(width: size, height: size), scale: scale))
-                    .resizable()
-                    .cornerRadius(10)
-                    .frame(width: CGFloat(size), height: CGFloat(size))
-                #else
                 Image(uiImage: UIImage(data: Data(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!)
                     .resizable()
                     .cornerRadius(10)
                     .frame(width: CGFloat(size), height: CGFloat(size))
-                #endif
             }
         }
     }

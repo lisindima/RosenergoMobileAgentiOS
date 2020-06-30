@@ -80,12 +80,4 @@ extension UIImage {
         
         return newImage!
     }
-    
-    func resize(size: CGSize, scale: CGFloat) -> UIImage {
-        let targetSize = CGSize(width: size.width * scale, height: size.height * scale)
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        return renderer.image { context in
-            self.draw(in: CGRect(origin: .zero, size: targetSize))
-        }
-    }
 }

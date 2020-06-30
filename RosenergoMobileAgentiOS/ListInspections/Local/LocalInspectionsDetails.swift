@@ -23,6 +23,39 @@ struct LocalInspectionsDetails: View {
     
     var localInspections: LocalInspections
     
+    private func delete() {
+        #if !os(watchOS)
+        self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
+        #endif
+        self.presentationMode.wrappedValue.dismiss()
+        self.moc.delete(self.localInspections)
+        do {
+            try self.moc.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func uploadLocalInspections() {
+        self.sessionStore.uploadInspections(
+            carModel: localInspections.carModel!,
+            carRegNumber: localInspections.carRegNumber!,
+            carBodyNumber: localInspections.carBodyNumber!,
+            carVin: localInspections.carVin!,
+            insuranceContractNumber: localInspections.insuranceContractNumber!,
+            carModel2: localInspections.carModel2,
+            carRegNumber2: localInspections.carRegNumber2,
+            carBodyNumber2: localInspections.carBodyNumber2,
+            carVin2: localInspections.carVin2,
+            insuranceContractNumber2: localInspections.insuranceContractNumber2,
+            latitude: localInspections.latitude,
+            longitude: localInspections.longitude,
+            photoParameters: nil,
+            uploadType: .local,
+            localInspections: localInspections
+        )
+    }
+    
     private func loadYandexGeoResponse() {
         
         let parameters = YandexGeoParameters(
@@ -48,77 +81,6 @@ struct LocalInspectionsDetails: View {
         }
     }
     
-    private func uploadLocalInspections() {
-        
-        sessionStore.uploadState = .upload
-        
-        var localPhotoParameters: [PhotoParameters] = []
-        
-        for photo in localInspections.photos! {
-            localPhotoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo, maked_photo_at: localInspections.dateInspections!))
-        }
-        
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: sessionStore.loginModel!.data.apiToken),
-            .accept("application/json")
-        ]
-        
-        let parameters = InspectionParameters(
-            car_model: localInspections.carModel!,
-            car_reg_number: localInspections.carRegNumber!,
-            car_body_number: localInspections.carBodyNumber!,
-            car_vin: localInspections.carVin!,
-            insurance_contract_number: localInspections.insuranceContractNumber!,
-            car_model2: localInspections.carModel2,
-            car_reg_number2: localInspections.carRegNumber2,
-            car_body_number2: localInspections.carBodyNumber2,
-            car_vin2: localInspections.carVin2,
-            insurance_contract_number2: localInspections.insuranceContractNumber2,
-            latitude: localInspections.latitude,
-            longitude: localInspections.longitude,
-            photos: localPhotoParameters
-        )
-        
-        AF.request(sessionStore.serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
-            .validate()
-            .uploadProgress { progress in
-                self.sessionStore.uploadProgress = progress.fractionCompleted
-            }
-            .response { response in
-                switch response.result {
-                case .success:
-                    self.presentationMode.wrappedValue.dismiss()
-                    self.sessionStore.alertType = .success
-                    self.sessionStore.showAlert = true
-                    self.sessionStore.uploadState = .none
-                    #if !os(watchOS)
-                    self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
-                    #endif
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.moc.delete(self.localInspections)
-                        do {
-                            try self.moc.save()
-                        } catch {
-                            print(error)
-                        }
-                    }
-                case .failure(let error):
-                    self.sessionStore.alertType = .error
-                    self.sessionStore.showAlert = true
-                    self.sessionStore.uploadState = .none
-                    print(error.errorDescription!)
-            }
-        }
-    }
-    
-    var scale: CGFloat {
-        #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
-        #else
-        return UIScreen.main.scale
-        #endif
-    }
-    
     var size: Double {
         #if os(watchOS)
         return 75.0
@@ -130,6 +92,7 @@ struct LocalInspectionsDetails: View {
     @ViewBuilder var body: some View {
         #if os(watchOS)
         details
+            .edgesIgnoringSafeArea(.bottom)
         #else
         details
             .environment(\.horizontalSizeClass, .regular)
@@ -139,70 +102,65 @@ struct LocalInspectionsDetails: View {
     var details: some View {
         VStack {
             Form {
-                if !localInspections.photos!.isEmpty {
+                if localInspections.photos != nil {
                     Section(header: Text("Фотографии").fontWeight(.bold)) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(localInspections.photos!, id: \.self) { photo in
                                     NavigationLink(destination: LocalImageDetail(photo: photo)) {
-                                        #if os(iOS)
-                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!.resize(size: CGSize(width: size, height: size), scale: scale))
-                                            .renderingMode(.original)
-                                            .resizable()
-                                            .frame(width: CGFloat(size), height: CGFloat(size))
-                                            .cornerRadius(10)
-                                        #else
                                         Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
-                                            .renderingMode(.original)
                                             .resizable()
                                             .frame(width: CGFloat(size), height: CGFloat(size))
                                             .cornerRadius(10)
-                                        #endif
-                                    }
+                                    }.buttonStyle(PlainButtonStyle())
                                 }
                             }.padding(.vertical, 8)
                         }
                     }
                 }
-                Section(header: Text("Дата осмотра").fontWeight(.bold)) {
-                    SectionItem(
-                        imageName: "timer",
-                        imageColor: .rosenergo,
-                        subTitle: "Дата создания осмотра",
-                        title: localInspections.dateInspections!.dataLocalInspection()
-                    )
+                if localInspections.dateInspections != nil {
+                    Section(header: Text("Дата осмотра").fontWeight(.bold)) {
+                        SectionItem(
+                            imageName: "timer",
+                            imageColor: .rosenergo,
+                            subTitle: "Дата создания осмотра",
+                            title: localInspections.dateInspections!.dataLocalInspection()
+                        )
+                    }
                 }
-                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
-                    SectionItem(
-                        imageName: "car",
-                        imageColor: .rosenergo,
-                        subTitle: "Модель автомобиля",
-                        title: localInspections.carModel!
-                    )
-                    SectionItem(
-                        imageName: "rectangle",
-                        imageColor: .rosenergo,
-                        subTitle: "Регистрационный номер",
-                        title: localInspections.carRegNumber!
-                    )
-                    SectionItem(
-                        imageName: "v.circle",
-                        imageColor: .rosenergo,
-                        subTitle: "VIN",
-                        title: localInspections.carVin!
-                    )
-                    SectionItem(
-                        imageName: "textformat.123",
-                        imageColor: .rosenergo,
-                        subTitle: "Номер кузова",
-                        title: localInspections.carBodyNumber!
-                    )
-                    SectionItem(
-                        imageName: "text.justify",
-                        imageColor: .rosenergo,
-                        subTitle: "Страховой полис",
-                        title: localInspections.insuranceContractNumber!
-                    )
+                if localInspections.carModel != nil {
+                    Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
+                        SectionItem(
+                            imageName: "car",
+                            imageColor: .rosenergo,
+                            subTitle: "Модель автомобиля",
+                            title: localInspections.carModel!
+                        )
+                        SectionItem(
+                            imageName: "rectangle",
+                            imageColor: .rosenergo,
+                            subTitle: "Регистрационный номер",
+                            title: localInspections.carRegNumber!
+                        )
+                        SectionItem(
+                            imageName: "v.circle",
+                            imageColor: .rosenergo,
+                            subTitle: "VIN",
+                            title: localInspections.carVin!
+                        )
+                        SectionItem(
+                            imageName: "textformat.123",
+                            imageColor: .rosenergo,
+                            subTitle: "Номер кузова",
+                            title: localInspections.carBodyNumber!
+                        )
+                        SectionItem(
+                            imageName: "text.justify",
+                            imageColor: .rosenergo,
+                            subTitle: "Страховой полис",
+                            title: localInspections.insuranceContractNumber!
+                        )
+                    }
                 }
                 if localInspections.carModel2 != nil {
                     Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
@@ -273,15 +231,25 @@ struct LocalInspectionsDetails: View {
                 }
             }
             if sessionStore.uploadState == .none {
+                #if os(iOS)
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
                     self.uploadLocalInspections()
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
+                #else
+                Button("Отправить") {
+                    self.uploadLocalInspections()
+                }.padding(.bottom, 8)
+                #endif
             } else if sessionStore.uploadState == .upload {
+                #if os(iOS)
                 UploadIndicator(progress: $sessionStore.uploadProgress, color: .rosenergo)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
+                #else
+                ProgressView()
+                #endif
             }
         }
         .onAppear {
@@ -305,15 +273,15 @@ struct LocalInspectionsDetails: View {
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:
-                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .error:
                 return Alert(title: Text("Ошибка!"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
-                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .emptyPhoto:
-                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .emptyTextField:
-                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Успешно!"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             }
         }
     }

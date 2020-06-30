@@ -53,7 +53,9 @@ struct CreateInspections: View {
             insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
             latitude: self.sessionStore.latitude,
             longitude: self.sessionStore.longitude,
-            photoParameters: self.sessionStore.photoParameters
+            photoParameters: self.sessionStore.photoParameters,
+            uploadType: .server,
+            localInspections: nil
         )
     }
     
