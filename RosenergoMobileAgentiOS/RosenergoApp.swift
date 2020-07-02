@@ -12,6 +12,10 @@ import CoreData
 @main
 struct WatchApp: App {
     
+    #if !os(watchOS)
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    #endif
+    
     @Environment(\.scenePhase) private var scenePhase
     
     @StateObject var sessionStore = SessionStore()
@@ -20,6 +24,7 @@ struct WatchApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .accentColor(.rosenergo)
                 .environmentObject(sessionStore)
                 .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
         }
@@ -27,6 +32,11 @@ struct WatchApp: App {
             switch newScenePhase {
             case .active:
                 print("scene is now active!")
+                #if !os(watchOS)
+                UIApplication.shared.applicationIconBadgeNumber = 0
+                NotificationStore.shared.requestPermission()
+                NotificationStore.shared.refreshNotificationStatus()
+                #endif
                 if SessionStore.shared.loginModel != nil {
                     SessionStore.shared.validateToken()
                 }
@@ -34,7 +44,7 @@ struct WatchApp: App {
                 print("scene is now inactive!")
             case .background:
                 print("scene is now background!")
-                coreData.saveContext()
+                //coreData.saveContext()
             @unknown default:
                 print("Apple must have added something new!")
             }
@@ -42,6 +52,34 @@ struct WatchApp: App {
     }
 }
 
+#if !os(watchOS)
+class AppDelegate: NSObject, UIApplicationDelegate, CLLocationManagerDelegate {
+    
+    let sessionStore = SessionStore.shared
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        CLLocationManager().delegate = self
+        return true
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        var currentLoc: CLLocation!
+        manager.requestWhenInUseAuthorization()
+        switch manager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse:
+            currentLoc = manager.location
+            sessionStore.latitude = currentLoc.coordinate.latitude
+            sessionStore.longitude = currentLoc.coordinate.longitude
+        case .notDetermined, .restricted, .denied:
+            sessionStore.latitude = 0.0
+            sessionStore.longitude = 0.0
+        @unknown default:
+            sessionStore.latitude = 0.0
+            sessionStore.longitude = 0.0
+        }
+    }
+}
+#endif
 
 class CoreData: ObservableObject {
     

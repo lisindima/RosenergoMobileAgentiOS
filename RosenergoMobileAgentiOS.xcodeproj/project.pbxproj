@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
 		CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
-		CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55B2466644400CDBB1A /* AppDelegate.swift */; };
-		CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55D2466644400CDBB1A /* SceneDelegate.swift */; };
 		CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CB17E5632466644400CDBB1A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
@@ -44,6 +42,7 @@
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB7267C52498B79A00E138BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB7267C62498B7C900E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
+		CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
 		CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB7CEFA224A9D6C2009DF93A /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */; };
 		CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
@@ -125,8 +124,6 @@
 
 /* Begin PBXFileReference section */
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB17E55B2466644400CDBB1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CB17E55D2466644400CDBB1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
 		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		CB17E5642466644500CDBB1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -241,8 +238,6 @@
 				CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */,
 				CBD07BA22487E62000A863D6 /* GoogleService-Info.plist */,
 				CB66D74A24A5D989005C616A /* RosenergoApp.swift */,
-				CB17E55B2466644400CDBB1A /* AppDelegate.swift */,
-				CB17E55D2466644400CDBB1A /* SceneDelegate.swift */,
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
 				CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */,
@@ -550,7 +545,6 @@
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
-				CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
 				CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */,
 				CBD07BA5248A082800A863D6 /* UploadIndicator.swift in Sources */,
@@ -569,10 +563,10 @@
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
+				CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */,
 				CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */,
 				CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */,
-				CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */,
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
 				CBE9BE9424A7622100D8CA2A /* SettingsButtonBar.swift in Sources */,

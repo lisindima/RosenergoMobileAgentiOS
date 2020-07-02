@@ -23,41 +23,26 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует доступ к камере вашего устройства, для сохранения фотографий осмотра на сервер ООО "НСГ-"РОСЭНЕРГО"</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует доступ к камере вашего устройства, для сохранения фотографий осмотра на сервер ООО &quot;НСГ-&quot;РОСЭНЕРГО&quot;</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<true/>
-		<key>UISceneConfigurations</key>
-		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-				</dict>
-			</array>
-		</dict>
 	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIImageName</key>
-		<string></string>
-	</dict>
+	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
