@@ -75,19 +75,21 @@ struct SettingsView: View {
     
     var setting: some View {
         Form {
-            Section(header: Text("Личные данные").fontWeight(.bold)) {
-                SectionItem(
-                    imageName: "person",
-                    imageColor: .rosenergo,
-                    subTitle: "Агент",
-                    title: sessionStore.loginModel?.data.name ?? "Ошибка"
-                )
-                SectionItem(
-                    imageName: "envelope",
-                    imageColor: .rosenergo,
-                    subTitle: "Эл.почта",
-                    title: sessionStore.loginModel?.data.email ?? "Ошибка"
-                )
+            if sessionStore.loginModel?.data.name != nil || sessionStore.loginModel?.data.email != nil {
+                Section(header: Text("Личные данные").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "person",
+                        imageColor: .rosenergo,
+                        subTitle: "Агент",
+                        title: sessionStore.loginModel!.data.name
+                    )
+                    SectionItem(
+                        imageName: "envelope",
+                        imageColor: .rosenergo,
+                        subTitle: "Эл.почта",
+                        title: sessionStore.loginModel!.data.email
+                    )
+                }
             }
             #if !os(watchOS)
             Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
@@ -125,29 +127,37 @@ struct SettingsView: View {
             }
             #endif
             Section {
-                SectionButton(imageName: "flame", imageColor: .red, title: "Выйти", titleColor: .red) {
-                    self.showActionSheetExit = true
+                if !sessionStore.logoutState {
+                    SectionButton(imageName: "flame", imageColor: .red, title: "Выйти", titleColor: .red) {
+                        self.showActionSheetExit = true
+                    }
+                } else {
+                    HStack {
+                        ProgressView()
+                        Text("Подождите")
+                            .padding(.leading, 12)
+                    }
                 }
             }
-            .actionSheet(isPresented: $showActionSheetExit) {
-                ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                    self.presentationMode.wrappedValue.dismiss()
-                    self.sessionStore.logout()
-                }, .cancel()
-                ])
+        }
+        .navigationBarTitle("Настройки")
+        .actionSheet(isPresented: $showActionSheetExit) {
+            ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
+                self.sessionStore.logout()
+            }, .cancel()
+            ])
+        }
+        .alert(isPresented: $showAlert) {
+            switch alertMailType {
+            case .sent:
+                return Alert(title: Text("Сообщение отправлено"), message: Text("Я отвечу на него в ближайшее время."), dismissButton: .default(Text("Закрыть")))
+            case .saved:
+                return Alert(title: Text("Сообщение сохранено"), message: Text("Сообщение ждет вас в черновиках."), dismissButton: .default(Text("Закрыть")))
+            case .failed:
+                return Alert(title: Text("Ошибка"), message: Text("Повторите попытку позже."), dismissButton: .default(Text("Закрыть")))
+            case .error:
+                return Alert(title: Text("Не установлено приложение \"Почта\""), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .default(Text("Закрыть")))
             }
-            .alert(isPresented: $showAlert) {
-                switch alertMailType {
-                case .sent:
-                    return Alert(title: Text("Сообщение отправлено!"), message: Text("Я отвечу на него в ближайшее время."), dismissButton: .default(Text("Закрыть")))
-                case .saved:
-                    return Alert(title: Text("Сообщение сохранено!"), message: Text("Сообщение ждет вас в черновиках."), dismissButton: .default(Text("Закрыть")))
-                case .failed:
-                    return Alert(title: Text("Ошибка!"), message: Text("Повторите попытку позже."), dismissButton: .default(Text("Закрыть")))
-                case .error:
-                    return Alert(title: Text("Не установлено приложение \"Почта\"."), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .default(Text("Закрыть")))
-                }
-            }
-        }.navigationBarTitle("Настройки")
+        }
     }
 }

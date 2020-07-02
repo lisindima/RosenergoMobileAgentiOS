@@ -22,30 +22,32 @@ struct SignIn: View {
         #if os(watchOS)
         watch
             .alert(isPresented: $sessionStore.showAlert) {
-                Alert(title: Text("Ошибка!"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
             }
         #else
         phone
             .keyboardObserving()
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
             .alert(isPresented: $sessionStore.showAlert) {
-                Alert(title: Text("Ошибка!"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
             }
         #endif
     }
     
     var watch: some View {
-        VStack {
-            TextField("Эл.почта", text: $email)
-                .textContentType(.emailAddress)
-            SecureField("Пароль", text: $password)
-                .textContentType(.password)
-            Button(action: {
-                self.sessionStore.login(email: self.email, password: self.password)
-            }) {
-                Text("Войти")
-            }
-        }.navigationBarTitle("Агент")
+        NavigationView {
+            VStack {
+                TextField("Эл.почта", text: $email)
+                    .textContentType(.emailAddress)
+                SecureField("Пароль", text: $password)
+                    .textContentType(.password)
+                Button(action: {
+                    self.sessionStore.login(email: self.email, password: self.password)
+                }) {
+                    Text("Войти")
+                }
+            }.navigationBarTitle("Агент")
+        }
     }
     
     #if !os(watchOS)

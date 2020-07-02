@@ -26,7 +26,8 @@ struct CustomButton: View {
                     .multilineTextAlignment(.center)
                 if loading ?? false {
                     ProgressView()
-                        .padding(.horizontal, 6)
+                        .padding(.leading, 6)
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
                 }
                 Spacer()
             }
@@ -34,7 +35,7 @@ struct CustomButton: View {
         .padding()
         .background(colorButton)
         .cornerRadius(8)
-        //.hoverEffect(.highlight)
+        .hoverEffect(.highlight)
     }
 }
 

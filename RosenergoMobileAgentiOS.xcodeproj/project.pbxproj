@@ -44,11 +44,9 @@
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB7267C52498B79A00E138BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB7267C62498B7C900E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
-		CB7CEF9924A9C86C009DF93A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
 		CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB7CEFA224A9D6C2009DF93A /* NativeSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */; };
 		CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
-		CB7CEFA424A9D99A009DF93A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD07BA4248A082800A863D6 /* UploadIndicator.swift */; };
 		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
@@ -590,10 +588,8 @@
 				CB9D62CF24A3B468000C1C3A /* RootView.swift in Sources */,
 				CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */,
 				CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */,
-				CB7CEFA424A9D99A009DF93A /* CustomButton.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
-				CB7CEF9924A9C86C009DF93A /* CustomInput.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,

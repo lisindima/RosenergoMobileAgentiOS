@@ -23,22 +23,23 @@ struct MenuView: View {
     }
     
     var body: some View {
-        ScrollView {
-            NavigationLink(destination:
-                            ListInspections()
+        NavigationView {
+            ScrollView {
+                NavigationLink(destination:
+                                ListInspections()
                                 .environmentObject(sessionStore)
                                 .environment(\.managedObjectContext, moc)
-                           
-            ) {
-                MenuButton(title: "Осмотры", image: "pc", color: .rosenergo)
-            }.buttonStyle(PlainButtonStyle())
-            NavigationLink(destination: SettingsView().environmentObject(sessionStore)) {
-                MenuButton(title: "Настройки", image: "gear", color: .secondary)
-            }.buttonStyle(PlainButtonStyle())
-            appVersionView
-                .foregroundColor(.secondary)
-                .font(.footnote)
-        }.navigationBarTitle("Агент")
+                ) {
+                    MenuButton(title: "Осмотры", image: "pc", color: .rosenergo)
+                }.buttonStyle(PlainButtonStyle())
+                NavigationLink(destination: SettingsView().environmentObject(sessionStore)) {
+                    MenuButton(title: "Настройки", image: "gear", color: .secondary)
+                }.buttonStyle(PlainButtonStyle())
+                appVersionView
+                    .foregroundColor(.secondary)
+                    .font(.footnote)
+            }.navigationBarTitle("Агент")
+        }
     }
 }
 

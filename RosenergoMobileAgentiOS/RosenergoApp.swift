@@ -19,21 +19,21 @@ struct WatchApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                RootView()
-                    .environmentObject(sessionStore)
-                    .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
-            }
+            RootView()
+                .environmentObject(sessionStore)
+                .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
         }
         .onChange(of: scenePhase) { newScenePhase in
             switch newScenePhase {
             case .active:
+                print("scene is now active!")
                 if SessionStore.shared.loginModel != nil {
                     SessionStore.shared.validateToken()
                 }
             case .inactive:
                 print("scene is now inactive!")
             case .background:
+                print("scene is now background!")
                 coreData.saveContext()
             @unknown default:
                 print("Apple must have added something new!")

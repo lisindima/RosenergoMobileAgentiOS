@@ -28,6 +28,7 @@ class SessionStore: ObservableObject {
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var loadingLogin: Bool = false
+    @Published var logoutState: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var alertType: AlertType = .success
@@ -35,9 +36,6 @@ class SessionStore: ObservableObject {
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
-    @Published var openListInspections: Bool = false
-    @Published var openCreateInspections: Bool = false
-    @Published var openCreateVyplatnyeDela: Bool = false
     
     static let shared = SessionStore()
     
@@ -81,6 +79,8 @@ class SessionStore: ObservableObject {
     
     func logout() {
         
+        logoutState = true
+        
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
             .accept("application/json")
@@ -88,18 +88,20 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "logout", method: .post, headers: headers)
             .validate()
-            .responseJSON { response in
+            .responseJSON { [self] response in
                 switch response.result {
                 case .success:
-                    self.loginModel = nil
-                    self.loginParameters = nil
-                    self.inspections.removeAll()
-                    self.inspectionsLoadingState = .loading
+                    loginModel = nil
+                    logoutState = false
+                    loginParameters = nil
+                    inspections.removeAll()
+                    inspectionsLoadingState = .loading
                 case .failure(let error):
-                    self.loginModel = nil
-                    self.loginParameters = nil
-                    self.inspections.removeAll()
-                    self.inspectionsLoadingState = .loading
+                    loginModel = nil
+                    logoutState = false
+                    loginParameters = nil
+                    inspections.removeAll()
+                    inspectionsLoadingState = .loading
                     print(error.errorDescription!)
                 }
         }

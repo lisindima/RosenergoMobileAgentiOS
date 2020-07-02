@@ -35,27 +35,29 @@ struct InspectionsItems: View {
                 Text("\(inspection.id)")
                     .font(.title)
                     .fontWeight(.bold)
-                Group {
-                    Text(inspection.insuranceContractNumber)
-                    Text(inspection.carModel)
-                    Text(inspection.carRegNumber)
-                    Text(inspection.carVin)
-                    Text(inspection.carBodyNumber)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(inspection.insuranceContractNumber)
+                        Text(inspection.carModel)
+                        Text(inspection.carRegNumber)
+                        Text(inspection.carVin)
+                        Text(inspection.carBodyNumber)
+                    }
                     if inspection.carModel2 != nil {
-                        Text(inspection.insuranceContractNumber2!)
-                            .padding(.top, 8)
-                        Text(inspection.carModel2!)
-                        Text(inspection.carRegNumber2!)
-                        Text(inspection.carVin2!)
-                        Text(inspection.carBodyNumber2!)
-                        
+                        VStack(alignment: .leading) {
+                            Text(inspection.insuranceContractNumber2!)
+                            Text(inspection.carModel2!)
+                            Text(inspection.carRegNumber2!)
+                            Text(inspection.carVin2!)
+                            Text(inspection.carBodyNumber2!)
+                        }
                     }
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             }
-            Spacer()
+            Spacer(minLength: 0)
             if !inspection.photos.isEmpty {
                 URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                     ProgressView()

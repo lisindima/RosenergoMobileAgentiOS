@@ -30,13 +30,13 @@ struct MenuView: View {
         NavigationView {
             VStack {
                 LazyVGrid(columns: layout) {
-                    NavigationLink(destination: CreateInspections(), isActive: $sessionStore.openCreateInspections) {
+                    NavigationLink(destination: CreateInspections()) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }
-                    NavigationLink(destination: ListInspections(), isActive: $sessionStore.openListInspections) {
+                    NavigationLink(destination: ListInspections()) {
                         MenuButton(title: "Осмотры", image: "pc", color: .red)
                     }
-                    NavigationLink(destination: CreateVyplatnyeDela(), isActive: $sessionStore.openCreateVyplatnyeDela) {
+                    NavigationLink(destination: CreateVyplatnyeDela()) {
                         MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
                     }
                 }
