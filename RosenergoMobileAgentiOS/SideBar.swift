@@ -38,10 +38,18 @@ struct SideBar: View {
             .listStyle(SidebarListStyle())
             .navigationBarTitle("Главная")
         
-            Text("Осмотр и выплатное дело")
+            Text("Выберите\nпункт в меню")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            Text("Выберите осмотр для просмотра")
+            Text("Выберите осмотр\nдля просмотра")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
