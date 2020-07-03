@@ -71,12 +71,12 @@ struct LocalInspectionsDetails: View {
             .responseDecodable(of: YandexGeo.self) { response in
                 switch response.result {
                 case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    self.yandexGeoState = .success
+                    guard let yandexGeoResponse = response.value else { return }
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = .success
                 case .failure(let error):
                     print(error)
-                    self.yandexGeoState = .failure
+                    yandexGeoState = .failure
                 }
         }
     }
@@ -233,13 +233,13 @@ struct LocalInspectionsDetails: View {
             if sessionStore.uploadState == .none {
                 #if os(iOS)
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                    self.uploadLocalInspections()
+                    uploadLocalInspections()
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
                 #else
                 Button("Отправить") {
-                    self.uploadLocalInspections()
+                    uploadLocalInspections()
                 }.padding(.bottom, 8)
                 #endif
             } else if sessionStore.uploadState == .upload {
@@ -253,19 +253,19 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
-            if self.yandexGeo == nil {
-                self.loadYandexGeoResponse()
+            if yandexGeo == nil {
+                loadYandexGeoResponse()
             }
         }
         .navigationBarTitle("Не отправлено")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
                 #if !os(watchOS)
-                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.localInspections.latitude),\(self.localInspections.longitude)")!)
+                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
                 #endif
             }, .default(Text("Яндекс.Карты")) {
                 #if !os(watchOS)
-                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.localInspections.longitude),\(self.localInspections.latitude)")!)
+                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
                 #endif
             }, .cancel()
             ])
