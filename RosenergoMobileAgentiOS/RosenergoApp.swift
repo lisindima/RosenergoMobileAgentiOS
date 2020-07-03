@@ -19,8 +19,8 @@ struct WatchApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
     
-    @StateObject var sessionStore = SessionStore()
-    @StateObject var coreData = CoreData()
+    @StateObject var sessionStore = SessionStore.shared
+    @StateObject var coreData = CoreData.shared
     
     var body: some Scene {
         WindowGroup {
@@ -36,35 +36,47 @@ struct WatchApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate, CLLocationManagerDelegate {
     
     let sessionStore = SessionStore.shared
+    lazy var locationManager = CLLocationManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        CLLocationManager().delegate = self
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         return true
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        var currentLoc: CLLocation!
-        manager.requestWhenInUseAuthorization()
-        switch manager.authorizationStatus() {
+        let status = manager.authorizationStatus()
+        var currentLoc: CLLocation
+        switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            currentLoc = manager.location
+            currentLoc = manager.location ?? CLLocation(latitude: 0.0, longitude: 0.0)
             sessionStore.latitude = currentLoc.coordinate.latitude
             sessionStore.longitude = currentLoc.coordinate.longitude
-            print("авторизован")
         case .notDetermined, .restricted, .denied:
             sessionStore.latitude = 0.0
             sessionStore.longitude = 0.0
-            print("не авторизован")
         @unknown default:
-            print("не авторизован")
             sessionStore.latitude = 0.0
             sessionStore.longitude = 0.0
+        }
+        
+        let accuracyAuthorization = manager.accuracyAuthorization
+        switch accuracyAuthorization {
+        case .fullAccuracy:
+            break
+        case .reducedAccuracy:
+            manager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "Rosenergo")
+            break
+        default:
+            break
         }
     }
 }
 #endif
 
 class CoreData: ObservableObject {
+    
+    static let shared = CoreData()
     
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "RosenergoMobileAgentiOS")
@@ -77,7 +89,7 @@ class CoreData: ObservableObject {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return container
     }()
-
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

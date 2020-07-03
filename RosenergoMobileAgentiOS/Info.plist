@@ -32,6 +32,11 @@
 	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>Rosenergo</key>
+		<string>Для правильной работы приложения выберите &quot;Высокоточный&quot; режим для геопозиции.</string>
+	</dict>
 	<key>NSLocationDefaultAccuracyReduced</key>
 	<false/>
 	<key>UIApplicationSceneManifest</key>
