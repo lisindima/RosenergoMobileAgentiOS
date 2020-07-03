@@ -33,9 +33,8 @@ struct RootView: View {
                 SignIn()
             }
         }
-        .onChange(of: scenePhase) { newScenePhase in
-            switch newScenePhase {
-            case .active:
+        .onChange(of: scenePhase) { phase in
+            if phase == .active {
                 print("scene is now active!")
                 #if !os(watchOS)
                 UIApplication.shared.applicationIconBadgeNumber = 0
@@ -45,12 +44,10 @@ struct RootView: View {
                 if SessionStore.shared.loginModel != nil {
                     SessionStore.shared.validateToken()
                 }
-            case .inactive:
-                print("scene is now inactive!")
-            case .background:
+            } else if phase == .background {
                 print("scene is now background!")
                 //coreData.saveContext()
-            @unknown default:
+            } else {
                 print("Apple must have added something new!")
             }
         }

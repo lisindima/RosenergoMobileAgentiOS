@@ -47,7 +47,7 @@ struct LocalInspectionsItems: View {
             }.padding(.vertical, 6)
             Spacer()
             if !localInspections.photos!.isEmpty {
-                Image(uiImage: UIImage(data: Data(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!)
+                Image(uiImage: UIImage(data: Data(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                     .resizable()
                     .cornerRadius(10)
                     .frame(width: CGFloat(size), height: CGFloat(size))
