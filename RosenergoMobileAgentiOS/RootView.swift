@@ -11,23 +11,48 @@ import SwiftUI
 struct RootView: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @Environment(\.scenePhase) private var scenePhase
+    
     #if !os(watchOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     
-    @ViewBuilder var body: some View {
-        if sessionStore.loginModel != nil {
-            #if os(iOS)
-            if horizontalSizeClass == .compact {
+    var body: some View {
+        Group {
+            if sessionStore.loginModel != nil {
+                #if os(iOS)
+                if horizontalSizeClass == .compact {
+                    MenuView()
+                } else {
+                    SideBar()
+                }
+                #else
                 MenuView()
+                #endif
             } else {
-                SideBar()
+                SignIn()
             }
-            #else
-            MenuView()
-            #endif
-        } else {
-            SignIn()
+        }
+        .onChange(of: scenePhase) { newScenePhase in
+            switch newScenePhase {
+            case .active:
+                print("scene is now active!")
+                #if !os(watchOS)
+                UIApplication.shared.applicationIconBadgeNumber = 0
+                NotificationStore.shared.requestPermission()
+                NotificationStore.shared.refreshNotificationStatus()
+                #endif
+                if SessionStore.shared.loginModel != nil {
+                    SessionStore.shared.validateToken()
+                }
+            case .inactive:
+                print("scene is now inactive!")
+            case .background:
+                print("scene is now background!")
+                //coreData.saveContext()
+            @unknown default:
+                print("Apple must have added something new!")
+            }
         }
     }
 }

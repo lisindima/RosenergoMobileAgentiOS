@@ -32,6 +32,8 @@
 	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Приложение &quot;Мобильный агент&quot; использует ваше местоположение для определения координат, где происходит осмотр ТС.</string>
+	<key>NSLocationDefaultAccuracyReduced</key>
+	<false/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import CoreLocation
 
 @main
 struct WatchApp: App {
@@ -27,27 +28,6 @@ struct WatchApp: App {
                 .accentColor(.rosenergo)
                 .environmentObject(sessionStore)
                 .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
-        }
-        .onChange(of: scenePhase) { newScenePhase in
-            switch newScenePhase {
-            case .active:
-                print("scene is now active!")
-                #if !os(watchOS)
-                UIApplication.shared.applicationIconBadgeNumber = 0
-                NotificationStore.shared.requestPermission()
-                NotificationStore.shared.refreshNotificationStatus()
-                #endif
-                if SessionStore.shared.loginModel != nil {
-                    SessionStore.shared.validateToken()
-                }
-            case .inactive:
-                print("scene is now inactive!")
-            case .background:
-                print("scene is now background!")
-                //coreData.saveContext()
-            @unknown default:
-                print("Apple must have added something new!")
-            }
         }
     }
 }
@@ -70,10 +50,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, CLLocationManagerDelegate {
             currentLoc = manager.location
             sessionStore.latitude = currentLoc.coordinate.latitude
             sessionStore.longitude = currentLoc.coordinate.longitude
+            print("авторизован")
         case .notDetermined, .restricted, .denied:
             sessionStore.latitude = 0.0
             sessionStore.longitude = 0.0
+            print("не авторизован")
         @unknown default:
+            print("не авторизован")
             sessionStore.latitude = 0.0
             sessionStore.longitude = 0.0
         }

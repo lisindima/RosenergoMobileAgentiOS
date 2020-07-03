@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CoreLocation
 import KeyboardObserving
 
 struct CreateVyplatnyeDela: View {
