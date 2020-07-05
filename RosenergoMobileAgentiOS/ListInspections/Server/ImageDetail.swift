@@ -20,6 +20,7 @@ struct ImageDetail: View {
     @State private var finalAmount: CGFloat = 1
     #endif
     
+    @Binding var selection: Int
     var photos: [Photo]
     
     @ViewBuilder var body: some View {
@@ -33,7 +34,7 @@ struct ImageDetail: View {
     #if os(watchOS)
     var watch: some View {
         TabView() {
-            ForEach(photos) { photo in
+            ForEach(photos, id: \.id) { photo in
                 URLImage(URL(string: photo.path)!, placeholder: { _ in
                     ProgressView()
                 }, content: {
@@ -69,14 +70,14 @@ struct ImageDetail: View {
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationBarTitle("Фотография")
+        .navigationTitle("Фотография")
     }
     #endif
     
     #if os(iOS)
     var phone: some View {
-        TabView() {
-            ForEach(photos) { photo in
+        TabView(selection: $selection) {
+            ForEach(photos, id: \.id) { photo in
                 URLImage(URL(string: photo.path)!, placeholder: { _ in
                     ProgressView()
                 }, content: {
@@ -84,6 +85,7 @@ struct ImageDetail: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 })
+                .tag(photo.id)
                 .scaleEffect(finalAmount + currentAmount)
                 .gesture(
                     MagnificationGesture()
@@ -98,7 +100,7 @@ struct ImageDetail: View {
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationBarTitle("Фотография", displayMode: .inline)
+        .navigationTitle("\(selection) из \(photos.count)")
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
     #endif

@@ -64,7 +64,7 @@ struct LocalImageDetail: View {
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationBarTitle("Фотография")
+        .navigationTitle("Фотография")
     }
     #endif
     
@@ -89,7 +89,7 @@ struct LocalImageDetail: View {
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationBarTitle("Фотография", displayMode: .inline)
+        .navigationTitle("Фотография")
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
     #endif

@@ -36,7 +36,7 @@ struct SideBar: View {
             }
             .overlay(SettingsButtonBar(openSettings: $openSettings), alignment: .bottom)
             .listStyle(SidebarListStyle())
-            .navigationBarTitle("Главная")
+            .navigationTitle("Главная")
         
             Text("Выберите\nпункт в меню")
                 .font(.title)

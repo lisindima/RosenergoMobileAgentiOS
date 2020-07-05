@@ -197,7 +197,7 @@ struct CreateInspections: View {
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.vertical)
         }
-        .navigationBarTitle("Новый осмотр")
+        .navigationTitle("Новый осмотр")
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:

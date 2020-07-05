@@ -124,7 +124,7 @@ struct LocalInspectionsDetails: View {
                             imageName: "timer",
                             imageColor: .rosenergo,
                             subTitle: "Дата создания осмотра",
-                            title: localInspections.dateInspections!.dataLocalInspection()
+                            title: localInspections.dateInspections!.dataInspection(local: true)
                         )
                     }
                 }
@@ -257,7 +257,7 @@ struct LocalInspectionsDetails: View {
                 loadYandexGeoResponse()
             }
         }
-        .navigationBarTitle("Не отправлено")
+        .navigationTitle("Не отправлено")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
                 #if !os(watchOS)
@@ -284,17 +284,5 @@ struct LocalInspectionsDetails: View {
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             }
         }
-    }
-}
-
-extension String {
-    func dataLocalInspection() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = dateFormatter.date(from: self)
-        let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
-        let stringDate = newDateFormatter.string(from: date!)
-        return stringDate
     }
 }

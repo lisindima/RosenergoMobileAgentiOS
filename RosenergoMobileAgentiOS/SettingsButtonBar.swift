@@ -28,7 +28,7 @@ struct SettingsButtonBar: View {
             NavigationView {
                 SettingsView()
                     .environmentObject(sessionStore)
-                    .navigationBarTitle("Настройки", displayMode: .inline)
+                    .navigationTitle("Настройки")
                     .navigationBarItems(trailing:
                                             Button(action: { openSettings = false }) {
                                                 Text("Готово")

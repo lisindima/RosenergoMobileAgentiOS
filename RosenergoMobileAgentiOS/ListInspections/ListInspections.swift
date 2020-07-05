@@ -77,7 +77,7 @@ struct ListInspections: View {
             }
         }
         .onAppear(perform: sessionStore.getInspections)
-        .navigationBarTitle("Осмотры")
+        .navigationTitle("Осмотры")
         .navigationBarItems(trailing:
             NavigationLink(destination: CreateInspections()) {
                 Image(systemName: "plus.circle.fill")

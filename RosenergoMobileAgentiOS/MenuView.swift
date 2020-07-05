@@ -21,15 +21,10 @@ struct MenuView: View {
         }
     }
     
-    let layout = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
     var body: some View {
         NavigationView {
             VStack {
-                LazyVGrid(columns: layout) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
                     NavigationLink(destination: CreateInspections()) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }
@@ -48,7 +43,7 @@ struct MenuView: View {
                     .font(.system(size: 11))
                     .padding(.bottom, 8)
             }
-            .navigationBarTitle("Мобильный агент", displayMode: .large)
+            .navigationTitle("Мобильный агент")
             .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {
                 Image(systemName: "gear")
                     .imageScale(.large)

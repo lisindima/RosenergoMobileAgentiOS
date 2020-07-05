@@ -75,7 +75,7 @@ struct ListInspections: View {
             }
         }
         .onAppear(perform: sessionStore.getInspections)
-        .navigationBarTitle("Осмотры")
+        .navigationTitle("Осмотры")
     }
 }
 

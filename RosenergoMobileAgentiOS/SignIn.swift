@@ -46,7 +46,7 @@ struct SignIn: View {
                 }) {
                     Text("Войти")
                 }
-            }.navigationBarTitle("Агент")
+            }.navigationTitle("Агент")
         }
     }
     

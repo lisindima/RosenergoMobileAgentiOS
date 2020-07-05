@@ -17,6 +17,7 @@ struct InspectionsDetails: View {
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
+    @State private var selectionImage: Int = 3
     
     var inspection: Inspections
     
@@ -77,7 +78,7 @@ struct InspectionsDetails: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
-                                NavigationLink(destination: ImageDetail(photos: inspection.photos)) {
+                                NavigationLink(destination: ImageDetail(selection: $selectionImage, photos: inspection.photos)) {
                                     URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                                         ProgressView()
                                     }, content: {
@@ -97,7 +98,7 @@ struct InspectionsDetails: View {
                     imageName: "timer",
                     imageColor: .rosenergo,
                     subTitle: "Дата загрузки осмотра",
-                    title: inspection.createdat.dataInspection()
+                    title: inspection.createdat.dataInspection(local: false)
                 )
             }
             Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
@@ -200,7 +201,7 @@ struct InspectionsDetails: View {
                 }
             }
         }
-        .navigationBarTitle("Осмотр: \(inspection.id)")
+        .navigationTitle("Осмотр: \(inspection.id)")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
                 #if !os(watchOS)
@@ -218,17 +219,5 @@ struct InspectionsDetails: View {
                 loadYandexGeoResponse()
             }
         }
-    }
-}
-
-extension String {
-    func dataInspection() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
-        let date = dateFormatter.date(from: self)
-        let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
-        let stringDate = newDateFormatter.string(from: date!)
-        return stringDate
     }
 }
