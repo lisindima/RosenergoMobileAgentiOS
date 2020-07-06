@@ -56,7 +56,7 @@ struct InspectionsItems: View {
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
-            }
+            }.padding(.vertical, 6)
             Spacer(minLength: 0)
             if !inspection.photos.isEmpty {
                 URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in

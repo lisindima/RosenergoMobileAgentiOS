@@ -34,7 +34,7 @@ struct CreateVyplatnyeDela: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                 VStack {
-                    Group {
+                    GroupBox {
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
@@ -45,19 +45,19 @@ struct CreateVyplatnyeDela: View {
             Group {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                        if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
+                        if insuranceContractNumber == "" || numberZayavlenia == "" {
                             sessionStore.alertType = .emptyTextField
                             sessionStore.showAlert = true
-                        } else if self.sessionStore.photoParameters.isEmpty {
+                        } else if sessionStore.photoParameters.isEmpty {
                             sessionStore.alertType = .emptyPhoto
                             sessionStore.showAlert = true
                         } else {
-                            self.sessionStore.uploadVyplatnyeDela(
-                                insuranceContractNumber: self.insuranceContractNumber,
-                                numberZayavlenia: self.numberZayavlenia,
-                                latitude: self.sessionStore.latitude,
-                                longitude: self.sessionStore.longitude,
-                                photos: self.sessionStore.photoParameters
+                            sessionStore.uploadVyplatnyeDela(
+                                insuranceContractNumber: insuranceContractNumber,
+                                numberZayavlenia: numberZayavlenia,
+                                latitude: sessionStore.latitude,
+                                longitude: sessionStore.longitude,
+                                photos: sessionStore.photoParameters
                             )
                         }
                     }
@@ -72,11 +72,11 @@ struct CreateVyplatnyeDela: View {
         }
         .keyboardObserving()
         .onDisappear {
-            self.sessionStore.photoParameters.removeAll()
+            sessionStore.photoParameters.removeAll()
         }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
-                .environmentObject(self.sessionStore)
+                .environmentObject(sessionStore)
                 .edgesIgnoringSafeArea(.vertical)
         }
         .navigationTitle("Выплатные дела")
@@ -84,7 +84,7 @@ struct CreateVyplatnyeDela: View {
             switch sessionStore.alertType {
             case .success:
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }))
             case .error:
                 return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже."), dismissButton: .default(Text("Закрыть")))

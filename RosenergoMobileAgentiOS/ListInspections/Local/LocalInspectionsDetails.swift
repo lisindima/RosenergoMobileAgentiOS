@@ -25,19 +25,19 @@ struct LocalInspectionsDetails: View {
     
     private func delete() {
         #if !os(watchOS)
-        self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
+        notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
         #endif
-        self.presentationMode.wrappedValue.dismiss()
-        self.moc.delete(self.localInspections)
+        presentationMode.wrappedValue.dismiss()
+        moc.delete(localInspections)
         do {
-            try self.moc.save()
+            try moc.save()
         } catch {
             print(error)
         }
     }
     
     private func uploadLocalInspections() {
-        self.sessionStore.uploadInspections(
+        sessionStore.uploadInspections(
             carModel: localInspections.carModel!,
             carRegNumber: localInspections.carRegNumber!,
             carBodyNumber: localInspections.carBodyNumber!,
@@ -106,6 +106,12 @@ struct LocalInspectionsDetails: View {
                 if localInspections.carModel != nil {
                     Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                         SectionItem(
+                            imageName: "text.justify",
+                            imageColor: .rosenergo,
+                            subTitle: "Страховой полис",
+                            title: localInspections.insuranceContractNumber!
+                        )
+                        SectionItem(
                             imageName: "car",
                             imageColor: .rosenergo,
                             subTitle: "Модель автомобиля",
@@ -129,16 +135,16 @@ struct LocalInspectionsDetails: View {
                             subTitle: "Номер кузова",
                             title: localInspections.carBodyNumber!
                         )
-                        SectionItem(
-                            imageName: "text.justify",
-                            imageColor: .rosenergo,
-                            subTitle: "Страховой полис",
-                            title: localInspections.insuranceContractNumber!
-                        )
                     }
                 }
                 if localInspections.carModel2 != nil {
                     Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
+                        SectionItem(
+                            imageName: "text.justify",
+                            imageColor: .rosenergo,
+                            subTitle: "Страховой полис",
+                            title: localInspections.insuranceContractNumber2!
+                        )
                         SectionItem(
                             imageName: "car",
                             imageColor: .rosenergo,
@@ -163,17 +169,11 @@ struct LocalInspectionsDetails: View {
                             subTitle: "Номер кузова",
                             title: localInspections.carBodyNumber2!
                         )
-                        SectionItem(
-                            imageName: "text.justify",
-                            imageColor: .rosenergo,
-                            subTitle: "Страховой полис",
-                            title: localInspections.insuranceContractNumber2!
-                        )
                     }
                 }
                 Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
                     Button(action: {
-                        self.presentMapActionSheet = true
+                        presentMapActionSheet = true
                     }) {
                         if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                             SectionItem(

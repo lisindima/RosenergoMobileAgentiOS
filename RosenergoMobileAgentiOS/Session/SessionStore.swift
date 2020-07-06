@@ -194,8 +194,8 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
-            .uploadProgress { progress in
-                self.uploadProgress = progress.fractionCompleted
+            .uploadProgress { [self] progress in
+                uploadProgress = progress.fractionCompleted
             }
             .response { [self] response in
                 switch response.result {
@@ -231,8 +231,8 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
-            .uploadProgress { progress in
-                self.uploadProgress = progress.fractionCompleted
+            .uploadProgress { [self] progress in
+                uploadProgress = progress.fractionCompleted
             }
             .response { [self] response in
                 switch response.result {

@@ -38,8 +38,8 @@ struct CustomCameraView: View {
                                 .frame(width: 100, height: 100)
                                 .cornerRadius(10)
                             Button(action: {
-                                if let index = self.sessionStore.photoParameters.firstIndex(of: photo) {
-                                    self.sessionStore.photoParameters.remove(at: index)
+                                if let index = sessionStore.photoParameters.firstIndex(of: photo) {
+                                    sessionStore.photoParameters.remove(at: index)
                                 }
                             }) {
                                 Image(systemName: "xmark.circle.fill")
@@ -52,7 +52,7 @@ struct CustomCameraView: View {
             }
             HStack {
                 Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
                         .frame(width: 24)
@@ -64,7 +64,7 @@ struct CustomCameraView: View {
                 }
                 .padding(.bottom, 30)
                 Button(action: {
-                    self.didTapCapture = true
+                    didTapCapture = true
                 }) {
                     Image(systemName: "camera")
                         .frame(width: 24)

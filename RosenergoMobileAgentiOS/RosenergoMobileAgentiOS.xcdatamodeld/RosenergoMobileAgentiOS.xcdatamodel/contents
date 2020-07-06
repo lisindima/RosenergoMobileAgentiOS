@@ -15,9 +15,9 @@
         <attribute name="insuranceContractNumber2" optional="YES" attributeType="String"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="photos" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" customClassName="[String]"/>
+        <attribute name="photos" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" allowsExternalBinaryDataStorage="YES" customClassName="[String]"/>
     </entity>
     <elements>
-        <element name="LocalInspections" positionX="-17482.13671875" positionY="-7232.69140625" width="128" height="268"/>
+        <element name="LocalInspections" positionX="-17482.13671875" positionY="-7232.69140625" width="128" height="254"/>
     </elements>
 </model>

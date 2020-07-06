@@ -26,26 +26,29 @@ struct LocalInspectionsItems: View {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.largeTitle)
                     .foregroundColor(.yellow)
-                Group {
-                    Text(localInspections.insuranceContractNumber!)
-                    Text(localInspections.carModel!)
-                    Text(localInspections.carRegNumber!)
-                    Text(localInspections.carVin!)
-                    Text(localInspections.carBodyNumber!)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(localInspections.insuranceContractNumber!)
+                        Text(localInspections.carModel!)
+                        Text(localInspections.carRegNumber!)
+                        Text(localInspections.carVin!)
+                        Text(localInspections.carBodyNumber!)
+                    }
                     if localInspections.carModel2 != nil {
-                        Text(localInspections.insuranceContractNumber2!)
-                            .padding(.top, 8)
-                        Text(localInspections.carModel2!)
-                        Text(localInspections.carRegNumber2!)
-                        Text(localInspections.carVin2!)
-                        Text(localInspections.carBodyNumber2!)
+                        VStack(alignment: .leading) {
+                            Text(localInspections.insuranceContractNumber2!)
+                            Text(localInspections.carModel2!)
+                            Text(localInspections.carRegNumber2!)
+                            Text(localInspections.carVin2!)
+                            Text(localInspections.carBodyNumber2!)
+                        }
                     }
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             }.padding(.vertical, 6)
-            Spacer()
+            Spacer(minLength: 0)
             if !localInspections.photos!.isEmpty {
                 Image(uiImage: UIImage(data: Data(base64Encoded: localInspections.photos!.first!, options: .ignoreUnknownCharacters)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                     .resizable()

@@ -129,7 +129,7 @@ struct SettingsView: View {
             Section {
                 if !sessionStore.logoutState {
                     SectionButton(imageName: "flame", imageColor: .red, title: "Выйти", titleColor: .red) {
-                        self.showActionSheetExit = true
+                        showActionSheetExit = true
                     }
                 } else {
                     HStack {
@@ -143,7 +143,7 @@ struct SettingsView: View {
         .navigationTitle("Настройки")
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                self.sessionStore.logout()
+                sessionStore.logout()
             }, .cancel()
             ])
         }

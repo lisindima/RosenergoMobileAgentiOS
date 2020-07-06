@@ -78,6 +78,12 @@ struct InspectionsDetails: View {
             }
             Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                 SectionItem(
+                    imageName: "text.justify",
+                    imageColor: .rosenergo,
+                    subTitle: "Страховой полис",
+                    title: inspection.insuranceContractNumber
+                )
+                SectionItem(
                     imageName: "car",
                     imageColor: .rosenergo,
                     subTitle: "Модель автомобиля",
@@ -101,15 +107,15 @@ struct InspectionsDetails: View {
                     subTitle: "Номер кузова",
                     title: inspection.carBodyNumber
                 )
-                SectionItem(
-                    imageName: "text.justify",
-                    imageColor: .rosenergo,
-                    subTitle: "Страховой полис",
-                    title: inspection.insuranceContractNumber
-                )
             }
             if inspection.carModel2 != nil {
                 Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "text.justify",
+                        imageColor: .rosenergo,
+                        subTitle: "Страховой полис",
+                        title: inspection.insuranceContractNumber2!
+                    )
                     SectionItem(
                         imageName: "car",
                         imageColor: .rosenergo,
@@ -134,17 +140,11 @@ struct InspectionsDetails: View {
                         subTitle: "Номер кузова",
                         title: inspection.carBodyNumber2!
                     )
-                    SectionItem(
-                        imageName: "text.justify",
-                        imageColor: .rosenergo,
-                        subTitle: "Страховой полис",
-                        title: inspection.insuranceContractNumber2!
-                    )
                 }
             }
             Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
                 Button(action: {
-                    self.presentMapActionSheet = true
+                    presentMapActionSheet = true
                 }) {
                     if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                         SectionItem(

@@ -42,7 +42,7 @@ struct SignIn: View {
                 SecureField("Пароль", text: $password)
                     .textContentType(.password)
                 Button(action: {
-                    self.sessionStore.login(email: self.email, password: self.password)
+                    sessionStore.login(email: email, password: password)
                 }) {
                     Text("Войти")
                 }
@@ -72,7 +72,7 @@ struct SignIn: View {
                 .modifier(InputModifier())
                 .padding(.horizontal)
             CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
-                self.sessionStore.login(email: self.email, password: self.password)
+                sessionStore.login(email: email, password: password)
             }.padding()
         }
     }

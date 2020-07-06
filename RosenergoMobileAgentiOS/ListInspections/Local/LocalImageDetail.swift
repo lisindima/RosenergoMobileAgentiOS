@@ -39,18 +39,18 @@ struct LocalImageDetail: View {
                     .scaleEffect(scale)
                     .focusable(true)
                     .digitalCrownRotation($scale, from: 1.0, through: 5.0, by: 0.1, sensitivity: .low, isContinuous: false, isHapticFeedbackEnabled: true)
-                    .offset(x: self.currentPosition.width, y: self.currentPosition.height)
+                    .offset(x: currentPosition.width, y: currentPosition.height)
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                if self.scale != 1.0 {
-                                    self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
+                                if scale != 1.0 {
+                                    currentPosition = CGSize(width: value.translation.width + newPosition.width, height: value.translation.height + newPosition.height)
                                 }
                             }
                             .onEnded { value in
-                                if self.scale != 1.0 {
-                                    self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                                    self.newPosition = self.currentPosition
+                                if scale != 1.0 {
+                                    currentPosition = CGSize(width: value.translation.width + newPosition.width, height: value.translation.height + newPosition.height)
+                                    newPosition = currentPosition
                                 }
                             }
                     )
@@ -79,11 +79,11 @@ struct LocalImageDetail: View {
                     .gesture(
                         MagnificationGesture()
                             .onChanged { amount in
-                                self.currentAmount = amount - 1
+                                currentAmount = amount - 1
                             }
                             .onEnded { amount in
-                                self.finalAmount += self.currentAmount
-                                self.currentAmount = 0
+                                finalAmount += currentAmount
+                                currentAmount = 0
                             }
                     )
             }
