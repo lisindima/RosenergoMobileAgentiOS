@@ -43,13 +43,13 @@ class SessionStore: ObservableObject {
     let yandexGeoURL: String = "https://geocode-maps.yandex.ru/1.x/"
     let apiKeyForYandexGeo: String = "deccec14-fb7f-40da-8be0-be3f7e6f2d8c"
     
-    let stringDate: String = {
-        var currentDate: Date = Date()
+    func stringDate() -> String {
+        let currentDate: Date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let createStringDate = dateFormatter.string(from: currentDate)
         return createStringDate
-    }()
+    }
     
     func login(email: String, password: String) {
         
@@ -246,6 +246,32 @@ class SessionStore: ObservableObject {
                     showAlert = true
                     print(error.errorDescription!)
             }
+        }
+    }
+    
+    func loadYandexGeoResponse(latitude: Double, longitude: Double, completionHandler: @escaping (YandexGeo?, YandexGeoState) -> ()) {
+        
+        let parameters = YandexGeoParameters(
+            apikey: apiKeyForYandexGeo,
+            format: "json",
+            geocode: "\(longitude), \(latitude)",
+            results: "1",
+            kind: "house"
+        )
+        
+        AF.request(yandexGeoURL, method: .get, parameters: parameters)
+            .validate()
+            .responseDecodable(of: YandexGeo.self) { response in
+                switch response.result {
+                case .success:
+                    guard let yandexGeoResponse = response.value else { return }
+                    let yandexGeoState: YandexGeoState = .success
+                    completionHandler(yandexGeoResponse, yandexGeoState)
+                case .failure(let error):
+                    print(error)
+                    let yandexGeoState: YandexGeoState = .failure
+                    completionHandler(nil, yandexGeoState)
+                }
         }
     }
 }

@@ -21,31 +21,6 @@ struct InspectionsDetails: View {
     
     var inspection: Inspections
     
-    private func loadYandexGeoResponse() {
-        
-        let parameters = YandexGeoParameters(
-            apikey: sessionStore.apiKeyForYandexGeo,
-            format: "json",
-            geocode: "\(inspection.longitude), \(inspection.latitude)",
-            results: "1",
-            kind: "house"
-        )
-        
-        AF.request(sessionStore.yandexGeoURL, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: YandexGeo.self) { response in
-                switch response.result {
-                case .success:
-                    guard let yandexGeoResponse = response.value else { return }
-                    yandexGeo = yandexGeoResponse
-                    yandexGeoState = .success
-                case .failure(let error):
-                    print(error)
-                    yandexGeoState = .failure
-                }
-        }
-    }
-    
     var scale: CGFloat {
         #if os(watchOS)
         return WKInterfaceDevice.current().screenScale
@@ -216,7 +191,10 @@ struct InspectionsDetails: View {
         }
         .onAppear {
             if yandexGeo == nil {
-                loadYandexGeoResponse()
+                sessionStore.loadYandexGeoResponse(latitude: inspection.latitude, longitude: inspection.longitude) { yandexGeoResponse, yandexGeoStateResponse in
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = yandexGeoStateResponse
+                }
             }
         }
     }

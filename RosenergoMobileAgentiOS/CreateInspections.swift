@@ -76,7 +76,7 @@ struct CreateInspections: View {
         localInspections.carVin = self.carVin
         localInspections.insuranceContractNumber = self.insuranceContractNumber
         localInspections.photos = localPhotos
-        localInspections.dateInspections = self.sessionStore.stringDate
+        localInspections.dateInspections = self.sessionStore.stringDate()
         localInspections.id = id
         
         if self.choiseCar == 1 {

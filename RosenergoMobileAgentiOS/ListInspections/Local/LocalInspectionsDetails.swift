@@ -56,31 +56,6 @@ struct LocalInspectionsDetails: View {
         )
     }
     
-    private func loadYandexGeoResponse() {
-        
-        let parameters = YandexGeoParameters(
-            apikey: sessionStore.apiKeyForYandexGeo,
-            format: "json",
-            geocode: "\(localInspections.longitude), \(localInspections.latitude)",
-            results: "1",
-            kind: "house"
-        )
-        
-        AF.request(sessionStore.yandexGeoURL, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: YandexGeo.self) { response in
-                switch response.result {
-                case .success:
-                    guard let yandexGeoResponse = response.value else { return }
-                    yandexGeo = yandexGeoResponse
-                    yandexGeoState = .success
-                case .failure(let error):
-                    print(error)
-                    yandexGeoState = .failure
-                }
-        }
-    }
-    
     var size: Double {
         #if os(watchOS)
         return 75.0
@@ -254,7 +229,10 @@ struct LocalInspectionsDetails: View {
         }
         .onAppear {
             if yandexGeo == nil {
-                loadYandexGeoResponse()
+                sessionStore.loadYandexGeoResponse(latitude: localInspections.latitude, longitude: localInspections.longitude) { yandexGeoResponse, yandexGeoStateResponse in
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = yandexGeoStateResponse
+                }
             }
         }
         .navigationTitle("Не отправлено")

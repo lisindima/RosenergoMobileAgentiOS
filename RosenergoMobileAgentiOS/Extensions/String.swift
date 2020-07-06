@@ -15,7 +15,7 @@ extension String {
         let date = dateFormatter.date(from: self)
         let newDateFormatter = DateFormatter()
         newDateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
-        let stringDate = newDateFormatter.string(from: date!)
-        return stringDate
+        let dataInspection = newDateFormatter.string(from: date!)
+        return dataInspection
     }
 }
