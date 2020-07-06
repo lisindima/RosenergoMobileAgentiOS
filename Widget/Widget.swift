@@ -37,17 +37,44 @@ struct SimpleEntry: TimelineEntry {
     public let date: Date
 }
 
-struct PlaceholderView : View {
+struct PlaceholderView: View {
     var body: some View {
         ProgressView()
     }
 }
 
-struct WidgetEntryView : View {
+struct WidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
         Text(entry.date, style: .time)
+    }
+}
+
+struct Test: View {
+    var body: some View {
+        ZStack {
+            Color("rosenergo")
+                .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading) {
+                Text("Осмотры")
+                    .fontWeight(.bold)
+                    .padding(.bottom, 6)
+                    .foregroundColor(.white)
+                Text("Осмотры не отправлены на серввер")
+                    .font(.system(size: 13))
+                    .foregroundColor(.white)
+                    .padding(.bottom, 6)
+                Text("\(4) осмотра")
+                    .fontWeight(.bold)
+                    .font(.system(size: 13))
+                    .foregroundColor(.white)
+                Spacer()
+                Image(systemName: "tray.circle.fill")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+            }.padding()
+        }
     }
 }
 
@@ -57,10 +84,16 @@ struct WidgetApp: Widget {
 
     public var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider(), placeholder: PlaceholderView()) { entry in
-            WidgetEntryView(entry: entry)
+            Test()
         }
         .configurationDisplayName("Мобильный агент")
         .description("This is an example widget.")
         .supportedFamilies([.systemSmall, .systemMedium])
+    }
+}
+
+struct Widget_Previews: PreviewProvider {
+    static var previews: some View {
+        Test()
     }
 }

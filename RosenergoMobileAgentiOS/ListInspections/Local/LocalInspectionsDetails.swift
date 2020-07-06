@@ -204,6 +204,14 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
+                .onAppear {
+                    if yandexGeo == nil {
+                        sessionStore.loadAddress(latitude: localInspections.latitude, longitude: localInspections.longitude) { yandexGeoResponse, yandexGeoStateResponse in
+                            yandexGeo = yandexGeoResponse
+                            yandexGeoState = yandexGeoStateResponse
+                        }
+                    }
+                }
             }
             if sessionStore.uploadState == .none {
                 #if os(iOS)
@@ -225,14 +233,6 @@ struct LocalInspectionsDetails: View {
                 #else
                 ProgressView()
                 #endif
-            }
-        }
-        .onAppear {
-            if yandexGeo == nil {
-                sessionStore.loadYandexGeoResponse(latitude: localInspections.latitude, longitude: localInspections.longitude) { yandexGeoResponse, yandexGeoStateResponse in
-                    yandexGeo = yandexGeoResponse
-                    yandexGeoState = yandexGeoStateResponse
-                }
             }
         }
         .navigationTitle("Не отправлено")

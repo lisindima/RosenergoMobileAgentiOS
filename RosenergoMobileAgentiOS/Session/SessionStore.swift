@@ -249,7 +249,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func loadYandexGeoResponse(latitude: Double, longitude: Double, completionHandler: @escaping (YandexGeo?, YandexGeoState) -> ()) {
+    func loadAddress(latitude: Double, longitude: Double, completionHandler: @escaping (YandexGeo?, YandexGeoState) -> ()) {
         
         let parameters = YandexGeoParameters(
             apikey: apiKeyForYandexGeo,

@@ -118,7 +118,12 @@ struct CreateInspections: View {
                         GroupBox(label:
                             HStack {
                                 Spacer()
-                                Toggle("Совпадают?", isOn: $vinAndNumber)
+                                Toggle(isOn: $vinAndNumber, label: {
+                                    Image(systemName: "questionmark.circle.fill")
+                                        .imageScale(.large)
+                                        .foregroundColor(.rosenergo)
+                                    Text("Совпадают?")
+                                })
                             }
                         ) {
                             CustomInput(text: $carVin, name: "VIN")
@@ -130,7 +135,7 @@ struct CreateInspections: View {
                         .padding()
                     if choiseCar == 1 {
                         Divider()
-                            .padding()
+                            .padding([.horizontal, .bottom])
                         Group {
                             GroupBox {
                                 CustomInput(text: $insuranceContractNumber2, name: "Номер полиса")
@@ -140,7 +145,12 @@ struct CreateInspections: View {
                             GroupBox(label:
                                 HStack {
                                     Spacer()
-                                    Toggle("Совпадают?", isOn: $vinAndNumber2)
+                                    Toggle(isOn: $vinAndNumber2, label: {
+                                        Image(systemName: "questionmark.circle.fill")
+                                            .imageScale(.large)
+                                            .foregroundColor(.rosenergo)
+                                        Text("Совпадают?")
+                                    })
                                 }
                             ) {
                                 CustomInput(text: $carVin2, name: "VIN")
