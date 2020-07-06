@@ -16,11 +16,11 @@ struct ImageDetail: View {
     @State private var newPosition: CGSize = .zero
     @State private var scale: CGFloat = 1.0
     #else
-    @State private var currentAmount: CGFloat = 0
-    @State private var finalAmount: CGFloat = 1
+    @GestureState var scale: CGFloat = 1.0
     #endif
     
-    @Binding var selection: Int
+    @State private var selectionImage: Int = 1
+
     var photos: [Photo]
     
     @ViewBuilder var body: some View {
@@ -39,8 +39,8 @@ struct ImageDetail: View {
                     ProgressView()
                 }, content: {
                     $0.image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 })
                 .scaleEffect(scale)
                 .focusable(true)
@@ -76,31 +76,27 @@ struct ImageDetail: View {
     
     #if os(iOS)
     var phone: some View {
-        TabView(selection: $selection) {
+        TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in
                 URLImage(URL(string: photo.path)!, placeholder: { _ in
                     ProgressView()
                 }, content: {
                     $0.image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 })
-                .tag(photo.id)
-                .scaleEffect(finalAmount + currentAmount)
+                .scaleEffect(scale)
                 .gesture(
                     MagnificationGesture()
-                        .onChanged { amount in
-                            currentAmount = amount - 1
+                        .updating($scale, body: { value, scale, trans in
+                            scale = value.magnitude
                         }
-                        .onEnded { amount in
-                            finalAmount += currentAmount
-                            currentAmount = 0
-                        }
+                    )
                 )
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationTitle("\(selection) из \(photos.count)")
+        .navigationTitle("\(selectionImage) из \(photos.count)")
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
     #endif

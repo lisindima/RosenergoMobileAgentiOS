@@ -17,7 +17,6 @@ struct InspectionsDetails: View {
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
-    @State private var selectionImage: Int = 3
     
     var inspection: Inspections
     
@@ -53,12 +52,12 @@ struct InspectionsDetails: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(inspection.photos, id: \.id) { photo in
-                                NavigationLink(destination: ImageDetail(selection: $selectionImage, photos: inspection.photos)) {
+                                NavigationLink(destination: ImageDetail(photos: inspection.photos)) {
                                     URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                                         ProgressView()
                                     }, content: {
                                         $0.image
-                                        .resizable()
+                                            .resizable()
                                     })
                                     .cornerRadius(10)
                                     .frame(width: CGFloat(size), height: CGFloat(size))

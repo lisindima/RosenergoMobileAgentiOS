@@ -63,7 +63,7 @@ struct InspectionsItems: View {
                     ProgressView()
                 }, content: {
                     $0.image
-                    .resizable()
+                        .resizable()
                 })
                 .cornerRadius(10)
                 .frame(width: CGFloat(size), height: CGFloat(size))

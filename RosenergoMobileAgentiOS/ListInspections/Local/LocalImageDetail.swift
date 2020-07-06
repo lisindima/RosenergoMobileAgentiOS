@@ -15,8 +15,7 @@ struct LocalImageDetail: View {
     @State private var newPosition: CGSize = .zero
     @State private var scale: CGFloat = 1.0
     #else
-    @State private var currentAmount: CGFloat = 0
-    @State private var finalAmount: CGFloat = 1
+    @GestureState var scale: CGFloat = 1.0
     #endif
     
     var photos: [String]
@@ -75,16 +74,13 @@ struct LocalImageDetail: View {
                 Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .scaleEffect(finalAmount + currentAmount)
+                    .scaleEffect(scale)
                     .gesture(
                         MagnificationGesture()
-                            .onChanged { amount in
-                                currentAmount = amount - 1
+                            .updating($scale, body: { value, scale, trans in
+                                scale = value.magnitude
                             }
-                            .onEnded { amount in
-                                finalAmount += currentAmount
-                                currentAmount = 0
-                            }
+                        )
                     )
             }
         }
