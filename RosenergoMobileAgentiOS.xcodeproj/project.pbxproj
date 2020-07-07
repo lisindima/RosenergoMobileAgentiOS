@@ -261,7 +261,6 @@
 		CB17E54F2466644400CDBB1A = {
 			isa = PBXGroup;
 			children = (
-				CB758D8524AEFA48000A6B3C /* WidgetExtension.entitlements */,
 				CB17E55A2466644400CDBB1A /* RosenergoMobileAgentiOS */,
 				CB9DE92D249758B100F4E72A /* RosenergoMobileAgentwatchOS */,
 				CB9DE93C249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */,
@@ -367,6 +366,7 @@
 		CB758D7C24AEFA45000A6B3C /* Widget */ = {
 			isa = PBXGroup;
 			children = (
+				CB758D8524AEFA48000A6B3C /* WidgetExtension.entitlements */,
 				CB758D7D24AEFA45000A6B3C /* Widget.swift */,
 				CB758D7F24AEFA48000A6B3C /* Assets.xcassets */,
 				CB758D8124AEFA48000A6B3C /* Info.plist */,
@@ -853,6 +853,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
@@ -880,6 +881,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
