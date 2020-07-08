@@ -18,7 +18,7 @@ struct SignIn: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
-   @ViewBuilder var body: some View {
+    var body: some View {
         #if os(watchOS)
         watch
             .alert(isPresented: $sessionStore.showAlert) {

@@ -23,7 +23,7 @@ struct ImageDetail: View {
 
     var photos: [Photo]
     
-    @ViewBuilder var body: some View {
+    var body: some View {
         #if os(watchOS)
         watch
         #else

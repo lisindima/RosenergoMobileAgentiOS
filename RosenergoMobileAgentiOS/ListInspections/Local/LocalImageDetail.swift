@@ -20,7 +20,7 @@ struct LocalImageDetail: View {
     
     var photos: [String]
     
-    @ViewBuilder var body: some View {
+    var body: some View {
         #if os(watchOS)
         watch
         #else

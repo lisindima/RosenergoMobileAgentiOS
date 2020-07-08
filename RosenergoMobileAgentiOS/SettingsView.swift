@@ -49,7 +49,7 @@ struct SettingsView: View {
     }
     #endif
     
-    @ViewBuilder var body: some View {
+    var body: some View {
         #if os(watchOS)
         setting
         #else

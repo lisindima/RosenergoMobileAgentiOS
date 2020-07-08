@@ -36,7 +36,7 @@ struct InspectionsDetails: View {
         #endif
     }
     
-    @ViewBuilder var body: some View {
+    var body: some View {
         #if os(watchOS)
         details
         #else
