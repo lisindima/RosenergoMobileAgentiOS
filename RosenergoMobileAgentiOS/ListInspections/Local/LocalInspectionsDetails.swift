@@ -237,15 +237,16 @@ struct LocalInspectionsDetails: View {
         }
         .navigationTitle("Не отправлено")
         .actionSheet(isPresented: $presentMapActionSheet) {
-            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
-                #if !os(watchOS)
-                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
-                #endif
-            }, .default(Text("Яндекс.Карты")) {
-                #if !os(watchOS)
-                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
-                #endif
-            }, .cancel()
+            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [
+                .default(Text("Apple Maps")) {
+                    #if !os(watchOS)
+                    UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
+                    #endif
+                }, .default(Text("Яндекс.Карты")) {
+                    #if !os(watchOS)
+                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
+                    #endif
+                }, .cancel()
             ])
         }
         .alert(isPresented: $sessionStore.showAlert) {
