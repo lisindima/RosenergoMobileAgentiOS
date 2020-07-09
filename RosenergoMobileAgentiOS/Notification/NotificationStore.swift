@@ -8,18 +8,17 @@
 
 import SwiftUI
 import Combine
-import Defaults
 import UserNotifications
 
 class NotificationStore: ObservableObject {
     
-    @Default(.notifyHour) var notifyHour {
+    @Published var enabled: UNAuthorizationStatus = .notDetermined
+    
+    @AppStorage("notifyHour") var notifyHour = 24 {
         willSet {
             objectWillChange.send()
         }
     }
-    
-    @Published var enabled: UNAuthorizationStatus = .notDetermined
     
     static let shared = NotificationStore()
     
@@ -100,8 +99,4 @@ struct Notification: Identifiable {
     var id: String
     var title: String
     var body: String
-}
-
-extension Defaults.Keys {
-    static let notifyHour = Key<Int>("notifyHour", default: 24)
 }

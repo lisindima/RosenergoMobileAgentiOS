@@ -9,17 +9,18 @@
 import SwiftUI
 import Combine
 import Alamofire
-import Defaults
 
 class SessionStore: ObservableObject {
     
-    @Default(.loginModel) var loginModel {
+    @CodableUserDefaults(key: "loginModel", default: nil)
+    var loginModel: LoginModel? {
         willSet {
             objectWillChange.send()
         }
     }
     
-    @Default(.loginParameters) var loginParameters {
+    @CodableUserDefaults(key: "loginParameters", default: nil)
+    var loginParameters: LoginParameters? {
         willSet {
             objectWillChange.send()
         }
@@ -274,11 +275,6 @@ class SessionStore: ObservableObject {
                 }
         }
     }
-}
-
-extension Defaults.Keys {
-    static let loginModel = Key<LoginModel?>("loginModel", default: nil)
-    static let loginParameters = Key<LoginParameters?>("loginParameters", default: nil)
 }
 
 enum InspectionsLoadingState {
