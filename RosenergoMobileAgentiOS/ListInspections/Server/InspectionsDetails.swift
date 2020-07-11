@@ -174,14 +174,6 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            .onAppear {
-                if yandexGeo == nil {
-                    sessionStore.loadAddress(latitude: inspection.latitude, longitude: inspection.longitude) { yandexGeoResponse, yandexGeoStateResponse in
-                        yandexGeo = yandexGeoResponse
-                        yandexGeoState = yandexGeoStateResponse
-                    }
-                }
-            }
         }
         .navigationTitle("Осмотр: \(inspection.id)")
         .actionSheet(isPresented: $presentMapActionSheet) {
@@ -195,6 +187,14 @@ struct InspectionsDetails: View {
                 #endif
             }, .cancel()
             ])
+        }
+        .onAppear {
+            if yandexGeo == nil {
+                sessionStore.loadAddress(latitude: inspection.latitude, longitude: inspection.longitude) { yandexGeoResponse, yandexGeoStateResponse in
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = yandexGeoStateResponse
+                }
+            }
         }
     }
 }

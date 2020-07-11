@@ -87,7 +87,7 @@ struct WidgetApp: Widget {
             Test()
         }
         .configurationDisplayName("Мобильный агент")
-        .description("This is an example widget.")
+        .description("Виджет, который покажет, есть ли не отправленные осмотры.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }

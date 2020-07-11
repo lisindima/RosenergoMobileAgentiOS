@@ -204,14 +204,6 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
-                .onAppear {
-                    if yandexGeo == nil {
-                        sessionStore.loadAddress(latitude: localInspections.latitude, longitude: localInspections.longitude) { yandexGeoResponse, yandexGeoStateResponse in
-                            yandexGeo = yandexGeoResponse
-                            yandexGeoState = yandexGeoStateResponse
-                        }
-                    }
-                }
             }
             if sessionStore.uploadState == .none {
                 #if os(iOS)
@@ -261,6 +253,14 @@ struct LocalInspectionsDetails: View {
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .emptyTextField:
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
+            }
+        }
+        .onAppear {
+            if yandexGeo == nil {
+                sessionStore.loadAddress(latitude: localInspections.latitude, longitude: localInspections.longitude) { yandexGeoResponse, yandexGeoStateResponse in
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = yandexGeoStateResponse
+                }
             }
         }
     }
