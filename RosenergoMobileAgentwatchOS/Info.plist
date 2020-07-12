@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>Russian</string>
 	<key>CFBundleDisplayName</key>
-	<string>Агент</string>
+	<string>Мобильный агент</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

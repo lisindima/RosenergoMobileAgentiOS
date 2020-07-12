@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Alamofire
 
 struct LocalInspectionsDetails: View {
     
@@ -71,6 +70,9 @@ struct LocalInspectionsDetails: View {
         #else
         details
             .environment(\.horizontalSizeClass, .regular)
+            .navigationBarItems(trailing:
+                MenuRepresentable()
+            )
         #endif
     }
     

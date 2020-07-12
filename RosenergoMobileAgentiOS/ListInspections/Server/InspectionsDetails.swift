@@ -8,7 +8,6 @@
 
 import SwiftUI
 import URLImage
-import Alamofire
 
 struct InspectionsDetails: View {
     

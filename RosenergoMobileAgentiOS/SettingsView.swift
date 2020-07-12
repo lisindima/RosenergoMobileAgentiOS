@@ -9,6 +9,7 @@
 import SwiftUI
 #if !os(watchOS)
 import MessageUI
+import WidgetKit
 #endif
 
 struct SettingsView: View {
@@ -113,6 +114,11 @@ struct SettingsView: View {
                     SectionButton(imageName: "bell", imageColor: .rosenergo, title: "Включить уведомления", titleColor: .primary) {
                         openSettings()
                     }
+                }
+            }
+            Section(header: Text("Виджет").fontWeight(.bold), footer: Text("Если в виджете возникают ошибки, нажмите на кнопку \"Сбросить виджет\".")) {
+                SectionButton(imageName: "heart.text.square", imageColor: .rosenergo, title: "Сбросить виджет", titleColor: .primary) {
+                    WidgetCenter.shared.reloadAllTimelines()
                 }
             }
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
