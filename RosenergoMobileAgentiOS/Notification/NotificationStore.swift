@@ -25,12 +25,6 @@ class NotificationStore: ObservableObject {
     var notifications = [Notification]()
     var center: UNUserNotificationCenter = .current()
     
-    init() {
-        center.getNotificationSettings { [self] in
-            enabled = $0.authorizationStatus
-        }
-    }
-    
     func refreshNotificationStatus() {
         center.getNotificationSettings { setting in
             DispatchQueue.main.async { [self] in

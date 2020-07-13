@@ -14,7 +14,7 @@ struct LocalInspectionsDetails: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     #if !os(watchOS)
-    @StateObject private var notificationStore = NotificationStore.shared
+    @EnvironmentObject private var notificationStore: NotificationStore
     #endif
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading

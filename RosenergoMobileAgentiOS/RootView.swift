@@ -15,6 +15,7 @@ struct RootView: View {
     
     #if !os(watchOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @StateObject var notificationStore = NotificationStore.shared
     #endif
     
     var body: some View {
@@ -23,8 +24,10 @@ struct RootView: View {
                 #if os(iOS)
                 if horizontalSizeClass == .compact {
                     MenuView()
+                        .environmentObject(notificationStore)
                 } else {
                     SideBar()
+                        .environmentObject(notificationStore)
                 }
                 #else
                 MenuView()

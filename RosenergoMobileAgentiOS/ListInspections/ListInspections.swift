@@ -12,12 +12,12 @@ import NativeSearchBar
 struct ListInspections: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var notificationStore: NotificationStore
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
     @StateObject private var searchBar = SearchBar.shared
-    @StateObject private var notificationStore = NotificationStore.shared
     
     @State private var showSortSetting: Bool = false
     @AppStorage("sortedByNew") var sortedByNew: Bool = true

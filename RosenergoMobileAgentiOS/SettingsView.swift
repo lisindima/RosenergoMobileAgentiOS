@@ -18,7 +18,7 @@ struct SettingsView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     #if !os(watchOS)
-    @StateObject private var notificationStore = NotificationStore.shared
+    @EnvironmentObject private var notificationStore: NotificationStore
     #endif
     
     @State private var showAlert: Bool = false

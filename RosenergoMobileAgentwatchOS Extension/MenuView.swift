@@ -26,9 +26,9 @@ struct MenuView: View {
         NavigationView {
             ScrollView {
                 NavigationLink(destination:
-                                ListInspections()
-                                .environmentObject(sessionStore)
-                                .environment(\.managedObjectContext, moc)
+                    ListInspections()
+                        .environmentObject(sessionStore)
+                        .environment(\.managedObjectContext, moc)
                 ) {
                     MenuButton(title: "Осмотры", image: "pc", color: .rosenergo)
                 }.buttonStyle(PlainButtonStyle())

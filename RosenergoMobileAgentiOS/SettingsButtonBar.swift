@@ -11,11 +11,12 @@ import SwiftUI
 struct SettingsButtonBar: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var notificationStore: NotificationStore
     
     @Binding var openSettings: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading) {
             Divider()
             Button(action: { openSettings = true }) {
                 Label("Настройки", systemImage: "gear")
@@ -28,11 +29,12 @@ struct SettingsButtonBar: View {
             NavigationView {
                 SettingsView()
                     .environmentObject(sessionStore)
+                    .environmentObject(notificationStore)
                     .navigationTitle("Настройки")
                     .navigationBarItems(trailing:
-                                            Button(action: { openSettings = false }) {
-                                                Text("Готово")
-                                            }
+                        Button(action: { openSettings = false }) {
+                            Text("Готово")
+                        }
                     )
             }
         }
