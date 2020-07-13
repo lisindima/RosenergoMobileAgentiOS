@@ -57,7 +57,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/&#x410;&#x433;&#x435;&#x43d;&#x442;">
+         RemotePath = "/&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
@@ -76,7 +76,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/&#x410;&#x433;&#x435;&#x43d;&#x442;">
+         RemotePath = "/&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE92B249758B100F4E72A"

@@ -28,12 +28,12 @@ class SessionStore: ObservableObject {
     
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
+    @Published var showAlert: Bool = false
     @Published var loadingLogin: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var alertType: AlertType = .success
-    @Published var showAlert: Bool = false
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0

@@ -27,6 +27,8 @@ struct CreateInspections: View {
     @State private var carBodyNumber2: String = ""
     @State private var carRegNumber: String = ""
     @State private var carRegNumber2: String = ""
+    @State private var insuranceContractSeria: String = ""
+    @State private var insuranceContractSeria2: String = ""
     @State private var insuranceContractNumber: String = ""
     @State private var insuranceContractNumber2: String = ""
     @State private var vinAndNumber: Bool = false
@@ -47,12 +49,12 @@ struct CreateInspections: View {
             carRegNumber: carRegNumber,
             carBodyNumber: vinAndNumber ? carVin : carBodyNumber,
             carVin: carVin,
-            insuranceContractNumber: insuranceContractNumber,
+            insuranceContractNumber: insuranceContractSeria + insuranceContractNumber,
             carModel2: carModel2 == "" ? nil : carModel2,
             carRegNumber2: carRegNumber2 == "" ? nil : carRegNumber2,
             carBodyNumber2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
             carVin2: carVin2 == "" ? nil : carVin2,
-            insuranceContractNumber2: insuranceContractNumber2 == "" ? nil : insuranceContractNumber2,
+            insuranceContractNumber2: insuranceContractSeria2 + insuranceContractNumber2 == "" ? nil : insuranceContractSeria2 + insuranceContractNumber2,
             latitude: sessionStore.latitude,
             longitude: sessionStore.longitude,
             photoParameters: sessionStore.photoParameters,
@@ -76,7 +78,7 @@ struct CreateInspections: View {
         localInspections.carModel = carModel
         localInspections.carRegNumber = carRegNumber
         localInspections.carVin = carVin
-        localInspections.insuranceContractNumber = insuranceContractNumber
+        localInspections.insuranceContractNumber = insuranceContractSeria + insuranceContractNumber
         localInspections.photos = localPhotos
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.id = id
@@ -86,7 +88,7 @@ struct CreateInspections: View {
             localInspections.carModel2 = carModel2
             localInspections.carRegNumber2 = carRegNumber2
             localInspections.carVin2 = carVin2
-            localInspections.insuranceContractNumber2 = insuranceContractNumber2
+            localInspections.insuranceContractNumber2 = insuranceContractSeria2 + insuranceContractNumber2
         }
         
         try? moc.save()
@@ -110,8 +112,14 @@ struct CreateInspections: View {
                 .pickerStyle(SegmentedPickerStyle())
                 VStack {
                     Group {
+                        GroupBox(label: Text("Страховой полис")) {
+                            HStack {
+                                CustomInput(text: $insuranceContractSeria, name: "Серия")
+                                    .frame(width: 100)
+                                CustomInput(text: $insuranceContractNumber, name: "Номер")
+                            }
+                        }
                         GroupBox {
-                            CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                             CustomInput(text: $carModel, name: "Марка автомобиля")
                             CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
                         }
@@ -137,8 +145,14 @@ struct CreateInspections: View {
                         Divider()
                             .padding([.horizontal, .bottom])
                         Group {
+                            GroupBox(label: Text("Страховой полис")) {
+                                HStack {
+                                    CustomInput(text: $insuranceContractSeria2, name: "Серия")
+                                        .frame(width: 100)
+                                    CustomInput(text: $insuranceContractNumber2, name: "Номер")
+                                }
+                            }
                             GroupBox {
-                                CustomInput(text: $insuranceContractNumber2, name: "Номер полиса")
                                 CustomInput(text: $carModel2, name: "Марка автомобиля")
                                 CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
                             }
@@ -168,7 +182,7 @@ struct CreateInspections: View {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                             if choiseCar == 0 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || insuranceContractSeria == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photoParameters.isEmpty {
@@ -178,7 +192,7 @@ struct CreateInspections: View {
                                     uploadInspections()
                                 }
                             } else if choiseCar == 1 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || insuranceContractSeria == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || insuranceContractSeria2 == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photoParameters.isEmpty {
@@ -191,7 +205,7 @@ struct CreateInspections: View {
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                             if choiseCar == 0 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || insuranceContractSeria == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photoParameters.isEmpty {
@@ -201,7 +215,7 @@ struct CreateInspections: View {
                                     saveInspections()
                                 }
                             } else if choiseCar == 1 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || insuranceContractSeria == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || insuranceContractSeria2 == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photoParameters.isEmpty {
