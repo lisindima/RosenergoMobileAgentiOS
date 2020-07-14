@@ -30,7 +30,7 @@ struct MenuView: View {
                         .environmentObject(sessionStore)
                         .environment(\.managedObjectContext, moc)
                 ) {
-                    MenuButton(title: "Осмотры", image: "pc", color: .rosenergo)
+                    MenuButton(title: "Осмотры", image: "archivebox", color: .rosenergo)
                 }.buttonStyle(PlainButtonStyle())
                 NavigationLink(destination: SettingsView().environmentObject(sessionStore)) {
                     MenuButton(title: "Настройки", image: "gear", color: .secondary)

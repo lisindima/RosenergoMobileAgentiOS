@@ -111,7 +111,14 @@ struct CreateInspections: View {
                 .pickerStyle(SegmentedPickerStyle())
                 VStack {
                     Group {
-                        GroupBox(label: Text("Страховой полис")) {
+                        GroupBox(label:
+                            HStack {
+                                Image(systemName: "doc.plaintext")
+                                    .imageScale(.large)
+                                    .foregroundColor(.rosenergo)
+                                Text("Страховой полис")
+                            }
+                        ) {
                             HStack {
                                 CustomInput(text: $insuranceContractSeria, name: "Серия")
                                     .frame(width: 100)
@@ -123,15 +130,12 @@ struct CreateInspections: View {
                             CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
                         }
                         GroupBox(label:
-                            HStack {
-                                Spacer()
-                                Toggle(isOn: $vinAndNumber, label: {
-                                    Image(systemName: "questionmark.circle.fill")
-                                        .imageScale(.large)
-                                        .foregroundColor(.rosenergo)
-                                    Text("Совпадают?")
-                                })
-                            }
+                            Toggle(isOn: $vinAndNumber, label: {
+                                Image(systemName: "doc.text.magnifyingglass")
+                                    .imageScale(.large)
+                                    .foregroundColor(.rosenergo)
+                                Text("Совпадают?")
+                            })
                         ) {
                             CustomInput(text: $carVin, name: "VIN")
                             CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
@@ -144,7 +148,14 @@ struct CreateInspections: View {
                         Divider()
                             .padding([.horizontal, .bottom])
                         Group {
-                            GroupBox(label: Text("Страховой полис")) {
+                            GroupBox(label:
+                                HStack {
+                                    Image(systemName: "doc.plaintext")
+                                        .imageScale(.large)
+                                        .foregroundColor(.rosenergo)
+                                    Text("Страховой полис")
+                                }
+                            ) {
                                 HStack {
                                     CustomInput(text: $insuranceContractSeria2, name: "Серия")
                                         .frame(width: 100)
@@ -156,15 +167,12 @@ struct CreateInspections: View {
                                 CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
                             }
                             GroupBox(label:
-                                HStack {
-                                    Spacer()
-                                    Toggle(isOn: $vinAndNumber2, label: {
-                                        Image(systemName: "questionmark.circle.fill")
-                                            .imageScale(.large)
-                                            .foregroundColor(.rosenergo)
-                                        Text("Совпадают?")
-                                    })
-                                }
+                                Toggle(isOn: $vinAndNumber2, label: {
+                                    Image(systemName: "doc.text.magnifyingglass")
+                                        .imageScale(.large)
+                                        .foregroundColor(.rosenergo)
+                                    Text("Совпадают?")
+                                })
                             ) {
                                 CustomInput(text: $carVin2, name: "VIN")
                                 CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")

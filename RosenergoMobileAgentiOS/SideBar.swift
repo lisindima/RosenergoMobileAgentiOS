@@ -27,7 +27,7 @@ struct SideBar: View {
                 }.tag(NavigationItem.createInspections)
                 
                 NavigationLink(destination: ListInspections()) {
-                    Label("Осмотры", systemImage: "pc")
+                    Label("Осмотры", systemImage: "archivebox")
                 }.tag(NavigationItem.listInspections)
             
                 NavigationLink(destination: CreateVyplatnyeDela()) {
