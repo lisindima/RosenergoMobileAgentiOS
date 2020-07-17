@@ -64,7 +64,7 @@ class SessionStore: ObservableObject {
         var currentLoc: CLLocation!
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {
-            currentLoc = locationManager.location
+            currentLoc = locationManager.location ?? CLLocation(latitude: 0.0, longitude: 0.0)
             latitude = currentLoc.coordinate.latitude
             longitude = currentLoc.coordinate.longitude
         } else {
