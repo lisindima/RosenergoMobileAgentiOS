@@ -29,9 +29,9 @@ struct SettingsView: View {
     private func showMailView() {
         DispatchQueue.main.async {
             let mailFeedback = UIHostingController(rootView:
-                                                    MailFeedback(showAlert: $showAlert, alertMailType: $alertMailType)
-                                                    .edgesIgnoringSafeArea(.bottom)
-                                                    .accentColor(.rosenergo)
+                MailFeedback(showAlert: $showAlert, alertMailType: $alertMailType)
+                    .edgesIgnoringSafeArea(.bottom)
+                    .accentColor(.rosenergo)
             )
             UIApplication.shared.windows.first?.rootViewController?.present(
                 mailFeedback, animated: true, completion: nil
