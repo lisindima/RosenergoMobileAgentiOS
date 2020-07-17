@@ -30,7 +30,5 @@ struct MenuRepresentable: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIButton, context: Context) {
         uiView.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        
-        
     }
 }
