@@ -160,13 +160,13 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]?, uploadType: UploadType, localInspections: LocalInspections?) {
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]?, localUpload: Bool, localInspections: LocalInspections?) {
         
         uploadState = .upload
         
         var localPhotoParameters: [PhotoParameters] = []
         
-        if uploadType == .local {
+        if localUpload {
             for photo in localInspections!.photos! {
                 localPhotoParameters.append(PhotoParameters(latitude: localInspections!.latitude, longitude: localInspections!.longitude, file: photo, maked_photo_at: localInspections!.dateInspections!))
             }
@@ -190,7 +190,7 @@ class SessionStore: ObservableObject {
             insurance_contract_number2: insuranceContractNumber2,
             latitude: latitude,
             longitude: longitude,
-            photos: (uploadType == .local ? localPhotoParameters : photoParameters)!
+            photos: (localUpload ? localPhotoParameters : photoParameters)!
         )
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
@@ -295,9 +295,5 @@ enum AlertMailType {
 
 enum AlertType {
     case success, error, emptyLocation, emptyPhoto, emptyTextField
-}
-
-enum UploadType {
-    case local, server
 }
 

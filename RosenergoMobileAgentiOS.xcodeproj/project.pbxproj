@@ -61,7 +61,6 @@
 		CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7CEFA924AAC202009DF93A /* CloudKit.framework */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
-		CB91867324BAB001005C240B /* MenuRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91867224BAB001005C240B /* MenuRepresentable.swift */; };
 		CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D62D124A455B1000C1C3A /* SectionItem.swift */; };
 		CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D62D124A455B1000C1C3A /* SectionItem.swift */; };
@@ -86,6 +85,7 @@
 		CBD07BA5248A082800A863D6 /* UploadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD07BA4248A082800A863D6 /* UploadIndicator.swift */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDD152224C16B0000C48262 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDD152124C16B0000C48262 /* CustomPicker.swift */; };
+		CBDD152424C181FD00C48262 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 		CBE9BE9424A7622100D8CA2A /* SettingsButtonBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
@@ -188,7 +188,6 @@
 		CB758D8A24B17C93000A6B3C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RosenergoMobileAgentwatchOS Extension.entitlements"; sourceTree = "<group>"; };
 		CB7CEFA924AAC202009DF93A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
-		CB91867224BAB001005C240B /* MenuRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRepresentable.swift; sourceTree = "<group>"; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9DE931249758B300F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -287,12 +286,12 @@
 			isa = PBXGroup;
 			children = (
 				CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */,
+				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CB66D74A24A5D989005C616A /* RosenergoApp.swift */,
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
 				CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */,
 				CB4CD7BD24909A56007FE4AB /* Notification */,
-				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CBB2E0952478F3380017AB00 /* ListInspections */,
 				CBC5283A247CB4AC00E337B4 /* Session */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
@@ -323,6 +322,7 @@
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
 				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
+				CBDD152124C16B0000C48262 /* CustomPicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CBB2E09124780EA50017AB00 /* MenuButton.swift */,
 				CBD07BA4248A082800A863D6 /* UploadIndicator.swift */,
@@ -331,8 +331,6 @@
 				CB758D7024AEEB67000A6B3C /* UIImage.swift */,
 				CB758D8A24B17C93000A6B3C /* String.swift */,
 				CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */,
-				CB91867224BAB001005C240B /* MenuRepresentable.swift */,
-				CBDD152124C16B0000C48262 /* CustomPicker.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -636,7 +634,6 @@
 			files = (
 				CBB2E0942478E5B20017AB00 /* CreateVyplatnyeDela.swift in Sources */,
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
-				CB91867324BAB001005C240B /* MenuRepresentable.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
@@ -677,6 +674,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDD152424C181FD00C48262 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB758D7E24AEFA45000A6B3C /* Widget.swift in Sources */,
 				CB73E46524B30F270070B781 /* Color.swift in Sources */,
 			);

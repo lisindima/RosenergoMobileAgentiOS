@@ -41,6 +41,14 @@ struct InspectionsDetails: View {
         #else
         details
             .environment(\.horizontalSizeClass, .regular)
+            .navigationBarItems(trailing:
+                Button(action: {
+                    print("Поделиться")
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .imageScale(.large)
+                }
+            )
         #endif
     }
     

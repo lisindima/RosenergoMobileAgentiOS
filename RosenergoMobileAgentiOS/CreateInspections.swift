@@ -59,7 +59,7 @@ struct CreateInspections: View {
             latitude: sessionStore.latitude,
             longitude: sessionStore.longitude,
             photoParameters: sessionStore.photoParameters,
-            uploadType: .server,
+            localUpload: false,
             localInspections: nil
         )
     }

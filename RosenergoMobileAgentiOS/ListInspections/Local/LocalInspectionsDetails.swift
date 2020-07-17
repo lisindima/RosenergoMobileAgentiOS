@@ -50,7 +50,7 @@ struct LocalInspectionsDetails: View {
             latitude: localInspections.latitude,
             longitude: localInspections.longitude,
             photoParameters: nil,
-            uploadType: .local,
+            localUpload: true,
             localInspections: localInspections
         )
     }
@@ -71,7 +71,12 @@ struct LocalInspectionsDetails: View {
         details
             .environment(\.horizontalSizeClass, .regular)
             .navigationBarItems(trailing:
-                MenuRepresentable()
+                Button(action: {
+                    print("Поделиться")
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .imageScale(.large)
+                }
             )
         #endif
     }
