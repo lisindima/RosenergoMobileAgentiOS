@@ -88,7 +88,7 @@ struct LocalInspectionsDetails: View {
                     Section(header: Text("Фотографии").fontWeight(.bold)) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(localInspections.arrayPhoto, id: \.self) { photo in
+                                ForEach(localInspections.arrayPhoto, id: \.id) { photo in
                                     NavigationLink(destination: LocalImageDetail(photos: localInspections.arrayPhoto)) {
                                         Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                                             .resizable()

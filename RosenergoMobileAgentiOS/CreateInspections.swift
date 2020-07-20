@@ -80,14 +80,17 @@ struct CreateInspections: View {
         localInspections.id = id
         
         var localPhotos: [LocalPhotos] = []
+        var setPhotoId: Int16 = 0
         
         for photo in sessionStore.photosData {
+            setPhotoId += 1
             let photos = NSEntityDescription.insertNewObject(forEntityName: "LocalPhotos", into: moc) as! LocalPhotos
+            photos.id = setPhotoId
             photos.photosData = photo
             localPhotos.append(photos)
         }
         
-        localInspections.localPhotos = NSSet(array: localPhotos)
+        localInspections.localPhotos = Set(localPhotos)
         
         if choiseCar == 1 {
             localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2

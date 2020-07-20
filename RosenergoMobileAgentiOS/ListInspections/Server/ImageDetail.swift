@@ -33,7 +33,7 @@ struct ImageDetail: View {
     
     #if os(watchOS)
     var watch: some View {
-        TabView() {
+        TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in
                 URLImage(URL(string: photo.path)!, placeholder: { _ in
                     ProgressView()

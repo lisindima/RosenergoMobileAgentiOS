@@ -18,6 +18,8 @@ struct LocalImageDetail: View {
     @GestureState var scale: CGFloat = 1.0
     #endif
     
+    @State private var selectionImage: Int = 1
+    
     var photos: [LocalPhotos]
     
     var body: some View {
@@ -30,8 +32,8 @@ struct LocalImageDetail: View {
     
     #if os(watchOS)
     var watch: some View {
-        TabView() {
-            ForEach(photos, id: \.self) { photo in
+        TabView(selection: $selectionImage) {
+            ForEach(photos, id: \.id) { photo in
                 Image(uiImage: UIImage(data: photo.photosData!)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -69,8 +71,8 @@ struct LocalImageDetail: View {
     
     #if os(iOS)
     var phone: some View {
-        TabView() {
-            ForEach(photos, id: \.self) { photo in
+        TabView(selection: $selectionImage) {
+            ForEach(photos, id: \.id) { photo in
                 Image(uiImage: UIImage(data: photo.photosData!)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -85,7 +87,7 @@ struct LocalImageDetail: View {
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationTitle("Фотография")
+        .navigationTitle("\(selectionImage) из \(photos.count)")
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
     #endif

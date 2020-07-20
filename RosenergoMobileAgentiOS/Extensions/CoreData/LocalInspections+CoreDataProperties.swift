@@ -31,10 +31,10 @@ extension LocalInspections {
     @NSManaged public var insuranceContractNumber2: String?
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
-    @NSManaged public var localPhotos: NSSet?
+    @NSManaged public var localPhotos: Set<LocalPhotos>?
     
     public var arrayPhoto: [LocalPhotos] {
-        let set = localPhotos as? Set<LocalPhotos> ?? []
+        let set = localPhotos ?? []
         return set.sorted {
             $0.id < $1.id
         }
