@@ -27,6 +27,7 @@ class SessionStore: ObservableObject {
     }
     
     @Published var inspections: [Inspections] = [Inspections]()
+    @Published var photosData: [Data] = [Data]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var showAlert: Bool = false
     @Published var loadingLogin: Bool = false
@@ -164,12 +165,12 @@ class SessionStore: ObservableObject {
         
         uploadState = .upload
         
-        var localPhotoParameters: [PhotoParameters] = []
+        let localPhotoParameters: [PhotoParameters] = []
         
         if localUpload {
-            for photo in localInspections!.photos! {
-                localPhotoParameters.append(PhotoParameters(latitude: localInspections!.latitude, longitude: localInspections!.longitude, file: photo, maked_photo_at: localInspections!.dateInspections!))
-            }
+//            for photo in localInspections!.photos! {
+//                localPhotoParameters.append(PhotoParameters(latitude: localInspections!.latitude, longitude: localInspections!.longitude, file: photo, maked_photo_at: localInspections!.dateInspections!))
+//            }
         }
         
         let headers: HTTPHeaders = [

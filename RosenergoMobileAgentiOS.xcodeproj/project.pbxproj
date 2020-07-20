@@ -24,6 +24,18 @@
 		CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */; };
 		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
 		CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */; };
+		CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */; };
+		CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */; };
+		CB2B5B0B24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */; };
+		CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */; };
+		CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */; };
+		CB2B5B0E24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */; };
+		CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */; };
+		CB2B5B1024C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */; };
+		CB2B5B1124C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */; };
+		CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
+		CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
+		CB2B5B1424C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
@@ -168,6 +180,10 @@
 		CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraController.swift; sourceTree = "<group>"; };
 		CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraRepresentable.swift; sourceTree = "<group>"; };
+		CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalInspections+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalInspections+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalPhotos+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalPhotos+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Мобильный агент.entitlements"; sourceTree = "<group>"; };
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -318,6 +334,7 @@
 		CB17E5902469B4FB00CDBB1A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CB71A2E724C5518A0018403B /* CoreData */,
 				CB20FB782480CAD0004CB9C1 /* CameraView */,
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
@@ -363,6 +380,17 @@
 				CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		CB71A2E724C5518A0018403B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */,
+				CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */,
+				CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */,
+				CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		CB758D7C24AEFA45000A6B3C /* Widget */ = {
@@ -556,6 +584,7 @@
 					};
 					CB9DE92B249758B100F4E72A = {
 						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1200;
 					};
 					CB9DE937249758B400F4E72A = {
 						CreatedOnToolsVersion = 11.6;
@@ -636,6 +665,8 @@
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
+				CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
+				CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
 				CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */,
@@ -651,6 +682,7 @@
 				CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
+				CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */,
 				CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */,
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
@@ -665,6 +697,7 @@
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
 				CBE9BE9424A7622100D8CA2A /* SettingsButtonBar.swift in Sources */,
+				CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
@@ -675,8 +708,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBDD152424C181FD00C48262 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
+				CB2B5B0B24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
+				CB2B5B0E24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB758D7E24AEFA45000A6B3C /* Widget.swift in Sources */,
+				CB2B5B1124C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CB73E46524B30F270070B781 /* Color.swift in Sources */,
+				CB2B5B1424C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,19 +723,23 @@
 			files = (
 				CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */,
 				CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */,
+				CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
+				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */,
+				CB2B5B1024C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
 				CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */,
 				CBA5870C24A3499F009631C1 /* MenuButton.swift in Sources */,
 				CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */,
 				CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */,
 				CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */,
+				CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB7267B12498858100E138BD /* MenuView.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
@@ -958,16 +999,24 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RosenergoMobileAgentwatchOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 7.0;
@@ -980,16 +1029,23 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RosenergoMobileAgentwatchOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 7.0;

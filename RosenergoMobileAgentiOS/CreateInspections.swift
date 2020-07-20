@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 import KeyboardObserving
 
 struct CreateInspections: View {
@@ -65,11 +66,6 @@ struct CreateInspections: View {
     }
     
     private func saveInspections() {
-        var localPhotos: [String] = []
-        
-        for photo in sessionStore.photoParameters {
-            localPhotos.append(photo.file)
-        }
         
         let id = UUID()
         let localInspections = LocalInspections(context: moc)
@@ -80,9 +76,18 @@ struct CreateInspections: View {
         localInspections.carRegNumber = carRegNumber
         localInspections.carVin = carVin
         localInspections.insuranceContractNumber = insuranceContractSeries[indexSeries!] + insuranceContractNumber
-        localInspections.photos = localPhotos
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.id = id
+        
+        var localPhotos: [LocalPhotos] = []
+        
+        for photo in sessionStore.photosData {
+            let photos = NSEntityDescription.insertNewObject(forEntityName: "LocalPhotos", into: moc) as! LocalPhotos
+            photos.photosData = photo
+            localPhotos.append(photos)
+        }
+        
+        localInspections.localPhotos = NSSet(array: localPhotos)
         
         if choiseCar == 1 {
             localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
@@ -221,7 +226,7 @@ struct CreateInspections: View {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
-                                } else if sessionStore.photoParameters.isEmpty {
+                                } else if sessionStore.photosData.isEmpty {
                                     sessionStore.alertType = .emptyPhoto
                                     sessionStore.showAlert = true
                                 } else {
@@ -231,7 +236,7 @@ struct CreateInspections: View {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || indexSeries2 == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
-                                } else if sessionStore.photoParameters.isEmpty {
+                                } else if sessionStore.photosData.isEmpty {
                                     sessionStore.alertType = .emptyPhoto
                                     sessionStore.showAlert = true
                                 } else {
@@ -250,7 +255,7 @@ struct CreateInspections: View {
             }
         }
         .keyboardObserving()
-        .onDisappear { sessionStore.photoParameters.removeAll() }
+        .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(sessionStore)

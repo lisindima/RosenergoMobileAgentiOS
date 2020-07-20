@@ -18,7 +18,7 @@ struct LocalImageDetail: View {
     @GestureState var scale: CGFloat = 1.0
     #endif
     
-    var photos: [String]
+    var photos: [LocalPhotos]
     
     var body: some View {
         #if os(watchOS)
@@ -32,7 +32,7 @@ struct LocalImageDetail: View {
     var watch: some View {
         TabView() {
             ForEach(photos, id: \.self) { photo in
-                Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+                Image(uiImage: UIImage(data: photo.photosData!)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .scaleEffect(scale)
@@ -71,7 +71,7 @@ struct LocalImageDetail: View {
     var phone: some View {
         TabView() {
             ForEach(photos, id: \.self) { photo in
-                Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
+                Image(uiImage: UIImage(data: photo.photosData!)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .scaleEffect(scale)

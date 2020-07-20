@@ -15,15 +15,6 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
     @Binding var didTapCapture: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
-    
-    let dateOnImage: String = {
-        var currentDate: Date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        let dateString = dateFormatter.string(from: currentDate)
-        return dateString
-    }()
 
     func makeUIViewController(context: Context) -> CustomCameraController {
         let controller = CustomCameraController()
@@ -52,10 +43,9 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
-                let imageWithText = uiimage!.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.dateOnImage)", point: CGPoint(x: 20, y: 20))
+                let imageWithText = uiimage!.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.sessionStore.stringDate)", point: CGPoint(x: 20, y: 20))
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)
-                let file = inspectionsImageData!.base64EncodedString()
-                parent.sessionStore.photoParameters.append(PhotoParameters(latitude: parent.sessionStore.latitude, longitude: parent.sessionStore.longitude, file: file, maked_photo_at: parent.sessionStore.stringDate()))
+                parent.sessionStore.photosData.append(inspectionsImageData!)
             }
         }
     }

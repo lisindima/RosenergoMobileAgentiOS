@@ -30,16 +30,16 @@ struct CustomCameraView: View {
             CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(sessionStore.photoParameters.reversed(), id: \.file) { photo in
+                    ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
                         ZStack {
-                            Image(uiImage: UIImage(data: Data(base64Encoded: photo.file, options: .ignoreUnknownCharacters)!)!.resizedImage(width: 100, height: 100))
+                            Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
                                 .renderingMode(.original)
                                 .resizable()
                                 .frame(width: 100, height: 100)
                                 .cornerRadius(10)
                             Button(action: {
-                                if let index = sessionStore.photoParameters.firstIndex(of: photo) {
-                                    sessionStore.photoParameters.remove(at: index)
+                                if let index = sessionStore.photosData.firstIndex(of: photo) {
+                                    sessionStore.photosData.remove(at: index)
                                 }
                             }) {
                                 Image(systemName: "xmark.circle.fill")

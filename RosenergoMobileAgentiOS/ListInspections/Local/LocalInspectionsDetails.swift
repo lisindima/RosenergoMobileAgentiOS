@@ -84,13 +84,13 @@ struct LocalInspectionsDetails: View {
     var details: some View {
         VStack {
             Form {
-                if localInspections.photos != nil {
+                if !localInspections.arrayPhoto.isEmpty {
                     Section(header: Text("Фотографии").fontWeight(.bold)) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(localInspections.photos!, id: \.self) { photo in
-                                    NavigationLink(destination: LocalImageDetail(photos: localInspections.photos!)) {
-                                        Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
+                                ForEach(localInspections.arrayPhoto, id: \.self) { photo in
+                                    NavigationLink(destination: LocalImageDetail(photos: localInspections.arrayPhoto)) {
+                                        Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                                             .resizable()
                                             .frame(width: CGFloat(size), height: CGFloat(size))
                                             .cornerRadius(10)
