@@ -28,7 +28,6 @@ class SessionStore: ObservableObject {
     
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var photosData: [Data] = [Data]()
-    @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var showAlert: Bool = false
     @Published var loadingLogin: Bool = false
     @Published var logoutState: Bool = false
@@ -161,17 +160,9 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]?, localUpload: Bool, localInspections: LocalInspections?) {
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
         
         uploadState = .upload
-        
-        let localPhotoParameters: [PhotoParameters] = []
-        
-        if localUpload {
-//            for photo in localInspections!.photos! {
-//                localPhotoParameters.append(PhotoParameters(latitude: localInspections!.latitude, longitude: localInspections!.longitude, file: photo, maked_photo_at: localInspections!.dateInspections!))
-//            }
-        }
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
@@ -191,7 +182,7 @@ class SessionStore: ObservableObject {
             insurance_contract_number2: insuranceContractNumber2,
             latitude: latitude,
             longitude: longitude,
-            photos: (localUpload ? localPhotoParameters : photoParameters)!
+            photos: photoParameters
         )
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)

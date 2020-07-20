@@ -57,7 +57,7 @@ struct InspectionsDetails: View {
             if !inspection.photos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
+                        LazyHStack {
                             ForEach(inspection.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(photos: inspection.photos)) {
                                     URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in

@@ -27,6 +27,24 @@ struct CreateVyplatnyeDela: View {
         }
     }
     
+    private func uploadVyplatnyeDela() {
+        
+        var photoParameters: [PhotoParameters] = []
+        
+        for photo in sessionStore.photosData {
+            let encodedPhoto = photo.base64EncodedString()
+            photoParameters.append(PhotoParameters(latitude: sessionStore.latitude, longitude: sessionStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+        }
+        
+        sessionStore.uploadVyplatnyeDela(
+            insuranceContractNumber: insuranceContractNumber,
+            numberZayavlenia: numberZayavlenia,
+            latitude: sessionStore.latitude,
+            longitude: sessionStore.longitude,
+            photos: photoParameters
+        )
+    }
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -38,7 +56,7 @@ struct CreateVyplatnyeDela: View {
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
                     }.padding(.horizontal)
-                    ImageButton(action: openCamera, photoParameters: sessionStore.photoParameters)
+                    ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
                         .padding()
                 }
             }
@@ -48,17 +66,11 @@ struct CreateVyplatnyeDela: View {
                         if insuranceContractNumber == "" || numberZayavlenia == "" {
                             sessionStore.alertType = .emptyTextField
                             sessionStore.showAlert = true
-                        } else if sessionStore.photoParameters.isEmpty {
+                        } else if sessionStore.photosData.isEmpty {
                             sessionStore.alertType = .emptyPhoto
                             sessionStore.showAlert = true
                         } else {
-                            sessionStore.uploadVyplatnyeDela(
-                                insuranceContractNumber: insuranceContractNumber,
-                                numberZayavlenia: numberZayavlenia,
-                                latitude: sessionStore.latitude,
-                                longitude: sessionStore.longitude,
-                                photos: sessionStore.photoParameters
-                            )
+                            uploadVyplatnyeDela()
                         }
                     }
                     .padding(.horizontal)
@@ -71,9 +83,7 @@ struct CreateVyplatnyeDela: View {
             }
         }
         .keyboardObserving()
-        .onDisappear {
-            sessionStore.photoParameters.removeAll()
-        }
+        .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(sessionStore)
@@ -83,7 +93,7 @@ struct CreateVyplatnyeDela: View {
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:
-                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: {
+                return Alert(title: Text("Успешно"), message: Text("Выплатное дело успешно загружено на сервер."), dismissButton: .default(Text("Закрыть"), action: {
                     presentationMode.wrappedValue.dismiss()
                 }))
             case .error:

@@ -36,6 +36,14 @@ struct LocalInspectionsDetails: View {
     }
     
     private func uploadLocalInspections() {
+        
+        var photoParameters: [PhotoParameters] = []
+        
+        for photo in localInspections.localPhotos! {
+            let encodedPhoto = photo.photosData!.base64EncodedString()
+            photoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, maked_photo_at: localInspections.dateInspections!))
+        }
+        
         sessionStore.uploadInspections(
             carModel: localInspections.carModel!,
             carRegNumber: localInspections.carRegNumber!,
@@ -49,9 +57,7 @@ struct LocalInspectionsDetails: View {
             insuranceContractNumber2: localInspections.insuranceContractNumber2,
             latitude: localInspections.latitude,
             longitude: localInspections.longitude,
-            photoParameters: nil,
-            localUpload: true,
-            localInspections: localInspections
+            photoParameters: photoParameters
         )
     }
     
@@ -87,7 +93,7 @@ struct LocalInspectionsDetails: View {
                 if !localInspections.arrayPhoto.isEmpty {
                     Section(header: Text("Фотографии").fontWeight(.bold)) {
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
+                            LazyHStack {
                                 ForEach(localInspections.arrayPhoto, id: \.id) { photo in
                                     NavigationLink(destination: LocalImageDetail(photos: localInspections.arrayPhoto)) {
                                         Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))

@@ -34,7 +34,7 @@ struct CreateInspections: View {
     @State private var indexSeries: Int?
     @State private var indexSeries2: Int?
     
-    var insuranceContractSeries: [String] = ["ХХХ", "CCC", "РРР", "ННН", "МММ", "ККК", "ЕЕЕ", "ВВВ"]
+    private var insuranceContractSeries: [String] = ["ХХХ", "CCC", "РРР", "ННН", "МММ", "ККК", "ЕЕЕ", "ВВВ"]
     
     func openCamera() {
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
@@ -46,6 +46,14 @@ struct CreateInspections: View {
     }
     
     private func uploadInspections() {
+        
+        var photoParameters: [PhotoParameters] = []
+        
+        for photo in sessionStore.photosData {
+            let encodedPhoto = photo.base64EncodedString()
+            photoParameters.append(PhotoParameters(latitude: sessionStore.latitude, longitude: sessionStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+        }
+        
         sessionStore.uploadInspections(
             carModel: carModel,
             carRegNumber: carRegNumber,
@@ -59,9 +67,7 @@ struct CreateInspections: View {
             insuranceContractNumber2: insuranceContractSeries[indexSeries2!] + insuranceContractNumber2 == "" ? nil : insuranceContractSeries[indexSeries2!] + insuranceContractNumber2,
             latitude: sessionStore.latitude,
             longitude: sessionStore.longitude,
-            photoParameters: sessionStore.photoParameters,
-            localUpload: false,
-            localInspections: nil
+            photoParameters: photoParameters
         )
     }
     
@@ -154,7 +160,7 @@ struct CreateInspections: View {
                                 .disabled(vinAndNumber)
                         }
                     }.padding(.horizontal)
-                    ImageButton(action: openCamera, photoParameters: sessionStore.photoParameters)
+                    ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
                         .padding()
                     if choiseCar == 1 {
                         Divider()
@@ -193,7 +199,7 @@ struct CreateInspections: View {
                                     .disabled(vinAndNumber2)
                             }
                         }.padding(.horizontal)
-                        ImageButton(action: openCamera, photoParameters: sessionStore.photoParameters)
+                        ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
                             .padding()
                     }
                 }
@@ -206,7 +212,7 @@ struct CreateInspections: View {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
-                                } else if sessionStore.photoParameters.isEmpty {
+                                } else if sessionStore.photosData.isEmpty {
                                     sessionStore.alertType = .emptyPhoto
                                     sessionStore.showAlert = true
                                 } else {
@@ -216,7 +222,7 @@ struct CreateInspections: View {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || indexSeries2 == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
-                                } else if sessionStore.photoParameters.isEmpty {
+                                } else if sessionStore.photosData.isEmpty {
                                     sessionStore.alertType = .emptyPhoto
                                     sessionStore.showAlert = true
                                 } else {

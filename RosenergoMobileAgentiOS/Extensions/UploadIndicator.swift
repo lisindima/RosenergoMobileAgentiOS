@@ -19,6 +19,7 @@ struct UploadIndicator: View {
                 HStack {
                     Spacer()
                     ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     Spacer()
                 }
                 .padding()
