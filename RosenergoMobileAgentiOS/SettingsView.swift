@@ -99,12 +99,10 @@ struct SettingsView: View {
                         openSettings()
                     }
                     Stepper(value: $notificationStore.notifyHour, in: 1...24) {
-                        Label(title: {
-                            Text("\(notificationStore.notifyHour) ч.")
-                        }, icon: {
-                            Image(systemName: "timer")
-                                .foregroundColor(.rosenergo)
-                        })
+                        Image(systemName: "timer")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Text("\(notificationStore.notifyHour) ч.")
                     }
                 }
                 if notificationStore.enabled == .notDetermined {
@@ -140,7 +138,11 @@ struct SettingsView: View {
                         showActionSheetExit = true
                     }
                 } else {
-                    SectionProgress(title: "Подождите")
+                    HStack {
+                        ProgressView()
+                        Text("Подождите")
+                            .padding(.leading, 12)
+                    }
                 }
             }
         }
