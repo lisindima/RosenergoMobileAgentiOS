@@ -128,12 +128,7 @@ struct CreateInspections: View {
                 VStack {
                     Group {
                         GroupBox(label:
-                            HStack {
-                                Image(systemName: "doc.plaintext")
-                                    .imageScale(.large)
-                                    .foregroundColor(.rosenergo)
-                                Text("Страховой полис")
-                            }
+                            Label("Страховой полис", systemImage: "doc.plaintext")
                         ) {
                             HStack {
                                 CustomPicker("Серия", data: insuranceContractSeries, selectionIndex: $indexSeries)
@@ -149,10 +144,7 @@ struct CreateInspections: View {
                         }
                         GroupBox(label:
                             Toggle(isOn: $vinAndNumber, label: {
-                                Image(systemName: "doc.text.magnifyingglass")
-                                    .imageScale(.large)
-                                    .foregroundColor(.rosenergo)
-                                Text("Совпадают?")
+                                Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
                             })
                         ) {
                             CustomInput(text: $carVin, name: "VIN")
@@ -167,12 +159,7 @@ struct CreateInspections: View {
                             .padding([.horizontal, .bottom])
                         Group {
                             GroupBox(label:
-                                HStack {
-                                    Image(systemName: "doc.plaintext")
-                                        .imageScale(.large)
-                                        .foregroundColor(.rosenergo)
-                                    Text("Страховой полис")
-                                }
+                                Label("Страховой полис", systemImage: "doc.plaintext")
                             ) {
                                 HStack {
                                     CustomPicker("Серия", data: insuranceContractSeries, selectionIndex: $indexSeries2)
@@ -188,10 +175,7 @@ struct CreateInspections: View {
                             }
                             GroupBox(label:
                                 Toggle(isOn: $vinAndNumber2, label: {
-                                    Image(systemName: "doc.text.magnifyingglass")
-                                        .imageScale(.large)
-                                        .foregroundColor(.rosenergo)
-                                    Text("Совпадают?")
+                                    Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
                                 })
                             ) {
                                 CustomInput(text: $carVin2, name: "VIN")

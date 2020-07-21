@@ -15,25 +15,29 @@ struct SectionItem: View {
     var subTitle: String
     var title: String
     
+    @ViewBuilder var primaryTitle: Text {
+        #if os(watchOS)
+        Text(title)
+            .font(.footnote)
+        #else
+        Text(title)
+        #endif
+    }
+    
     var body: some View {
-        HStack {
-            Image(systemName: imageName)
-                .frame(width: 24)
-                .foregroundColor(imageColor)
+        Label(title: {
             VStack(alignment: .leading) {
                 Text(subTitle)
                     .font(.system(size: 11))
                     .foregroundColor(.secondary)
-                #if os(watchOS)
-                Text(title)
+                primaryTitle
                     .foregroundColor(.primary)
-                    .font(.footnote)
-                #else
-                Text(title)
-                    .foregroundColor(.primary)
-                #endif
             }
-        }
+        }, icon: {
+            Image(systemName: imageName)
+                .foregroundColor(imageColor)
+                .offset(x: 0, y: 11)
+        })
     }
 }
 
@@ -46,14 +50,28 @@ struct SectionButton: View {
     var action: () -> Void
     
     var body: some View {
-        HStack {
-            Image(systemName: imageName)
-                .frame(width: 24)
-                .foregroundColor(imageColor)
-            Button(action: action) {
+        Button(action: action) {
+            Label(title: {
                 Text(title)
                     .foregroundColor(titleColor)
-            }
+            }, icon: {
+                Image(systemName: imageName)
+                    .foregroundColor(imageColor)
+            })
+        }
+    }
+}
+
+struct SectionProgress: View {
+    
+    var title: String
+    
+    var body: some View {
+        HStack {
+            ProgressView()
+                .padding(.leading, 4)
+            Text(title)
+                .padding(.leading, 14)
         }
     }
 }
