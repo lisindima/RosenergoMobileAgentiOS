@@ -42,10 +42,14 @@ struct MenuView: View {
                     .padding(.bottom, 8)
             }
             .navigationTitle("Мобильный агент")
-            .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {
-                Image(systemName: "gear")
-                    .imageScale(.large)
-            })
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gear")
+                            .imageScale(.large)
+                    }
+                }
+            }
         }
     }
 }

@@ -83,20 +83,22 @@ struct ListInspections: View {
         }
         .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")
-        .navigationBarItems(trailing:
-            HStack {
-                Button(action: {
-                    showSortSetting = true
-                }) {
-                    Image(systemName: "line.horizontal.3.decrease.circle")
-                        .imageScale(.large)
-                }
-                NavigationLink(destination: CreateInspections()) {
-                    Image(systemName: "plus.circle.fill")
-                        .imageScale(.large)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                HStack {
+                    Button(action: {
+                        showSortSetting = true
+                    }) {
+                        Image(systemName: "line.horizontal.3.decrease.circle")
+                            .imageScale(.large)
+                    }
+                    NavigationLink(destination: CreateInspections()) {
+                        Image(systemName: "plus.circle.fill")
+                            .imageScale(.large)
+                    }
                 }
             }
-        )
+        }
         .actionSheet(isPresented: $showSortSetting) {
             ActionSheet(title: Text("Сортировка"), message: Text("В каком порядке отображать список осмотров?"), buttons: [
                 .default(Text("Сначала новые")) {

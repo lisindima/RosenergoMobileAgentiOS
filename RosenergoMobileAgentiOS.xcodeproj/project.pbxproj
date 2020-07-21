@@ -48,7 +48,6 @@
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB71AE3524B9D65B00521C82 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
-		CB7267B12498858100E138BD /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB7267C52498B79A00E138BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB73E46524B30F270070B781 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
@@ -71,6 +70,7 @@
 		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
 		CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7CEFA924AAC202009DF93A /* CloudKit.framework */; };
+		CB7E1B5924C6B895009AA137 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
@@ -728,6 +728,7 @@
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
+				CB7E1B5924C6B895009AA137 /* MenuView.swift in Sources */,
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
@@ -741,7 +742,6 @@
 				CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */,
 				CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
-				CB7267B12498858100E138BD /* MenuView.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
 				CB758D8C24B17C93000A6B3C /* String.swift in Sources */,

@@ -76,14 +76,6 @@ struct LocalInspectionsDetails: View {
         #else
         details
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    print("Поделиться")
-                }) {
-                    Image(systemName: "square.and.arrow.up")
-                        .imageScale(.large)
-                }
-            )
         #endif
     }
     
@@ -241,6 +233,16 @@ struct LocalInspectionsDetails: View {
             }
         }
         .navigationTitle("Не отправлено")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    print("Поделиться")
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .imageScale(.large)
+                }
+            }
+        }
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [
                 .default(Text("Apple Maps")) {
