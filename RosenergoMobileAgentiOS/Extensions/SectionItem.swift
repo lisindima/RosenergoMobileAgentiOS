@@ -15,6 +15,15 @@ struct SectionItem: View {
     var subTitle: String
     var title: String
     
+    @ViewBuilder var primaryTitle: Text {
+        #if os(watchOS)
+        Text(title)
+            .font(.footnote)
+        #else
+        Text(title)
+        #endif
+    }
+    
     var body: some View {
         HStack {
             Image(systemName: imageName)
@@ -24,14 +33,8 @@ struct SectionItem: View {
                 Text(subTitle)
                     .font(.system(size: 11))
                     .foregroundColor(.secondary)
-                #if os(watchOS)
-                Text(title)
+                primaryTitle
                     .foregroundColor(.primary)
-                    .font(.footnote)
-                #else
-                Text(title)
-                    .foregroundColor(.primary)
-                #endif
             }
         }
     }
