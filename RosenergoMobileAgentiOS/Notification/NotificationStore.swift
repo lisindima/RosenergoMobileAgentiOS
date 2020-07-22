@@ -14,7 +14,7 @@ class NotificationStore: ObservableObject {
     
     @Published var enabled: UNAuthorizationStatus = .notDetermined
     
-    @AppStorage("notifyHour") var notifyHour = 24 {
+    @AppStorage("notifyHour") var notifyHour = 5 {
         willSet {
             objectWillChange.send()
         }

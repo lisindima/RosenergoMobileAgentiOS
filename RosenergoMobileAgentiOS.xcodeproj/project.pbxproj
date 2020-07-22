@@ -70,7 +70,7 @@
 		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9DE959249759F500F4E72A /* ListInspections.swift */; };
 		CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7CEFA924AAC202009DF93A /* CloudKit.framework */; };
-		CB7E1B5924C6B895009AA137 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
+		CB7E1B5B24C71D0E009AA137 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7267B02498858100E138BD /* MenuView.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
@@ -728,7 +728,7 @@
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
-				CB7E1B5924C6B895009AA137 /* MenuView.swift in Sources */,
+				CB7E1B5B24C71D0E009AA137 /* MenuView.swift in Sources */,
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,

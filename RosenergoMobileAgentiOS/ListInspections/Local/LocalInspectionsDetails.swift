@@ -11,11 +11,13 @@ import SwiftUI
 struct LocalInspectionsDetails: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
-    @Environment(\.managedObjectContext) var moc
-    @Environment(\.presentationMode) var presentationMode
     #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
     #endif
+    
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
