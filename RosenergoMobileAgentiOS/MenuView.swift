@@ -26,11 +26,11 @@ struct MenuView: View {
                     NavigationLink(destination: CreateInspections()) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }
-                    NavigationLink(destination: ListInspections()) {
-                        MenuButton(title: "Осмотры", image: "archivebox", color: .red)
-                    }
                     NavigationLink(destination: CreateVyplatnyeDela()) {
                         MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
+                    }
+                    NavigationLink(destination: ListInspections()) {
+                        MenuButton(title: "Осмотры", image: "archivebox", color: .red)
                     }
                 }
                 .padding(.top, 8)

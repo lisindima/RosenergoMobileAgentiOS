@@ -25,14 +25,14 @@ struct SideBar: View {
                 NavigationLink(destination: CreateInspections()) {
                     Label("Новый осмотр", systemImage: "car")
                 }.tag(NavigationItem.createInspections)
-                
-                NavigationLink(destination: ListInspections()) {
-                    Label("Осмотры", systemImage: "archivebox")
-                }.tag(NavigationItem.listInspections)
             
                 NavigationLink(destination: CreateVyplatnyeDela()) {
                     Label("Выплатные дела", systemImage: "tray")
                 }.tag(NavigationItem.createVyplatnye)
+                
+                NavigationLink(destination: ListInspections()) {
+                    Label("Осмотры", systemImage: "archivebox")
+                }.tag(NavigationItem.listInspections)
             }
             .overlay(SettingsButtonBar(openSettings: $openSettings), alignment: .bottom)
             .listStyle(SidebarListStyle())

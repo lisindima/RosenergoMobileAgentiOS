@@ -38,7 +38,7 @@ struct MenuView: View {
                 appVersionView
                     .foregroundColor(.secondary)
                     .font(.footnote)
-            }.navigationTitle("Агент")
+            }.navigationTitle("Мобильный агент")
         }
     }
 }

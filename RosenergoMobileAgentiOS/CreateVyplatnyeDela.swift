@@ -19,12 +19,16 @@ struct CreateVyplatnyeDela: View {
     @State private var numberZayavlenia: String = ""
     
     func openCamera() {
+        #if targetEnvironment(simulator)
+        showCustomCameraView = true
+        #else
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
+        #endif
     }
     
     private func uploadVyplatnyeDela() {
@@ -49,8 +53,8 @@ struct CreateVyplatnyeDela: View {
         VStack {
             ScrollView {
                 GeoIndicator()
-                    .padding(.horizontal)
-                    .padding(.bottom)
+                    .padding(.top, 8)
+                    .padding([.horizontal, .bottom])
                 VStack {
                     GroupBox {
                         CustomInput(text: $insuranceContractNumber, name: "Номер полиса")

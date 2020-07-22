@@ -37,12 +37,16 @@ struct CreateInspections: View {
     private var insuranceContractSeries: [String] = ["ХХХ", "CCC", "РРР", "ННН", "МММ", "ККК", "ЕЕЕ", "ВВВ"]
     
     func openCamera() {
+        #if targetEnvironment(simulator)
+        showCustomCameraView = true
+        #else
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
+        #endif
     }
     
     private func uploadInspections() {
@@ -116,6 +120,7 @@ struct CreateInspections: View {
         VStack {
             ScrollView {
                 GeoIndicator()
+                    .padding(.top, 8)
                     .padding(.horizontal)
                 Picker("", selection: $choiseCar) {
                     Text("Один автомобиль").tag(0)

@@ -113,7 +113,7 @@ struct LocalInspectionsDetails: View {
                 if localInspections.carModel != nil {
                     Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                         SectionItem(
-                            imageName: "text.justify",
+                            imageName: "doc.plaintext",
                             imageColor: .rosenergo,
                             subTitle: "Страховой полис",
                             title: localInspections.insuranceContractNumber!
@@ -147,7 +147,7 @@ struct LocalInspectionsDetails: View {
                 if localInspections.carModel2 != nil {
                     Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                         SectionItem(
-                            imageName: "text.justify",
+                            imageName: "doc.plaintext",
                             imageColor: .rosenergo,
                             subTitle: "Страховой полис",
                             title: localInspections.insuranceContractNumber2!

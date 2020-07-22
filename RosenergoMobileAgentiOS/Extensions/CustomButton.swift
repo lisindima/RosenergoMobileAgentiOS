@@ -11,7 +11,7 @@ import SwiftUI
 struct CustomButton: View {
     
     var label: String
-    var loading: Bool?
+    var loading: Bool = false
     var colorButton: Color
     var colorText: Color
     var action: () -> Void
@@ -24,7 +24,7 @@ struct CustomButton: View {
                     .fontWeight(.bold)
                     .foregroundColor(colorText)
                     .multilineTextAlignment(.center)
-                if loading ?? false {
+                if loading {
                     ProgressView()
                         .padding(.leading, 6)
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))

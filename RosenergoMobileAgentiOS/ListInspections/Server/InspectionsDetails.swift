@@ -76,7 +76,7 @@ struct InspectionsDetails: View {
             }
             Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                 SectionItem(
-                    imageName: "text.justify",
+                    imageName: "doc.plaintext",
                     imageColor: .rosenergo,
                     subTitle: "Страховой полис",
                     title: inspection.insuranceContractNumber
@@ -109,7 +109,7 @@ struct InspectionsDetails: View {
             if inspection.carModel2 != nil {
                 Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                     SectionItem(
-                        imageName: "text.justify",
+                        imageName: "doc.plaintext",
                         imageColor: .rosenergo,
                         subTitle: "Страховой полис",
                         title: inspection.insuranceContractNumber2!
