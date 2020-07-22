@@ -90,6 +90,10 @@
 		CBB2E09C2478F73B0017AB00 /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
 		CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
+		CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
+		CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* CoreData.swift */; };
+		CBB4B0BC24C8330B00C25A59 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* CoreData.swift */; };
+		CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
 		CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
@@ -219,6 +223,8 @@
 		CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalInspectionsDetails.swift; sourceTree = "<group>"; };
 		CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
+		CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
+		CBB4B0BA24C8330B00C25A59 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUserDefaults.swift; sourceTree = "<group>"; };
 		CBC52838247A504700E337B4 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreModel.swift; sourceTree = "<group>"; };
@@ -307,6 +313,7 @@
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
 				CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */,
+				CBB4B0B724C82B9C00C25A59 /* Location */,
 				CB4CD7BD24909A56007FE4AB /* Notification */,
 				CBB2E0952478F3380017AB00 /* ListInspections */,
 				CBC5283A247CB4AC00E337B4 /* Session */,
@@ -389,6 +396,7 @@
 				CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */,
 				CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */,
 				CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */,
+				CBB4B0BA24C8330B00C25A59 /* CoreData.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -461,6 +469,14 @@
 				CBC52838247A504700E337B4 /* ImageDetail.swift */,
 			);
 			path = Server;
+			sourceTree = "<group>";
+		};
+		CBB4B0B724C82B9C00C25A59 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		CBC5283A247CB4AC00E337B4 /* Session */ = {
@@ -664,6 +680,7 @@
 				CBB2E0942478E5B20017AB00 /* CreateVyplatnyeDela.swift in Sources */,
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
+				CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
@@ -681,6 +698,7 @@
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CBB2E09224780EA50017AB00 /* MenuButton.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
+				CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */,
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
 				CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */,
@@ -725,6 +743,7 @@
 				CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */,
 				CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
+				CBB4B0BC24C8330B00C25A59 /* CoreData.swift in Sources */,
 				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
@@ -744,6 +763,7 @@
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
+				CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */,
 				CB758D8C24B17C93000A6B3C /* String.swift in Sources */,
 				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,
 				CB7CEFA724A9DBA2009DF93A /* ListInspections.swift in Sources */,

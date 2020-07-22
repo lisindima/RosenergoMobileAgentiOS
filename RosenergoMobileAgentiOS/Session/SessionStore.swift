@@ -35,14 +35,10 @@ class SessionStore: ObservableObject {
     @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
     @Published var alertType: AlertType = .success
     @Published var uploadProgress: Double = 0.0
-    @Published var latitude: Double = 0.0
-    @Published var longitude: Double = 0.0
     
     static let shared = SessionStore()
     
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
-    let yandexGeoURL: String = "https://geocode-maps.yandex.ru/1.x/"
-    let apiKeyForYandexGeo: String = "deccec14-fb7f-40da-8be0-be3f7e6f2d8c"
     
     func stringDate() -> String {
         let currentDate: Date = Date()
@@ -241,32 +237,6 @@ class SessionStore: ObservableObject {
             }
         }
     }
-    
-    func loadAddress(latitude: Double, longitude: Double, completionHandler: @escaping (YandexGeo?, YandexGeoState) -> ()) {
-        
-        let parameters = YandexGeoParameters(
-            apikey: apiKeyForYandexGeo,
-            format: "json",
-            geocode: "\(longitude), \(latitude)",
-            results: "1",
-            kind: "house"
-        )
-        
-        AF.request(yandexGeoURL, method: .get, parameters: parameters)
-            .validate()
-            .responseDecodable(of: YandexGeo.self) { response in
-                switch response.result {
-                case .success:
-                    guard let yandexGeoResponse = response.value else { return }
-                    let yandexGeoState: YandexGeoState = .success
-                    completionHandler(yandexGeoResponse, yandexGeoState)
-                case .failure(let error):
-                    print(error)
-                    let yandexGeoState: YandexGeoState = .failure
-                    completionHandler(nil, yandexGeoState)
-                }
-        }
-    }
 }
 
 enum InspectionsLoadingState {
@@ -275,10 +245,6 @@ enum InspectionsLoadingState {
 
 enum UploadState {
     case upload, none
-}
-
-enum YandexGeoState {
-    case loading, failure, success
 }
 
 enum AlertMailType {

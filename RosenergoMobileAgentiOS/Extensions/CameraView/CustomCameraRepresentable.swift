@@ -12,6 +12,7 @@ import AVFoundation
 struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var locationStore: LocationStore
     
     @Binding var didTapCapture: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
@@ -43,7 +44,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
-                let imageWithText = uiimage!.addText(text: "Широта: \(parent.sessionStore.latitude)\nДолгота: \(parent.sessionStore.longitude)\nДата: \(parent.sessionStore.stringDate)", point: CGPoint(x: 20, y: 20))
+                let imageWithText = uiimage!.addText(text: "Широта: \(parent.locationStore.currentLocation!.coordinate.latitude)\nДолгота: \(parent.locationStore.currentLocation!.coordinate.longitude)\nДата: \(parent.sessionStore.stringDate)", point: CGPoint(x: 20, y: 20))
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)
                 parent.sessionStore.photosData.append(inspectionsImageData!)
             }

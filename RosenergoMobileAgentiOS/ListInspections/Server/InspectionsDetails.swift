@@ -8,14 +8,14 @@
 
 import SwiftUI
 import URLImage
+import CoreLocation
 
 struct InspectionsDetails: View {
     
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
-    @State private var yandexGeoState: YandexGeoState = .loading
-    @State private var yandexGeo: YandexGeo?
+    @State private var address: String = ""
     
     var inspection: Inspections
     
@@ -144,21 +144,7 @@ struct InspectionsDetails: View {
                 Button(action: {
                     presentMapActionSheet = true
                 }) {
-                    if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
-                        SectionItem(
-                            imageName: "map",
-                            imageColor: .rosenergo,
-                            subTitle: "Адрес места проведения осмотра",
-                            title: yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!
-                        )
-                    } else if yandexGeoState == .failure {
-                        SectionItem(
-                            imageName: "exclamationmark.triangle",
-                            imageColor: .yellow,
-                            subTitle: "Ошибка, не удалось определить адрес",
-                            title: "Проверьте подключение к интернету!"
-                        )
-                    } else if yandexGeoState == .loading {
+                    if address == "" {
                         HStack {
                             ProgressView()
                                 .frame(width: 24)
@@ -170,6 +156,13 @@ struct InspectionsDetails: View {
                                     .foregroundColor(.primary)
                             }
                         }
+                    } else {
+                        SectionItem(
+                            imageName: "map",
+                            imageColor: .rosenergo,
+                            subTitle: "Адрес места проведения осмотра",
+                            title: address
+                        )
                     }
                 }
             }
@@ -198,10 +191,13 @@ struct InspectionsDetails: View {
             ])
         }
         .onAppear {
-            if yandexGeo == nil {
-                sessionStore.loadAddress(latitude: inspection.latitude, longitude: inspection.longitude) { yandexGeoResponse, yandexGeoStateResponse in
-                    yandexGeo = yandexGeoResponse
-                    yandexGeoState = yandexGeoStateResponse
+            let location = CLLocation(latitude: inspection.latitude, longitude: inspection.longitude)
+            location.geocode { placemark, error in
+                if let error = error as? CLError {
+                    print("CLError:", error)
+                    return
+                } else if let placemark = placemark?.first {
+                    address = placemark.name!
                 }
             }
         }

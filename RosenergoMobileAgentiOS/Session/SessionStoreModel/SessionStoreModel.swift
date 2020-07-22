@@ -41,16 +41,6 @@ struct PhotoParameters: Encodable, Equatable {
     let maked_photo_at: String
 }
 
-// MARK: Параметры для запроса в Яндекс Геокодер.
-
-struct YandexGeoParameters: Encodable {
-    let apikey: String
-    let format: String
-    let geocode: String
-    let results: String
-    let kind: String
-}
-
 // MARK: Параметры для логина в приложение.
 
 struct LoginParameters: Codable {
@@ -127,78 +117,5 @@ struct DataClass: Codable, Identifiable {
         case updatedAt = "updated_at"
         case apiToken = "api_token"
         case agentID = "agent_id"
-    }
-}
-
-// MARK: Codable модель для загрузки Яндекс Геокодера.
-
-struct YandexGeo: Codable, Hashable {
-    let response: Response
-    
-    enum CodingKeys: String, CodingKey {
-        case response = "response"
-    }
-}
-
-struct Response: Codable, Hashable {
-    let geoObjectCollection: GeoObjectCollection
-
-    enum CodingKeys: String, CodingKey {
-        case geoObjectCollection = "GeoObjectCollection"
-    }
-}
-
-struct GeoObjectCollection: Codable, Hashable {
-    let featureMember: [FeatureMember]
-    
-    enum CodingKeys: String, CodingKey {
-        case featureMember = "featureMember"
-    }
-}
-
-struct FeatureMember: Codable, Hashable {
-    let geoObject: GeoObject
-
-    enum CodingKeys: String, CodingKey {
-        case geoObject = "GeoObject"
-    }
-}
-
-struct GeoObject: Codable, Hashable {
-    let metaDataProperty: MetaDataProperty
-    let name, description: String?
-
-    enum CodingKeys: String, CodingKey {
-        case metaDataProperty = "metaDataProperty"
-        case name = "name"
-        case description = "description"
-    }
-}
-
-struct MetaDataProperty: Codable, Hashable {
-    let geocoderMetaData: GeocoderMetaData
-
-    enum CodingKeys: String, CodingKey {
-        case geocoderMetaData = "GeocoderMetaData"
-    }
-}
-
-struct GeocoderMetaData: Codable, Hashable {
-    let precision, text, kind: String?
-    let address: Address
-
-    enum CodingKeys: String, CodingKey {
-        case precision, text, kind
-        case address = "Address"
-    }
-}
-
-struct Address: Codable, Hashable {
-    let countryCode, formatted, postalCode: String?
-
-    enum CodingKeys: String, CodingKey {
-        case countryCode = "country_code"
-        case formatted = "formatted"
-        case postalCode = "postal_code"
     }
 }

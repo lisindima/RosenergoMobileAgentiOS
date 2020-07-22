@@ -43,6 +43,7 @@ struct RootView: View {
                 UIApplication.shared.applicationIconBadgeNumber = 0
                 NotificationStore.shared.requestPermission()
                 NotificationStore.shared.refreshNotificationStatus()
+                LocationStore.shared.getLocation()
                 #endif
                 if SessionStore.shared.loginModel != nil {
                     SessionStore.shared.validateToken()

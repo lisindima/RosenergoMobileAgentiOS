@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct LocalInspectionsDetails: View {
     
@@ -19,8 +20,7 @@ struct LocalInspectionsDetails: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var presentMapActionSheet: Bool = false
-    @State private var yandexGeoState: YandexGeoState = .loading
-    @State private var yandexGeo: YandexGeo?
+    @State private var address: String = ""
     
     var localInspections: LocalInspections
     
@@ -182,21 +182,7 @@ struct LocalInspectionsDetails: View {
                     Button(action: {
                         presentMapActionSheet = true
                     }) {
-                        if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
-                            SectionItem(
-                                imageName: "map",
-                                imageColor: .rosenergo,
-                                subTitle: "Адрес места проведения осмотра",
-                                title: yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!
-                            )
-                        } else if yandexGeoState == .failure {
-                            SectionItem(
-                                imageName: "exclamationmark.triangle",
-                                imageColor: .yellow,
-                                subTitle: "Ошибка, не удалось определить адрес",
-                                title: "Проверьте подключение к интернету!"
-                            )
-                        } else if yandexGeoState == .loading {
+                        if address == "" {
                             HStack {
                                 ProgressView()
                                     .frame(width: 24)
@@ -208,6 +194,13 @@ struct LocalInspectionsDetails: View {
                                         .foregroundColor(.primary)
                                 }
                             }
+                        } else {
+                            SectionItem(
+                                imageName: "map",
+                                imageColor: .rosenergo,
+                                subTitle: "Адрес места проведения осмотра",
+                                title: address
+                            )
                         }
                     }
                 }
@@ -273,10 +266,13 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
-            if yandexGeo == nil {
-                sessionStore.loadAddress(latitude: localInspections.latitude, longitude: localInspections.longitude) { yandexGeoResponse, yandexGeoStateResponse in
-                    yandexGeo = yandexGeoResponse
-                    yandexGeoState = yandexGeoStateResponse
+            let location = CLLocation(latitude: localInspections.latitude, longitude: localInspections.longitude)
+            location.geocode { placemark, error in
+                if let error = error as? CLError {
+                    print("CLError:", error)
+                    return
+                } else if let placemark = placemark?.first {
+                    address = placemark.name!
                 }
             }
         }

@@ -13,6 +13,7 @@ import KeyboardObserving
 struct CreateInspections: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject var locationStore: LocationStore
     @EnvironmentObject private var notificationStore: NotificationStore
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
@@ -40,7 +41,7 @@ struct CreateInspections: View {
         #if targetEnvironment(simulator)
         showCustomCameraView = true
         #else
-        if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
+        if locationStore.currentLocation?.coordinate.latitude == 0 || locationStore.currentLocation?.coordinate.longitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
@@ -55,7 +56,7 @@ struct CreateInspections: View {
         
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photoParameters.append(PhotoParameters(latitude: sessionStore.latitude, longitude: sessionStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photoParameters.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
         
         sessionStore.uploadInspections(
@@ -69,8 +70,8 @@ struct CreateInspections: View {
             carBodyNumber2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
             carVin2: carVin2 == "" ? nil : carVin2,
             insuranceContractNumber2: insuranceContractSeries[indexSeries2!] + insuranceContractNumber2 == "" ? nil : insuranceContractSeries[indexSeries2!] + insuranceContractNumber2,
-            latitude: sessionStore.latitude,
-            longitude: sessionStore.longitude,
+            latitude: locationStore.currentLocation!.coordinate.latitude,
+            longitude: locationStore.currentLocation!.coordinate.longitude,
             photoParameters: photoParameters
         )
     }
@@ -79,8 +80,8 @@ struct CreateInspections: View {
         
         let id = UUID()
         let localInspections = LocalInspections(context: moc)
-        localInspections.latitude = sessionStore.latitude
-        localInspections.longitude = sessionStore.longitude
+        localInspections.latitude = locationStore.currentLocation!.coordinate.latitude
+        localInspections.longitude = locationStore.currentLocation!.coordinate.longitude
         localInspections.carBodyNumber = vinAndNumber ? carVin : carBodyNumber
         localInspections.carModel = carModel
         localInspections.carRegNumber = carRegNumber
@@ -257,6 +258,7 @@ struct CreateInspections: View {
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(sessionStore)
+                .environmentObject(locationStore)
                 .edgesIgnoringSafeArea(.vertical)
         }
         .navigationTitle("Новый осмотр")

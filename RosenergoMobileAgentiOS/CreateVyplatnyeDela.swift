@@ -12,6 +12,7 @@ import KeyboardObserving
 struct CreateVyplatnyeDela: View {
     
     @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject var locationStore: LocationStore
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showCustomCameraView: Bool = false
@@ -22,7 +23,7 @@ struct CreateVyplatnyeDela: View {
         #if targetEnvironment(simulator)
         showCustomCameraView = true
         #else
-        if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
+        if locationStore.currentLocation?.coordinate.latitude == 0 || locationStore.currentLocation?.coordinate.longitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
@@ -37,14 +38,14 @@ struct CreateVyplatnyeDela: View {
         
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photoParameters.append(PhotoParameters(latitude: sessionStore.latitude, longitude: sessionStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photoParameters.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
         
         sessionStore.uploadVyplatnyeDela(
             insuranceContractNumber: insuranceContractNumber,
             numberZayavlenia: numberZayavlenia,
-            latitude: sessionStore.latitude,
-            longitude: sessionStore.longitude,
+            latitude: locationStore.currentLocation!.coordinate.latitude,
+            longitude: locationStore.currentLocation!.coordinate.longitude,
             photos: photoParameters
         )
     }
@@ -91,6 +92,7 @@ struct CreateVyplatnyeDela: View {
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()
                 .environmentObject(sessionStore)
+                .environmentObject(locationStore)
                 .edgesIgnoringSafeArea(.vertical)
         }
         .navigationTitle("Выплатные дела")
