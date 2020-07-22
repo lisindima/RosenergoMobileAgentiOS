@@ -21,11 +21,15 @@ struct CreateVyplatnyeDela: View {
     @State private var numberZayavlenia: String = ""
     
     func openCamera() {
+        #if targetEnvironment(simulator)
+            showCustomCameraView = true
+        #else
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
             SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
         } else {
             showCustomCameraView = true
         }
+        #endif
     }
     
     var body: some View {

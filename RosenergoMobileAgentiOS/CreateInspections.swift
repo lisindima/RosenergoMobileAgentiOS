@@ -32,11 +32,15 @@ struct CreateInspections: View {
     @State private var insuranceContractNumber2: String = ""
     
     func openCamera() {
+        #if targetEnvironment(simulator)
+            showCustomCameraView = true
+        #else
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
             SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
         } else {
             showCustomCameraView = true
         }
+        #endif
     }
     
     private func uploadInspections() {
