@@ -29,10 +29,10 @@ struct CustomCameraView: View {
         ZStack(alignment: .bottom) {
             #if targetEnvironment(simulator)
             Color.green
-                .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea(edges: .all)
             #else
             CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
-                .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea(edges: .all)
             #endif
             VStack {
                 ScrollView(.horizontal, showsIndicators: false) {

@@ -74,7 +74,7 @@ struct LocalInspectionsDetails: View {
     var body: some View {
         #if os(watchOS)
         details
-            .edgesIgnoringSafeArea(.bottom)
+            .ignoresSafeArea(edges: .bottom)
         #else
         details
             .environment(\.horizontalSizeClass, .regular)
@@ -249,7 +249,6 @@ struct LocalInspectionsDetails: View {
                     }
                     Button(action: {}) {
                         Label("Удалить", systemImage: "trash")
-                            .foregroundColor(.red)
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle.fill")

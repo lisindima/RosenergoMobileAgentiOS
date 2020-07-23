@@ -258,7 +258,7 @@ struct CreateInspections: View {
             CustomCameraView()
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
-                .edgesIgnoringSafeArea(.vertical)
+                .ignoresSafeArea(edges: .vertical)
         }
         .navigationTitle("Новый осмотр")
         .alert(isPresented: $sessionStore.showAlert) {

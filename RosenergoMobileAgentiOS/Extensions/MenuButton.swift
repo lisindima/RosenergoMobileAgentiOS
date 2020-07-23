@@ -23,11 +23,11 @@ struct MenuButton: View {
                 Image(systemName: image)
                     .font(.largeTitle)
                     .foregroundColor(color)
+                    .padding(.bottom, 8)
                 Text(title)
                     .fontWeight(.bold)
                     .foregroundColor(color)
                     .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }

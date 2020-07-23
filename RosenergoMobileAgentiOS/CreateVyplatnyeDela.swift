@@ -92,7 +92,7 @@ struct CreateVyplatnyeDela: View {
             CustomCameraView()
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
-                .edgesIgnoringSafeArea(.vertical)
+                .ignoresSafeArea(edges: .vertical)
         }
         .navigationTitle("Выплатные дела")
         .alert(isPresented: $sessionStore.showAlert) {
