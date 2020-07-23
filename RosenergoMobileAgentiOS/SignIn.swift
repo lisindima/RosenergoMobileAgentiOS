@@ -71,7 +71,6 @@ struct SignIn: View {
                 sessionStore.login(email: email, password: password)
             }
             .padding()
-            .ignoresSafeArea(.keyboard)
         }
     }
     #endif
