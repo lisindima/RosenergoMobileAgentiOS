@@ -15,6 +15,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     @EnvironmentObject var locationStore: LocationStore
     
     @Binding var didTapCapture: Bool
+    @Binding var changeCamera: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
 
     func makeUIViewController(context: Context) -> CustomCameraController {
@@ -26,6 +27,9 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
         if didTapCapture {
             cameraViewController.didTapRecord(flashMode: flashMode)
+        }
+        if changeCamera {
+            cameraViewController.changeCamera()
         }
     }
     

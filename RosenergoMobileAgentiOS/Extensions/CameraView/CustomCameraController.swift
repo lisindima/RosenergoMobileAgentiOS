@@ -12,8 +12,9 @@ import AVFoundation
 class CustomCameraController: UIViewController {
     
     var captureSession = AVCaptureSession()
-    var backCamera: AVCaptureDevice?
-    var frontCamera: AVCaptureDevice?
+    var newCamera: AVCaptureDevice.Position = .back
+    var deviceInput: AVCaptureDeviceInput?
+    var selectCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     var photoOutput: AVCapturePhotoOutput?
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -24,12 +25,6 @@ class CustomCameraController: UIViewController {
         setup()
     }
     
-    func didTapRecord(flashMode: AVCaptureDevice.FlashMode) {
-        let settings = AVCapturePhotoSettings()
-        settings.flashMode = flashMode
-        photoOutput?.capturePhoto(with: settings, delegate: delegate!)
-    }
-    
     func setup() {
         setupCaptureSession()
         setupDevice()
@@ -38,30 +33,49 @@ class CustomCameraController: UIViewController {
         startRunningCaptureSession()
     }
     
+    func changeCamera() {
+        captureSession.removeInput(deviceInput!)
+        captureSession.removeOutput(photoOutput!)
+        if newCamera == .back {
+            newCamera = .front
+        } else if newCamera == .front {
+            newCamera = .back
+        }
+        setupDevice()
+        setupInputOutput()
+        captureSession.commitConfiguration()
+    }
+    
+    func didTapRecord(flashMode: AVCaptureDevice.FlashMode) {
+        let settings = AVCapturePhotoSettings()
+        settings.flashMode = flashMode
+        photoOutput?.capturePhoto(with: settings, delegate: delegate!)
+    }
+    
     func setupCaptureSession() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
     
     func setupDevice() {
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: newCamera)
         
         for device in deviceDiscoverySession.devices {
             switch device.position {
             case AVCaptureDevice.Position.front:
-                frontCamera = device
+                selectCamera = device
             case AVCaptureDevice.Position.back:
-                backCamera = device
+                selectCamera = device
             default:
                 break
             }
         }
-        currentCamera = backCamera
+        currentCamera = selectCamera
     }
     
     func setupInputOutput() {
         do {
-            let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
-            captureSession.addInput(captureDeviceInput)
+            deviceInput = try AVCaptureDeviceInput(device: currentCamera!)
+            captureSession.addInput(deviceInput!)
             photoOutput = AVCapturePhotoOutput()
             photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)

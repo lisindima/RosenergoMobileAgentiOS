@@ -15,6 +15,7 @@ struct CustomCameraView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var didTapCapture: Bool = false
+    @State private var changeCamera: Bool = false
     @State private var flashMode: AVCaptureDevice.FlashMode = .off
     
     func flashState() {
@@ -31,10 +32,16 @@ struct CustomCameraView: View {
             Color.green
                 .ignoresSafeArea(edges: .all)
             #else
-            CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
+            CustomCameraRepresentable(didTapCapture: $didTapCapture, changeCamera: $changeCamera, flashMode: $flashMode)
                 .ignoresSafeArea(edges: .all)
             #endif
-            VStack {
+            VStack(alignment: .trailing) {
+                Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(.secondary)
+                }.offset(x: -20, y: 50)
+                Spacer()
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
@@ -58,13 +65,13 @@ struct CustomCameraView: View {
                     }.padding()
                 }
                 HStack {
-                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                        Image(systemName: "xmark")
+                    Button(action: { changeCamera = true }) {
+                        Image(systemName: "arrow.triangle.2.circlepath.camera")
                             .frame(width: 24)
                             .imageScale(.large)
                             .padding(30)
-                            .background(Color.red.opacity(0.2))
-                            .foregroundColor(.red)
+                            .background(Color.rosenergo.opacity(0.4))
+                            .foregroundColor(.rosenergo)
                             .clipShape(Circle())
                     }.padding(.horizontal)
                     Spacer()
@@ -83,7 +90,7 @@ struct CustomCameraView: View {
                             .frame(width: 24)
                             .imageScale(.large)
                             .padding(30)
-                            .background(Color.rosenergo.opacity(0.2))
+                            .background(Color.rosenergo.opacity(0.4))
                             .foregroundColor(.rosenergo)
                             .clipShape(Circle())
                     }.padding(.horizontal)
