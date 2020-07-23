@@ -9,9 +9,7 @@
 import SwiftUI
 
 @main
-struct WatchApp: App {
-    
-    @Environment(\.scenePhase) private var scenePhase
+struct RosenergoApp: App {
     
     @StateObject var sessionStore = SessionStore.shared
     @StateObject var locationStore = LocationStore.shared

@@ -7,9 +7,6 @@
 //
 
 import SwiftUI
-#if !os(watchOS)
-import KeyboardObserving
-#endif
 
 struct SignIn: View {
     
@@ -26,7 +23,6 @@ struct SignIn: View {
             }
         #else
         phone
-            .keyboardObserving()
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
             .alert(isPresented: $sessionStore.showAlert) {
                 Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
@@ -73,7 +69,9 @@ struct SignIn: View {
                 .padding(.horizontal)
             CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
                 sessionStore.login(email: email, password: password)
-            }.padding()
+            }
+            .padding()
+            .ignoresSafeArea(.keyboard)
         }
     }
     #endif

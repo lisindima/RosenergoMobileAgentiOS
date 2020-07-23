@@ -19,7 +19,6 @@
 		CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57E2467FFB600CDBB1A /* ListInspections.swift */; };
 		CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
 		CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
-		CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E587246933B700CDBB1A /* KeyboardObserving */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
 		CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */; };
 		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
@@ -253,7 +252,6 @@
 				CB7CEFA224A9D6C2009DF93A /* NativeSearchBar in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
-				CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +516,6 @@
 			name = RosenergoMobileAgentiOS;
 			packageProductDependencies = (
 				CB17E5732466654E00CDBB1A /* Alamofire */,
-				CB17E587246933B700CDBB1A /* KeyboardObserving */,
 				CB870229249C5FF400B5DA72 /* URLImage */,
 				CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */,
 			);
@@ -618,7 +615,6 @@
 			mainGroup = CB17E54F2466644400CDBB1A;
 			packageReferences = (
 				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
-				CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */,
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
 				CB7CEFA024A9D6C2009DF93A /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
 			);
@@ -1187,14 +1183,6 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nickffox/KeyboardObserving";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.0;
-			};
-		};
 		CB7CEFA024A9D6C2009DF93A /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
@@ -1218,11 +1206,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		CB17E587246933B700CDBB1A /* KeyboardObserving */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB17E586246933B600CDBB1A /* XCRemoteSwiftPackageReference "KeyboardObserving" */;
-			productName = KeyboardObserving;
 		};
 		CB7CEFA124A9D6C2009DF93A /* NativeSearchBar */ = {
 			isa = XCSwiftPackageProductDependency;

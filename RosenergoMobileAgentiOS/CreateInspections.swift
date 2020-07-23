@@ -8,7 +8,6 @@
 
 import SwiftUI
 import CoreData
-import KeyboardObserving
 
 struct CreateInspections: View {
     
@@ -244,6 +243,7 @@ struct CreateInspections: View {
                             }
                         }.padding(.leading, 4)
                     }
+                    .ignoresSafeArea(.keyboard)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 } else if sessionStore.uploadState == .upload {
@@ -253,7 +253,6 @@ struct CreateInspections: View {
                 }
             }
         }
-        .keyboardObserving()
         .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()

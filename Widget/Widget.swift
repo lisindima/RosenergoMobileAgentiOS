@@ -37,12 +37,6 @@ struct SimpleEntry: TimelineEntry {
     public let date: Date
 }
 
-struct PlaceholderView: View {
-    var body: some View {
-        ProgressView()
-    }
-}
-
 struct WidgetEntryView: View {
     var entry: Provider.Entry
 
@@ -83,10 +77,10 @@ struct WidgetApp: Widget {
     private let kind: String = "Widget"
 
     public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider(), placeholder: PlaceholderView()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
             Test()
         }
-        .configurationDisplayName("Мобильный агент")
+        .configurationDisplayName("Осмотры")
         .description("Виджет, который покажет, есть ли не отправленные осмотры.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import KeyboardObserving
 
 struct CreateVyplatnyeDela: View {
     
@@ -78,6 +77,7 @@ struct CreateVyplatnyeDela: View {
                             uploadVyplatnyeDela()
                         }
                     }
+                    .ignoresSafeArea(.keyboard)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 } else if sessionStore.uploadState == .upload {
@@ -87,7 +87,6 @@ struct CreateVyplatnyeDela: View {
                 }
             }
         }
-        .keyboardObserving()
         .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView()

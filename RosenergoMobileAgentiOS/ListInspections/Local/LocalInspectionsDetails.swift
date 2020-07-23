@@ -229,6 +229,7 @@ struct LocalInspectionsDetails: View {
         }
         .navigationTitle("Не отправлено")
         .toolbar {
+            #if os(watchOS)
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {
                     print("Поделиться")
@@ -237,6 +238,25 @@ struct LocalInspectionsDetails: View {
                         .imageScale(.large)
                 }
             }
+            #else
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    Button(action: {}) {
+                        Label("Изменить", systemImage: "pencil")
+                    }
+                    Button(action: {}) {
+                        Label("Поделиться", systemImage: "square.and.arrow.up")
+                    }
+                    Button(action: {}) {
+                        Label("Удалить", systemImage: "trash")
+                            .foregroundColor(.red)
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle.fill")
+                        .imageScale(.large)
+                }
+            }
+            #endif
         }
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [
