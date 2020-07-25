@@ -182,26 +182,12 @@ struct LocalInspectionsDetails: View {
                     Button(action: {
                         presentMapActionSheet = true
                     }) {
-                        if address == "" {
-                            HStack {
-                                ProgressView()
-                                    .frame(width: 24)
-                                VStack(alignment: .leading) {
-                                    Text("Определяем адрес осмотра")
-                                        .font(.system(size: 11))
-                                        .foregroundColor(.secondary)
-                                    Text("Загрузка")
-                                        .foregroundColor(.primary)
-                                }
-                            }
-                        } else {
-                            SectionItem(
-                                imageName: "map",
-                                imageColor: .rosenergo,
-                                subTitle: "Адрес места проведения осмотра",
-                                title: address
-                            )
-                        }
+                        SectionItem(
+                            imageName: "map",
+                            imageColor: .rosenergo,
+                            subTitle: "Адрес места проведения осмотра",
+                            title: address
+                        )
                     }
                 }
             }

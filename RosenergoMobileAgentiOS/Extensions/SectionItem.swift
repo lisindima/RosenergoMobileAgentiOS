@@ -35,6 +35,7 @@ struct SectionItem: View {
                     .foregroundColor(.secondary)
                 primaryTitle
                     .foregroundColor(.primary)
+                    //.redacted(reason: .placeholder)
             }
         }
     }
@@ -58,5 +59,16 @@ struct SectionButton: View {
                     .foregroundColor(titleColor)
             }
         }
+    }
+}
+
+struct SectionItem_Previews: PreviewProvider {
+    static var previews: some View {
+        SectionItem(
+            imageName: "map",
+            imageColor: .rosenergo,
+            subTitle: "Адрес места проведения осмотра",
+            title: "Пролетарская, 114 "
+        )
     }
 }
