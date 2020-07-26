@@ -13,14 +13,14 @@ struct SectionItem: View {
     var imageName: String
     var imageColor: Color
     var subTitle: String
-    var title: String
+    var title: String?
     
     @ViewBuilder var primaryTitle: Text {
         #if os(watchOS)
-        Text(title)
+        Text(title ?? "Пролетарская, 114")
             .font(.footnote)
         #else
-        Text(title)
+        Text(title ?? "Пролетарская, 114")
         #endif
     }
     
@@ -35,7 +35,7 @@ struct SectionItem: View {
                     .foregroundColor(.secondary)
                 primaryTitle
                     .foregroundColor(.primary)
-                    //.redacted(reason: .placeholder)
+                    .redacted(reason: title == nil ? .placeholder : [])
             }
         }
     }
@@ -68,7 +68,7 @@ struct SectionItem_Previews: PreviewProvider {
             imageName: "map",
             imageColor: .rosenergo,
             subTitle: "Адрес места проведения осмотра",
-            title: "Пролетарская, 114 "
+            title: "Пролетарская, 114"
         )
     }
 }

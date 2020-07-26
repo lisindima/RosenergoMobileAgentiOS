@@ -15,7 +15,7 @@ struct InspectionsDetails: View {
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
-    @State private var address: String = ""
+    @State private var address: String?
     
     var inspection: Inspections
     
