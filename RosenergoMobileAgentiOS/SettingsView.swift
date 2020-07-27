@@ -14,7 +14,7 @@ import WidgetKit
 
 struct SettingsView: View {
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionStore: SessionStore
     
     #if !os(watchOS)

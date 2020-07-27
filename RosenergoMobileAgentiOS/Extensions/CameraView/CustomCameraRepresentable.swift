@@ -11,8 +11,8 @@ import AVFoundation
 
 struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
-    @EnvironmentObject var sessionStore: SessionStore
-    @EnvironmentObject var locationStore: LocationStore
+    @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var locationStore: LocationStore
     
     @Binding var didTapCapture: Bool
     @Binding var changeCamera: Bool

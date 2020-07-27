@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SignIn: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     
     @State private var email: String = ""
     @State private var password: String = ""

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GeoIndicator: View {
     
-    @EnvironmentObject var locationStore: LocationStore
+    @EnvironmentObject private var locationStore: LocationStore
     
     var body: some View {
         ZStack {

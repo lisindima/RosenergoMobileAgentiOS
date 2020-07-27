@@ -16,8 +16,8 @@ struct LocalInspectionsDetails: View {
     @EnvironmentObject private var notificationStore: NotificationStore
     #endif
     
-    @Environment(\.managedObjectContext) var moc
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.presentationMode) private var presentationMode
     
     @State private var presentMapActionSheet: Bool = false
     @State private var address: String = ""

@@ -12,7 +12,7 @@ import CoreLocation
 
 struct InspectionsDetails: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
     @State private var address: String?

@@ -10,9 +10,9 @@ import SwiftUI
 
 struct CreateVyplatnyeDela: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
-    @EnvironmentObject var locationStore: LocationStore
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var locationStore: LocationStore
+    @Environment(\.presentationMode) private var presentationMode
     
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""

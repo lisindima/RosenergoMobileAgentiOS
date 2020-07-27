@@ -13,7 +13,7 @@ struct ListInspections: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var notificationStore: NotificationStore
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     

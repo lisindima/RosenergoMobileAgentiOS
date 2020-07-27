@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RootView: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
+    @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.scenePhase) private var scenePhase
     
     #if !os(watchOS)

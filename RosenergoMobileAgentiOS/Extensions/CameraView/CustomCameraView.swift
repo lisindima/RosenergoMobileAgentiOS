@@ -11,8 +11,8 @@ import AVFoundation
 
 struct CustomCameraView: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject private var sessionStore: SessionStore
+    @Environment(\.presentationMode) private var presentationMode
     
     @State private var didTapCapture: Bool = false
     @State private var changeCamera: Bool = false

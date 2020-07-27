@@ -10,8 +10,8 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @EnvironmentObject var sessionStore: SessionStore
-    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject private var sessionStore: SessionStore
+    @Environment(\.managedObjectContext) private var moc
     
     private var appVersionView: Text {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
@@ -40,11 +40,5 @@ struct MenuView: View {
                     .font(.footnote)
             }.navigationTitle("Мобильный агент")
         }
-    }
-}
-
-struct MenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        MenuView()
     }
 }

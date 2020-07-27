@@ -12,10 +12,10 @@ import CoreData
 struct CreateInspections: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
-    @EnvironmentObject var locationStore: LocationStore
+    @EnvironmentObject private var locationStore: LocationStore
     @EnvironmentObject private var notificationStore: NotificationStore
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.managedObjectContext) private var moc
     
     @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
@@ -121,15 +121,7 @@ struct CreateInspections: View {
             ScrollView {
                 GeoIndicator()
                     .padding(.top, 8)
-                    .padding(.horizontal)
-                Picker("", selection: $choiseCar) {
-                    Text("Один автомобиль").tag(0)
-                    Text("Два автомобиля").tag(1)
-                }
-                .labelsHidden()
-                .padding(.horizontal)
-                .padding(.bottom)
-                .pickerStyle(SegmentedPickerStyle())
+                    .padding([.horizontal, .bottom])
                 VStack {
                     Group {
                         GroupBox(label:
@@ -260,6 +252,18 @@ struct CreateInspections: View {
                 .ignoresSafeArea(edges: .vertical)
         }
         .navigationTitle("Новый осмотр")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Picker("", selection: $choiseCar) {
+                    Image(systemName: "car")
+                        .tag(0)
+                    Image(systemName: "car.2")
+                        .tag(1)
+                }
+                .labelsHidden()
+                .pickerStyle(SegmentedPickerStyle())
+            }
+        }
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:
