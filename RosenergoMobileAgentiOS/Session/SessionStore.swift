@@ -48,13 +48,13 @@ class SessionStore: ObservableObject {
     let yandexGeoURL: String = "https://geocode-maps.yandex.ru/1.x/"
     let apiKeyForYandexGeo: String = "deccec14-fb7f-40da-8be0-be3f7e6f2d8c"
     
-    let stringDate: String = {
-        var currentDate: Date = Date()
+    func stringDate() -> String {
+        let currentDate: Date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let createStringDate = dateFormatter.string(from: currentDate)
         return createStringDate
-    }()
+    }
     
     var locationManager = CLLocationManager()
     
