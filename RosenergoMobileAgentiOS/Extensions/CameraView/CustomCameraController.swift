@@ -34,6 +34,7 @@ class CustomCameraController: UIViewController {
     }
     
     func changeCamera() {
+        captureSession.beginConfiguration()
         captureSession.removeInput(deviceInput!)
         captureSession.removeOutput(photoOutput!)
         if newCamera == .back {
@@ -74,11 +75,17 @@ class CustomCameraController: UIViewController {
     
     func setupInputOutput() {
         do {
-            deviceInput = try AVCaptureDeviceInput(device: currentCamera!)
-            captureSession.addInput(deviceInput!)
-            photoOutput = AVCapturePhotoOutput()
-            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
-            captureSession.addOutput(photoOutput!)
+            let setDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
+            if captureSession.canAddInput(setDeviceInput) {
+                captureSession.addInput(setDeviceInput)
+                deviceInput = setDeviceInput
+            }
+            let setPhotoOutput = AVCapturePhotoOutput()
+            setPhotoOutput.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
+            if captureSession.canAddOutput(setPhotoOutput) {
+                captureSession.addOutput(setPhotoOutput)
+                photoOutput = setPhotoOutput
+            }
         } catch {
             print(error)
         }

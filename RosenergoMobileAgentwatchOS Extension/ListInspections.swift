@@ -78,9 +78,3 @@ struct ListInspections: View {
         .navigationTitle("Осмотры")
     }
 }
-
-struct ListInspections_Previews: PreviewProvider {
-    static var previews: some View {
-        ListInspections()
-    }
-}

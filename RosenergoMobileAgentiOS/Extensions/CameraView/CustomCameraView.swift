@@ -16,13 +16,19 @@ struct CustomCameraView: View {
     
     @State private var didTapCapture: Bool = false
     @State private var changeCamera: Bool = false
-    @State private var flashMode: AVCaptureDevice.FlashMode = .off
+    @State private var flashMode: AVCaptureDevice.FlashMode = .auto
+    @State private var setImageFlashButton: String = "bolt.badge.a"
     
     func flashState() {
-        if flashMode == .on {
-            flashMode = .off
-        } else if flashMode == .off {
+        if flashMode == .auto {
             flashMode = .on
+            setImageFlashButton = "bolt"
+        } else if flashMode == .on {
+            flashMode = .off
+            setImageFlashButton = "bolt.slash"
+        } else if flashMode == .off {
+            flashMode = .auto
+            setImageFlashButton = "bolt.badge.a"
         }
     }
     
@@ -70,8 +76,8 @@ struct CustomCameraView: View {
                             .frame(width: 24)
                             .imageScale(.large)
                             .padding(30)
-                            .background(Color.rosenergo.opacity(0.4))
-                            .foregroundColor(.rosenergo)
+                            .background(Color.rosenergo.opacity(0.5))
+                            .foregroundColor(.white)
                             .clipShape(Circle())
                     }.padding(.horizontal)
                     Spacer()
@@ -80,18 +86,18 @@ struct CustomCameraView: View {
                             .frame(width: 24)
                             .imageScale(.large)
                             .padding(30)
-                            .background(Color.rosenergo)
+                            .background(Color.red)
                             .foregroundColor(.white)
                             .clipShape(Circle())
                     }
                     Spacer()
                     Button(action: flashState) {
-                        Image(systemName: flashMode == .on ? "bolt" : "bolt.slash")
+                        Image(systemName: setImageFlashButton)
                             .frame(width: 24)
                             .imageScale(.large)
                             .padding(30)
-                            .background(Color.rosenergo.opacity(0.4))
-                            .foregroundColor(.rosenergo)
+                            .background(Color.rosenergo.opacity(0.5))
+                            .foregroundColor(.white)
                             .clipShape(Circle())
                     }.padding(.horizontal)
                 }.padding(.bottom, 30)
