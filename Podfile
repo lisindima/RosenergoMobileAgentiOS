@@ -7,4 +7,5 @@ target 'RosenergoMobileAgentiOS' do
 
   # Pods for RosenergoMobileAgentiOS
 	pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
 end
