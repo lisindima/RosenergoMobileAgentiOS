@@ -103,5 +103,5 @@ struct Notification: Identifiable {
 }
 
 extension Defaults.Keys {
-    static let notifyHour = Key<Int>("notifyHour", default: 24)
+    static let notifyHour = Key<Int>("notifyHour", default: 5)
 }

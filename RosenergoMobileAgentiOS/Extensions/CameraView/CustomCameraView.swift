@@ -15,13 +15,19 @@ struct CustomCameraView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var didTapCapture: Bool = false
-    @State private var flashMode: AVCaptureDevice.FlashMode = .off
+    @State private var flashMode: AVCaptureDevice.FlashMode = .auto
+    @State private var setImageFlashButton: String = "bolt.badge.a"
     
     func flashState() {
-        if flashMode == .on {
-            flashMode = .off
-        } else if flashMode == .off {
+        if flashMode == .auto {
             flashMode = .on
+            setImageFlashButton = "bolt"
+        } else if flashMode == .on {
+            flashMode = .off
+            setImageFlashButton = "bolt.slash"
+        } else if flashMode == .off {
+            flashMode = .auto
+            setImageFlashButton = "bolt.badge.a"
         }
     }
     
@@ -34,7 +40,13 @@ struct CustomCameraView: View {
             CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
                 .edgesIgnoringSafeArea(.all)
             #endif
-            VStack {
+            VStack(alignment: .trailing) {
+                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(.secondary)
+                }.offset(x: -20, y: 30)
+                Spacer()
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(sessionStore.photoParameters.reversed(), id: \.file) { photo in
@@ -58,15 +70,14 @@ struct CustomCameraView: View {
                     }.padding()
                 }
                 HStack {
-                    Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                        Image(systemName: "xmark")
-                            .frame(width: 24)
-                            .imageScale(.large)
-                            .padding(30)
-                            .background(Color.red.opacity(0.2))
-                            .foregroundColor(.red)
-                            .clipShape(Circle())
-                    }.padding(.horizontal)
+                    Image(systemName: "xmark")
+                        .frame(width: 24)
+                        .imageScale(.large)
+                        .padding(30)
+                        .background(Color.clear.opacity(0.0))
+                        .foregroundColor(.clear)
+                        .clipShape(Circle())
+                        .padding(.horizontal)
                     Spacer()
                     Button(action: { self.didTapCapture = true }) {
                         Image(systemName: "camera")
@@ -79,12 +90,12 @@ struct CustomCameraView: View {
                     }
                     Spacer()
                     Button(action: flashState) {
-                        Image(systemName: flashMode == .on ? "bolt" : "bolt.slash")
+                        Image(systemName: setImageFlashButton)
                             .frame(width: 24)
                             .imageScale(.large)
                             .padding(30)
-                            .background(Color.rosenergo.opacity(0.2))
-                            .foregroundColor(.rosenergo)
+                            .background(Color.rosenergo.opacity(0.5))
+                            .foregroundColor(.white)
                             .clipShape(Circle())
                     }.padding(.horizontal)
                 }.padding(.bottom, 30)
