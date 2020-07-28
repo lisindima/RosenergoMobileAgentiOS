@@ -18,7 +18,7 @@ struct CreateInspections: View {
     @Environment(\.managedObjectContext) private var moc
     
     @State private var showCustomCameraView: Bool = false
-    @State private var choiseCar: Int = 0
+    @State private var choiceCar: Int = 0
     @State private var carModel: String = ""
     @State private var carModel2: String = ""
     @State private var carVin: String = ""
@@ -102,7 +102,7 @@ struct CreateInspections: View {
         
         localInspections.localPhotos = Set(localPhotos)
         
-        if choiseCar == 1 {
+        if choiceCar == 1 {
             localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
             localInspections.carModel2 = carModel2
             localInspections.carRegNumber2 = carRegNumber2
@@ -151,7 +151,7 @@ struct CreateInspections: View {
                     }.padding(.horizontal)
                     ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
                         .padding()
-                    if choiseCar == 1 {
+                    if choiceCar == 1 {
                         Divider()
                             .padding([.horizontal, .bottom])
                         Group {
@@ -189,7 +189,7 @@ struct CreateInspections: View {
                 if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            if choiseCar == 0 {
+                            if choiceCar == 0 {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
@@ -199,7 +199,7 @@ struct CreateInspections: View {
                                 } else {
                                     uploadInspections()
                                 }
-                            } else if choiseCar == 1 {
+                            } else if choiceCar == 1 {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || indexSeries2 == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
@@ -212,7 +212,7 @@ struct CreateInspections: View {
                             }
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                            if choiseCar == 0 {
+                            if choiceCar == 0 {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
@@ -222,7 +222,7 @@ struct CreateInspections: View {
                                 } else {
                                     saveInspections()
                                 }
-                            } else if choiseCar == 1 {
+                            } else if choiceCar == 1 {
                                 if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || indexSeries2 == nil {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
@@ -254,7 +254,7 @@ struct CreateInspections: View {
         .navigationTitle("Новый осмотр")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Picker("", selection: $choiseCar) {
+                Picker("", selection: $choiceCar) {
                     Image(systemName: "car")
                         .tag(0)
                     Image(systemName: "car.2")

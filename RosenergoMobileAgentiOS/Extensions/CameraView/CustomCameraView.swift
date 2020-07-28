@@ -16,6 +16,7 @@ struct CustomCameraView: View {
     
     @State private var didTapCapture: Bool = false
     @State private var changeCamera: Bool = false
+    @State private var choiceMode: Int = 0
     @State private var flashMode: AVCaptureDevice.FlashMode = .auto
     @State private var setImageFlashButton: String = "bolt.badge.a"
     
@@ -42,13 +43,7 @@ struct CustomCameraView: View {
                 CustomCameraRepresentable(didTapCapture: $didTapCapture, changeCamera: $changeCamera, flashMode: $flashMode)
                     .ignoresSafeArea(edges: .all)
                 #endif
-                VStack(alignment: .trailing) {
-                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(.secondary)
-                    }.offset(x: -20, y: 50)
-                    Spacer()
+                VStack {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
@@ -63,18 +58,20 @@ struct CustomCameraView: View {
                         }.padding()
                     }
                     HStack {
-                        Button(action: { changeCamera = true }) {
-                            Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                .frame(width: 24)
-                                .imageScale(.large)
-                                .padding(30)
-                                .background(Color.rosenergo.opacity(0.5))
-                                .foregroundColor(.white)
-                                .clipShape(Circle())
-                        }.padding(.horizontal)
+                        if choiceMode == 0 {
+                            Button(action: { changeCamera = true }) {
+                                Image(systemName: "arrow.triangle.2.circlepath.camera")
+                                    .frame(width: 24)
+                                    .imageScale(.large)
+                                    .padding(30)
+                                    .background(Color.rosenergo.opacity(0.5))
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+                            }.padding(.horizontal)
+                        }
                         Spacer()
                         Button(action: { didTapCapture = true }) {
-                            Image(systemName: "camera")
+                            Image(systemName: choiceMode == 0 ? "camera" : "video")
                                 .frame(width: 24)
                                 .imageScale(.large)
                                 .padding(30)
@@ -83,16 +80,37 @@ struct CustomCameraView: View {
                                 .clipShape(Circle())
                         }
                         Spacer()
-                        Button(action: flashState) {
-                            Image(systemName: setImageFlashButton)
-                                .frame(width: 24)
-                                .imageScale(.large)
-                                .padding(30)
-                                .background(Color.rosenergo.opacity(0.5))
-                                .foregroundColor(.white)
-                                .clipShape(Circle())
-                        }.padding(.horizontal)
-                    }.padding(.bottom, 30)
+                        if choiceMode == 0 {
+                            Button(action: flashState) {
+                                Image(systemName: setImageFlashButton)
+                                    .frame(width: 24)
+                                    .imageScale(.large)
+                                    .padding(30)
+                                    .background(Color.rosenergo.opacity(0.5))
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+                            }.padding(.horizontal)
+                        }
+                    }.padding(.bottom)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Picker("", selection: $choiceMode) {
+                        Image(systemName: "camera")
+                            .tag(0)
+                        Image(systemName: "video")
+                            .tag(1)
+                    }
+                    .labelsHidden()
+                    .pickerStyle(SegmentedPickerStyle())
                 }
             }
         }
