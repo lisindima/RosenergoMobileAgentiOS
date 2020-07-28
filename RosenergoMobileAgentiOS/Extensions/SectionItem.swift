@@ -12,8 +12,18 @@ struct SectionItem: View {
     
     var imageName: String
     var imageColor: Color
-    var subTitle: String
+    var subTitle: String = ""
     var title: String?
+    
+    @ViewBuilder var secondaryTitle: Text {
+        #if os(watchOS)
+        Text(subTitle)
+            .font(.system(size: 11))
+        #else
+        Text(subTitle)
+            .font(.caption)
+        #endif
+    }
     
     @ViewBuilder var primaryTitle: Text {
         #if os(watchOS)
@@ -30,9 +40,10 @@ struct SectionItem: View {
                 .frame(width: 24)
                 .foregroundColor(imageColor)
             VStack(alignment: .leading) {
-                Text(subTitle)
-                    .font(.system(size: 11))
-                    .foregroundColor(.secondary)
+                if subTitle != "" {
+                    secondaryTitle
+                        .foregroundColor(.secondary)
+                }
                 primaryTitle
                     .foregroundColor(.primary)
                     .redacted(reason: title == nil ? .placeholder : [])

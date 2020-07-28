@@ -101,11 +101,10 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 if localInspections.dateInspections != nil {
-                    Section(header: Text("Дата осмотра").fontWeight(.bold)) {
+                    Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
                         SectionItem(
                             imageName: "timer",
                             imageColor: .rosenergo,
-                            subTitle: "Дата создания осмотра",
                             title: localInspections.dateInspections!.dataInspection(local: true)
                         )
                     }
@@ -185,7 +184,6 @@ struct LocalInspectionsDetails: View {
                         SectionItem(
                             imageName: "map",
                             imageColor: .rosenergo,
-                            subTitle: "Адрес места проведения осмотра",
                             title: address
                         )
                     }
@@ -277,7 +275,7 @@ struct LocalInspectionsDetails: View {
                     print("CLError:", error)
                     return
                 } else if let placemark = placemark?.first {
-                    address = placemark.name!
+                    address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
                 }
             }
         }
