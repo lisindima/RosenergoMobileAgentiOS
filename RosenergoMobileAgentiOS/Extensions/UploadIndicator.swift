@@ -11,7 +11,6 @@ import SwiftUI
 struct UploadIndicator: View {
     
     @Binding var progress: Double
-    var color: Color
     
     var body: some View {
         Group {
@@ -32,12 +31,12 @@ struct UploadIndicator: View {
                             Rectangle()
                                 .frame(height: 53)
                                 .cornerRadius(8)
-                                .foregroundColor(color)
+                                .foregroundColor(.rosenergo)
                                 .opacity(0.2)
                             Rectangle()
                                 .frame(width: CGFloat(progress) * geometry.size.width, height: 53)
                                 .cornerRadius(8)
-                                .foregroundColor(color)
+                                .foregroundColor(.rosenergo)
                                 .animation(.linear)
                             HStack {
                                 Spacer()

@@ -33,75 +33,97 @@ struct CustomCameraView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            #if targetEnvironment(simulator)
-            Color.green
-                .ignoresSafeArea(edges: .all)
-            #else
-            CustomCameraRepresentable(didTapCapture: $didTapCapture, changeCamera: $changeCamera, flashMode: $flashMode)
-                .ignoresSafeArea(edges: .all)
-            #endif
-            VStack(alignment: .trailing) {
-                Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundColor(.secondary)
-                }.offset(x: -20, y: 50)
-                Spacer()
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
-                            ZStack {
-                                Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .frame(width: 100, height: 100)
-                                    .cornerRadius(10)
-                                Button(action: {
-                                    if let index = sessionStore.photosData.firstIndex(of: photo) {
-                                        sessionStore.photosData.remove(at: index)
-                                    }
-                                }) {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .imageScale(.large)
-                                        .foregroundColor(.red)
-                                }.offset(x: 50, y: -50)
-                            }.padding(.trailing, 8)
-                        }
-                    }.padding()
-                }
-                HStack {
-                    Button(action: { changeCamera = true }) {
-                        Image(systemName: "arrow.triangle.2.circlepath.camera")
-                            .frame(width: 24)
-                            .imageScale(.large)
-                            .padding(30)
-                            .background(Color.rosenergo.opacity(0.5))
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                    }.padding(.horizontal)
+        NavigationView {
+            ZStack(alignment: .bottom) {
+                #if targetEnvironment(simulator)
+                Color.green
+                    .ignoresSafeArea(edges: .all)
+                #else
+                CustomCameraRepresentable(didTapCapture: $didTapCapture, changeCamera: $changeCamera, flashMode: $flashMode)
+                    .ignoresSafeArea(edges: .all)
+                #endif
+                VStack(alignment: .trailing) {
+                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.secondary)
+                    }.offset(x: -20, y: 50)
                     Spacer()
-                    Button(action: { didTapCapture = true }) {
-                        Image(systemName: "camera")
-                            .frame(width: 24)
-                            .imageScale(.large)
-                            .padding(30)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
+                                NavigationLink(destination: CustomCameraImageDetails(photos: sessionStore.photosData)) {
+                                    Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }.padding()
                     }
-                    Spacer()
-                    Button(action: flashState) {
-                        Image(systemName: setImageFlashButton)
-                            .frame(width: 24)
-                            .imageScale(.large)
-                            .padding(30)
-                            .background(Color.rosenergo.opacity(0.5))
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                    }.padding(.horizontal)
-                }.padding(.bottom, 30)
+                    HStack {
+                        Button(action: { changeCamera = true }) {
+                            Image(systemName: "arrow.triangle.2.circlepath.camera")
+                                .frame(width: 24)
+                                .imageScale(.large)
+                                .padding(30)
+                                .background(Color.rosenergo.opacity(0.5))
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }.padding(.horizontal)
+                        Spacer()
+                        Button(action: { didTapCapture = true }) {
+                            Image(systemName: "camera")
+                                .frame(width: 24)
+                                .imageScale(.large)
+                                .padding(30)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }
+                        Spacer()
+                        Button(action: flashState) {
+                            Image(systemName: setImageFlashButton)
+                                .frame(width: 24)
+                                .imageScale(.large)
+                                .padding(30)
+                                .background(Color.rosenergo.opacity(0.5))
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }.padding(.horizontal)
+                    }.padding(.bottom, 30)
+                }
             }
         }
+    }
+}
+
+struct CustomCameraImageDetails: View {
+    
+    @GestureState var scale: CGFloat = 1.0
+    @State private var selectionImage: Int = 1
+    
+    var photos: [Data]
+    
+    var body: some View {
+        TabView(selection: $selectionImage) {
+            ForEach(photos, id: \.self) { photo in
+                Image(uiImage: UIImage(data: photo)!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .scaleEffect(scale)
+                    .gesture(
+                        MagnificationGesture()
+                            .updating($scale, body: { value, scale, trans in
+                                scale = value.magnitude
+                            }
+                            )
+                    )
+            }
+        }
+        .tabViewStyle(PageTabViewStyle())
+        .navigationTitle("\(selectionImage) из \(photos.count)")
+        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
 }

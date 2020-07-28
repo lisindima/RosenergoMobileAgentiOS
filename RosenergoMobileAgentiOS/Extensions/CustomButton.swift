@@ -32,10 +32,10 @@ struct CustomButton: View {
                 Spacer()
             }
         }
+        .disabled(loading)
         .padding()
         .background(colorButton)
         .cornerRadius(8)
-        .hoverEffect(.highlight)
     }
 }
 
@@ -65,3 +65,29 @@ struct ImageButton: View {
         }
     }
 }
+
+struct MenuButton: View {
+    
+    var title: String
+    var image: String
+    var color: Color
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(color.opacity(0.2))
+                .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
+            VStack {
+                Image(systemName: image)
+                    .font(.largeTitle)
+                    .foregroundColor(color)
+                    .padding(.bottom, 8)
+                Text(title)
+                    .fontWeight(.bold)
+                    .foregroundColor(color)
+                    .multilineTextAlignment(.center)
+            }
+        }
+    }
+}
+

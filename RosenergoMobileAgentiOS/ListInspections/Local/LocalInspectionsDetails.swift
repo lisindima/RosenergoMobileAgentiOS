@@ -205,7 +205,7 @@ struct LocalInspectionsDetails: View {
                 #endif
             } else if sessionStore.uploadState == .upload {
                 #if os(iOS)
-                UploadIndicator(progress: $sessionStore.uploadProgress, color: .rosenergo)
+                UploadIndicator(progress: $sessionStore.uploadProgress)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 #else

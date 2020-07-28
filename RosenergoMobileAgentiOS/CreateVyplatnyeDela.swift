@@ -80,7 +80,7 @@ struct CreateVyplatnyeDela: View {
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 } else if sessionStore.uploadState == .upload {
-                    UploadIndicator(progress: $sessionStore.uploadProgress, color: .rosenergo)
+                    UploadIndicator(progress: $sessionStore.uploadProgress)
                         .padding(.horizontal)
                         .padding(.bottom, 8)
                 }
