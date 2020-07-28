@@ -58,6 +58,6 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 extension CLLocation {
     func geocode(completion: @escaping (_ placemark: [CLPlacemark]?, _ error: Error?) -> Void)  {
-        CLGeocoder().reverseGeocodeLocation(self, completionHandler: completion)
+        CLGeocoder().reverseGeocodeLocation(self, preferredLocale: .init(identifier: "ru"), completionHandler: completion)
     }
 }
