@@ -11,11 +11,12 @@ import AVFoundation
 
 struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
+    @ObservedObject private var events: UserEvents = UserEvents.shared
+    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
     
     @Binding var didTapCapture: Bool
-    @Binding var changeCamera: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
 
     func makeUIViewController(context: Context) -> CustomCameraController {
@@ -28,7 +29,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
         if didTapCapture {
             cameraViewController.didTapRecord(flashMode: flashMode)
         }
-        if changeCamera {
+        if events.changeCamera {
             cameraViewController.changeCamera()
         }
     }
@@ -37,11 +38,15 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, CameraViewControllerDelegate {
         let parent: CustomCameraRepresentable
 
         init(_ parent: CustomCameraRepresentable) {
             self.parent = parent
+        }
+        
+        public func didRotateCamera() {
+            parent.events.changeCamera = false
         }
 
         func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -54,4 +59,17 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             }
         }
     }
+}
+
+class UserEvents: ObservableObject {
+    
+    static let shared = UserEvents()
+    
+    @Published public var changeCamera = false
+    @Published public var recordVideo = false
+    @Published public var stopRecording = false
+}
+
+protocol CameraViewControllerDelegate {
+    func didRotateCamera()
 }

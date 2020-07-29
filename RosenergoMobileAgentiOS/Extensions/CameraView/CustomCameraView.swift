@@ -14,8 +14,9 @@ struct CustomCameraView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.presentationMode) private var presentationMode
     
+    @ObservedObject private var events: UserEvents = UserEvents.shared
+    
     @State private var didTapCapture: Bool = false
-    @State private var changeCamera: Bool = false
     @State private var choiceMode: Int = 0
     @State private var flashMode: AVCaptureDevice.FlashMode = .auto
     @State private var setImageFlashButton: String = "bolt.badge.a"
@@ -40,26 +41,28 @@ struct CustomCameraView: View {
                 Color.green
                     .ignoresSafeArea(edges: .all)
                 #else
-                CustomCameraRepresentable(didTapCapture: $didTapCapture, changeCamera: $changeCamera, flashMode: $flashMode)
+                CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
                     .ignoresSafeArea(edges: .all)
                 #endif
                 VStack {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
-                                NavigationLink(destination: CustomCameraImageDetails(photos: sessionStore.photosData)) {
-                                    Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
-                                        .renderingMode(.original)
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(10)
+                    if choiceMode == 0 {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
+                                    NavigationLink(destination: CustomCameraImageDetails(photos: sessionStore.photosData)) {
+                                        Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
+                                            .renderingMode(.original)
+                                            .resizable()
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(10)
+                                    }
                                 }
-                            }
-                        }.padding()
+                            }.padding()
+                        }
                     }
                     HStack {
                         if choiceMode == 0 {
-                            Button(action: { changeCamera = true }) {
+                            Button(action: { events.changeCamera = true }) {
                                 Image(systemName: "arrow.triangle.2.circlepath.camera")
                                     .frame(width: 24)
                                     .imageScale(.large)
@@ -126,7 +129,7 @@ struct CustomCameraImageDetails: View {
     
     var body: some View {
         TabView(selection: $selectionImage) {
-            ForEach(photos, id: \.self) { photo in
+            ForEach(photos.reversed(), id: \.self) { photo in
                 Image(uiImage: UIImage(data: photo)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

@@ -11,6 +11,7 @@ import AVFoundation
 
 class CustomCameraController: UIViewController {
     
+    var customDelegate: CameraViewControllerDelegate?
     var captureSession = AVCaptureSession()
     var newCamera: AVCaptureDevice.Position = .back
     var deviceInput: AVCaptureDeviceInput?
@@ -26,25 +27,30 @@ class CustomCameraController: UIViewController {
     }
     
     func setup() {
-        setupCaptureSession()
-        setupDevice()
-        setupInputOutput()
-        setupPreviewLayer()
-        startRunningCaptureSession()
+        DispatchQueue.main.async { [self] in
+            setupCaptureSession()
+            setupDevice()
+            setupInputOutput()
+            setupPreviewLayer()
+            startRunningCaptureSession()
+        }
     }
     
     func changeCamera() {
-        captureSession.beginConfiguration()
-        captureSession.removeInput(deviceInput!)
-        captureSession.removeOutput(photoOutput!)
-        if newCamera == .back {
-            newCamera = .front
-        } else if newCamera == .front {
-            newCamera = .back
+        DispatchQueue.main.async { [self] in
+            captureSession.beginConfiguration()
+            captureSession.removeInput(deviceInput!)
+            captureSession.removeOutput(photoOutput!)
+            if newCamera == .back {
+                newCamera = .front
+            } else if newCamera == .front {
+                newCamera = .back
+            }
+            setupDevice()
+            setupInputOutput()
+            captureSession.commitConfiguration()
+            customDelegate?.didRotateCamera()
         }
-        setupDevice()
-        setupInputOutput()
-        captureSession.commitConfiguration()
     }
     
     func didTapRecord(flashMode: AVCaptureDevice.FlashMode) {
