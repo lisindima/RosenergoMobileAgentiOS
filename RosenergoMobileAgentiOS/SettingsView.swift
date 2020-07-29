@@ -119,14 +119,6 @@ struct SettingsView: View {
             }
             Section(header: Text("Другое".uppercased()), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                 HStack {
-                    Image(systemName: "plus.square")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    Button("Бета-версия") {
-                        UIApplication.shared.open(URL(string: "https://testflight.apple.com/join/Dq2AoHoT")!)
-                    }.foregroundColor(.primary)
-                }
-                HStack {
                     Image(systemName: "ant")
                         .frame(width: 24)
                         .foregroundColor(.rosenergo)
