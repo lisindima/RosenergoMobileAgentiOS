@@ -11,7 +11,6 @@ import AVFoundation
 
 class CustomCameraController: UIViewController {
     
-    var customDelegate: CameraViewControllerDelegate?
     var captureSession = AVCaptureSession()
     var newCamera: AVCaptureDevice.Position = .back
     var deviceInput: AVCaptureDeviceInput?
@@ -27,30 +26,11 @@ class CustomCameraController: UIViewController {
     }
     
     func setup() {
-        DispatchQueue.main.async { [self] in
-            setupCaptureSession()
-            setupDevice()
-            setupInputOutput()
-            setupPreviewLayer()
-            startRunningCaptureSession()
-        }
-    }
-    
-    func changeCamera() {
-        DispatchQueue.main.async { [self] in
-            captureSession.beginConfiguration()
-            captureSession.removeInput(deviceInput!)
-            captureSession.removeOutput(photoOutput!)
-            if newCamera == .back {
-                newCamera = .front
-            } else if newCamera == .front {
-                newCamera = .back
-            }
-            setupDevice()
-            setupInputOutput()
-            captureSession.commitConfiguration()
-            customDelegate?.didRotateCamera()
-        }
+        setupCaptureSession()
+        setupDevice()
+        setupInputOutput()
+        setupPreviewLayer()
+        startRunningCaptureSession()
     }
     
     func didTapRecord(flashMode: AVCaptureDevice.FlashMode) {
@@ -100,12 +80,159 @@ class CustomCameraController: UIViewController {
     func setupPreviewLayer() {
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+        cameraPreviewLayer?.connection?.videoOrientation = .portrait
         cameraPreviewLayer?.frame = view.frame
         view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
     }
     
     func startRunningCaptureSession() {
         captureSession.startRunning()
+    }
+}
+
+
+class CustomVideoController: UIViewController {
+    
+    var delegate: AVCaptureFileOutputRecordingDelegate?
+    var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
+    var captureSession = AVCaptureSession()
+    let movieOutput = AVCaptureMovieFileOutput()
+    var previewLayer: AVCaptureVideoPreviewLayer!
+    var activeInput: AVCaptureDeviceInput!
+    var outputURL: URL!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if setupSession() {
+            setupPreviewLayer()
+            startSession()
+        }
+    }
+    
+    func setupPreviewLayer() {
+        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        cameraPreviewLayer?.connection?.videoOrientation = .portrait
+        cameraPreviewLayer?.frame = view.frame
+        view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+    }
+    
+    func setupSession() -> Bool {
+        
+        captureSession.sessionPreset = AVCaptureSession.Preset.high
+        
+        let camera = AVCaptureDevice.default(for: AVMediaType.video)!
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: camera)
+            if captureSession.canAddInput(input) {
+                captureSession.addInput(input)
+                activeInput = input
+            }
+        } catch {
+            print("Error setting device video input: \(error)")
+            return false
+        }
+        
+        let microphone = AVCaptureDevice.default(for: AVMediaType.audio)!
+        
+        do {
+            let micInput = try AVCaptureDeviceInput(device: microphone)
+            if captureSession.canAddInput(micInput) {
+                captureSession.addInput(micInput)
+            }
+        } catch {
+            print("Error setting device audio input: \(error)")
+            return false
+        }
+        
+        if captureSession.canAddOutput(movieOutput) {
+            captureSession.addOutput(movieOutput)
+        }
+        
+        return true
+    }
+    
+    func startSession() {
+        if !captureSession.isRunning {
+            videoQueue().async {
+                self.captureSession.startRunning()
+            }
+        }
+    }
+    
+    func stopSession() {
+        if captureSession.isRunning {
+            videoQueue().async {
+                self.captureSession.stopRunning()
+            }
+        }
+    }
+    
+    func videoQueue() -> DispatchQueue {
+        return DispatchQueue.main
+    }
+    
+    func currentVideoOrientation() -> AVCaptureVideoOrientation {
+        var orientation: AVCaptureVideoOrientation
+        
+        switch UIDevice.current.orientation {
+        case .portrait:
+            orientation = AVCaptureVideoOrientation.portrait
+        case .landscapeRight:
+            orientation = AVCaptureVideoOrientation.landscapeLeft
+        case .portraitUpsideDown:
+            orientation = AVCaptureVideoOrientation.portraitUpsideDown
+        default:
+            orientation = AVCaptureVideoOrientation.landscapeRight
+        }
+        
+        return orientation
+    }
+    
+    func tempURL() -> URL? {
+        let directory = NSTemporaryDirectory() as NSString
+        if directory != "" {
+            let path = directory.appendingPathComponent(UUID().uuidString + ".mp4")
+            return URL(fileURLWithPath: path)
+        }
+        return nil
+    }
+    
+    func startRecording() {
+        if movieOutput.isRecording == false {
+            let connection = movieOutput.connection(with: AVMediaType.video)
+            
+            if (connection?.isVideoOrientationSupported)! {
+                connection?.videoOrientation = currentVideoOrientation()
+            }
+            
+            if (connection?.isVideoStabilizationSupported)! {
+                connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+            }
+            
+            let device = activeInput.device
+            if device.isSmoothAutoFocusSupported {
+                do {
+                    try device.lockForConfiguration()
+                    device.isSmoothAutoFocusEnabled = false
+                    device.unlockForConfiguration()
+                } catch {
+                    print("Error setting configuration: \(error)")
+                }
+            }
+            
+            outputURL = tempURL()
+            movieOutput.startRecording(to: outputURL, recordingDelegate: delegate!)
+        } else {
+            stopRecording()
+        }
+    }
+    
+    func stopRecording() {
+        if movieOutput.isRecording == true {
+            movieOutput.stopRecording()
+        }
     }
 }

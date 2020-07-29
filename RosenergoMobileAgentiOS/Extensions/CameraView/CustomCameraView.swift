@@ -14,8 +14,7 @@ struct CustomCameraView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.presentationMode) private var presentationMode
     
-    @ObservedObject private var events: UserEvents = UserEvents.shared
-    
+    @State private var didTapCapture2: Bool = false
     @State private var didTapCapture: Bool = false
     @State private var choiceMode: Int = 0
     @State private var flashMode: AVCaptureDevice.FlashMode = .auto
@@ -41,8 +40,13 @@ struct CustomCameraView: View {
                 Color.green
                     .ignoresSafeArea(edges: .all)
                 #else
-                CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
-                    .ignoresSafeArea(edges: .all)
+                if choiceMode == 0 {
+                    CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
+                        .ignoresSafeArea(edges: .all)
+                } else {
+                    CustomVideoRepresentable(startRecording: $didTapCapture, stopRecording: $didTapCapture2)
+                        .ignoresSafeArea(edges: .all)
+                }
                 #endif
                 VStack {
                     if choiceMode == 0 {
@@ -61,17 +65,15 @@ struct CustomCameraView: View {
                         }
                     }
                     HStack {
-                        if choiceMode == 0 {
-                            Button(action: { events.changeCamera = true }) {
-                                Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                    .frame(width: 24)
-                                    .imageScale(.large)
-                                    .padding(30)
-                                    .background(Color.rosenergo.opacity(0.5))
-                                    .foregroundColor(.white)
-                                    .clipShape(Circle())
-                            }.padding(.horizontal)
-                        }
+                        Button(action: { didTapCapture2 = true }) {
+                            Image(systemName: "arrow.triangle.2.circlepath.camera")
+                                .frame(width: 24)
+                                .imageScale(.large)
+                                .padding(30)
+                                .background(Color.rosenergo.opacity(0.5))
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }.padding(.horizontal)
                         Spacer()
                         Button(action: { didTapCapture = true }) {
                             Image(systemName: choiceMode == 0 ? "camera" : "video")

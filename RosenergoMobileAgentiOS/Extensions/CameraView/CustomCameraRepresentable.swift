@@ -11,8 +11,6 @@ import AVFoundation
 
 struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
-    @ObservedObject private var events: UserEvents = UserEvents.shared
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
     
@@ -29,24 +27,17 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
         if didTapCapture {
             cameraViewController.didTapRecord(flashMode: flashMode)
         }
-        if events.changeCamera {
-            cameraViewController.changeCamera()
-        }
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, CameraViewControllerDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
         let parent: CustomCameraRepresentable
 
         init(_ parent: CustomCameraRepresentable) {
             self.parent = parent
-        }
-        
-        public func didRotateCamera() {
-            parent.events.changeCamera = false
         }
 
         func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -61,15 +52,44 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     }
 }
 
-class UserEvents: ObservableObject {
+struct CustomVideoRepresentable: UIViewControllerRepresentable {
     
-    static let shared = UserEvents()
+    @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var locationStore: LocationStore
     
-    @Published public var changeCamera = false
-    @Published public var recordVideo = false
-    @Published public var stopRecording = false
-}
+    @Binding var startRecording: Bool
+    @Binding var stopRecording: Bool
 
-protocol CameraViewControllerDelegate {
-    func didRotateCamera()
+    func makeUIViewController(context: Context) -> CustomVideoController {
+        let controller = CustomVideoController()
+        controller.delegate = context.coordinator
+        return controller
+    }
+
+    func updateUIViewController(_ customVideoController: CustomVideoController, context: Context) {
+        if startRecording {
+            customVideoController.startRecording()
+        }
+        if stopRecording {
+            customVideoController.stopRecording()
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, AVCaptureFileOutputRecordingDelegate {
+        
+        let parent: CustomVideoRepresentable
+
+        init(_ parent: CustomVideoRepresentable) {
+            self.parent = parent
+        }
+        
+        func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+            print(outputFileURL)
+        }
+        
+    }
 }

@@ -42,7 +42,7 @@ struct SignIn: View {
                 }) {
                     Text("Войти")
                 }
-            }.navigationTitle("Агент")
+            }.navigationTitle("Мобильный агент")
         }
     }
     
