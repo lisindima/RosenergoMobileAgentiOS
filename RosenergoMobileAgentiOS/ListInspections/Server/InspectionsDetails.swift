@@ -39,15 +39,6 @@ struct InspectionsDetails: View {
     }
     
     var body: some View {
-        #if os(watchOS)
-        details
-        #else
-        details
-            .environment(\.horizontalSizeClass, .regular)
-        #endif
-    }
-    
-    var details: some View {
         Form {
             if !inspection.photos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {

@@ -50,15 +50,6 @@ struct SettingsView: View {
     }
     #endif
     
-    var body: some View {
-        #if os(watchOS)
-        setting
-        #else
-        setting
-            .environment(\.horizontalSizeClass, .regular)
-        #endif
-    }
-    
     #if !os(watchOS)
     var footerNotification: Text {
         switch notificationStore.enabled {
@@ -74,7 +65,7 @@ struct SettingsView: View {
     }
     #endif
     
-    var setting: some View {
+    var body: some View {
         Form {
             if sessionStore.loginModel?.data.name != nil || sessionStore.loginModel?.data.email != nil {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
 extension UIImage {
     func resizedImage(width: CGFloat, height: CGFloat) -> UIImage {

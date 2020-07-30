@@ -27,12 +27,14 @@ class SessionStore: ObservableObject {
     }
     
     @Published var inspections: [Inspections] = [Inspections]()
+    @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var photosData: [Data] = [Data]()
     @Published var showAlert: Bool = false
     @Published var loadingLogin: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: UploadState = .none
-    @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
+    @Published var inspectionsLoadingState: LoadingState = .loading
+    @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var alertType: AlertType = .success
     @Published var uploadProgress: Double = 0.0
     
@@ -156,6 +158,28 @@ class SessionStore: ObservableObject {
         }
     }
     
+    func getVyplatnyedela() {
+        
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .accept("application/json")
+        ]
+        
+        AF.request(serverURL + "vyplatnyedelas", method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: [Vyplatnyedela].self) { [self] response in
+                switch response.result {
+                case .success:
+                    guard let vyplatnyedelaResponse = response.value else { return }
+                    vyplatnyedela = vyplatnyedelaResponse
+                    vyplatnyedelaLoadingState = .success
+                case .failure(let error):
+                    vyplatnyedelaLoadingState = .failure
+                    print(error.errorDescription!)
+                }
+        }
+    }
+    
     func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
         
         uploadState = .upload
@@ -239,7 +263,7 @@ class SessionStore: ObservableObject {
     }
 }
 
-enum InspectionsLoadingState {
+enum LoadingState {
     case loading, failure, success
 }
 

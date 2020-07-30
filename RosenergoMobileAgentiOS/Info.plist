@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Приложение &quot;Мобильный агент&quot; использует доступ к камере вашего устройства, для сохранения фотографий осмотра на сервер ООО &quot;НСГ-&quot;РОСЭНЕРГО&quot;</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>zczxcfedvfvdfbrfffrf</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Приложение &quot;Мобильный агент&quot; использует доступ к микрофону вашего устройства, для записи видео в осмотре.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

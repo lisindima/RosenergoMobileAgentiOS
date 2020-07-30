@@ -88,6 +88,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         }
         
         func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+            UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
             print(outputFileURL)
         }
         

@@ -80,7 +80,6 @@ struct LocalInspectionsDetails: View {
             .ignoresSafeArea(edges: .bottom)
         #else
         details
-            .environment(\.horizontalSizeClass, .regular)
         #endif
     }
     
