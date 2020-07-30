@@ -22,7 +22,7 @@ struct ListInspections: View {
     @StateObject private var searchBar = SearchBar.shared
     
     @State private var showSortSetting: Bool = false
-    @AppStorage("sortedByNew") var sortedByNew: Bool = true
+    @AppStorage("sortedByNew") private var sortedByNew: Bool = true
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {

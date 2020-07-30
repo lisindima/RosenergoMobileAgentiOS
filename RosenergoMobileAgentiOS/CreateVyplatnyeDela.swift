@@ -93,7 +93,7 @@ struct CreateVyplatnyeDela: View {
                 .environmentObject(locationStore)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .navigationTitle("Выплатные дела")
+        .navigationTitle("Выплатное дело")
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:

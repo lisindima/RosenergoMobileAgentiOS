@@ -16,7 +16,7 @@ struct ListVyplatnyedela: View {
     @StateObject private var searchBar = SearchBar.shared
     @State private var showSortSetting: Bool = false
     
-    @AppStorage("sortedByNewVyplatnyedela") var sortedByNew: Bool = true
+    @AppStorage("sortedByNewVyplatnyedela") private var sortedByNew: Bool = true
     
     var listVyplatnyedela: some View {
         List {
