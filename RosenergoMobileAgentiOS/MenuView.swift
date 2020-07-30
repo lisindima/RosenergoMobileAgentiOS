@@ -21,39 +21,56 @@ struct MenuView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
-                    NavigationLink(destination: CreateInspections()) {
-                        MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
-                    }
-                    NavigationLink(destination: CreateVyplatnyeDela()) {
-                        MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple)
-                    }
-                    NavigationLink(destination: ListInspections()) {
-                        MenuButton(title: "Осмотры", image: "archivebox", color: .red)
-                    }
-                    NavigationLink(destination: ListVyplatnyedela()) {
-                        MenuButton(title: "Выплатные\nдела", image: "archivebox", color: .yellow)
+            #if os(watchOS)
+            ScrollView {
+                menu
+            }
+            #else
+            menu
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        NavigationLink(destination: SettingsView()) {
+                            Image(systemName: "gear")
+                                .imageScale(.large)
+                        }
                     }
                 }
-                .padding(.top, 8)
-                .padding(.horizontal)
-                Spacer()
-                appVersionView
-                    .foregroundColor(.secondary)
-                    .font(.system(size: 11))
-                    .padding(.bottom, 8)
-            }
-            .navigationTitle("Мобильный агент")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    NavigationLink(destination: SettingsView()) {
-                        Image(systemName: "gear")
-                            .imageScale(.large)
-                    }
-                }
-            }
+            #endif
         }
+    }
+    
+    var menu: some View {
+        VStack {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
+                #if !os(watchOS)
+                NavigationLink(destination: CreateInspections()) {
+                    MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
+                }.buttonStyle(PlainButtonStyle())
+                NavigationLink(destination: CreateVyplatnyeDela()) {
+                    MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple)
+                }.buttonStyle(PlainButtonStyle())
+                #endif
+                NavigationLink(destination: ListInspections()) {
+                    MenuButton(title: "Осмотры", image: "archivebox", color: .red)
+                }.buttonStyle(PlainButtonStyle())
+                NavigationLink(destination: ListVyplatnyedela()) {
+                    MenuButton(title: "Выплатные\nдела", image: "archivebox", color: .yellow)
+                }.buttonStyle(PlainButtonStyle())
+                #if os(watchOS)
+                NavigationLink(destination: SettingsView()) {
+                    MenuButton(title: "Настройки", image: "gear", color: .secondary)
+                }.buttonStyle(PlainButtonStyle())
+                #endif
+            }
+            .padding(.top, 8)
+            .padding(.horizontal)
+            Spacer()
+            appVersionView
+                .foregroundColor(.secondary)
+                .font(.system(size: 11))
+                .padding(.bottom, 8)
+        }
+        .navigationTitle("Мобильный агент")
     }
 }
 
