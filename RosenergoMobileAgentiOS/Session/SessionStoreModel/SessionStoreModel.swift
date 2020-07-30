@@ -56,7 +56,7 @@ struct Inspections: Codable, Identifiable {
     let insuranceContractNumber: String
     let carModel2, carRegNumber2, carVin2, carBodyNumber2: String?
     let insuranceContractNumber2: String?
-    let createdat: String
+    let createdAt: String
     let latitude, longitude: Double
     let photos: [Photo]
 
@@ -73,7 +73,7 @@ struct Inspections: Codable, Identifiable {
         case carVin2 = "car_vin2"
         case carBodyNumber2 = "car_body_number2"
         case insuranceContractNumber2 = "insurance_contract_number2"
-        case createdat = "created_at"
+        case createdAt = "created_at"
         case latitude, longitude
         case photos
     }
@@ -82,14 +82,13 @@ struct Inspections: Codable, Identifiable {
 // MARK: Codable модель для разбора массива фотографий.
 
 struct Photo: Codable, Identifiable {
-    let id, inspectionID: Int
+    let id: Int
     let path: String
     let latitude, longitude: Double
     let createdAt, updatedAt, makedPhotoAt: String
 
     enum CodingKeys: String, CodingKey {
         case id
-        case inspectionID = "inspection_id"
         case path, latitude, longitude
         case createdAt = "created_at"
         case updatedAt = "updated_at"
@@ -104,7 +103,7 @@ struct Vyplatnyedela: Codable, Identifiable {
     let insuranceContractNumber, numberZayavlenia: String
     let latitude, longitude: Double
     let createdAt, updatedAt: String
-    let photos: [PhotoVyplatnyedela]
+    let photos: [Photo]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -115,22 +114,6 @@ struct Vyplatnyedela: Codable, Identifiable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case photos
-    }
-}
-
-struct PhotoVyplatnyedela: Codable, Identifiable {
-    let id, vyplatnyedelasID: Int
-    let path: String
-    let latitude, longitude: Double
-    let createdAt, updatedAt, makedPhotoAt: String
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case vyplatnyedelasID = "vyplatnyedelas_id"
-        case path, latitude, longitude
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case makedPhotoAt = "maked_photo_at"
     }
 }
 

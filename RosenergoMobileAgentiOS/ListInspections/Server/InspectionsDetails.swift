@@ -72,7 +72,7 @@ struct InspectionsDetails: View {
                 SectionItem(
                     imageName: "timer",
                     imageColor: .rosenergo,
-                    title: inspection.createdat.dataInspection(local: false)
+                    title: inspection.createdAt.dataInspection(local: false)
                 )
             }
             Section(header: Text(inspection.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {

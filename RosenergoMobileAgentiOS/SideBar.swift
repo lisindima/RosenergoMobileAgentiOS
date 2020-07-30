@@ -12,8 +12,9 @@ struct SideBar: View {
     
     enum NavigationItem {
         case createInspections
-        case listInspections
         case createVyplatnye
+        case listInspections
+        case listVyplatnyedela
     }
 
     @State private var selection: Set<NavigationItem> = [.createInspections]
@@ -27,12 +28,16 @@ struct SideBar: View {
                 }.tag(NavigationItem.createInspections)
             
                 NavigationLink(destination: CreateVyplatnyeDela()) {
-                    Label("Выплатные дела", systemImage: "tray")
+                    Label("Новое выплатное дело", systemImage: "doc.badge.plus")
                 }.tag(NavigationItem.createVyplatnye)
                 
                 NavigationLink(destination: ListInspections()) {
                     Label("Осмотры", systemImage: "archivebox")
                 }.tag(NavigationItem.listInspections)
+                
+                NavigationLink(destination: ListVyplatnyedela()) {
+                    Label("Выплатные дела", systemImage: "archivebox")
+                }.tag(NavigationItem.listVyplatnyedela)
             }
             .overlay(SettingsButtonBar(openSettings: $openSettings), alignment: .bottom)
             .listStyle(SidebarListStyle())
@@ -45,7 +50,7 @@ struct SideBar: View {
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            Text("Выберите осмотр\nдля просмотра")
+            Text("Выберите осмотр\nили выплатное дело\nдля просмотра")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)

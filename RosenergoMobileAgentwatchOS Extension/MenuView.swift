@@ -32,6 +32,9 @@ struct MenuView: View {
                 ) {
                     MenuButton(title: "Осмотры", image: "archivebox", color: .rosenergo)
                 }.buttonStyle(PlainButtonStyle())
+                NavigationLink(destination: ListVyplatnyedela()) {
+                    MenuButton(title: "Выплатные\nдела", image: "archivebox", color: .yellow)
+                }.buttonStyle(PlainButtonStyle())
                 NavigationLink(destination: SettingsView().environmentObject(sessionStore)) {
                     MenuButton(title: "Настройки", image: "gear", color: .secondary)
                 }.buttonStyle(PlainButtonStyle())

@@ -22,15 +22,18 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             VStack {
-                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2)) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
                     NavigationLink(destination: CreateInspections()) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
                     }
                     NavigationLink(destination: CreateVyplatnyeDela()) {
-                        MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
+                        MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple)
                     }
                     NavigationLink(destination: ListInspections()) {
                         MenuButton(title: "Осмотры", image: "archivebox", color: .red)
+                    }
+                    NavigationLink(destination: ListVyplatnyedela()) {
+                        MenuButton(title: "Выплатные\nдела", image: "archivebox", color: .yellow)
                     }
                 }
                 .padding(.top, 8)

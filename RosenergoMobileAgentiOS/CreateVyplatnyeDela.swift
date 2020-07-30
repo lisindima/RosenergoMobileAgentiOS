@@ -57,8 +57,8 @@ struct CreateVyplatnyeDela: View {
                     .padding([.horizontal, .bottom])
                 VStack {
                     GroupBox {
-                        CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                         CustomInput(text: $numberZayavlenia, name: "Номер заявления")
+                        CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
                     }.padding(.horizontal)
                     ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
                         .padding()

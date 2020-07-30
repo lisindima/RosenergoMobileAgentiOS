@@ -12,7 +12,9 @@ import NativeSearchBar
 struct ListInspections: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
+    #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
+    #endif
     @Environment(\.managedObjectContext) private var moc
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
@@ -26,9 +28,40 @@ struct ListInspections: View {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
+            #if !os(watchOS)
             notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
+            #endif
         }
         try? moc.save()
+    }
+    
+    var listInspections: some View {
+        List {
+            if !localInspections.isEmpty {
+                Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
+                    ForEach(localInspections.filter {
+                        searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
+                    }, id: \.id) { localInspections in
+                        NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
+                            LocalInspectionsItems(localInspections: localInspections)
+                        }
+                    }.onDelete(perform: delete)
+                }
+            }
+            if !sessionStore.inspections.isEmpty {
+                Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
+                    ForEach(sessionStore.inspections.sorted {
+                        sortedByNew ? $0.id > $1.id : $0.id < $1.id
+                    }.filter {
+                        searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                    }, id: \.id) { inspection in
+                        NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
+                            InspectionsItems(inspection: inspection)
+                        }
+                    }
+                }
+            }
+        }.addSearchBar(searchBar)
     }
     
     var body: some View {
@@ -51,34 +84,12 @@ struct ListInspections: View {
             } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
                 ProgressView()
             } else {
-                List {
-                    if !localInspections.isEmpty {
-                        Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
-                            ForEach(localInspections.filter {
-                                searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
-                            }, id: \.id) { localInspections in
-                                NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
-                                    LocalInspectionsItems(localInspections: localInspections)
-                                }
-                            }.onDelete(perform: delete)
-                        }
-                    }
-                    if !sessionStore.inspections.isEmpty {
-                        Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
-                            ForEach(sessionStore.inspections.sorted {
-                                sortedByNew ? $0.id > $1.id : $0.id < $1.id
-                            }.filter {
-                                searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
-                            }, id: \.id) { inspection in
-                                NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
-                                    InspectionsItems(inspection: inspection)
-                                }
-                            }
-                        }
-                    }
-                }
-                .addSearchBar(searchBar)
-                .listStyle(InsetGroupedListStyle())
+                #if os(watchOS)
+                listInspections
+                #else
+                listInspections
+                    .listStyle(InsetGroupedListStyle())
+                #endif
             }
         }
         .onAppear(perform: sessionStore.getInspections)
@@ -92,10 +103,12 @@ struct ListInspections: View {
                         Image(systemName: "line.horizontal.3.decrease.circle")
                             .imageScale(.large)
                     }
+                    #if !os(watchOS)
                     NavigationLink(destination: CreateInspections()) {
                         Image(systemName: "plus.circle.fill")
                             .imageScale(.large)
                     }
+                    #endif
                 }
             }
         }
