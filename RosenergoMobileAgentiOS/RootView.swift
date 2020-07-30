@@ -12,6 +12,7 @@ struct RootView: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.scenePhase) private var scenePhase
+    @StateObject var coreData = CoreData.shared
     
     #if !os(watchOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -36,6 +37,7 @@ struct RootView: View {
                 SignIn()
             }
         }
+        .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
         .onChange(of: scenePhase) { phase in
             if phase == .active {
                 print("scene is now active!")
@@ -50,9 +52,7 @@ struct RootView: View {
                 }
             } else if phase == .background {
                 print("scene is now background!")
-                //coreData.saveContext()
-            } else {
-                print("Apple must have added something new!")
+                coreData.saveContext()
             }
         }
     }

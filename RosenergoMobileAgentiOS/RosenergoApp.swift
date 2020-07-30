@@ -13,7 +13,6 @@ struct RosenergoApp: App {
     
     @StateObject var sessionStore = SessionStore.shared
     @StateObject var locationStore = LocationStore.shared
-    @StateObject var coreData = CoreData.shared
     
     var body: some Scene {
         WindowGroup {
@@ -21,7 +20,6 @@ struct RosenergoApp: App {
                 .accentColor(.rosenergo)
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
-                .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
         }
     }
 }
