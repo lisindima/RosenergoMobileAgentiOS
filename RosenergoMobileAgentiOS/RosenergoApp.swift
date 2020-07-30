@@ -21,5 +21,15 @@ struct RosenergoApp: App {
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
         }
+        .commands {
+            CommandMenu("Команды") {
+                Button(action: {}) {
+                    Text("Осмотры")
+                }
+                Button(action: {}) {
+                    Text("Выплатные дела")
+                }
+            }
+        }
     }
 }

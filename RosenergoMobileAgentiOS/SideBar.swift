@@ -26,17 +26,17 @@ struct SideBar: View {
                 NavigationLink(destination: CreateInspections()) {
                     Label("Новый осмотр", systemImage: "car")
                 }.tag(NavigationItem.createInspections)
+                
+                NavigationLink(destination: ListInspections()) {
+                    Label("Осмотры", systemImage: "archivebox")
+                }.tag(NavigationItem.listInspections)
             
                 NavigationLink(destination: CreateVyplatnyeDela()) {
                     Label("Новое выплатное дело", systemImage: "doc.badge.plus")
                 }.tag(NavigationItem.createVyplatnye)
                 
-                NavigationLink(destination: ListInspections()) {
-                    Label("Осмотры", systemImage: "archivebox")
-                }.tag(NavigationItem.listInspections)
-                
                 NavigationLink(destination: ListVyplatnyedela()) {
-                    Label("Выплатные дела", systemImage: "archivebox")
+                    Label("Выплатные дела", systemImage: "doc.on.doc")
                 }.tag(NavigationItem.listVyplatnyedela)
             }
             .overlay(SettingsButtonBar(openSettings: $openSettings), alignment: .bottom)
@@ -56,6 +56,39 @@ struct SideBar: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+}
+
+struct SettingsButtonBar: View {
+    
+    @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var notificationStore: NotificationStore
+    
+    @Binding var openSettings: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Divider()
+            Button(action: { openSettings = true }) {
+                Label("Настройки", systemImage: "gear")
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .buttonStyle(PlainButtonStyle())
+        }
+        .sheet(isPresented: $openSettings) {
+            NavigationView {
+                SettingsView()
+                    .environmentObject(sessionStore)
+                    .environmentObject(notificationStore)
+                    .navigationTitle("Настройки")
+                    .navigationBarItems(trailing:
+                        Button(action: { openSettings = false }) {
+                            Text("Готово")
+                        }
+                    )
+            }
         }
     }
 }

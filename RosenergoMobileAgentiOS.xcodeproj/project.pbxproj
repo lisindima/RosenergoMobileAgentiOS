@@ -43,7 +43,6 @@
 		CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
 		CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
-		CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB71AE3524B9D65B00521C82 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
@@ -108,7 +107,6 @@
 		CBDD152224C16B0000C48262 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDD152124C16B0000C48262 /* CustomPicker.swift */; };
 		CBDD152424C181FD00C48262 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
-		CBE9BE9424A7622100D8CA2A /* SettingsButtonBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -237,7 +235,6 @@
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBDD152124C16B0000C48262 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonBar.swift; sourceTree = "<group>"; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -317,7 +314,6 @@
 				CB66D74A24A5D989005C616A /* RosenergoApp.swift */,
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
-				CBE9BE9324A7622000D8CA2A /* SettingsButtonBar.swift */,
 				CBB4B0B724C82B9C00C25A59 /* Location */,
 				CB4CD7BD24909A56007FE4AB /* Notification */,
 				CBAC7F3024D266470081597D /* ListVyplatnyedela */,
@@ -728,7 +724,6 @@
 				CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */,
 				CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
-				CBE9BE9424A7622100D8CA2A /* SettingsButtonBar.swift in Sources */,
 				CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
@@ -760,7 +755,6 @@
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */,
 				CBB4B0BC24C8330B00C25A59 /* CoreData.swift in Sources */,
-				CB66D74C24A5DAA2005C616A /* RosenergoApp.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
