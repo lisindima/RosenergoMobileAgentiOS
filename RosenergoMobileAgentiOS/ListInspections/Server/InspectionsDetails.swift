@@ -74,9 +74,6 @@ struct InspectionsDetails: View {
                         .frame(width: 24)
                         .foregroundColor(.rosenergo)
                     VStack(alignment: .leading) {
-                        Text("Дата загрузки осмотра")
-                            .font(.system(size: 11))
-                            .foregroundColor(.secondary)
                         Text(inspection.createdat.dataInspection())
                     }
                 }
@@ -207,9 +204,6 @@ struct InspectionsDetails: View {
                                 .frame(width: 24)
                                 .foregroundColor(.rosenergo)
                             VStack(alignment: .leading) {
-                                Text("Адрес места проведения осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
                                 Text(yandexGeo!.response.geoObjectCollection.featureMember.first!.geoObject.metaDataProperty.geocoderMetaData.text!)
                                     .foregroundColor(.primary)
                             }
@@ -220,9 +214,6 @@ struct InspectionsDetails: View {
                                 .frame(width: 24)
                                 .foregroundColor(.yellow)
                             VStack(alignment: .leading) {
-                                Text("Ошибка, не удалось определить адрес")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
                                 Text("Проверьте подключение к интернету!")
                                     .foregroundColor(.primary)
                             }
@@ -232,9 +223,6 @@ struct InspectionsDetails: View {
                             ActivityIndicator(styleSpinner: .medium)
                                 .frame(width: 24)
                             VStack(alignment: .leading) {
-                                Text("Определяем адрес осмотра")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
                                 Text("Загрузка")
                                     .foregroundColor(.primary)
                             }

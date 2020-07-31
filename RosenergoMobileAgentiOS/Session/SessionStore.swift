@@ -31,10 +31,12 @@ class SessionStore: ObservableObject {
     }
     
     @Published var inspections: [Inspections] = [Inspections]()
+    @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
     @Published var loadingLogin: Bool = false
     @Published var uploadState: UploadState = .none
-    @Published var inspectionsLoadingState: InspectionsLoadingState = .loading
+    @Published var inspectionsLoadingState: LoadingState = .loading
+    @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
@@ -189,6 +191,28 @@ class SessionStore: ObservableObject {
         }
     }
     
+    func getVyplatnyedela() {
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .accept("application/json")
+        ]
+
+        AF.request(serverURL + "vyplatnyedelas", method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: [Vyplatnyedela].self) { response in
+                switch response.result {
+                case .success:
+                    guard let vyplatnyedelaResponse = response.value else { return }
+                    self.vyplatnyedela = vyplatnyedelaResponse
+                    self.vyplatnyedelaLoadingState = .success
+                case .failure(let error):
+                    self.vyplatnyedelaLoadingState = .failure
+                    print(error.errorDescription!)
+                }
+        }
+    }
+    
     func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
         
         uploadState = .upload
@@ -283,7 +307,7 @@ extension Defaults.Keys {
     static let loginParameters = Key<LoginParameters?>("loginParameters", default: nil)
 }
 
-enum InspectionsLoadingState {
+enum LoadingState {
     case loading, failure, success
 }
 

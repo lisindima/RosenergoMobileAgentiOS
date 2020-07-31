@@ -92,18 +92,38 @@ struct Inspections: Codable, Identifiable {
 // MARK: Codable модель для разбора массива фотографий.
 
 struct Photo: Codable, Identifiable {
-    let id, inspectionID: Int
+    let id: Int
     let path: String
     let latitude, longitude: Double
     let createdAt, updatedAt, makedPhotoAt: String
 
     enum CodingKeys: String, CodingKey {
         case id
-        case inspectionID = "inspection_id"
         case path, latitude, longitude
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case makedPhotoAt = "maked_photo_at"
+    }
+}
+
+// MARK: Codable модель для разбора списка выплатных дел.
+
+struct Vyplatnyedela: Codable, Identifiable {
+    let id, agentID: Int
+    let insuranceContractNumber, numberZayavlenia: String
+    let latitude, longitude: Double
+    let createdAt, updatedAt: String
+    let photos: [Photo]
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case agentID = "agent_id"
+        case insuranceContractNumber = "insurance_contract_number"
+        case numberZayavlenia = "number_zayavlenia"
+        case latitude, longitude
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case photos
     }
 }
 

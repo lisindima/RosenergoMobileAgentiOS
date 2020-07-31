@@ -83,6 +83,6 @@ struct CreateVyplatnyeDela: View {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.bottom)
-        }.navigationBarTitle("Выплатные дела")
+        }.navigationBarTitle("Выплатное дело")
     }
 }

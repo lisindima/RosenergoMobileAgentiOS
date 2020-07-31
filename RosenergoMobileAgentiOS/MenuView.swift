@@ -36,12 +36,11 @@ struct MenuView: View {
                 .padding(.horizontal)
                 HStack {
                     NavigationLink(destination: CreateVyplatnyeDela(), isActive: $sessionStore.openCreateVyplatnyeDela) {
-                        MenuButton(title: "Выплатные\nдела", image: "tray", color: .purple)
+                        MenuButton(title: "Новое выплатное дело", image: "doc", color: .purple)
                     }.padding(.trailing, 4)
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.clear)
-                        .frame(maxWidth: .infinity, maxHeight: 120)
-                        .padding(.leading, 4)
+                    NavigationLink(destination: ListVyplatnyedela()) {
+                        MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow)
+                    }.padding(.leading, 4)
                 }
                 .padding(.top, 8)
                 .padding(.horizontal)
