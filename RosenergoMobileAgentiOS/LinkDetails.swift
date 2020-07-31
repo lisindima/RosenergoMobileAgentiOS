@@ -21,8 +21,7 @@ struct LinkDetails: View {
     @State private var presentMapActionSheet: Bool = false
     @State private var address: String?
     @State private var inspection: LinkInspections?
-    
-    var id: String?
+    @State private var loadAddress: Bool = false
     
     func getInspections() {
         
@@ -31,14 +30,16 @@ struct LinkDetails: View {
             .accept("application/json")
         ]
         
-        AF.request(sessionStore.serverURL + "inspection" + "/" + "369", method: .get, headers: headers)
+        AF.request(sessionStore.serverURL + "inspection" + "/" + "\(sessionStore.isOpenUrlId!)", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: LinkInspections.self) { [self] response in
                 switch response.result {
                 case .success:
                     guard let inspectionsResponse = response.value else { return }
                     inspection = inspectionsResponse
+                    loadAddress = true
                 case .failure(let error):
+                    presentationMode.wrappedValue.dismiss()
                     debugPrint(error)
                 }
             }
@@ -138,7 +139,7 @@ struct LinkDetails: View {
                     }
                 }
             }
-            .navigationTitle("Осмотр: 369")
+            .navigationTitle("Осмотр: \(sessionStore.isOpenUrlId!)")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {
@@ -153,6 +154,17 @@ struct LinkDetails: View {
                     UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection!.longitude),\(inspection!.latitude)")!)
                 }, .cancel()
                 ])
+            }
+            .onChange(of: loadAddress) { _ in
+                let location = CLLocation(latitude: inspection!.latitude, longitude: inspection!.longitude)
+                location.geocode { placemark, error in
+                    if let error = error as? CLError {
+                        print("CLError:", error)
+                        return
+                    } else if let placemark = placemark?.first {
+                        address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
+                    }
+                }
             }
             .onAppear {
                 getInspections()

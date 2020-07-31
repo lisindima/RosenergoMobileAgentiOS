@@ -15,7 +15,6 @@ struct RosenergoApp: App {
     @StateObject private var locationStore = LocationStore.shared
     
     @State private var showfullScreenCover: Bool = false
-    @State private var id: String?
     
     var body: some Scene {
         WindowGroup {
@@ -24,8 +23,8 @@ struct RosenergoApp: App {
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
                 .onOpenURL { url in
-                    id = url["inspection"]
-                    if id != nil {
+                    sessionStore.isOpenUrlId = url["inspection"]
+                    if sessionStore.isOpenUrlId != nil {
                         showfullScreenCover = true
                     }
                 }
@@ -34,7 +33,7 @@ struct RosenergoApp: App {
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     #if !os(watchOS)
-                    LinkDetails(id: id)
+                    LinkDetails()
                         .environmentObject(sessionStore)
                     #endif
                 }
