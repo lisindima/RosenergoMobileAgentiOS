@@ -18,6 +18,7 @@ struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
+    @State private var showAlert: Bool = false
     @State private var address: String?
     
     var inspection: Inspections
@@ -156,13 +157,33 @@ struct InspectionsDetails: View {
         .navigationTitle("Осмотр: \(inspection.id)")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
+                #if os(watchOS)
                 Button(action: {
                     print("Поделиться")
                 }) {
                     Image(systemName: "square.and.arrow.up")
                         .imageScale(.large)
                 }
+                #else
+                Menu {
+                    Button(action: {
+                        UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
+                        showAlert = true
+                    }) {
+                        Label("Скопировать", systemImage: "link")
+                    }
+                    Button(action: {}) {
+                        Label("Загрузить", systemImage: "square.and.arrow.down")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle.fill")
+                        .imageScale(.large)
+                }
+                #endif
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
         }
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {

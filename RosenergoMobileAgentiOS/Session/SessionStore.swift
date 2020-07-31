@@ -30,6 +30,7 @@ class SessionStore: ObservableObject {
     @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var photosData: [Data] = [Data]()
     @Published var showAlert: Bool = false
+    @Published var showServerAlert: Bool = false
     @Published var loadingLogin: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: UploadState = .none
@@ -126,9 +127,7 @@ class SessionStore: ObservableObject {
                     } else if code == 401 && loginParameters == nil {
                         loginModel = nil
                     } else if code == nil {
-//                        #if !os(watchOS)
-//                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
-//                        #endif
+                        showServerAlert = true
                     } else {
                         break
                     }

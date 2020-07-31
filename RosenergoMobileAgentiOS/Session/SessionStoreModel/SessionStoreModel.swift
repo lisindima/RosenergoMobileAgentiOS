@@ -18,6 +18,33 @@ struct VyplatnyeDelaParameters: Encodable {
     let photos: [PhotoParameters]
 }
 
+struct LinkInspections: Codable, Identifiable {
+    let id, agentID: Int
+    let carModel, carRegNumber, carVin, carBodyNumber: String
+    let insuranceContractNumber: String
+    let carModel2, carRegNumber2, carVin2, carBodyNumber2: String?
+    let insuranceContractNumber2: String?
+    let createdAt: String
+    let latitude, longitude: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case agentID = "agent_id"
+        case carModel = "car_model"
+        case carRegNumber = "car_reg_number"
+        case carVin = "car_vin"
+        case carBodyNumber = "car_body_number"
+        case insuranceContractNumber = "insurance_contract_number"
+        case carModel2 = "car_model2"
+        case carRegNumber2 = "car_reg_number2"
+        case carVin2 = "car_vin2"
+        case carBodyNumber2 = "car_body_number2"
+        case insuranceContractNumber2 = "insurance_contract_number2"
+        case createdAt = "created_at"
+        case latitude, longitude
+    }
+}
+
 struct InspectionParameters: Encodable {
     let car_model: String
     let car_reg_number: String

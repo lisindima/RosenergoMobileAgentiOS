@@ -1,0 +1,162 @@
+//
+//  LinkDetails.swift
+//  RosenergoMobileAgentiOS
+//
+//  Created by Дмитрий Лисин on 31.07.2020.
+//  Copyright © 2020 Дмитрий Лисин. All rights reserved.
+//
+
+import SwiftUI
+import Alamofire
+import URLImage
+import CoreLocation
+import AVKit
+
+struct LinkDetails: View {
+    
+    @EnvironmentObject private var sessionStore: SessionStore
+    
+    @Environment(\.presentationMode) private var presentationMode
+    
+    @State private var presentMapActionSheet: Bool = false
+    @State private var address: String?
+    @State private var inspection: LinkInspections?
+    
+    var id: String?
+    
+    func getInspections() {
+        
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),
+            .accept("application/json")
+        ]
+        
+        AF.request(sessionStore.serverURL + "inspection" + "/" + "369", method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: LinkInspections.self) { [self] response in
+                switch response.result {
+                case .success:
+                    guard let inspectionsResponse = response.value else { return }
+                    inspection = inspectionsResponse
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }
+    }
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Видео").fontWeight(.bold)) {
+                    VideoPlayer(player: AVPlayer(url:  URL(string: "https://bit.ly/swswift")!))
+                        .frame(height: 200)
+                        .cornerRadius(10)
+                        .padding(.vertical, 8)
+                }
+                Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "timer",
+                        imageColor: .rosenergo,
+                        title: inspection?.createdAt.dataInspection(local: false)
+                    )
+                }
+                Section(header: Text(inspection?.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "doc.plaintext",
+                        imageColor: .rosenergo,
+                        subTitle: "Страховой полис",
+                        title: inspection?.insuranceContractNumber
+                    )
+                    SectionItem(
+                        imageName: "car",
+                        imageColor: .rosenergo,
+                        subTitle: "Модель автомобиля",
+                        title: inspection?.carModel
+                    )
+                    SectionItem(
+                        imageName: "rectangle",
+                        imageColor: .rosenergo,
+                        subTitle: "Регистрационный номер",
+                        title: inspection?.carRegNumber
+                    )
+                    SectionItem(
+                        imageName: "v.circle",
+                        imageColor: .rosenergo,
+                        subTitle: "VIN",
+                        title: inspection?.carVin
+                    )
+                    SectionItem(
+                        imageName: "textformat.123",
+                        imageColor: .rosenergo,
+                        subTitle: "Номер кузова",
+                        title: inspection?.carBodyNumber
+                    )
+                }
+                if inspection?.carModel2 != nil {
+                    Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
+                        SectionItem(
+                            imageName: "doc.plaintext",
+                            imageColor: .rosenergo,
+                            subTitle: "Страховой полис",
+                            title: inspection?.insuranceContractNumber2
+                        )
+                        SectionItem(
+                            imageName: "car",
+                            imageColor: .rosenergo,
+                            subTitle: "Модель автомобиля",
+                            title: inspection?.carModel2
+                        )
+                        SectionItem(
+                            imageName: "rectangle",
+                            imageColor: .rosenergo,
+                            subTitle: "Регистрационный номер",
+                            title: inspection?.carRegNumber2
+                        )
+                        SectionItem(
+                            imageName: "v.circle",
+                            imageColor: .rosenergo,
+                            subTitle: "VIN",
+                            title: inspection?.carVin2
+                        )
+                        SectionItem(
+                            imageName: "textformat.123",
+                            imageColor: .rosenergo,
+                            subTitle: "Номер кузова",
+                            title: inspection?.carBodyNumber2
+                        )
+                    }
+                }
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
+                    Button(action: {
+                        presentMapActionSheet = true
+                    }) {
+                        SectionItem(
+                            imageName: "map",
+                            imageColor: .rosenergo,
+                            title: address
+                        )
+                    }
+                }
+            }
+            .navigationTitle("Осмотр: 369")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                        Text("Закрыть")
+                    }
+                }
+            }
+            .actionSheet(isPresented: $presentMapActionSheet) {
+                ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
+                    UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection!.latitude),\(inspection!.longitude)")!)
+                }, .default(Text("Яндекс.Карты")) {
+                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection!.longitude),\(inspection!.latitude)")!)
+                }, .cancel()
+                ])
+            }
+            .onAppear {
+                getInspections()
+            }
+        }
+    }
+}
