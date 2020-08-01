@@ -74,7 +74,7 @@ struct VyplatnyedelaDetails: View {
                 )
             }
         }
-        .navigationTitle("Выплатное дело: \(vyplatnyedela.id)")
+        .navigationTitle("Дело: \(vyplatnyedela.id)")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: {

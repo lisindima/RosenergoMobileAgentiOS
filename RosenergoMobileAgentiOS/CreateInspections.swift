@@ -17,6 +17,7 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) private var moc
     
+    @State private var showRecordVideo: Bool = true
     @State private var showCustomCameraView: Bool = false
     @State private var choiceCar: Int = 0
     @State private var carModel: String = ""
@@ -246,7 +247,7 @@ struct CreateInspections: View {
         }
         .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView()
+            CustomCameraView(showRecordVideo: $showRecordVideo)
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
                 .ignoresSafeArea(edges: .vertical)

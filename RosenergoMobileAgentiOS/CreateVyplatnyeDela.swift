@@ -14,6 +14,7 @@ struct CreateVyplatnyeDela: View {
     @EnvironmentObject private var locationStore: LocationStore
     @Environment(\.presentationMode) private var presentationMode
     
+    @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
@@ -88,7 +89,7 @@ struct CreateVyplatnyeDela: View {
         }
         .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView()
+            CustomCameraView(showRecordVideo: $showRecordVideo)
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
                 .ignoresSafeArea(edges: .vertical)

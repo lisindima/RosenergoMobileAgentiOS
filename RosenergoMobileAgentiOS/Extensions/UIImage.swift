@@ -21,7 +21,7 @@ extension UIImage {
         #endif
     }
     
-    func addText(text: String, point: CGPoint) -> UIImage {
+    func addText(_ text: String, point: CGPoint) -> UIImage {
         let textColor = UIColor(named: "textColor")
         let textFont = UIFont(name: "Helvetica Bold", size: 40)!
         UIGraphicsBeginImageContextWithOptions(self.size, false, 1)

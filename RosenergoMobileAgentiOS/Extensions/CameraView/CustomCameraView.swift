@@ -14,6 +14,8 @@ struct CustomCameraView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.presentationMode) private var presentationMode
     
+    @Binding var showRecordVideo: Bool
+    
     @State private var didTapCapture2: Bool = false
     @State private var didTapCapture: Bool = false
     @State private var choiceMode: Int = 0
@@ -108,14 +110,16 @@ struct CustomCameraView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Picker("", selection: $choiceMode) {
-                        Image(systemName: "camera")
-                            .tag(0)
-                        Image(systemName: "video")
-                            .tag(1)
+                    if showRecordVideo {
+                        Picker("", selection: $choiceMode) {
+                            Image(systemName: "camera")
+                                .tag(0)
+                            Image(systemName: "video")
+                                .tag(1)
+                        }
+                        .labelsHidden()
+                        .pickerStyle(SegmentedPickerStyle())
                     }
-                    .labelsHidden()
-                    .pickerStyle(SegmentedPickerStyle())
                 }
             }
         }
