@@ -10,19 +10,6 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @AppStorage("countColumns") private var countColumns: Int = 1
-    @AppStorage("imageButton") private var imageButton: String = "square.grid.2x2"
-    
-    func changeMenu() {
-        if countColumns == 2 {
-            countColumns = 1
-            imageButton = "square.grid.2x2"
-        } else {
-            countColumns = 2
-            imageButton = "rectangle.grid.1x2"
-        }
-    }
-    
     private var appVersionView: Text {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
@@ -30,6 +17,14 @@ struct MenuView: View {
         } else {
             return Text("#chad")
         }
+    }
+    
+    var countColumns: Int {
+        #if os(watchOS)
+        return 1
+        #else
+        return 2
+        #endif
     }
     
     var body: some View {
@@ -41,15 +36,9 @@ struct MenuView: View {
             #else
             menu
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .primaryAction) {
                         NavigationLink(destination: SettingsView()) {
                             Image(systemName: "gear")
-                                .imageScale(.large)
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: changeMenu) {
-                            Image(systemName: imageButton)
                                 .imageScale(.large)
                         }
                     }
@@ -87,7 +76,6 @@ struct MenuView: View {
                 }.buttonStyle(PlainButtonStyle())
                 #endif
             }
-            .animation(.interactiveSpring())
             .padding(.top, 8)
             .padding(.horizontal)
             Spacer()

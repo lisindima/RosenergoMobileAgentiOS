@@ -12,6 +12,8 @@ import URLImage
 
 struct VyplatnyedelaDetails: View {
     
+    @State private var showAlert: Bool = false
+    
     var vyplatnyedela: Vyplatnyedela
     
     var scale: CGFloat {
@@ -75,14 +77,33 @@ struct VyplatnyedelaDetails: View {
             }
         }
         .navigationTitle("Дело: \(vyplatnyedela.id)")
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
+        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
+                #if os(watchOS)
                 Button(action: {
-                    print("Поделиться")
+                    print("Скопировать")
                 }) {
-                    Image(systemName: "square.and.arrow.up")
+                    Label("Скопировать", systemImage: "link")
+                }
+                #else
+                Menu {
+                    Button(action: {
+                        UIPasteboard.general.string = "rosenergo://share?inspection=\(vyplatnyedela.id)"
+                        showAlert = true
+                    }) {
+                        Label("Скопировать", systemImage: "link")
+                    }
+                    Button(action: {}) {
+                        Label("Загрузить", systemImage: "square.and.arrow.down")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle.fill")
                         .imageScale(.large)
                 }
+                #endif
             }
         }
     }

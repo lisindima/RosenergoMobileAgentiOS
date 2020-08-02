@@ -159,10 +159,9 @@ struct InspectionsDetails: View {
             ToolbarItem(placement: .primaryAction) {
                 #if os(watchOS)
                 Button(action: {
-                    print("Поделиться")
+                    print("Скопировать")
                 }) {
-                    Image(systemName: "square.and.arrow.up")
-                        .imageScale(.large)
+                    Label("Скопировать", systemImage: "link")
                 }
                 #else
                 Menu {

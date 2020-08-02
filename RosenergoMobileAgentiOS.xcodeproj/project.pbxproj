@@ -448,8 +448,8 @@
 			isa = PBXGroup;
 			children = (
 				CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */,
-				CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */,
 				CBAC7F3724D270640081597D /* VyplatnyedelaDetails.swift */,
+				CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */,
 			);
 			path = ListVyplatnyedela;
 			sourceTree = "<group>";
