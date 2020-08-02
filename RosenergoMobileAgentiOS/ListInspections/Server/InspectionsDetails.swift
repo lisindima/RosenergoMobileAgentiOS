@@ -62,11 +62,13 @@ struct InspectionsDetails: View {
                 }
             }
             #if !os(watchOS)
-            Section(header: Text("Видео").fontWeight(.bold)) {
-                VideoPlayer(player: AVPlayer(url:  URL(string: "https://bit.ly/swswift")!))
-                    .frame(height: 200)
-                    .cornerRadius(10)
-                    .padding(.vertical, 8)
+            if inspection.video != nil {
+                Section(header: Text("Видео").fontWeight(.bold)) {
+                    VideoPlayer(player: AVPlayer(url:  URL(string: inspection.video!)!))
+                        .frame(height: 200)
+                        .cornerRadius(10)
+                        .padding(.vertical, 8)
+                }
             }
             #endif
             Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {

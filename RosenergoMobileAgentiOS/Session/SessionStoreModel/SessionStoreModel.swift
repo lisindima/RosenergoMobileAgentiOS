@@ -26,6 +26,7 @@ struct LinkInspections: Codable, Identifiable {
     let insuranceContractNumber2: String?
     let createdAt: String
     let latitude, longitude: Double
+    let video: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -42,6 +43,7 @@ struct LinkInspections: Codable, Identifiable {
         case insuranceContractNumber2 = "insurance_contract_number2"
         case createdAt = "created_at"
         case latitude, longitude
+        case video
     }
 }
 
@@ -86,6 +88,7 @@ struct Inspections: Codable, Identifiable {
     let createdAt: String
     let latitude, longitude: Double
     let photos: [Photo]
+    let video: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -103,6 +106,7 @@ struct Inspections: Codable, Identifiable {
         case createdAt = "created_at"
         case latitude, longitude
         case photos
+        case video
     }
 }
 

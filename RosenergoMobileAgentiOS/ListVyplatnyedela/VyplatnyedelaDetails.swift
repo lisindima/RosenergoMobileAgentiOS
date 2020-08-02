@@ -91,7 +91,7 @@ struct VyplatnyedelaDetails: View {
                 #else
                 Menu {
                     Button(action: {
-                        UIPasteboard.general.string = "rosenergo://share?inspection=\(vyplatnyedela.id)"
+                        UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
                         showAlert = true
                     }) {
                         Label("Скопировать", systemImage: "link")
