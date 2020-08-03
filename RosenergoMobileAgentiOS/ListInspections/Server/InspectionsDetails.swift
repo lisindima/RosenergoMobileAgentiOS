@@ -11,6 +11,7 @@ import URLImage
 import CoreLocation
 #if !os(watchOS)
 import AVKit
+import MapKit
 #endif
 
 struct InspectionsDetails: View {
@@ -20,6 +21,7 @@ struct InspectionsDetails: View {
     @State private var presentMapActionSheet: Bool = false
     @State private var showAlert: Bool = false
     @State private var address: String?
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     var inspection: Inspections
     
@@ -144,7 +146,7 @@ struct InspectionsDetails: View {
                     )
                 }
             }
-            Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
+            Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
                 Button(action: {
                     presentMapActionSheet = true
                 }) {
@@ -154,6 +156,12 @@ struct InspectionsDetails: View {
                         title: address
                     )
                 }
+                #if !os(watchOS)
+                Map(coordinateRegion: $region)
+                    .frame(height: 200)
+                    .cornerRadius(10)
+                    .padding(.vertical, 8)
+                #endif
             }
         }
         .navigationTitle("Осмотр: \(inspection.id)")

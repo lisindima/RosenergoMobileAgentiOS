@@ -10,6 +10,7 @@ import SwiftUI
 import CoreLocation
 #if !os(watchOS)
 import AVKit
+import MapKit
 #endif
 
 struct LocalInspectionsDetails: View {
@@ -24,6 +25,7 @@ struct LocalInspectionsDetails: View {
     
     @State private var presentMapActionSheet: Bool = false
     @State private var address: String = ""
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     var localInspections: LocalInspections
     
@@ -62,7 +64,8 @@ struct LocalInspectionsDetails: View {
             insuranceContractNumber2: localInspections.insuranceContractNumber2,
             latitude: localInspections.latitude,
             longitude: localInspections.longitude,
-            photoParameters: photoParameters
+            photoParameters: photoParameters,
+            video: nil
         )
     }
     
@@ -187,7 +190,7 @@ struct LocalInspectionsDetails: View {
                         )
                     }
                 }
-                Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
                     Button(action: {
                         presentMapActionSheet = true
                     }) {
@@ -197,6 +200,12 @@ struct LocalInspectionsDetails: View {
                             title: address
                         )
                     }
+                    #if !os(watchOS)
+                    Map(coordinateRegion: $region)
+                        .frame(height: 200)
+                        .cornerRadius(10)
+                        .padding(.vertical, 8)
+                    #endif
                 }
             }
             if sessionStore.uploadState == .none {
