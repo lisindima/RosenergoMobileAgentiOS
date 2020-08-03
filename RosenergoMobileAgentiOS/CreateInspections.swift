@@ -32,8 +32,8 @@ struct CreateInspections: View {
     @State private var insuranceContractNumber2: String = ""
     @State private var vinAndNumber: Bool = false
     @State private var vinAndNumber2: Bool = false
-    @State private var indexSeries: Int?
-    @State private var indexSeries2: Int?
+    @State private var indexSeries: Int = 0
+    @State private var indexSeries2: Int = 0
     
     private var insuranceContractSeries: [String] = ["ХХХ", "CCC", "РРР", "ННН", "МММ", "ККК", "ЕЕЕ", "ВВВ"]
     
@@ -64,15 +64,16 @@ struct CreateInspections: View {
             carRegNumber: carRegNumber,
             carBodyNumber: vinAndNumber ? carVin : carBodyNumber,
             carVin: carVin,
-            insuranceContractNumber: insuranceContractSeries[indexSeries!] + insuranceContractNumber,
+            insuranceContractNumber: insuranceContractSeries[indexSeries] + insuranceContractNumber,
             carModel2: carModel2 == "" ? nil : carModel2,
             carRegNumber2: carRegNumber2 == "" ? nil : carRegNumber2,
             carBodyNumber2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
             carVin2: carVin2 == "" ? nil : carVin2,
-            insuranceContractNumber2: insuranceContractSeries[indexSeries2!] + insuranceContractNumber2 == "" ? nil : insuranceContractSeries[indexSeries2!] + insuranceContractNumber2,
+            insuranceContractNumber2: insuranceContractSeries[indexSeries2] + insuranceContractNumber2 == "" ? nil : insuranceContractSeries[indexSeries2] + insuranceContractNumber2,
             latitude: locationStore.currentLocation!.coordinate.latitude,
             longitude: locationStore.currentLocation!.coordinate.longitude,
-            photoParameters: photoParameters
+            photoParameters: photoParameters,
+            video: sessionStore.videoData
         )
     }
     
@@ -86,7 +87,7 @@ struct CreateInspections: View {
         localInspections.carModel = carModel
         localInspections.carRegNumber = carRegNumber
         localInspections.carVin = carVin
-        localInspections.insuranceContractNumber = insuranceContractSeries[indexSeries!] + insuranceContractNumber
+        localInspections.insuranceContractNumber = insuranceContractSeries[indexSeries] + insuranceContractNumber
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.id = id
         
@@ -108,7 +109,7 @@ struct CreateInspections: View {
             localInspections.carModel2 = carModel2
             localInspections.carRegNumber2 = carRegNumber2
             localInspections.carVin2 = carVin2
-            localInspections.insuranceContractNumber2 = insuranceContractSeries[indexSeries2!] + insuranceContractNumber2
+            localInspections.insuranceContractNumber2 = insuranceContractSeries[indexSeries2] + insuranceContractNumber2
         }
         
         try? moc.save()
@@ -191,7 +192,7 @@ struct CreateInspections: View {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                             if choiceCar == 0 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photosData.isEmpty {
@@ -201,7 +202,7 @@ struct CreateInspections: View {
                                     uploadInspections()
                                 }
                             } else if choiceCar == 1 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || indexSeries2 == nil {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photosData.isEmpty {
@@ -214,7 +215,7 @@ struct CreateInspections: View {
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                             if choiceCar == 0 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photosData.isEmpty {
@@ -224,7 +225,7 @@ struct CreateInspections: View {
                                     saveInspections()
                                 }
                             } else if choiceCar == 1 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || indexSeries == nil || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" || indexSeries2 == nil {
+                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
                                     sessionStore.alertType = .emptyTextField
                                     sessionStore.showAlert = true
                                 } else if sessionStore.photosData.isEmpty {

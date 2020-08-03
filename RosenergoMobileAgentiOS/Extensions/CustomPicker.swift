@@ -10,9 +10,9 @@ import SwiftUI
 
 struct CustomPicker: UIViewRepresentable {
     
-    @Binding var selectionIndex: Int?
+    @Binding var selectionIndex: Int
     
-    init<S>(_ title: S, data: [String], selectionIndex: Binding<Int?>) where S: StringProtocol {
+    init<S>(_ title: S, data: [String], selectionIndex: Binding<Int>) where S: StringProtocol {
         self.placeholder = String(title)
         self.data = data
         self._selectionIndex = selectionIndex
@@ -26,11 +26,7 @@ struct CustomPicker: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CustomPicker>) {
-        if let index = selectionIndex {
-            uiView.text = data[index]
-        } else {
-            uiView.text = ""
-        }
+        uiView.text = data[selectionIndex]
     }
     
     private var placeholder: String
@@ -41,9 +37,9 @@ struct CustomPicker: UIViewRepresentable {
 class PickerTextField: UITextField {
     
     var data: [String]
-    @Binding var selectionIndex: Int?
+    @Binding var selectionIndex: Int
     
-    init(data: [String], selectionIndex: Binding<Int?>) {
+    init(data: [String], selectionIndex: Binding<Int>) {
         self.data = data
         self._selectionIndex = selectionIndex
         super.init(frame: .zero)
