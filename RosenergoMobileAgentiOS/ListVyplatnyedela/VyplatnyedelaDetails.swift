@@ -77,9 +77,6 @@ struct VyplatnyedelaDetails: View {
             }
         }
         .navigationTitle("Дело: \(vyplatnyedela.id)")
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
-        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 #if os(watchOS)
@@ -105,6 +102,9 @@ struct VyplatnyedelaDetails: View {
                 }
                 #endif
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
         }
     }
 }
