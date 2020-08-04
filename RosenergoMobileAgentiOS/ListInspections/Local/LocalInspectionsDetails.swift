@@ -16,16 +16,17 @@ import MapKit
 struct LocalInspectionsDetails: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
-    #if !os(watchOS)
-    @EnvironmentObject private var notificationStore: NotificationStore
-    #endif
     
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
     
+    @State private var address: String?
+    
+    #if !os(watchOS)
+    @EnvironmentObject private var notificationStore: NotificationStore
     @State private var presentMapActionSheet: Bool = false
-    @State private var address: String = ""
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    #endif
     
     var localInspections: LocalInspections
     
@@ -77,16 +78,48 @@ struct LocalInspectionsDetails: View {
         #endif
     }
     
-    var body: some View {
+    var footerMap: Text {
         #if os(watchOS)
-        details
-            .ignoresSafeArea(edges: .bottom)
+        return Text("")
         #else
-        details
+        return Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")
         #endif
     }
     
-    var details: some View {
+    var body: some View {
+        #if os(watchOS)
+        formLocalInspections
+            .ignoresSafeArea(edges: .bottom)
+        #else
+        formLocalInspections
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(action: {}) {
+                            Label("Изменить", systemImage: "pencil")
+                        }
+                        Button(action: {}) {
+                            Label("Удалить", systemImage: "trash")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .actionSheet(isPresented: $presentMapActionSheet) {
+                ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [
+                    .default(Text("Apple Maps")) {
+                        UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
+                    }, .default(Text("Яндекс.Карты")) {
+                        UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
+                    }, .cancel()
+                ])
+            }
+        #endif
+    }
+    
+    var formLocalInspections: some View {
         VStack {
             Form {
                 if !localInspections.arrayPhoto.isEmpty {
@@ -190,7 +223,14 @@ struct LocalInspectionsDetails: View {
                         )
                     }
                 }
-                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: footerMap) {
+                    #if os(watchOS)
+                    SectionItem(
+                        imageName: "map",
+                        imageColor: .rosenergo,
+                        title: address
+                    )
+                    #else
                     Button(action: {
                         presentMapActionSheet = true
                     }) {
@@ -200,7 +240,6 @@ struct LocalInspectionsDetails: View {
                             title: address
                         )
                     }
-                    #if !os(watchOS)
                     Map(coordinateRegion: $region)
                         .frame(height: 200)
                         .cornerRadius(10)
@@ -231,48 +270,6 @@ struct LocalInspectionsDetails: View {
             }
         }
         .navigationTitle("Не отправлено")
-        .toolbar {
-            #if os(watchOS)
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    print("Поделиться")
-                }) {
-                    Image(systemName: "square.and.arrow.up")
-                        .imageScale(.large)
-                }
-            }
-            #else
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    Button(action: {}) {
-                        Label("Изменить", systemImage: "pencil")
-                    }
-                    Button(action: {}) {
-                        Label("Поделиться", systemImage: "square.and.arrow.up")
-                    }
-                    Button(action: {}) {
-                        Label("Удалить", systemImage: "trash")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis.circle.fill")
-                        .imageScale(.large)
-                }
-            }
-            #endif
-        }
-        .actionSheet(isPresented: $presentMapActionSheet) {
-            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [
-                .default(Text("Apple Maps")) {
-                    #if !os(watchOS)
-                    UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
-                    #endif
-                }, .default(Text("Яндекс.Карты")) {
-                    #if !os(watchOS)
-                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
-                    #endif
-                }, .cancel()
-            ])
-        }
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {
             case .success:

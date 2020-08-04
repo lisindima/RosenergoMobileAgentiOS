@@ -18,10 +18,13 @@ struct InspectionsDetails: View {
     
     @EnvironmentObject private var sessionStore: SessionStore
     
+    @State private var address: String?
+    
+    #if !os(watchOS)
     @State private var presentMapActionSheet: Bool = false
     @State private var showAlert: Bool = false
-    @State private var address: String?
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    #endif
     
     var inspection: Inspections
     
@@ -41,7 +44,52 @@ struct InspectionsDetails: View {
         #endif
     }
     
+    var footerMap: Text {
+        #if os(watchOS)
+        return Text("")
+        #else
+        return Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")
+        #endif
+    }
+    
     var body: some View {
+        #if os(watchOS)
+        formInspections
+        #else
+        formInspections
+            .actionSheet(isPresented: $presentMapActionSheet) {
+                ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
+                    UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection.latitude),\(inspection.longitude)")!)
+                }, .default(Text("Яндекс.Карты")) {
+                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection.longitude),\(inspection.latitude)")!)
+                }, .cancel()
+                ])
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(action: {
+                            UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
+                            showAlert = true
+                        }) {
+                            Label("Скопировать", systemImage: "link")
+                        }
+                        Button(action: {}) {
+                            Label("Загрузить", systemImage: "square.and.arrow.down")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
+            }
+        #endif
+    }
+    
+    var formInspections: some View {
         Form {
             if !inspection.photos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {
@@ -146,7 +194,14 @@ struct InspectionsDetails: View {
                     )
                 }
             }
-            Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
+            Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: footerMap) {
+                #if os(watchOS)
+                SectionItem(
+                    imageName: "map",
+                    imageColor: .rosenergo,
+                    title: address
+                )
+                #else
                 Button(action: {
                     presentMapActionSheet = true
                 }) {
@@ -156,7 +211,6 @@ struct InspectionsDetails: View {
                         title: address
                     )
                 }
-                #if !os(watchOS)
                 Map(coordinateRegion: $region)
                     .frame(height: 200)
                     .cornerRadius(10)
@@ -165,47 +219,6 @@ struct InspectionsDetails: View {
             }
         }
         .navigationTitle("Осмотр: \(inspection.id)")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                #if os(watchOS)
-                Button(action: {
-                    print("Скопировать")
-                }) {
-                    Label("Скопировать", systemImage: "link")
-                }
-                #else
-                Menu {
-                    Button(action: {
-                        UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
-                        showAlert = true
-                    }) {
-                        Label("Скопировать", systemImage: "link")
-                    }
-                    Button(action: {}) {
-                        Label("Загрузить", systemImage: "square.and.arrow.down")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis.circle.fill")
-                        .imageScale(.large)
-                }
-                #endif
-            }
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
-        }
-        .actionSheet(isPresented: $presentMapActionSheet) {
-            ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
-                #if !os(watchOS)
-                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection.latitude),\(inspection.longitude)")!)
-                #endif
-            }, .default(Text("Яндекс.Карты")) {
-                #if !os(watchOS)
-                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection.longitude),\(inspection.latitude)")!)
-                #endif
-            }, .cancel()
-            ])
-        }
         .onAppear {
             let location = CLLocation(latitude: inspection.latitude, longitude: inspection.longitude)
             location.geocode { placemark, error in
