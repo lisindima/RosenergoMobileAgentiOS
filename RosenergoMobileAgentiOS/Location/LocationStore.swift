@@ -12,6 +12,7 @@ import CoreLocation
 
 class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
     
+    @Published var currentStatus: CLAuthorizationStatus = .notDetermined
     @Published var currentLocation: CLLocation?
     
     private let manager = CLLocationManager()

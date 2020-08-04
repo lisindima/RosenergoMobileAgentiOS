@@ -7,28 +7,67 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct GeoIndicator: View {
     
     @EnvironmentObject private var locationStore: LocationStore
     
+    private let settingsURL = URL(string: UIApplication.openSettingsURLString)
+    
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 8)
-                .foregroundColor(Color.red.opacity(0.2))
-                .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 30, idealHeight: 30, maxHeight: 30)
+        
+        switch locationStore.currentStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
             HStack {
                 Spacer()
                 Text("Широта: \(locationStore.currentLocation?.coordinate.latitude ?? 0.0)")
                     .font(.footnote)
                     .fontWeight(.bold)
-                    .foregroundColor(.red)
+                    .foregroundColor(.white)
                 Spacer()
                 Text("Долгота: \(locationStore.currentLocation?.coordinate.longitude ?? 0.0)")
                     .font(.footnote)
                     .fontWeight(.bold)
-                    .foregroundColor(.red)
+                    .foregroundColor(.white)
                 Spacer()
+            }
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(Color.rosenergo)
+            )
+        case .notDetermined, .restricted, .denied:
+            Link(destination: settingsURL!) {
+                HStack {
+                    Spacer()
+                    Text("Не разрешен доступ к геопозиции!")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(Color.red.opacity(0.2))
+                )
+            }
+        @unknown default:
+            Link(destination: settingsURL!) {
+                HStack {
+                    Spacer()
+                    Text("Не разрешен доступ к геопозиции!")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                    Spacer()
+                }
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .foregroundColor(Color.red.opacity(0.2))
+                )
             }
         }
     }

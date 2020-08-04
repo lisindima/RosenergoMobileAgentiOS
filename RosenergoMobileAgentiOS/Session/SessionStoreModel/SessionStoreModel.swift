@@ -61,6 +61,7 @@ struct InspectionParameters: Encodable {
     let latitude: Double
     let longitude: Double
     let photos: [PhotoParameters]
+    let video: Data?
 }
 
 struct PhotoParameters: Encodable, Equatable {

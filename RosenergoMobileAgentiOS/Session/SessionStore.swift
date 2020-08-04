@@ -29,6 +29,7 @@ class SessionStore: ObservableObject {
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var photosData: [Data] = [Data]()
+    @Published var videoURL: String?
     @Published var showAlert: Bool = false
     @Published var showServerAlert: Bool = false
     @Published var loadingLogin: Bool = false
@@ -180,7 +181,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
+    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters], video: Data?) {
         
         uploadState = .upload
         
@@ -202,10 +203,11 @@ class SessionStore: ObservableObject {
             insurance_contract_number2: insuranceContractNumber2,
             latitude: latitude,
             longitude: longitude,
-            photos: photoParameters
+            photos: photoParameters,
+            video: video
         )
         
-        AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
+        AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -220,7 +222,7 @@ class SessionStore: ObservableObject {
                     alertType = .error
                     uploadState = .none
                     showAlert = true
-                    print(error.errorDescription!)
+                    debugPrint(error)
             }
         }
     }

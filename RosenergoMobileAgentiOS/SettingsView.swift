@@ -19,6 +19,7 @@ struct SettingsView: View {
     
     #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
+    private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     #endif
     
     @State private var showAlert: Bool = false
@@ -37,16 +38,6 @@ struct SettingsView: View {
                 mailFeedback, animated: true, completion: nil
             )
         }
-    }
-    #endif
-    
-    #if !os(watchOS)
-    private func openSettings() {
-        guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL)
-        else {
-            return
-        }
-        UIApplication.shared.open(settingsURL)
     }
     #endif
     
@@ -86,9 +77,13 @@ struct SettingsView: View {
             #if !os(watchOS)
             Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
                 if notificationStore.enabled == .authorized {
-                    SectionButton(imageName: "bell", imageColor: .rosenergo, title: "Выключить уведомления", titleColor: .primary) {
-                        openSettings()
-                    }
+                    SectionLink(
+                        imageName: "bell",
+                        imageColor: .rosenergo,
+                        title: "Выключить уведомления",
+                        titleColor: .primary,
+                        destination: settingsURL!
+                    )
                     Stepper(value: $notificationStore.notifyHour, in: 1...24) {
                         Image(systemName: "timer")
                             .frame(width: 24)
@@ -97,23 +92,42 @@ struct SettingsView: View {
                     }
                 }
                 if notificationStore.enabled == .notDetermined {
-                    SectionButton(imageName: "bell", imageColor: .rosenergo, title: "Включить уведомления", titleColor: .primary) {
+                    SectionButton(
+                        imageName: "bell",
+                        imageColor: .rosenergo,
+                        title: "Включить уведомления",
+                        titleColor: .primary
+                    ) {
                         notificationStore.requestPermission()
                     }
                 }
                 if notificationStore.enabled == .denied {
-                    SectionButton(imageName: "bell", imageColor: .rosenergo, title: "Включить уведомления", titleColor: .primary) {
-                        openSettings()
-                    }
+                    SectionLink(
+                        imageName: "bell",
+                        imageColor: .rosenergo,
+                        title: "Включить уведомления",
+                        titleColor: .primary,
+                        destination: settingsURL!
+                    )
                 }
             }
             Section(header: Text("Виджет").fontWeight(.bold), footer: Text("Если в виджете возникают ошибки, нажмите на кнопку \"Сбросить виджет\".")) {
-                SectionButton(imageName: "heart.text.square", imageColor: .rosenergo, title: "Сбросить виджет", titleColor: .primary) {
+                SectionButton(
+                    imageName: "heart.text.square",
+                    imageColor: .rosenergo,
+                    title: "Сбросить виджет",
+                    titleColor: .primary
+                ) {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
-                SectionButton(imageName: "ant", imageColor: .rosenergo, title: "Сообщить об ошибке", titleColor: .primary) {
+                SectionButton(
+                    imageName: "ant",
+                    imageColor: .rosenergo,
+                    title: "Сообщить об ошибке",
+                    titleColor: .primary
+                ) {
                     if MFMailComposeViewController.canSendMail() {
                         showMailView()
                     } else {
@@ -123,9 +137,14 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section(footer: Text("Разработка: Дмитрий Лисин,\nlisinde@rosen.ttb.ru")) {
+            Section(footer: Text("Разработка: Дмитрий Лисин, lisinde@rosen.ttb.ru")) {
                 if !sessionStore.logoutState {
-                    SectionButton(imageName: "flame", imageColor: .red, title: "Выйти", titleColor: .red) {
+                    SectionButton(
+                        imageName: "flame",
+                        imageColor: .red,
+                        title: "Выйти",
+                        titleColor: .red
+                    ) {
                         showActionSheetExit = true
                     }
                 } else {

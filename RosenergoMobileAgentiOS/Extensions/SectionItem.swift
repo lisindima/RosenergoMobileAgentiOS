@@ -61,11 +61,32 @@ struct SectionButton: View {
     var action: () -> Void
     
     var body: some View {
-        HStack {
-            Image(systemName: imageName)
-                .frame(width: 24)
-                .foregroundColor(imageColor)
-            Button(action: action) {
+        Button(action: action) {
+            HStack {
+                Image(systemName: imageName)
+                    .frame(width: 24)
+                    .foregroundColor(imageColor)
+                Text(title)
+                    .foregroundColor(titleColor)
+            }
+        }
+    }
+}
+
+struct SectionLink: View {
+    
+    var imageName: String
+    var imageColor: Color
+    var title: String
+    var titleColor: Color
+    var destination: URL
+    
+    var body: some View {
+        Link(destination: destination) {
+            HStack {
+                Image(systemName: imageName)
+                    .frame(width: 24)
+                    .foregroundColor(imageColor)
                 Text(title)
                     .foregroundColor(titleColor)
             }
