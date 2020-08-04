@@ -98,7 +98,7 @@ struct LocalInspectionsDetails: View {
                         Button(action: {}) {
                             Label("Изменить", systemImage: "pencil")
                         }
-                        Button(action: {}) {
+                        Button(action: delete) {
                             Label("Удалить", systemImage: "trash")
                         }
                     } label: {
@@ -141,7 +141,7 @@ struct LocalInspectionsDetails: View {
                 #if !os(watchOS)
                 if localInspections.videoURL != nil {
                     Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url:  URL(string: "https://bit.ly/swswift")!))
+                        VideoPlayer(player: AVPlayer(url:  URL(string: localInspections.videoURL!)!))
                             .frame(height: 200)
                             .cornerRadius(10)
                             .padding(.vertical, 8)
@@ -268,6 +268,7 @@ struct LocalInspectionsDetails: View {
                     .padding(.bottom, 8)
                 #else
                 ProgressView()
+                    .padding(.bottom, 8)
                 #endif
             }
         }

@@ -73,7 +73,7 @@ struct CreateInspections: View {
             latitude: locationStore.currentLocation!.coordinate.latitude,
             longitude: locationStore.currentLocation!.coordinate.longitude,
             photoParameters: photoParameters,
-            video: sessionStore.videoData
+            video: nil
         )
     }
     
@@ -89,6 +89,7 @@ struct CreateInspections: View {
         localInspections.carVin = carVin
         localInspections.insuranceContractNumber = insuranceContractSeries[indexSeries] + insuranceContractNumber
         localInspections.dateInspections = sessionStore.stringDate()
+        localInspections.videoURL = sessionStore.videoURL
         localInspections.id = id
         
         var localPhotos: [LocalPhotos] = []
