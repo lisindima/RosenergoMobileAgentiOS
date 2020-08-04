@@ -32,6 +32,7 @@ extension LocalInspections {
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
     @NSManaged public var localPhotos: Set<LocalPhotos>?
+    @NSManaged public var videoURL: String?
     
     public var arrayPhoto: [LocalPhotos] {
         let set = localPhotos ?? []
