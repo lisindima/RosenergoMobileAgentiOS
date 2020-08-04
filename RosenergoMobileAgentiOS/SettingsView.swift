@@ -123,7 +123,7 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section {
+            Section(footer: Text("Разработка: Дмитрий Лисин,\nlisinde@rosen.ttb.ru")) {
                 if !sessionStore.logoutState {
                     SectionButton(imageName: "flame", imageColor: .red, title: "Выйти", titleColor: .red) {
                         showActionSheetExit = true
