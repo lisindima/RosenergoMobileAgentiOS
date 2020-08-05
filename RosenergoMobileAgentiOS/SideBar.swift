@@ -82,10 +82,9 @@ struct SettingsButtonBar: View {
                 SettingsView()
                     .environmentObject(sessionStore)
                     .environmentObject(notificationStore)
-                    .navigationTitle("Настройки")
                     .navigationBarItems(trailing:
                         Button(action: { openSettings = false }) {
-                            Text("Готово")
+                            Text("Закрыть")
                         }
                     )
             }

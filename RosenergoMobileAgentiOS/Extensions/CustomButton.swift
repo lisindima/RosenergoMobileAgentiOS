@@ -81,7 +81,7 @@ struct MenuButton: View {
                 Image(systemName: image)
                     .font(.largeTitle)
                     .foregroundColor(color)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 3)
                 Text(title)
                     .fontWeight(.bold)
                     .foregroundColor(color)

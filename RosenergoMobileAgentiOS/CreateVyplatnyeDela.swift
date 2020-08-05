@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct CreateVyplatnyeDela: View {
     
@@ -23,7 +24,7 @@ struct CreateVyplatnyeDela: View {
         #if targetEnvironment(simulator)
         showCustomCameraView = true
         #else
-        if locationStore.currentLocation?.coordinate.latitude == 0 || locationStore.currentLocation?.coordinate.longitude == 0 {
+        if locationStore.currentLocation == CLLocation(latitude: 0.0, longitude: 0.0) {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {

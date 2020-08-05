@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import CoreLocation
 
 struct CreateInspections: View {
     
@@ -41,7 +42,7 @@ struct CreateInspections: View {
         #if targetEnvironment(simulator)
         showCustomCameraView = true
         #else
-        if locationStore.currentLocation?.coordinate.latitude == 0 || locationStore.currentLocation?.coordinate.longitude == 0 {
+        if locationStore.currentLocation == CLLocation(latitude: 0.0, longitude: 0.0) {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
@@ -264,7 +265,7 @@ struct CreateInspections: View {
                         .tag(1)
                 }
                 .labelsHidden()
-                .pickerStyle(SegmentedPickerStyle())
+                .pickerStyle(InlinePickerStyle())
             }
         }
         .alert(isPresented: $sessionStore.showAlert) {

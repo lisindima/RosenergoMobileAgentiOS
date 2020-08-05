@@ -10,6 +10,13 @@ import SwiftUI
 
 struct MenuView: View {
     
+    @EnvironmentObject private var sessionStore: SessionStore
+    #if !os(watchOS)
+    @EnvironmentObject private var notificationStore: NotificationStore
+    #endif
+    
+    @State private var openSettings = false
+    
     private var appVersionView: Text {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
@@ -37,10 +44,22 @@ struct MenuView: View {
             menu
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
-                        NavigationLink(destination: SettingsView()) {
+                        Button(action: { openSettings = true }) {
                             Image(systemName: "gear")
                                 .imageScale(.large)
                         }
+                    }
+                }
+                .sheet(isPresented: $openSettings) {
+                    NavigationView {
+                        SettingsView()
+                            .environmentObject(sessionStore)
+                            .environmentObject(notificationStore)
+                            .navigationBarItems(trailing:
+                                Button(action: { openSettings = false }) {
+                                    Text("Закрыть")
+                                }
+                            )
                     }
                 }
             #endif

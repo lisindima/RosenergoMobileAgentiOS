@@ -13,6 +13,9 @@ struct RosenergoApp: App {
     
     @StateObject private var sessionStore = SessionStore.shared
     @StateObject private var locationStore = LocationStore.shared
+    @StateObject private var coreData = CoreData.shared
+    
+    @Environment(\.scenePhase) private var scenePhase
     
     @State private var showfullScreenCover: Bool = false
     
@@ -22,6 +25,7 @@ struct RosenergoApp: App {
                 .accentColor(.rosenergo)
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
+                .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
                 .onOpenURL { url in
                     sessionStore.isOpenUrlId = url["inspection"]
                     if sessionStore.isOpenUrlId != nil {
@@ -36,6 +40,23 @@ struct RosenergoApp: App {
                     LinkDetails()
                         .environmentObject(sessionStore)
                     #endif
+                }
+                .onChange(of: scenePhase) { phase in
+                    if phase == .active {
+                        print("scene is now active!")
+                        #if !os(watchOS)
+                        UIApplication.shared.applicationIconBadgeNumber = 0
+                        NotificationStore.shared.requestPermission()
+                        NotificationStore.shared.refreshNotificationStatus()
+                        LocationStore.shared.getLocation()
+                        #endif
+                        if SessionStore.shared.loginModel != nil {
+                            SessionStore.shared.validateToken()
+                        }
+                    } else if phase == .background {
+                        print("scene is now background!")
+                        coreData.saveContext()
+                    }
                 }
         }
     }
