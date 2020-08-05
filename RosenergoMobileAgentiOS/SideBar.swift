@@ -10,6 +10,9 @@ import SwiftUI
 
 struct SideBar: View {
     
+    @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var notificationStore: NotificationStore
+    
     enum NavigationItem {
         case createInspections
         case createVyplatnye
@@ -39,9 +42,28 @@ struct SideBar: View {
                     Label("Выплатные дела", systemImage: "doc.on.doc")
                 }.tag(NavigationItem.listVyplatnyedela)
             }
-            .overlay(SettingsButtonBar(openSettings: $openSettings), alignment: .bottom)
             .listStyle(SidebarListStyle())
             .navigationTitle("Главная")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { openSettings = true }) {
+                        Image(systemName: "gear")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .sheet(isPresented: $openSettings) {
+                NavigationView {
+                    SettingsView()
+                        .environmentObject(sessionStore)
+                        .environmentObject(notificationStore)
+                        .navigationBarItems(trailing:
+                            Button(action: { openSettings = false }) {
+                                Text("Закрыть")
+                            }
+                        )
+                }
+            }
         
             Text("Выберите\nпункт в меню")
                 .font(.title)
@@ -56,38 +78,6 @@ struct SideBar: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-    }
-}
-
-struct SettingsButtonBar: View {
-    
-    @EnvironmentObject private var sessionStore: SessionStore
-    @EnvironmentObject private var notificationStore: NotificationStore
-    
-    @Binding var openSettings: Bool
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Divider()
-            Button(action: { openSettings = true }) {
-                Label("Настройки", systemImage: "gear")
-            }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 16)
-            .buttonStyle(PlainButtonStyle())
-        }
-        .sheet(isPresented: $openSettings) {
-            NavigationView {
-                SettingsView()
-                    .environmentObject(sessionStore)
-                    .environmentObject(notificationStore)
-                    .navigationBarItems(trailing:
-                        Button(action: { openSettings = false }) {
-                            Text("Закрыть")
-                        }
-                    )
-            }
         }
     }
 }

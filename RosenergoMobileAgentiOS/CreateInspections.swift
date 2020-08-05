@@ -132,7 +132,6 @@ struct CreateInspections: View {
                             HStack {
                                 SeriesPicker(selectedSeries: $choiseSeries)
                                     .modifier(InputModifier())
-                                    .frame(width: 100)
                                 CustomInput(text: $insuranceContractNumber, name: "Номер")
                                     .keyboardType(.numberPad)
                             }
@@ -163,7 +162,6 @@ struct CreateInspections: View {
                                 HStack {
                                     SeriesPicker(selectedSeries: $choiseSeries2)
                                         .modifier(InputModifier())
-                                        .frame(width: 100)
                                     CustomInput(text: $insuranceContractNumber2, name: "Номер")
                                         .keyboardType(.numberPad)
                                 }

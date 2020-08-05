@@ -38,7 +38,7 @@ struct CustomCameraView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
-                #if targetEnvironment(simulator)
+                #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
                 Color.green
                     .ignoresSafeArea(edges: .all)
                 #else
@@ -105,7 +105,7 @@ struct CustomCameraView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.largeTitle)
+                            .imageScale(.large)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -118,7 +118,7 @@ struct CustomCameraView: View {
                                 .tag(1)
                         }
                         .labelsHidden()
-                        .pickerStyle(SegmentedPickerStyle())
+                        .pickerStyle(InlinePickerStyle())
                     }
                 }
             }
