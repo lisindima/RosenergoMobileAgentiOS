@@ -33,10 +33,8 @@ struct CreateInspections: View {
     @State private var insuranceContractNumber2: String = ""
     @State private var vinAndNumber: Bool = false
     @State private var vinAndNumber2: Bool = false
-    @State private var indexSeries: Int = 0
-    @State private var indexSeries2: Int = 0
-    
-    private var insuranceContractSeries: [String] = ["ХХХ", "CCC", "РРР", "ННН", "МММ", "ККК", "ЕЕЕ", "ВВВ"]
+    @State private var choiseSeries: Series = .XXX
+    @State private var choiseSeries2: Series = .XXX
     
     func openCamera() {
         #if targetEnvironment(simulator)
@@ -65,12 +63,12 @@ struct CreateInspections: View {
             carRegNumber: carRegNumber,
             carBodyNumber: vinAndNumber ? carVin : carBodyNumber,
             carVin: carVin,
-            insuranceContractNumber: insuranceContractSeries[indexSeries] + insuranceContractNumber,
+            insuranceContractNumber: choiseSeries.rawValue + insuranceContractNumber,
             carModel2: carModel2 == "" ? nil : carModel2,
             carRegNumber2: carRegNumber2 == "" ? nil : carRegNumber2,
             carBodyNumber2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
             carVin2: carVin2 == "" ? nil : carVin2,
-            insuranceContractNumber2: insuranceContractSeries[indexSeries2] + insuranceContractNumber2 == "" ? nil : insuranceContractSeries[indexSeries2] + insuranceContractNumber2,
+            insuranceContractNumber2: choiseSeries2.rawValue + insuranceContractNumber2 == "" ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
             latitude: locationStore.currentLocation!.coordinate.latitude,
             longitude: locationStore.currentLocation!.coordinate.longitude,
             photoParameters: photoParameters,
@@ -88,7 +86,7 @@ struct CreateInspections: View {
         localInspections.carModel = carModel
         localInspections.carRegNumber = carRegNumber
         localInspections.carVin = carVin
-        localInspections.insuranceContractNumber = insuranceContractSeries[indexSeries] + insuranceContractNumber
+        localInspections.insuranceContractNumber = choiseSeries.rawValue + insuranceContractNumber
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.videoURL = sessionStore.videoURL
         localInspections.id = id
@@ -111,7 +109,7 @@ struct CreateInspections: View {
             localInspections.carModel2 = carModel2
             localInspections.carRegNumber2 = carRegNumber2
             localInspections.carVin2 = carVin2
-            localInspections.insuranceContractNumber2 = insuranceContractSeries[indexSeries2] + insuranceContractNumber2
+            localInspections.insuranceContractNumber2 = choiseSeries2.rawValue + insuranceContractNumber2
         }
         
         try? moc.save()
@@ -132,7 +130,7 @@ struct CreateInspections: View {
                             Label("Страховой полис", systemImage: "doc.plaintext")
                         ) {
                             HStack {
-                                CustomPicker("Серия", data: insuranceContractSeries, selectionIndex: $indexSeries)
+                                SeriesPicker(selectedSeries: $choiseSeries)
                                     .modifier(InputModifier())
                                     .frame(width: 100)
                                 CustomInput(text: $insuranceContractNumber, name: "Номер")
@@ -163,7 +161,7 @@ struct CreateInspections: View {
                                 Label("Страховой полис", systemImage: "doc.plaintext")
                             ) {
                                 HStack {
-                                    CustomPicker("Серия", data: insuranceContractSeries, selectionIndex: $indexSeries2)
+                                    SeriesPicker(selectedSeries: $choiseSeries2)
                                         .modifier(InputModifier())
                                         .frame(width: 100)
                                     CustomInput(text: $insuranceContractNumber2, name: "Номер")

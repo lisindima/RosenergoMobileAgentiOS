@@ -106,7 +106,7 @@
 		CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CBD07BA5248A082800A863D6 /* UploadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD07BA4248A082800A863D6 /* UploadIndicator.swift */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
-		CBDD152224C16B0000C48262 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDD152124C16B0000C48262 /* CustomPicker.swift */; };
+		CBD9354824DA77F600E0F902 /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD9354724DA77F600E0F902 /* SeriesPicker.swift */; };
 		CBDD152424C181FD00C48262 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
@@ -236,7 +236,7 @@
 		CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreModel.swift; sourceTree = "<group>"; };
 		CBD07BA4248A082800A863D6 /* UploadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIndicator.swift; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
-		CBDD152124C16B0000C48262 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
+		CBD9354724DA77F600E0F902 /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -322,6 +322,7 @@
 				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
 				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
 				CB17E5622466644400CDBB1A /* SignIn.swift */,
+				CBD9354724DA77F600E0F902 /* SeriesPicker.swift */,
 				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CBB4B0B724C82B9C00C25A59 /* Location */,
 				CB4CD7BD24909A56007FE4AB /* Notification */,
@@ -352,7 +353,6 @@
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
 				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
-				CBDD152124C16B0000C48262 /* CustomPicker.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CBD07BA4248A082800A863D6 /* UploadIndicator.swift */,
 				CB717C33248DF8B200DE31FE /* GeoIndicator.swift */,
@@ -696,6 +696,7 @@
 				CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
+				CBD9354824DA77F600E0F902 /* SeriesPicker.swift in Sources */,
 				CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
 				CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
@@ -719,7 +720,6 @@
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
 				CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */,
-				CBDD152224C16B0000C48262 /* CustomPicker.swift in Sources */,
 				CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */,
 				CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */,
