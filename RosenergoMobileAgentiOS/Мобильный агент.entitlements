@@ -28,7 +28,5 @@
 	<true/>
 	<key>com.apple.security.personal-information.location</key>
 	<true/>
-	<key>com.apple.security.personal-information.photos-library</key>
-	<true/>
 </dict>
 </plist>
