@@ -7,10 +7,12 @@
 //
 
 import SwiftUI
-import SPAlert
 import MessageUI
 
 struct MailFeedback: UIViewControllerRepresentable {
+    
+    @Binding var showAlert: Bool
+    @Binding var alertMailType: AlertMailType
     
     let deviceInfo = UIDevice.current
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
@@ -44,11 +46,14 @@ struct MailFeedback: UIViewControllerRepresentable {
             controller.dismiss(animated: true, completion: nil)
             switch result {
             case .sent:
-                SPAlert.present(title: "Сообщение отправлено!", message: "Я отвечу на него в ближайшее время.", preset: .heart)
+                parent.alertMailType = .sent
+                parent.showAlert = true
             case .saved:
-                SPAlert.present(title: "Сообщение сохранено!", message: "Сообщение ждет вас в черновиках.", preset: .done)
+                parent.alertMailType = .saved
+                parent.showAlert = true
             case .failed:
-                SPAlert.present(title: "Ошибка!", message: "Повторите попытку позже", preset: .error)
+                parent.alertMailType = .failed
+                parent.showAlert = true
             case .cancelled:
                 print("Отменено пользователем")
             @unknown default:
@@ -56,6 +61,10 @@ struct MailFeedback: UIViewControllerRepresentable {
             }
         }
     }
+}
+
+enum AlertMailType {
+    case sent, saved, failed, error
 }
 
 enum Model: String {

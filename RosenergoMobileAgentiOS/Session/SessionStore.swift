@@ -12,7 +12,6 @@ import Alamofire
 import Defaults
 #if !os(watchOS)
 import CoreLocation
-import SPAlert
 import FirebaseCrashlytics
 #endif
 
@@ -37,9 +36,12 @@ class SessionStore: ObservableObject {
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
+    @Published var alertType: AlertType = .success
     @Published var uploadProgress: Double = 0.0
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
+    @Published var showAlert: Bool = false
+    @Published var showServerAlert: Bool = false
     @Published var openListInspections: Bool = false
     @Published var openCreateInspections: Bool = false
     @Published var openCreateVyplatnyeDela: Bool = false
@@ -98,11 +100,9 @@ class SessionStore: ObservableObject {
                     Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
                     #endif
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Неправильный логин или пароль.", preset: .error)
-                    #endif
-                    print(error)
+                    self.showAlert = true
                     self.loadingLogin = false
+                    print(error)
                 }
         }
     }
@@ -159,9 +159,7 @@ class SessionStore: ObservableObject {
                     } else if code == 401 && self.loginParameters == nil {
                         self.loginModel = nil
                     } else if code == nil {
-                        #if !os(watchOS)
-                        SPAlert.present(title: "Нет интернета!", message: "Сохраняйте осмотры на устройство.", preset: .message)
-                        #endif
+                        self.showServerAlert = true
                     } else {
                         break
                     }
@@ -246,16 +244,13 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
-                    #endif
+                    self.alertType = .success
                     self.uploadState = .none
-                    self.openCreateInspections = false
+                    self.showAlert = true
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
-                    #endif
+                    self.alertType = .error
                     self.uploadState = .none
+                    self.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -286,18 +281,15 @@ class SessionStore: ObservableObject {
             .response { response in
                 switch response.result {
                 case .success:
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Успешно!", message: "Выплатное дело успешно загружено на сервер.", preset: .done)
+                    self.alertType = .success
                     self.uploadState = .none
-                    self.openCreateVyplatnyeDela = false
-                    #endif
+                    self.showAlert = true
                 case .failure(let error):
-                    #if !os(watchOS)
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте загрузить позднее.", preset: .error)
-                    #endif
+                    self.alertType = .error
                     self.uploadState = .none
+                    self.showAlert = true
                     print(error.errorDescription!)
-            }
+                }
         }
     }
 }
@@ -319,3 +311,6 @@ enum YandexGeoState {
     case loading, failure, success
 }
 
+enum AlertType {
+    case success, error, emptyLocation, emptyPhoto, emptyTextField
+}

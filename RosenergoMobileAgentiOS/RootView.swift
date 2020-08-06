@@ -20,6 +20,9 @@ struct RootView: View {
                 SignIn()
             }
         }
+        .alert(isPresented: $sessionStore.showServerAlert) {
+            Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .default(Text("Закрыть")))
+        }
     }
 }
 

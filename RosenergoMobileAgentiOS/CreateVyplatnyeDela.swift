@@ -8,7 +8,6 @@
 
 import SwiftUI
 import CoreLocation
-import SPAlert
 import KeyboardObserving
 
 struct CreateVyplatnyeDela: View {
@@ -25,7 +24,8 @@ struct CreateVyplatnyeDela: View {
             showCustomCameraView = true
         #else
         if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
-            SPAlert.present(title: "Ошибка!", message: "Не удалось определить геопозицию", preset: .error)
+            sessionStore.alertType = .emptyLocation
+            sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
@@ -52,9 +52,11 @@ struct CreateVyplatnyeDela: View {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                         UIApplication.shared.hideKeyboard()
                         if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
-                            SPAlert.present(title: "Ошибка!", message: "Заполните все представленные пункты.", preset: .error)
+                            self.sessionStore.alertType = .emptyTextField
+                            self.sessionStore.showAlert = true
                         } else if self.sessionStore.photoParameters.isEmpty {
-                            SPAlert.present(title: "Ошибка!", message: "Прикрепите хотя бы одну фотографию.", preset: .error)
+                            self.sessionStore.alertType = .emptyPhoto
+                            self.sessionStore.showAlert = true
                         } else {
                             self.sessionStore.uploadVyplatnyeDela(
                                 insuranceContractNumber: self.insuranceContractNumber,
@@ -83,6 +85,23 @@ struct CreateVyplatnyeDela: View {
             CustomCameraView()
                 .environmentObject(self.sessionStore)
                 .edgesIgnoringSafeArea(.bottom)
-        }.navigationBarTitle("Выплатное дело")
+        }
+        .navigationBarTitle("Выплатное дело")
+        .alert(isPresented: $sessionStore.showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно"), message: Text("Выплатное дело успешно загружено на сервер."), dismissButton: .default(Text("Закрыть"), action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }))
+            case .error:
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже."), dismissButton: .default(Text("Закрыть")))
+            case .emptyLocation:
+                return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
+            case .emptyPhoto:
+                return Alert(title: Text("Ошибка"), message: Text("Прикрепите хотя бы одну фотографию"), dismissButton: .default(Text("Закрыть")))
+            case .emptyTextField:
+                return Alert(title: Text("Ошибка"), message: Text("Заполните все представленные поля."), dismissButton: .default(Text("Закрыть")))
+            }
+        }
     }
 }

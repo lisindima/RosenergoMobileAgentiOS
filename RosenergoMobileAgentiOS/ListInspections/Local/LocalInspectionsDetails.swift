@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Alamofire
-import SPAlert
 
 struct LocalInspectionsDetails: View {
     
@@ -23,6 +22,17 @@ struct LocalInspectionsDetails: View {
     @State private var yandexGeo: YandexGeo?
     
     var localInspections: LocalInspections
+    
+    private func delete() {
+        notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
+        presentationMode.wrappedValue.dismiss()
+        moc.delete(localInspections)
+        do {
+            try moc.save()
+        } catch {
+            print(error)
+        }
+    }
     
     private func loadYandexGeoResponse() {
         
@@ -89,20 +99,13 @@ struct LocalInspectionsDetails: View {
                 switch response.result {
                 case .success:
                     self.presentationMode.wrappedValue.dismiss()
-                    SPAlert.present(title: "Успешно!", message: "Осмотр успешно загружен на сервер.", preset: .done)
                     self.sessionStore.uploadState = .none
-                    self.notificationStore.cancelNotifications(id: self.localInspections.id!.uuidString)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.moc.delete(self.localInspections)
-                        do {
-                            try self.moc.save()
-                        } catch {
-                            print(error)
-                        }
-                    }
+                    self.sessionStore.alertType = .success
+                    self.sessionStore.showAlert = true
                 case .failure(let error):
-                    SPAlert.present(title: "Ошибка!", message: "Попробуйте сохранить осмотр и загрузить его позднее.", preset: .error)
                     self.sessionStore.uploadState = .none
+                    self.sessionStore.alertType = .error
+                    self.sessionStore.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -318,6 +321,20 @@ struct LocalInspectionsDetails: View {
                 UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.localInspections.longitude),\(self.localInspections.latitude)")!)
                 }, .cancel()
             ])
+        }
+        .alert(isPresented: $sessionStore.showAlert) {
+            switch sessionStore.alertType {
+            case .success:
+                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
+            case .error:
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+            case .emptyLocation:
+                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
+            case .emptyPhoto:
+                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
+            case .emptyTextField:
+                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
+            }
         }
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SPAlert
 import MessageUI
 
 struct SettingsView: View {
@@ -18,11 +17,13 @@ struct SettingsView: View {
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
     
     @State private var showActionSheetExit: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var alertMailType: AlertMailType = .sent
     
     private func showMailView() {
         DispatchQueue.main.async {
             let mailFeedback = UIHostingController(rootView:
-                MailFeedback()
+                MailFeedback(showAlert: self.$showAlert, alertMailType: self.$alertMailType)
                     .edgesIgnoringSafeArea(.bottom)
                     .accentColor(.rosenergo)
             )
@@ -126,7 +127,8 @@ struct SettingsView: View {
                         if MFMailComposeViewController.canSendMail() {
                             self.showMailView()
                         } else {
-                            SPAlert.present(title: "Не установлено приложение \"Почта\".", message: "Установите его из App Store." , preset: .error)
+                            self.alertMailType = .error
+                            self.showAlert = true
                         }
                     }.foregroundColor(.primary)
                 }
@@ -151,5 +153,17 @@ struct SettingsView: View {
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Настройки")
+        .alert(isPresented: $showAlert) {
+            switch alertMailType {
+            case .sent:
+                return Alert(title: Text("Сообщение отправлено"), message: Text("Я отвечу на него в ближайшее время."), dismissButton: .default(Text("Закрыть")))
+            case .saved:
+                return Alert(title: Text("Сообщение сохранено"), message: Text("Сообщение ждет вас в черновиках."), dismissButton: .default(Text("Закрыть")))
+            case .failed:
+                return Alert(title: Text("Ошибка"), message: Text("Повторите попытку позже."), dismissButton: .default(Text("Закрыть")))
+            case .error:
+                return Alert(title: Text("Не установлено приложение \"Почта\""), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .default(Text("Закрыть")))
+            }
+        }
     }
 }

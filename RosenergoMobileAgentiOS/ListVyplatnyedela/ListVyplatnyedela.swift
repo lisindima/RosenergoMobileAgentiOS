@@ -43,7 +43,8 @@ struct ListVyplatnyedela: View {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
                         }
                     }
-                }.addSearchBar(searchBar)
+                }
+                .addSearchBar(searchBar)
                 .listStyle(GroupedListStyle())
             }
         }
