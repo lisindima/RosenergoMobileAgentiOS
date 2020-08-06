@@ -45,6 +45,7 @@ class SessionStore: ObservableObject {
     @Published var openListInspections: Bool = false
     @Published var openCreateInspections: Bool = false
     @Published var openCreateVyplatnyeDela: Bool = false
+    @Published var errorAlert: String?
     
     static let shared = SessionStore()
     
@@ -248,6 +249,7 @@ class SessionStore: ObservableObject {
                     self.uploadState = .none
                     self.showAlert = true
                 case .failure(let error):
+                    self.errorAlert = error.errorDescription
                     self.alertType = .error
                     self.uploadState = .none
                     self.showAlert = true
@@ -285,6 +287,7 @@ class SessionStore: ObservableObject {
                     self.uploadState = .none
                     self.showAlert = true
                 case .failure(let error):
+                    self.errorAlert = error.errorDescription
                     self.alertType = .error
                     self.uploadState = .none
                     self.showAlert = true

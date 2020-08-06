@@ -94,7 +94,7 @@ struct CreateVyplatnyeDela: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }))
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже.\n\(sessionStore.errorAlert ?? "")"), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
                 return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
             case .emptyPhoto:

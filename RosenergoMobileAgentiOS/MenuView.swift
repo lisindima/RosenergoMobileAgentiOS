@@ -27,23 +27,22 @@ struct MenuView: View {
                 HStack {
                     NavigationLink(destination: CreateInspections(), isActive: $sessionStore.openCreateInspections) {
                         MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
-                    }.padding(.trailing, 4)
+                    }
                     NavigationLink(destination: ListInspections(), isActive: $sessionStore.openListInspections) {
                         MenuButton(title: "Осмотры", image: "list.bullet.below.rectangle", color: .red)
-                    }.padding(.leading, 4)
+                    }
                 }
                 .padding(.top, 8)
-                .padding(.horizontal)
+                .padding(.horizontal, 8)
                 HStack {
                     NavigationLink(destination: CreateVyplatnyeDela(), isActive: $sessionStore.openCreateVyplatnyeDela) {
                         MenuButton(title: "Новое выплатное дело", image: "doc", color: .purple)
-                    }.padding(.trailing, 4)
+                    }
                     NavigationLink(destination: ListVyplatnyedela()) {
                         MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow)
-                    }.padding(.leading, 4)
+                    }
                 }
-                .padding(.top, 8)
-                .padding(.horizontal)
+                .padding(.horizontal, 8)
                 Spacer()
                 appVersionView
                     .foregroundColor(.secondary)
@@ -52,7 +51,7 @@ struct MenuView: View {
             }
             .navigationBarTitle("Мобильный агент")
             .navigationBarItems(trailing: NavigationLink(destination: SettingsView()) {
-               Image(systemName: "gear")
+                Image(systemName: "gear")
                     .imageScale(.large)
             })
         }.navigationViewStyle(StackNavigationViewStyle())

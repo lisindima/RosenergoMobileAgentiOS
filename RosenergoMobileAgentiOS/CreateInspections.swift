@@ -90,7 +90,6 @@ struct CreateInspections: View {
         }
         
         try? self.moc.save()
-        self.presentationMode.wrappedValue.dismiss()
         self.sessionStore.alertType = .success
         self.sessionStore.showAlert = true
         self.notificationStore.setNotification(id: id.uuidString)
@@ -213,7 +212,7 @@ struct CreateInspections: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }))
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже.\n\(sessionStore.errorAlert ?? "")"), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
                 return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
             case .emptyPhoto:

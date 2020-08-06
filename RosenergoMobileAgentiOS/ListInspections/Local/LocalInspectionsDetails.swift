@@ -98,11 +98,11 @@ struct LocalInspectionsDetails: View {
             .response { response in
                 switch response.result {
                 case .success:
-                    self.presentationMode.wrappedValue.dismiss()
                     self.sessionStore.uploadState = .none
                     self.sessionStore.alertType = .success
                     self.sessionStore.showAlert = true
                 case .failure(let error):
+                    self.sessionStore.errorAlert = error.errorDescription
                     self.sessionStore.uploadState = .none
                     self.sessionStore.alertType = .error
                     self.sessionStore.showAlert = true
@@ -114,7 +114,7 @@ struct LocalInspectionsDetails: View {
     var body: some View {
         VStack {
             Form {
-                if !localInspections.photos!.isEmpty {
+                if localInspections.photos != nil {
                     Section(header: Text("Фотографии".uppercased())) {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -131,70 +131,74 @@ struct LocalInspectionsDetails: View {
                         }
                     }
                 }
-                Section(header: Text("Дата осмотра".uppercased())) {
-                    HStack {
-                        Image(systemName: "timer")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text(localInspections.dateInspections!.dataLocalInspection())
+                if localInspections.dateInspections != nil {
+                    Section(header: Text("Дата осмотра".uppercased())) {
+                        HStack {
+                            Image(systemName: "timer")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text(localInspections.dateInspections!.dataLocalInspection())
+                            }
                         }
                     }
                 }
-                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
-                    HStack {
-                        Image(systemName: "car")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Модель автомобиля")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.carModel!)
+                if localInspections.carModel != nil {
+                    Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль".uppercased() : "Информация".uppercased())) {
+                        HStack {
+                            Image(systemName: "car")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Модель автомобиля")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carModel!)
+                            }
                         }
-                    }
-                    HStack {
-                        Image(systemName: "rectangle")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Регистрационный номер")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.carRegNumber!)
+                        HStack {
+                            Image(systemName: "rectangle")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Регистрационный номер")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carRegNumber!)
+                            }
                         }
-                    }
-                    HStack {
-                        Image(systemName: "v.circle")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("VIN")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.carVin!)
+                        HStack {
+                            Image(systemName: "v.circle")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("VIN")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carVin!)
+                            }
                         }
-                    }
-                    HStack {
-                        Image(systemName: "textformat.123")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Номер кузова")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.carBodyNumber!)
+                        HStack {
+                            Image(systemName: "textformat.123")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Номер кузова")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.carBodyNumber!)
+                            }
                         }
-                    }
-                    HStack {
-                        Image(systemName: "text.justify")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        VStack(alignment: .leading) {
-                            Text("Страховой полис")
-                                .font(.system(size: 11))
-                                .foregroundColor(.secondary)
-                            Text(localInspections.insuranceContractNumber!)
+                        HStack {
+                            Image(systemName: "text.justify")
+                                .frame(width: 24)
+                                .foregroundColor(.rosenergo)
+                            VStack(alignment: .leading) {
+                                Text("Страховой полис")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                                Text(localInspections.insuranceContractNumber!)
+                            }
                         }
                     }
                 }
@@ -327,7 +331,7 @@ struct LocalInspectionsDetails: View {
             case .success:
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже.\n\(sessionStore.errorAlert ?? "")"), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .emptyPhoto:
