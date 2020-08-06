@@ -58,7 +58,7 @@
 		CB758D7B24AEFA45000A6B3C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */; };
 		CB758D7E24AEFA45000A6B3C /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7D24AEFA45000A6B3C /* Widget.swift */; };
 		CB758D8024AEFA48000A6B3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB758D7F24AEFA48000A6B3C /* Assets.xcassets */; };
-		CB758D8424AEFA48000A6B3C /* WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB758D7724AEFA45000A6B3C /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CB758D8424AEFA48000A6B3C /* RosenergoMobileAgentWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB758D7724AEFA45000A6B3C /* RosenergoMobileAgentWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB758D8B24B17C93000A6B3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* String.swift */; };
 		CB758D8C24B17C93000A6B3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* String.swift */; };
 		CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
@@ -143,7 +143,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				CB758D8424AEFA48000A6B3C /* WidgetExtension.appex in Embed App Extensions */,
+				CB758D8424AEFA48000A6B3C /* RosenergoMobileAgentWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,7 +204,7 @@
 		CB66D74A24A5D989005C616A /* RosenergoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoApp.swift; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
 		CB758D7024AEEB67000A6B3C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		CB758D7724AEFA45000A6B3C /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB758D7724AEFA45000A6B3C /* RosenergoMobileAgentWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RosenergoMobileAgentWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB758D7824AEFA45000A6B3C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		CB758D7D24AEFA45000A6B3C /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 				CB17E55A2466644400CDBB1A /* RosenergoMobileAgentiOS */,
 				CB9DE92D249758B100F4E72A /* RosenergoMobileAgentwatchOS */,
 				CB9DE93C249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */,
-				CB758D7C24AEFA45000A6B3C /* Widget */,
+				CB758D7C24AEFA45000A6B3C /* RosenergoMobileAgentWidget */,
 				CB17E5592466644400CDBB1A /* Products */,
 				CB2B5B83246BA8CE006F35AC /* Frameworks */,
 			);
@@ -304,7 +304,7 @@
 				CB17E5582466644400CDBB1A /* Мобильный агент.app */,
 				CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */,
 				CB9DE938249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension.appex */,
-				CB758D7724AEFA45000A6B3C /* WidgetExtension.appex */,
+				CB758D7724AEFA45000A6B3C /* RosenergoMobileAgentWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -406,7 +406,7 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		CB758D7C24AEFA45000A6B3C /* Widget */ = {
+		CB758D7C24AEFA45000A6B3C /* RosenergoMobileAgentWidget */ = {
 			isa = PBXGroup;
 			children = (
 				CB758D8524AEFA48000A6B3C /* WidgetExtension.entitlements */,
@@ -414,7 +414,7 @@
 				CB758D7F24AEFA48000A6B3C /* Assets.xcassets */,
 				CB758D8124AEFA48000A6B3C /* Info.plist */,
 			);
-			path = Widget;
+			path = RosenergoMobileAgentWidget;
 			sourceTree = "<group>";
 		};
 		CB9DE92D249758B100F4E72A /* RosenergoMobileAgentwatchOS */ = {
@@ -540,9 +540,9 @@
 			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CB758D7624AEFA45000A6B3C /* WidgetExtension */ = {
+		CB758D7624AEFA45000A6B3C /* RosenergoMobileAgentWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB758D8624AEFA48000A6B3C /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildConfigurationList = CB758D8624AEFA48000A6B3C /* Build configuration list for PBXNativeTarget "RosenergoMobileAgentWidget" */;
 			buildPhases = (
 				CB758D7324AEFA45000A6B3C /* Sources */,
 				CB758D7424AEFA45000A6B3C /* Frameworks */,
@@ -552,9 +552,9 @@
 			);
 			dependencies = (
 			);
-			name = WidgetExtension;
+			name = RosenergoMobileAgentWidget;
 			productName = WidgetExtension;
-			productReference = CB758D7724AEFA45000A6B3C /* WidgetExtension.appex */;
+			productReference = CB758D7724AEFA45000A6B3C /* RosenergoMobileAgentWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		CB9DE92B249758B100F4E72A /* RosenergoMobileAgentwatchOS */ = {
@@ -643,7 +643,7 @@
 				CB17E5572466644400CDBB1A /* RosenergoMobileAgentiOS */,
 				CB9DE92B249758B100F4E72A /* RosenergoMobileAgentwatchOS */,
 				CB9DE937249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */,
-				CB758D7624AEFA45000A6B3C /* WidgetExtension */,
+				CB758D7624AEFA45000A6B3C /* RosenergoMobileAgentWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -794,7 +794,7 @@
 /* Begin PBXTargetDependency section */
 		CB758D8324AEFA48000A6B3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CB758D7624AEFA45000A6B3C /* WidgetExtension */;
+			target = CB758D7624AEFA45000A6B3C /* RosenergoMobileAgentWidget */;
 			targetProxy = CB758D8224AEFA48000A6B3C /* PBXContainerItemProxy */;
 		};
 		CB9DE93B249758B400F4E72A /* PBXTargetDependency */ = {
@@ -995,11 +995,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = Widget/WidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentWidget/WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
-				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_FILE = RosenergoMobileAgentWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1020,11 +1020,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = Widget/WidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentWidget/WidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
-				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_FILE = RosenergoMobileAgentWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1178,7 +1178,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB758D8624AEFA48000A6B3C /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+		CB758D8624AEFA48000A6B3C /* Build configuration list for PBXNativeTarget "RosenergoMobileAgentWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB758D8724AEFA48000A6B3C /* Debug */,
