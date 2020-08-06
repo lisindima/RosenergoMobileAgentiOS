@@ -12,6 +12,10 @@ import URLImage
 
 struct VyplatnyedelaDetails: View {
     
+    #if !os(watchOS)
+    @Environment(\.exportFiles) var exportAction
+    #endif
+    
     @State private var showAlert: Bool = false
     
     var vyplatnyedela: Vyplatnyedela
@@ -78,14 +82,8 @@ struct VyplatnyedelaDetails: View {
         }
         .navigationTitle("Дело: \(vyplatnyedela.id)")
         .toolbar {
+            #if !os(watchOS)
             ToolbarItem(placement: .primaryAction) {
-                #if os(watchOS)
-                Button(action: {
-                    print("Скопировать")
-                }) {
-                    Label("Скопировать", systemImage: "link")
-                }
-                #else
                 Menu {
                     Button(action: {
                         UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
@@ -93,15 +91,26 @@ struct VyplatnyedelaDetails: View {
                     }) {
                         Label("Скопировать", systemImage: "link")
                     }
-                    Button(action: {}) {
+                    Button(action: {
+                        exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
+                            switch result {
+                            case .success(let url):
+                                print("Success! \(url)")
+                            case .failure(let error):
+                                print("Oops: \(error.localizedDescription)")
+                            case .none:
+                                print("Cancelled")
+                            }
+                        }
+                    }) {
                         Label("Загрузить", systemImage: "square.and.arrow.down")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle.fill")
                         .imageScale(.large)
                 }
-                #endif
             }
+            #endif
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))

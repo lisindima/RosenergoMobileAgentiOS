@@ -14,15 +14,10 @@ struct ListVyplatnyedela: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     @StateObject private var searchBar = SearchBar.shared
-    @State private var showSortSetting: Bool = false
-    
-    @AppStorage("sortedByNewVyplatnyedela") private var sortedByNew: Bool = true
     
     var listVyplatnyedela: some View {
         List {
-            ForEach(sessionStore.vyplatnyedela.sorted {
-                sortedByNew ? $0.id > $1.id : $0.id < $1.id
-            }.filter {
+            ForEach(sessionStore.vyplatnyedela.reversed().filter {
                 searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
             }, id: \.id) { vyplatnyedela in
                 NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
@@ -63,31 +58,14 @@ struct ListVyplatnyedela: View {
         .onAppear(perform: sessionStore.getVyplatnyedela)
         .navigationTitle("Выплатные дела")
         .toolbar {
+            #if !os(watchOS)
             ToolbarItem(placement: .primaryAction) {
-                HStack {
-                    Button(action: {
-                        showSortSetting = true
-                    }) {
-                        Image(systemName: "line.horizontal.3.decrease.circle")
-                            .imageScale(.large)
-                    }
-                    #if !os(watchOS)
-                    NavigationLink(destination: CreateVyplatnyeDela()) {
-                        Image(systemName: "plus.circle.fill")
-                            .imageScale(.large)
-                    }
-                    #endif
+                NavigationLink(destination: CreateVyplatnyeDela()) {
+                    Image(systemName: "plus.circle.fill")
+                        .imageScale(.large)
                 }
             }
-        }
-        .actionSheet(isPresented: $showSortSetting) {
-            ActionSheet(title: Text("Сортировка"), message: Text("В каком порядке отображать список выплатных дел?"), buttons: [
-                .default(Text("Сначала новые")) {
-                    sortedByNew = true
-                }, .default(Text("Сначала старые")) {
-                    sortedByNew = false
-                }, .cancel()
-            ])
+            #endif
         }
     }
 }

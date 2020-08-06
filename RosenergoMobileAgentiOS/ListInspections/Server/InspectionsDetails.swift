@@ -21,6 +21,7 @@ struct InspectionsDetails: View {
     @State private var address: String?
     
     #if !os(watchOS)
+    @Environment(\.exportFiles) var exportAction
     @State private var presentMapActionSheet: Bool = false
     @State private var showAlert: Bool = false
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
@@ -74,7 +75,18 @@ struct InspectionsDetails: View {
                         }) {
                             Label("Скопировать", systemImage: "link")
                         }
-                        Button(action: {}) {
+                        Button(action: {
+                            exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
+                                switch result {
+                                case .success(let url):
+                                    print("Success! \(url)")
+                                case .failure(let error):
+                                    print("Oops: \(error.localizedDescription)")
+                                case .none:
+                                    print("Cancelled")
+                                }
+                            }
+                        }) {
                             Label("Загрузить", systemImage: "square.and.arrow.down")
                         }
                     } label: {

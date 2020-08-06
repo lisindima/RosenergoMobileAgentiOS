@@ -11,18 +11,14 @@ import NativeSearchBar
 
 struct ListInspections: View {
     
+    @Environment(\.managedObjectContext) private var moc
+    @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
+    @StateObject private var searchBar = SearchBar.shared
     @EnvironmentObject private var sessionStore: SessionStore
+    
     #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-    @Environment(\.managedObjectContext) private var moc
-    
-    @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
-    
-    @StateObject private var searchBar = SearchBar.shared
-    
-    @State private var showSortSetting: Bool = false
-    @AppStorage("sortedByNew") private var sortedByNew: Bool = true
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {
@@ -50,9 +46,7 @@ struct ListInspections: View {
             }
             if !sessionStore.inspections.isEmpty {
                 Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
-                    ForEach(sessionStore.inspections.sorted {
-                        sortedByNew ? $0.id > $1.id : $0.id < $1.id
-                    }.filter {
+                    ForEach(sessionStore.inspections.reversed().filter {
                         searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
                     }, id: \.id) { inspection in
                         NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
@@ -95,31 +89,14 @@ struct ListInspections: View {
         .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")
         .toolbar {
+            #if !os(watchOS)
             ToolbarItem(placement: .primaryAction) {
-                HStack {
-                    Button(action: {
-                        showSortSetting = true
-                    }) {
-                        Image(systemName: "line.horizontal.3.decrease.circle")
-                            .imageScale(.large)
-                    }
-                    #if !os(watchOS)
-                    NavigationLink(destination: CreateInspections()) {
-                        Image(systemName: "plus.circle.fill")
-                            .imageScale(.large)
-                    }
-                    #endif
+                NavigationLink(destination: CreateInspections()) {
+                    Image(systemName: "plus.circle.fill")
+                        .imageScale(.large)
                 }
             }
-        }
-        .actionSheet(isPresented: $showSortSetting) {
-            ActionSheet(title: Text("Сортировка"), message: Text("В каком порядке отображать список осмотров?"), buttons: [
-                .default(Text("Сначала новые")) {
-                    sortedByNew = true
-                }, .default(Text("Сначала старые")) {
-                    sortedByNew = false
-                }, .cancel()
-            ])
+            #endif
         }
     }
 }
