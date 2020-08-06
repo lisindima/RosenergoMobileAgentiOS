@@ -20,23 +20,22 @@ struct InspectionsItems: View {
                     .font(.title)
                     .fontWeight(.bold)
                 Group {
-                    Text("Номер полиса: \(inspection.insuranceContractNumber)")
-                    Text("Модель авто: \(inspection.carModel)")
-                    Text("Рег.номер: \(inspection.carRegNumber)")
-                    Text("VIN: \(inspection.carVin)")
-                    Text("Номер кузова: \(inspection.carBodyNumber)")
+                    Text(inspection.insuranceContractNumber)
+                    Text(inspection.carModel)
+                    Text(inspection.carRegNumber)
+                    Text(inspection.carVin)
+                    Text(inspection.carBodyNumber)
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
                 if inspection.carModel2 != nil {
                     Group {
-                        Text("Номер полиса: \(inspection.insuranceContractNumber2!)")
-                            .padding(.top, 8)
-                        Text("Модель авто: \(inspection.carModel2!)")
-                        Text("Рег.номер: \(inspection.carRegNumber2!)")
-                        Text("VIN: \(inspection.carVin2!)")
-                        Text("Номер кузова: \(inspection.carBodyNumber2!)")
+                        Text(inspection.insuranceContractNumber2!).padding(.top, 8)
+                        Text(inspection.carModel2!)
+                        Text(inspection.carRegNumber2!)
+                        Text(inspection.carVin2!)
+                        Text(inspection.carBodyNumber2!)
                     }
                     .font(.footnote)
                     .foregroundColor(.secondary)
