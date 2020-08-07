@@ -124,9 +124,9 @@ class SessionStore: ObservableObject {
                 case .success:
                     break
                 case .failure:
-                    if code == 401 && loginParameters != nil {
+                    if code == 500 && loginParameters != nil {
                         login(email: loginParameters!.email, password: loginParameters!.password)
-                    } else if code == 401 && loginParameters == nil {
+                    } else if code == 500 && loginParameters == nil {
                         loginModel = nil
                     } else if code == nil {
                         showServerAlert = true

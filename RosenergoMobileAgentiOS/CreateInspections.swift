@@ -80,6 +80,7 @@ struct CreateInspections: View {
         
         let id = UUID()
         let localInspections = LocalInspections(context: moc)
+        localInspections.id = id
         localInspections.latitude = locationStore.currentLocation!.coordinate.latitude
         localInspections.longitude = locationStore.currentLocation!.coordinate.longitude
         localInspections.carBodyNumber = vinAndNumber ? carVin : carBodyNumber
@@ -89,7 +90,6 @@ struct CreateInspections: View {
         localInspections.insuranceContractNumber = choiseSeries.rawValue + insuranceContractNumber
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.videoURL = sessionStore.videoURL
-        localInspections.id = id
         
         var localPhotos: [LocalPhotos] = []
         var setPhotoId: Int16 = 0
@@ -277,7 +277,7 @@ struct CreateInspections: View {
             case .emptyPhoto:
                 return Alert(title: Text("Ошибка"), message: Text("Прикрепите хотя бы одну фотографию"), dismissButton: .default(Text("Закрыть")))
             case .emptyTextField:
-                return Alert(title: Text("Ошибка"), message: Text("Заполните все представленные пункты."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Заполните все представленные поля."), dismissButton: .default(Text("Закрыть")))
             }
         }
     }

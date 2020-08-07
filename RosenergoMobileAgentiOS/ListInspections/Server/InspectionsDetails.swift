@@ -9,22 +9,20 @@
 import SwiftUI
 import URLImage
 import CoreLocation
+import MapKit
 #if !os(watchOS)
 import AVKit
-import MapKit
 #endif
 
 struct InspectionsDetails: View {
     
-    @EnvironmentObject private var sessionStore: SessionStore
-    
     @State private var address: String?
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
     #if !os(watchOS)
     @Environment(\.exportFiles) var exportAction
     @State private var presentMapActionSheet: Bool = false
     @State private var showAlert: Bool = false
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     #endif
     
     var inspection: Inspections
@@ -213,6 +211,10 @@ struct InspectionsDetails: View {
                     imageColor: .rosenergo,
                     title: address
                 )
+                Map(coordinateRegion: $region)
+                    .frame(height: 100)
+                    .cornerRadius(10)
+                    .padding(.vertical)
                 #else
                 Button(action: {
                     presentMapActionSheet = true
@@ -234,10 +236,11 @@ struct InspectionsDetails: View {
         .onAppear {
             let location = CLLocation(latitude: inspection.latitude, longitude: inspection.longitude)
             location.geocode { placemark, error in
-                if let error = error as? CLError {
-                    print("CLError:", error)
+                if let error = error {
+                    print(error)
                     return
                 } else if let placemark = placemark?.first {
+                    region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: inspection.latitude, longitude: inspection.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
                     address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
                 }
             }

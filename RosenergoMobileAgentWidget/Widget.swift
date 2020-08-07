@@ -85,9 +85,3 @@ struct WidgetApp: Widget {
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
-
-struct Widget_Previews: PreviewProvider {
-    static var previews: some View {
-        Test()
-    }
-}
