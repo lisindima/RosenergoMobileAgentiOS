@@ -71,6 +71,8 @@
 		CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
+		CB9AD06F24DD96BC00D220D8 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9AD06E24DD96BC00D220D8 /* Map.swift */; };
+		CB9AD07024DD96BC00D220D8 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9AD06E24DD96BC00D220D8 /* Map.swift */; };
 		CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D62D124A455B1000C1C3A /* SectionItem.swift */; };
 		CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D62D124A455B1000C1C3A /* SectionItem.swift */; };
@@ -214,6 +216,7 @@
 		CB758D8A24B17C93000A6B3C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RosenergoMobileAgentwatchOS Extension.entitlements"; sourceTree = "<group>"; };
 		CB7CEFA924AAC202009DF93A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		CB9AD06E24DD96BC00D220D8 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9DE931249758B300F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -360,6 +363,7 @@
 				CB758D7024AEEB67000A6B3C /* UIImage.swift */,
 				CB758D8A24B17C93000A6B3C /* String.swift */,
 				CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */,
+				CB9AD06E24DD96BC00D220D8 /* Map.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -709,6 +713,7 @@
 				CB4B9317246CF59B006B7008 /* Color.swift in Sources */,
 				CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */,
 				CBB2E09C2478F73B0017AB00 /* LocalInspectionsDetails.swift in Sources */,
+				CB9AD06F24DD96BC00D220D8 /* Map.swift in Sources */,
 				CB758D8B24B17C93000A6B3C /* String.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
@@ -757,6 +762,7 @@
 			files = (
 				CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */,
 				CB7CEFA524A9D9A0009DF93A /* UploadIndicator.swift in Sources */,
+				CB9AD07024DD96BC00D220D8 /* Map.swift in Sources */,
 				CBAC7F4424D28BF90081597D /* MenuView.swift in Sources */,
 				CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,

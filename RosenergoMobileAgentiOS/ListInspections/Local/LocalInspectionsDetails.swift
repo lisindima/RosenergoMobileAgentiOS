@@ -8,12 +8,16 @@
 
 import SwiftUI
 import CoreLocation
+import MapKit
 #if !os(watchOS)
 import AVKit
-import MapKit
 #endif
 
 struct LocalInspectionsDetails: View {
+    
+    #if !os(watchOS)
+    @EnvironmentObject private var notificationStore: NotificationStore
+    #endif
     
     @EnvironmentObject private var sessionStore: SessionStore
     
@@ -21,12 +25,8 @@ struct LocalInspectionsDetails: View {
     @Environment(\.presentationMode) private var presentationMode
     
     @State private var address: String?
-    
-    #if !os(watchOS)
-    @EnvironmentObject private var notificationStore: NotificationStore
-    @State private var presentMapActionSheet: Bool = false
+    @State private var pins: [Pin] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    #endif
     
     var localInspections: LocalInspections
     
@@ -78,14 +78,6 @@ struct LocalInspectionsDetails: View {
         #endif
     }
     
-    var footerMap: Text {
-        #if os(watchOS)
-        return Text("")
-        #else
-        return Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")
-        #endif
-    }
-    
     var body: some View {
         #if os(watchOS)
         formLocalInspections
@@ -106,15 +98,6 @@ struct LocalInspectionsDetails: View {
                             .imageScale(.large)
                     }
                 }
-            }
-            .actionSheet(isPresented: $presentMapActionSheet) {
-                ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [
-                    .default(Text("Apple Maps")) {
-                        UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
-                    }, .default(Text("Яндекс.Карты")) {
-                        UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
-                    }, .cancel()
-                ])
             }
         #endif
     }
@@ -141,7 +124,7 @@ struct LocalInspectionsDetails: View {
                 #if !os(watchOS)
                 if localInspections.videoURL != nil {
                     Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url:  URL(string: localInspections.videoURL!)!))
+                        VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
                             .frame(height: 200)
                             .cornerRadius(10)
                             .padding(.vertical, 8)
@@ -163,31 +146,31 @@ struct LocalInspectionsDetails: View {
                             imageName: "doc.plaintext",
                             imageColor: .rosenergo,
                             subTitle: "Страховой полис",
-                            title: localInspections.insuranceContractNumber!
+                            title: localInspections.insuranceContractNumber
                         )
                         SectionItem(
                             imageName: "car",
                             imageColor: .rosenergo,
                             subTitle: "Модель автомобиля",
-                            title: localInspections.carModel!
+                            title: localInspections.carModel
                         )
                         SectionItem(
                             imageName: "rectangle",
                             imageColor: .rosenergo,
                             subTitle: "Регистрационный номер",
-                            title: localInspections.carRegNumber!
+                            title: localInspections.carRegNumber
                         )
                         SectionItem(
                             imageName: "v.circle",
                             imageColor: .rosenergo,
                             subTitle: "VIN",
-                            title: localInspections.carVin!
+                            title: localInspections.carVin
                         )
                         SectionItem(
                             imageName: "textformat.123",
                             imageColor: .rosenergo,
                             subTitle: "Номер кузова",
-                            title: localInspections.carBodyNumber!
+                            title: localInspections.carBodyNumber
                         )
                     }
                 }
@@ -197,56 +180,48 @@ struct LocalInspectionsDetails: View {
                             imageName: "doc.plaintext",
                             imageColor: .rosenergo,
                             subTitle: "Страховой полис",
-                            title: localInspections.insuranceContractNumber2!
+                            title: localInspections.insuranceContractNumber2
                         )
                         SectionItem(
                             imageName: "car",
                             imageColor: .rosenergo,
                             subTitle: "Модель автомобиля",
-                            title: localInspections.carModel2!
+                            title: localInspections.carModel2
                         )
                         SectionItem(
                             imageName: "rectangle",
                             imageColor: .rosenergo,
                             subTitle: "Регистрационный номер",
-                            title: localInspections.carRegNumber2!
+                            title: localInspections.carRegNumber2
                         )
                         SectionItem(
                             imageName: "v.circle",
                             imageColor: .rosenergo,
                             subTitle: "VIN",
-                            title: localInspections.carVin2!
+                            title: localInspections.carVin2
                         )
                         SectionItem(
                             imageName: "textformat.123",
                             imageColor: .rosenergo,
                             subTitle: "Номер кузова",
-                            title: localInspections.carBodyNumber2!
+                            title: localInspections.carBodyNumber2
                         )
                     }
                 }
-                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: footerMap) {
-                    #if os(watchOS)
-                    SectionItem(
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
+                    SectionLink(
                         imageName: "map",
                         imageColor: .rosenergo,
-                        title: address
+                        title: address,
+                        titleColor: .primary,
+                        destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!
                     )
-                    #else
-                    Button(action: {
-                        presentMapActionSheet = true
-                    }) {
-                        SectionItem(
-                            imageName: "map",
-                            imageColor: .rosenergo,
-                            title: address
-                        )
+                    Map(coordinateRegion: $region, annotationItems: pins) { pin in
+                        MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
                     }
-                    Map(coordinateRegion: $region)
-                        .frame(height: 200)
-                        .cornerRadius(10)
-                        .padding(.vertical, 8)
-                    #endif
+                    .frame(height: 200)
+                    .cornerRadius(10)
+                    .padding(.vertical)
                 }
             }
             if sessionStore.uploadState == .none {
@@ -288,10 +263,12 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
+            region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: localInspections.latitude, longitude: localInspections.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            pins.append(Pin(coordinate: .init(latitude: localInspections.latitude, longitude: localInspections.longitude)))
             let location = CLLocation(latitude: localInspections.latitude, longitude: localInspections.longitude)
             location.geocode { placemark, error in
-                if let error = error as? CLError {
-                    print("CLError:", error)
+                if let error = error {
+                    print(error)
                     return
                 } else if let placemark = placemark?.first {
                     address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"

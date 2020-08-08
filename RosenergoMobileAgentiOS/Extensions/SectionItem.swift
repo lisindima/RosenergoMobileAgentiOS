@@ -77,9 +77,18 @@ struct SectionLink: View {
     
     var imageName: String
     var imageColor: Color
-    var title: String
+    var title: String?
     var titleColor: Color
     var destination: URL
+    
+    @ViewBuilder var primaryTitle: Text {
+        #if os(watchOS)
+        Text(title ?? "Пролетарская, 114")
+            .font(.footnote)
+        #else
+        Text(title ?? "Пролетарская, 114")
+        #endif
+    }
     
     var body: some View {
         Link(destination: destination) {
@@ -87,8 +96,9 @@ struct SectionLink: View {
                 Image(systemName: imageName)
                     .frame(width: 24)
                     .foregroundColor(imageColor)
-                Text(title)
+                primaryTitle
                     .foregroundColor(titleColor)
+                    .redacted(reason: title == nil ? .placeholder : [])
             }
         }
     }
