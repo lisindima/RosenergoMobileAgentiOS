@@ -97,7 +97,7 @@ struct InspectionsDetails: View {
                                         $0.image
                                             .resizable()
                                     })
-                                    .cornerRadius(10)
+                                    .cornerRadius(8)
                                     .frame(width: CGFloat(size), height: CGFloat(size))
                                 }.buttonStyle(PlainButtonStyle())
                             }
@@ -110,7 +110,7 @@ struct InspectionsDetails: View {
                 Section(header: Text("Видео").fontWeight(.bold)) {
                     VideoPlayer(player: AVPlayer(url: URL(string: inspection.video!)!))
                         .frame(height: 200)
-                        .cornerRadius(10)
+                        .cornerRadius(8)
                         .padding(.vertical, 8)
                 }
             }
@@ -200,7 +200,7 @@ struct InspectionsDetails: View {
                     MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
                 }
                 .frame(height: 200)
-                .cornerRadius(10)
+                .cornerRadius(8)
                 .padding(.vertical)
             }
         }

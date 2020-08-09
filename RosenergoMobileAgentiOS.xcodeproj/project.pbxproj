@@ -175,7 +175,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CB17E5582466644400CDBB1A /* Мобильный агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Мобильный агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
 		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		CB17E5642466644500CDBB1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 		CB17E5592466644400CDBB1A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB17E5582466644400CDBB1A /* Мобильный агент.app */,
+				CB17E5582466644400CDBB1A /* Агент.app */,
 				CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */,
 				CB9DE938249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension.appex */,
 				CB758D7724AEFA45000A6B3C /* RosenergoMobileAgentWidget.appex */,
@@ -541,7 +541,7 @@
 				CBAC7F3F24D27CF60081597D /* NativeSearchBar */,
 			);
 			productName = RosenergoMobileAgentiOS;
-			productReference = CB17E5582466644400CDBB1A /* Мобильный агент.app */;
+			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CB758D7624AEFA45000A6B3C /* RosenergoMobileAgentWidget */ = {
@@ -956,7 +956,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
-				PRODUCT_NAME = "Мобильный агент";
+				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
@@ -987,7 +987,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
-				PRODUCT_NAME = "Мобильный агент";
+				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;

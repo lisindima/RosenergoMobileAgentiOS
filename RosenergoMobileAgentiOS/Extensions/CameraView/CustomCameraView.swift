@@ -60,7 +60,7 @@ struct CustomCameraView: View {
                                             .renderingMode(.original)
                                             .resizable()
                                             .frame(width: 100, height: 100)
-                                            .cornerRadius(10)
+                                            .cornerRadius(8)
                                     }
                                 }
                             }.padding()

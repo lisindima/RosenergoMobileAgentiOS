@@ -52,7 +52,7 @@ struct LinkDetails: View {
                     Section(header: Text("Видео").fontWeight(.bold)) {
                         VideoPlayer(player: AVPlayer(url:  URL(string: inspection!.video!)!))
                             .frame(height: 200)
-                            .cornerRadius(10)
+                            .cornerRadius(8)
                             .padding(.vertical, 8)
                     }
                 }

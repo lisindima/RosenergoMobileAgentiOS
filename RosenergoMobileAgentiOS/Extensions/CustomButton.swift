@@ -47,7 +47,7 @@ struct ImageButton: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: 8)
                     .fill(Color.rosenergo.opacity(0.2))
                     .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 72, idealHeight: 72, maxHeight: 72)
                 VStack {
@@ -74,7 +74,7 @@ struct MenuButton: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: 8)
                 .fill(color.opacity(0.2))
                 .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
             VStack {

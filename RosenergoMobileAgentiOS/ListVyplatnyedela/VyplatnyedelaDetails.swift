@@ -50,7 +50,7 @@ struct VyplatnyedelaDetails: View {
                                         $0.image
                                             .resizable()
                                     })
-                                    .cornerRadius(10)
+                                    .cornerRadius(8)
                                     .frame(width: CGFloat(size), height: CGFloat(size))
                                 }.buttonStyle(PlainButtonStyle())
                             }

@@ -21,40 +21,45 @@ struct LocalInspectionsItems: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.largeTitle)
-                    .foregroundColor(.yellow)
+                Text("Не отправлено")
+                    .foregroundColor(.red)
+                    .fontWeight(.bold)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(Color.red.opacity(0.2))
+                    )
                 HStack {
                     VStack(alignment: .leading) {
                         Text(localInspections.insuranceContractNumber!)
                         Text(localInspections.carModel!)
-                        Text(localInspections.carRegNumber!)
-                        Text(localInspections.carVin!)
-                        Text(localInspections.carBodyNumber!)
+                        //Text(localInspections.carRegNumber!)
+                        //Text(localInspections.carVin!)
+                        //Text(localInspections.carBodyNumber!)
                     }
                     if localInspections.carModel2 != nil {
                         VStack(alignment: .leading) {
                             Text(localInspections.insuranceContractNumber2!)
                             Text(localInspections.carModel2!)
-                            Text(localInspections.carRegNumber2!)
-                            Text(localInspections.carVin2!)
-                            Text(localInspections.carBodyNumber2!)
+                            //Text(localInspections.carRegNumber2!)
+                            //Text(localInspections.carVin2!)
+                            //Text(localInspections.carBodyNumber2!)
                         }
                     }
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
-            }.padding(.vertical, 6)
-            Spacer(minLength: 0)
+            }
+            Spacer()
             if !localInspections.arrayPhoto.isEmpty {
                 Image(uiImage: UIImage(data: (localInspections.arrayPhoto.first?.photosData)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                     .resizable()
-                    .cornerRadius(10)
+                    .cornerRadius(8)
                     .frame(width: CGFloat(size), height: CGFloat(size))
             }
-        }
+        }.padding(.vertical, 6)
     }
 }

@@ -30,34 +30,39 @@ struct InspectionsItems: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")
-                    .font(.title)
+                    .foregroundColor(.rosenergo)
                     .fontWeight(.bold)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(Color.rosenergo.opacity(0.2))
+                    )
                 HStack {
                     VStack(alignment: .leading) {
                         Text(inspection.insuranceContractNumber)
                         Text(inspection.carModel)
-                        Text(inspection.carRegNumber)
-                        Text(inspection.carVin)
-                        Text(inspection.carBodyNumber)
+                        //Text(inspection.carRegNumber)
+                        //Text(inspection.carVin)
+                        //Text(inspection.carBodyNumber)
                     }
                     if inspection.carModel2 != nil {
                         VStack(alignment: .leading) {
                             Text(inspection.insuranceContractNumber2!)
                             Text(inspection.carModel2!)
-                            Text(inspection.carRegNumber2!)
-                            Text(inspection.carVin2!)
-                            Text(inspection.carBodyNumber2!)
+                            //Text(inspection.carRegNumber2!)
+                            //Text(inspection.carVin2!)
+                            //Text(inspection.carBodyNumber2!)
                         }
                     }
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
-            }.padding(.vertical, 6)
-            Spacer(minLength: 0)
+            }
+            Spacer()
             if !inspection.photos.isEmpty {
                 URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                     ProgressView()
@@ -65,9 +70,9 @@ struct InspectionsItems: View {
                     $0.image
                         .resizable()
                 })
-                .cornerRadius(10)
+                .cornerRadius(8)
                 .frame(width: CGFloat(size), height: CGFloat(size))
             }
-        }
+        }.padding(.vertical, 6)
     }
 }

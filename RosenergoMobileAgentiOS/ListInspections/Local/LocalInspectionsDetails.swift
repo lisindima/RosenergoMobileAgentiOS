@@ -114,7 +114,7 @@ struct LocalInspectionsDetails: View {
                                         Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                                             .resizable()
                                             .frame(width: CGFloat(size), height: CGFloat(size))
-                                            .cornerRadius(10)
+                                            .cornerRadius(8)
                                     }.buttonStyle(PlainButtonStyle())
                                 }
                             }.padding(.vertical, 8)
@@ -126,7 +126,7 @@ struct LocalInspectionsDetails: View {
                     Section(header: Text("Видео").fontWeight(.bold)) {
                         VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
                             .frame(height: 200)
-                            .cornerRadius(10)
+                            .cornerRadius(8)
                             .padding(.vertical, 8)
                     }
                 }
@@ -220,7 +220,7 @@ struct LocalInspectionsDetails: View {
                         MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
                     }
                     .frame(height: 200)
-                    .cornerRadius(10)
+                    .cornerRadius(8)
                     .padding(.vertical)
                 }
             }
