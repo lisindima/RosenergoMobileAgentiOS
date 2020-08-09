@@ -26,18 +26,19 @@ struct SideBar: View {
     var body: some View {
         NavigationView {
             List(selection: $selection) {
+                #if !targetEnvironment(macCatalyst)
                 NavigationLink(destination: CreateInspections()) {
                     Label("Новый осмотр", systemImage: "car")
                 }.tag(NavigationItem.createInspections)
-                
+                #endif
                 NavigationLink(destination: ListInspections()) {
                     Label("Осмотры", systemImage: "archivebox")
                 }.tag(NavigationItem.listInspections)
-            
+                #if !targetEnvironment(macCatalyst)
                 NavigationLink(destination: CreateVyplatnyeDela()) {
                     Label("Новое выплатное дело", systemImage: "doc.badge.plus")
                 }.tag(NavigationItem.createVyplatnye)
-                
+                #endif
                 NavigationLink(destination: ListVyplatnyedela()) {
                     Label("Выплатные дела", systemImage: "doc.on.doc")
                 }.tag(NavigationItem.listVyplatnyedela)
