@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-               BuildableName = "&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;.app"
+               BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
                BlueprintName = "RosenergoMobileAgentiOS"
                ReferencedContainer = "container:RosenergoMobileAgentiOS.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-            BuildableName = "&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;.app"
+            BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
             BlueprintName = "RosenergoMobileAgentiOS"
             ReferencedContainer = "container:RosenergoMobileAgentiOS.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-            BuildableName = "&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;.app"
+            BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
             BlueprintName = "RosenergoMobileAgentiOS"
             ReferencedContainer = "container:RosenergoMobileAgentiOS.xcodeproj">
          </BuildableReference>

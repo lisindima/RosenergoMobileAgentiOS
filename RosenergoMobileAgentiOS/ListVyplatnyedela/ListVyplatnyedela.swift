@@ -29,13 +29,13 @@ struct ListVyplatnyedela: View {
         
     var body: some View {
         Group {
-            if sessionStore.vyplatnyedela.isEmpty && sessionStore.vyplatnyedelaLoadingState == .failure {
+            if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .failure {
                 Text("Нет подключения к интернету!")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.vyplatnyedela.isEmpty && sessionStore.vyplatnyedelaLoadingState == .success {
+            } else if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .success {
                 Text("Нет выплатных дел")
                     .font(.title)
                     .fontWeight(.bold)
@@ -44,7 +44,7 @@ struct ListVyplatnyedela: View {
                 Text("Добавьте своё первое выплатное дело и оно отобразиться здесь.")
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.vyplatnyedela.isEmpty && sessionStore.vyplatnyedelaLoadingState == .loading {
+            } else if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .loading {
                 ProgressView()
             } else {
                 #if os(watchOS)

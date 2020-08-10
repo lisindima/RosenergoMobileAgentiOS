@@ -60,13 +60,13 @@ struct ListInspections: View {
     
     var body: some View {
         Group {
-            if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .failure {
+            if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .failure {
                 Text("Нет подключения к интернету!")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .success {
+            } else if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .success {
                 Text("Нет осмотров")
                     .font(.title)
                     .fontWeight(.bold)
@@ -75,7 +75,7 @@ struct ListInspections: View {
                 Text("Добавьте свой первый осмотр и он отобразиться здесь.")
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty && localInspections.isEmpty && sessionStore.inspectionsLoadingState == .loading {
+            } else if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .loading {
                 ProgressView()
             } else {
                 #if os(watchOS)

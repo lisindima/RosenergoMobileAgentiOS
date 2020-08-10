@@ -120,22 +120,23 @@ class SessionStore: ObservableObject {
         AF.request(serverURL + "token", method: .post, headers: headers)
             .validate()
             .responseJSON { [self] response in
-                let code = response.response?.statusCode
                 switch response.result {
                 case .success:
                     break
                 case .failure:
-                    if code != 200 && loginParameters != nil {
-                        login(email: loginParameters!.email, password: loginParameters!.password)
-                    } else if code != 200 && loginParameters == nil {
-                        loginModel = nil
-                    } else if code == nil {
-                        showServerAlert = true
+                    if let code = response.response?.statusCode {
+                        if code != 200, loginParameters != nil {
+                            login(email: loginParameters!.email, password: loginParameters!.password)
+                        } else if code != 200, loginParameters == nil {
+                            loginModel = nil
+                        } else {
+                            break
+                        }
                     } else {
-                        break
+                        showServerAlert = true
                     }
                 }
-        }
+            }
     }
     
     func getInspections() {
