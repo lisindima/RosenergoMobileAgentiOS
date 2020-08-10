@@ -44,17 +44,17 @@ struct InspectionsItems: View {
                     VStack(alignment: .leading) {
                         Text(inspection.insuranceContractNumber)
                         Text(inspection.carModel)
-                        //Text(inspection.carRegNumber)
-                        //Text(inspection.carVin)
-                        //Text(inspection.carBodyNumber)
+                        Text(inspection.carRegNumber)
+                        Text(inspection.carVin)
+                        Text(inspection.carBodyNumber)
                     }
                     if inspection.carModel2 != nil {
                         VStack(alignment: .leading) {
                             Text(inspection.insuranceContractNumber2!)
                             Text(inspection.carModel2!)
-                            //Text(inspection.carRegNumber2!)
-                            //Text(inspection.carVin2!)
-                            //Text(inspection.carBodyNumber2!)
+                            Text(inspection.carRegNumber2!)
+                            Text(inspection.carVin2!)
+                            Text(inspection.carBodyNumber2!)
                         }
                     }
                 }

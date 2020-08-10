@@ -45,28 +45,30 @@ struct LocalInspectionsDetails: View {
     
     private func uploadLocalInspections() {
         
-        var photoParameters: [PhotoParameters] = []
+        var photos: [PhotoParameters] = []
         
         for photo in localInspections.localPhotos! {
             let encodedPhoto = photo.photosData!.base64EncodedString()
-            photoParameters.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, maked_photo_at: localInspections.dateInspections!))
+            photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, maked_photo_at: localInspections.dateInspections!))
         }
         
         sessionStore.uploadInspections(
-            carModel: localInspections.carModel!,
-            carRegNumber: localInspections.carRegNumber!,
-            carBodyNumber: localInspections.carBodyNumber!,
-            carVin: localInspections.carVin!,
-            insuranceContractNumber: localInspections.insuranceContractNumber!,
-            carModel2: localInspections.carModel2,
-            carRegNumber2: localInspections.carRegNumber2,
-            carBodyNumber2: localInspections.carBodyNumber2,
-            carVin2: localInspections.carVin2,
-            insuranceContractNumber2: localInspections.insuranceContractNumber2,
-            latitude: localInspections.latitude,
-            longitude: localInspections.longitude,
-            photoParameters: photoParameters,
-            video: nil
+            parameters: InspectionParameters(
+                car_model: localInspections.carModel!,
+                car_reg_number: localInspections.carRegNumber!,
+                car_body_number: localInspections.carBodyNumber!,
+                car_vin: localInspections.carVin!,
+                insurance_contract_number: localInspections.insuranceContractNumber!,
+                car_model2: localInspections.carModel2,
+                car_reg_number2: localInspections.carRegNumber2,
+                car_body_number2: localInspections.carBodyNumber2,
+                car_vin2: localInspections.carVin2,
+                insurance_contract_number2: localInspections.insuranceContractNumber2,
+                latitude: localInspections.latitude,
+                longitude: localInspections.longitude,
+                photos: photos,
+                video: nil
+            )
         )
     }
     
@@ -253,7 +255,7 @@ struct LocalInspectionsDetails: View {
             case .success:
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже.\n\(sessionStore.alertError ?? "")"), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
                 return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
             case .emptyPhoto:

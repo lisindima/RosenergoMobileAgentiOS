@@ -35,19 +35,21 @@ struct CreateVyplatnyeDela: View {
     
     private func uploadVyplatnyeDela() {
         
-        var photoParameters: [PhotoParameters] = []
+        var photos: [PhotoParameters] = []
         
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photoParameters.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photos.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
         
         sessionStore.uploadVyplatnyeDela(
-            insuranceContractNumber: insuranceContractNumber,
-            numberZayavlenia: numberZayavlenia,
-            latitude: locationStore.currentLocation!.coordinate.latitude,
-            longitude: locationStore.currentLocation!.coordinate.longitude,
-            photos: photoParameters
+            parameters: VyplatnyeDelaParameters(
+                insurance_contract_number: insuranceContractNumber,
+                number_zayavlenia: numberZayavlenia,
+                latitude: locationStore.currentLocation!.coordinate.latitude,
+                longitude: locationStore.currentLocation!.coordinate.longitude,
+                photos: photos
+            )
         )
     }
     
@@ -103,7 +105,7 @@ struct CreateVyplatnyeDela: View {
                     presentationMode.wrappedValue.dismiss()
                 }))
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже.\n\(sessionStore.alertError ?? "")"), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
                 return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
             case .emptyPhoto:

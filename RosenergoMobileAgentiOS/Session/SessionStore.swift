@@ -38,6 +38,7 @@ class SessionStore: ObservableObject {
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var alertType: AlertType = .success
+    @Published var alertError: String?
     @Published var uploadProgress: Double = 0.0
     @Published var isOpenUrlId: String? 
     
@@ -181,7 +182,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters], video: Data?) {
+    func uploadInspections(parameters: InspectionParameters) {
         
         uploadState = .upload
         
@@ -189,23 +190,6 @@ class SessionStore: ObservableObject {
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json")
         ]
-        
-        let parameters = InspectionParameters(
-            car_model: carModel,
-            car_reg_number: carRegNumber,
-            car_body_number: carBodyNumber,
-            car_vin: carVin,
-            insurance_contract_number: insuranceContractNumber,
-            car_model2: carModel2,
-            car_reg_number2: carRegNumber2,
-            car_body_number2: carBodyNumber2,
-            car_vin2: carVin2,
-            insurance_contract_number2: insuranceContractNumber2,
-            latitude: latitude,
-            longitude: longitude,
-            photos: photoParameters,
-            video: video
-        )
         
         AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
@@ -219,6 +203,7 @@ class SessionStore: ObservableObject {
                     uploadState = .none
                     showAlert = true
                 case .failure(let error):
+                    alertError = error.errorDescription
                     alertType = .error
                     uploadState = .none
                     showAlert = true
@@ -227,7 +212,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func uploadVyplatnyeDela(insuranceContractNumber: String, numberZayavlenia: String, latitude: Double, longitude: Double, photos: [PhotoParameters]) {
+    func uploadVyplatnyeDela(parameters: VyplatnyeDelaParameters) {
         
         uploadState = .upload
         
@@ -235,14 +220,6 @@ class SessionStore: ObservableObject {
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json")
         ]
-        
-        let parameters = VyplatnyeDelaParameters(
-            insurance_contract_number: insuranceContractNumber,
-            number_zayavlenia: numberZayavlenia,
-            latitude: latitude,
-            longitude: longitude,
-            photos: photos
-        )
         
         AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
@@ -256,6 +233,7 @@ class SessionStore: ObservableObject {
                     uploadState = .none
                     showAlert = true
                 case .failure(let error):
+                    alertError = error.errorDescription
                     alertType = .error
                     uploadState = .none
                     showAlert = true

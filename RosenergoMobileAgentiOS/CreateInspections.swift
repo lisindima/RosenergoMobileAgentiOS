@@ -51,28 +51,30 @@ struct CreateInspections: View {
     
     private func uploadInspections() {
         
-        var photoParameters: [PhotoParameters] = []
+        var photos: [PhotoParameters] = []
         
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photoParameters.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photos.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
         
         sessionStore.uploadInspections(
-            carModel: carModel,
-            carRegNumber: carRegNumber,
-            carBodyNumber: vinAndNumber ? carVin : carBodyNumber,
-            carVin: carVin,
-            insuranceContractNumber: choiseSeries.rawValue + insuranceContractNumber,
-            carModel2: carModel2 == "" ? nil : carModel2,
-            carRegNumber2: carRegNumber2 == "" ? nil : carRegNumber2,
-            carBodyNumber2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
-            carVin2: carVin2 == "" ? nil : carVin2,
-            insuranceContractNumber2: choiseSeries2.rawValue + insuranceContractNumber2 == "" ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
-            latitude: locationStore.currentLocation!.coordinate.latitude,
-            longitude: locationStore.currentLocation!.coordinate.longitude,
-            photoParameters: photoParameters,
-            video: nil
+            parameters: InspectionParameters(
+                car_model: carModel,
+                car_reg_number: carRegNumber,
+                car_body_number: vinAndNumber ? carVin : carBodyNumber,
+                car_vin: carVin,
+                insurance_contract_number: choiseSeries.rawValue + insuranceContractNumber,
+                car_model2: carModel2 == "" ? nil : carModel2,
+                car_reg_number2: carRegNumber2 == "" ? nil : carRegNumber2,
+                car_body_number2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
+                car_vin2: carVin2 == "" ? nil : carVin2,
+                insurance_contract_number2: choiseSeries2.rawValue + insuranceContractNumber2 == "" ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
+                latitude: locationStore.currentLocation!.coordinate.latitude,
+                longitude: locationStore.currentLocation!.coordinate.longitude,
+                photos: photos,
+                video: nil
+            )
         )
     }
     
@@ -271,7 +273,7 @@ struct CreateInspections: View {
                     presentationMode.wrappedValue.dismiss()
                 }))
             case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже."), dismissButton: .default(Text("Закрыть")))
+                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже.\n\(sessionStore.alertError ?? "")"), dismissButton: .default(Text("Закрыть")))
             case .emptyLocation:
                 return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
             case .emptyPhoto:

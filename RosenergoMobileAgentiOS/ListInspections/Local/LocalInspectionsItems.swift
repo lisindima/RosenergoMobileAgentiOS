@@ -35,17 +35,17 @@ struct LocalInspectionsItems: View {
                     VStack(alignment: .leading) {
                         Text(localInspections.insuranceContractNumber!)
                         Text(localInspections.carModel!)
-                        //Text(localInspections.carRegNumber!)
-                        //Text(localInspections.carVin!)
-                        //Text(localInspections.carBodyNumber!)
+                        Text(localInspections.carRegNumber!)
+                        Text(localInspections.carVin!)
+                        Text(localInspections.carBodyNumber!)
                     }
                     if localInspections.carModel2 != nil {
                         VStack(alignment: .leading) {
                             Text(localInspections.insuranceContractNumber2!)
                             Text(localInspections.carModel2!)
-                            //Text(localInspections.carRegNumber2!)
-                            //Text(localInspections.carVin2!)
-                            //Text(localInspections.carBodyNumber2!)
+                            Text(localInspections.carRegNumber2!)
+                            Text(localInspections.carVin2!)
+                            Text(localInspections.carBodyNumber2!)
                         }
                     }
                 }
