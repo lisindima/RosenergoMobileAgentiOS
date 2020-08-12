@@ -41,6 +41,15 @@ struct SettingsView: View {
     }
     #endif
     
+    private var appVersionView: some View {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            return Text("Версия: \(version) (\(build))")
+        } else {
+            return Text("")
+        }
+    }
+    
     #if !os(watchOS)
     var footerNotification: Text {
         switch notificationStore.enabled {
@@ -58,7 +67,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            if sessionStore.loginModel?.data.name != nil || sessionStore.loginModel?.data.email != nil {
+            if sessionStore.loginModel != nil {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "person",
@@ -111,17 +120,15 @@ struct SettingsView: View {
                     )
                 }
             }
-            Section(header: Text("Виджет").fontWeight(.bold), footer: Text("Если в виджете возникают ошибки, нажмите на кнопку \"Сбросить виджет\".")) {
-                SectionButton(
-                    imageName: "heart.text.square",
-                    imageColor: .rosenergo,
-                    title: "Сбросить виджет",
-                    titleColor: .primary
-                ) {
-                    WidgetCenter.shared.reloadAllTimelines()
-                }
-            }
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+                SectionLink(
+                    imageName: "star",
+                    imageColor: .rosenergo,
+                    title: "Оценить",
+                    titleColor: .primary,
+                    showLinkLabel: true,
+                    destination: URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
+                )
                 SectionButton(
                     imageName: "ant",
                     imageColor: .rosenergo,
@@ -137,7 +144,7 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section(footer: Text("Разработка: Дмитрий Лисин, lisinde@rosen.ttb.ru")) {
+            Section(footer: appVersionView) {
                 if !sessionStore.logoutState {
                     SectionButton(
                         imageName: "flame",

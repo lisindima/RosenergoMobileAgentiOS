@@ -17,15 +17,6 @@ struct MenuView: View {
     
     @State private var openSettings = false
     
-    private var appVersionView: Text {
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
-            return Text("Версия: \(version) (\(build))")
-        } else {
-            return Text("#chad")
-        }
-    }
-    
     var countColumns: Int {
         #if os(watchOS)
         return 1
@@ -98,10 +89,6 @@ struct MenuView: View {
             .padding(.top, 8)
             .padding(.horizontal)
             Spacer()
-            appVersionView
-                .foregroundColor(.secondary)
-                .font(.system(size: 11))
-                .padding(.bottom, 8)
         }
         .navigationTitle("Мобильный агент")
     }

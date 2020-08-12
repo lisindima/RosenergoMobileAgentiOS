@@ -79,6 +79,7 @@ struct SectionLink: View {
     var imageColor: Color
     var title: String?
     var titleColor: Color
+    var showLinkLabel: Bool = false
     var destination: URL
     
     @ViewBuilder var primaryTitle: Text {
@@ -99,6 +100,11 @@ struct SectionLink: View {
                 primaryTitle
                     .foregroundColor(titleColor)
                     .redacted(reason: title == nil ? .placeholder : [])
+                if showLinkLabel {
+                    Spacer()
+                    Image(systemName: "arrow.up.right.square")
+                        .foregroundColor(.secondary)
+                }
             }
         }
     }
