@@ -120,7 +120,21 @@ struct SettingsView: View {
                     )
                 }
             }
+            #endif
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+                NavigationLink(destination: Changelog()) {
+                    Image(systemName: "wand.and.stars.inverse")
+                        .frame(width: 24)
+                        .foregroundColor(.rosenergo)
+                    Text("Что нового?")
+                }
+                NavigationLink(destination: License()) {
+                    Image(systemName: "doc.plaintext")
+                        .frame(width: 24)
+                        .foregroundColor(.rosenergo)
+                    Text("Лицензии")
+                }
+                #if !os(watchOS)
                 SectionLink(
                     imageName: "star",
                     imageColor: .rosenergo,
@@ -142,8 +156,8 @@ struct SettingsView: View {
                         showAlert = true
                     }
                 }
+                #endif
             }
-            #endif
             Section(footer: appVersionView) {
                 if !sessionStore.logoutState {
                     SectionButton(

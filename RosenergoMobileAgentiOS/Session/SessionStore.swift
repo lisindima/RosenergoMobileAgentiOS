@@ -40,7 +40,11 @@ class SessionStore: ObservableObject {
     @Published var alertType: AlertType = .success
     @Published var alertError: String?
     @Published var uploadProgress: Double = 0.0
-    @Published var isOpenUrlId: String? 
+    @Published var isOpenUrlId: String?
+    @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
+    @Published var changelogLoadingFailure: Bool = false
+    @Published var licenseModel: [LicenseModel] = [LicenseModel]()
+    @Published var licenseLoadingFailure: Bool = false
     
     static let shared = SessionStore()
     
@@ -286,6 +290,36 @@ class SessionStore: ObservableObject {
                     showAlert = true
                     print(error.errorDescription!)
             }
+        }
+    }
+    
+    func loadChangelog() {
+        AF.request("https://api.lisindmitriy.me/changelog")
+            .validate()
+            .responseDecodable(of: [ChangelogModel].self) { [self] response in
+                switch response.result {
+                case .success:
+                    guard let сhangelog = response.value else { return }
+                    сhangelogModel = сhangelog
+                case .failure(let error):
+                    changelogLoadingFailure = true
+                    print("Список изменений не загружен: \(error.errorDescription!)")
+                }
+        }
+    }
+    
+    func loadLicense() {
+        AF.request("https://api.lisindmitriy.me/license")
+            .validate()
+            .responseDecodable(of: [LicenseModel].self) { [self] response in
+                switch response.result {
+                case .success:
+                    guard let license = response.value else { return }
+                    licenseModel = license
+                case .failure(let error):
+                    licenseLoadingFailure = true
+                    print("Список лицензий не загружен: \(error.errorDescription!)")
+                }
         }
     }
 }

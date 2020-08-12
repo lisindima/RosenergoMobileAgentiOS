@@ -102,6 +102,10 @@
 		CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* CoreData.swift */; };
 		CBB4B0BC24C8330B00C25A59 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* CoreData.swift */; };
 		CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
+		CBB842EA24E3AD8D0008EB07 /* Changelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842E924E3AD8C0008EB07 /* Changelog.swift */; };
+		CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842E924E3AD8C0008EB07 /* Changelog.swift */; };
+		CBB842ED24E3AE600008EB07 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842EC24E3AE600008EB07 /* License.swift */; };
+		CBB842EE24E3AE600008EB07 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842EC24E3AE600008EB07 /* License.swift */; };
 		CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
@@ -235,6 +239,8 @@
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		CBB4B0BA24C8330B00C25A59 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		CBB842E924E3AD8C0008EB07 /* Changelog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changelog.swift; sourceTree = "<group>"; };
+		CBB842EC24E3AE600008EB07 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
 		CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUserDefaults.swift; sourceTree = "<group>"; };
 		CBC52838247A504700E337B4 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreModel.swift; sourceTree = "<group>"; };
@@ -321,6 +327,8 @@
 				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
 				CB4B826824D4079800C0C558 /* LinkDetails.swift */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
+				CBB842E924E3AD8C0008EB07 /* Changelog.swift */,
+				CBB842EC24E3AE600008EB07 /* License.swift */,
 				CB4B9314246CF235006B7008 /* SettingsView.swift */,
 				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
 				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
@@ -697,6 +705,7 @@
 			files = (
 				CBB2E0942478E5B20017AB00 /* CreateVyplatnyeDela.swift in Sources */,
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
+				CBB842EA24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
 				CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */,
@@ -721,6 +730,7 @@
 				CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */,
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
 				CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
+				CBB842ED24E3AE600008EB07 /* License.swift in Sources */,
 				CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */,
 				CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */,
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
@@ -775,6 +785,7 @@
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CB2B5B1024C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
+				CBB842EE24E3AE600008EB07 /* License.swift in Sources */,
 				CBAC7F3924D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
 				CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */,
@@ -786,6 +797,7 @@
 				CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */,
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
+				CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
 				CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */,
 				CB758D8C24B17C93000A6B3C /* String.swift in Sources */,

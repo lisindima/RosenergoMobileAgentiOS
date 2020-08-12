@@ -171,3 +171,17 @@ struct DataClass: Codable, Identifiable {
         case agentID = "agent_id"
     }
 }
+
+// MARK: Codable модель для загрузки списка изменений.
+
+struct ChangelogModel: Identifiable, Codable {
+    let id: Int
+    let version, dateBuild, whatsNew, bugFixes: String
+}
+
+// MARK: Codable модель для загрузки списка лицензий.
+
+struct LicenseModel: Identifiable, Codable {
+    let id: Int
+    let nameFramework, urlFramework, textLicenseFramework: String
+}
