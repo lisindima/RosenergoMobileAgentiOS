@@ -46,10 +46,18 @@ struct LocalInspectionsDetails: View {
     private func uploadLocalInspections() {
         
         var photos: [PhotoParameters] = []
+        var video: String?
         
         for photo in localInspections.localPhotos! {
             let encodedPhoto = photo.photosData!.base64EncodedString()
             photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, maked_photo_at: localInspections.dateInspections!))
+        }
+        
+        do {
+            let videoData = try Data(contentsOf: URL(string: localInspections.videoURL!)!)
+            video = videoData.base64EncodedString()
+        } catch {
+           print(error)
         }
         
         sessionStore.uploadInspections(
@@ -66,8 +74,8 @@ struct LocalInspectionsDetails: View {
                 insurance_contract_number2: localInspections.insuranceContractNumber2,
                 latitude: localInspections.latitude,
                 longitude: localInspections.longitude,
-                photos: photos,
-                video: nil
+                video: video,
+                photos: photos
             )
         )
     }

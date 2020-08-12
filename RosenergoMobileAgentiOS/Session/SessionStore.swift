@@ -183,6 +183,52 @@ class SessionStore: ObservableObject {
         }
     }
     
+//    func test(parameters: InspectionParameters) {
+//        uploadState = .upload
+//
+//        let headers: HTTPHeaders = [
+//            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+//            .contentType("multipart/form-data"),
+//            .accept("application/json")
+//        ]
+//        
+//        let param: [String: String] = [
+//            "car_body_number": parameters.car_body_number,
+//            "car_model": parameters.car_model,
+//            "car_reg_number": parameters.car_reg_number,
+//            "car_vin": parameters.car_vin,
+//            "insurance_contract_number": parameters.insurance_contract_number,
+//            "latitude": "\(parameters.latitude)",
+//            "longitude": "\(parameters.longitude)"
+//        ]
+//
+//        AF.upload(multipartFormData: { [self] multipartFormData in
+//            for (key, value) in param {
+//                multipartFormData.append(value.data(using: .utf8)!, withName: key)
+//            }
+//            multipartFormData.append(URL(string: videoURL!)!, withName: "video")
+//        }, to: serverURL + "testinspection", method: .post, headers: headers)
+//        .validate()
+//        .uploadProgress { [self] progress in
+//            uploadProgress = progress.fractionCompleted
+//        }
+//        .responseJSON { [self] response in
+//            switch response.result {
+//            case .success(let test):
+//                debugPrint(test)
+//                alertType = .success
+//                uploadState = .none
+//                showAlert = true
+//            case .failure(let error):
+//                alertError = error.errorDescription
+//                alertType = .error
+//                uploadState = .none
+//                showAlert = true
+//                debugPrint(error)
+//            }
+//        }
+//    }
+    
     func uploadInspections(parameters: InspectionParameters) {
         
         uploadState = .upload

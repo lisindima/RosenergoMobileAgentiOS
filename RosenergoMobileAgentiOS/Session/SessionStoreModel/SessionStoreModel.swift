@@ -60,8 +60,8 @@ struct InspectionParameters: Encodable {
     let insurance_contract_number2: String?
     let latitude: Double
     let longitude: Double
+    let video: String?
     let photos: [PhotoParameters]
-    let video: Data?
 }
 
 struct PhotoParameters: Encodable, Equatable {
