@@ -56,13 +56,13 @@ struct SideBar: View {
             .sheet(isPresented: $openSettings) {
                 NavigationView {
                     SettingsView()
-                        .environmentObject(sessionStore)
-                        .environmentObject(notificationStore)
-                        .navigationBarItems(trailing:
-                            Button(action: { openSettings = false }) {
-                                Text("Закрыть")
+                        .toolbar {
+                            ToolbarItem(placement: .primaryAction) {
+                                Button(action: { openSettings = false }) {
+                                    Text("Закрыть")
+                                }
                             }
-                        )
+                        }
                 }
             }
         

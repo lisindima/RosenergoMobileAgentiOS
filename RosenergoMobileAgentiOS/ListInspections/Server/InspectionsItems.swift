@@ -33,6 +33,7 @@ struct InspectionsItems: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")
+                    .font(.title3)
                     .foregroundColor(.rosenergo)
                     .fontWeight(.bold)
                     .padding(8)

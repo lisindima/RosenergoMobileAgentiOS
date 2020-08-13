@@ -44,12 +44,10 @@ struct LicenseDetail: View {
     var license: LicenseModel
     
     var body: some View {
-        VStack {
-            ScrollView {
-                Text(license.textLicenseFramework)
-                    .font(.system(size: 14, design: .monospaced))
-                    .padding()
-            }
+        ScrollView {
+            Text(license.textLicenseFramework)
+                .font(.system(size: 14, design: .monospaced))
+                .padding()
         }
         .navigationTitle(license.nameFramework)
         .toolbar {

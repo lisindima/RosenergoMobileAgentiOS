@@ -17,20 +17,10 @@ struct MenuView: View {
     
     @State private var openSettings = false
     
-    var countColumns: Int {
-        #if os(watchOS)
-        return 1
-        #else
-        return 2
-        #endif
-    }
-    
     var body: some View {
         NavigationView {
             #if os(watchOS)
-            ScrollView {
-                menu
-            }
+            menu
             #else
             menu
                 .toolbar {
@@ -44,13 +34,13 @@ struct MenuView: View {
                 .sheet(isPresented: $openSettings) {
                     NavigationView {
                         SettingsView()
-                            .environmentObject(sessionStore)
-                            .environmentObject(notificationStore)
-                            .navigationBarItems(trailing:
-                                Button(action: { openSettings = false }) {
-                                    Text("Закрыть")
+                            .toolbar {
+                                ToolbarItem(placement: .primaryAction) {
+                                    Button(action: { openSettings = false }) {
+                                        Text("Закрыть")
+                                    }
                                 }
-                            )
+                            }
                     }
                 }
             #endif
@@ -58,8 +48,8 @@ struct MenuView: View {
     }
     
     var menu: some View {
-        VStack {
-            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns)) {
+        ScrollView {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
                 #if !os(watchOS)
                 NavigationLink(destination: CreateInspections()) {
                     MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
@@ -88,7 +78,6 @@ struct MenuView: View {
             }
             .padding(.top, 8)
             .padding(.horizontal)
-            Spacer()
         }
         .navigationTitle("Мобильный агент")
     }
