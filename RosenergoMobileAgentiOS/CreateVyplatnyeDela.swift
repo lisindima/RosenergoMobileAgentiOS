@@ -21,16 +21,12 @@ struct CreateVyplatnyeDela: View {
     @State private var numberZayavlenia: String = ""
     
     func openCamera() {
-        #if targetEnvironment(simulator)
-        showCustomCameraView = true
-        #else
-        if locationStore.currentLocation == CLLocation(latitude: 0.0, longitude: 0.0) {
+        if locationStore.latitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
-        #endif
     }
     
     private func uploadVyplatnyeDela() {
@@ -39,15 +35,15 @@ struct CreateVyplatnyeDela: View {
         
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photos.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
         
         sessionStore.uploadVyplatnyeDela(
             parameters: VyplatnyeDelaParameters(
                 insurance_contract_number: insuranceContractNumber,
                 number_zayavlenia: numberZayavlenia,
-                latitude: locationStore.currentLocation!.coordinate.latitude,
-                longitude: locationStore.currentLocation!.coordinate.longitude,
+                latitude: locationStore.latitude,
+                longitude: locationStore.longitude,
                 photos: photos
             )
         )
@@ -93,8 +89,6 @@ struct CreateVyplatnyeDela: View {
         .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView(showRecordVideo: $showRecordVideo)
-                .environmentObject(sessionStore)
-                .environmentObject(locationStore)
                 .ignoresSafeArea(edges: .vertical)
         }
         .navigationTitle("Выплатное дело")

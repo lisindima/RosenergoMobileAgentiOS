@@ -12,43 +12,40 @@ import CoreLocation
 
 class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
     
-    @Published var currentLocation: CLLocation?
-    
-    private let manager = CLLocationManager()
+    @Published var latitude: Double = 0.0
+    @Published var longitude: Double = 0.0
     
     static let shared = LocationStore()
     
-    func getLocation() {
-        manager.delegate = self
-        manager.requestWhenInUseAuthorization()
-        manager.requestLocation()
-    }
-    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        let status = manager.authorizationStatus()
-        switch status {
+        switch manager.authorizationStatus() {
         case .authorizedAlways, .authorizedWhenInUse:
-            currentLocation = manager.location ?? CLLocation(latitude: 0.0, longitude: 0.0)
+            print("Авторизован")
+            latitude = manager.location?.coordinate.latitude ?? 0.0
+            longitude = manager.location?.coordinate.longitude ?? 0.0
+            manager.startUpdatingLocation()
+            switch manager.accuracyAuthorization {
+            case .fullAccuracy:
+                break
+            case .reducedAccuracy:
+                manager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "Rosenergo")
+                break
+            default:
+                break
+            }
         case .notDetermined, .restricted, .denied:
-            currentLocation = CLLocation(latitude: 0.0, longitude: 0.0)
+            print("не авторизован")
+            manager.requestWhenInUseAuthorization()
         @unknown default:
-            currentLocation = CLLocation(latitude: 0.0, longitude: 0.0)
-        }
-        
-        let accuracyAuthorization = manager.accuracyAuthorization
-        switch accuracyAuthorization {
-        case .fullAccuracy:
-            break
-        case .reducedAccuracy:
-            manager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "Rosenergo")
-            break
-        default:
-            break
+            print("не авторизован")
+            manager.requestWhenInUseAuthorization()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locations.last
+        let currentLocation = locations.last
+        latitude = currentLocation!.coordinate.latitude
+        longitude = currentLocation!.coordinate.longitude
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

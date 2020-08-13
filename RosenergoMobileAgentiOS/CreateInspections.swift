@@ -36,17 +36,48 @@ struct CreateInspections: View {
     @State private var choiseSeries: Series = .XXX
     @State private var choiseSeries2: Series = .XXX
     
-    func openCamera() {
-        #if targetEnvironment(simulator)
-        showCustomCameraView = true
-        #else
-        if locationStore.currentLocation == CLLocation(latitude: 0.0, longitude: 0.0) {
+    private func openCamera() {
+        if locationStore.latitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
             showCustomCameraView = true
         }
-        #endif
+    }
+    
+    private func validateInput(upload: Bool) {
+        switch choiceCar {
+        case 0:
+            if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
+                sessionStore.alertType = .emptyTextField
+                sessionStore.showAlert = true
+            } else if sessionStore.photosData.isEmpty {
+                sessionStore.alertType = .emptyPhoto
+                sessionStore.showAlert = true
+            } else {
+                if upload {
+                    uploadInspections()
+                } else {
+                    saveInspections()
+                }
+            }
+        case 1:
+            if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
+                sessionStore.alertType = .emptyTextField
+                sessionStore.showAlert = true
+            } else if sessionStore.photosData.isEmpty {
+                sessionStore.alertType = .emptyPhoto
+                sessionStore.showAlert = true
+            } else {
+                if upload {
+                    uploadInspections()
+                } else {
+                    saveInspections()
+                }
+            }
+        default:
+            print("ОЙ")
+        }
     }
     
     private func uploadInspections() {
@@ -56,14 +87,16 @@ struct CreateInspections: View {
         
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photos.append(PhotoParameters(latitude: locationStore.currentLocation!.coordinate.latitude, longitude: locationStore.currentLocation!.coordinate.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
         
-        do {
-            let videoData = try Data(contentsOf: URL(string: sessionStore.videoURL!)!)
-            video = videoData.base64EncodedString()
-        } catch {
-           print(error)
+        if sessionStore.videoURL != nil {
+            do {
+                let videoData = try Data(contentsOf: URL(string: sessionStore.videoURL!)!)
+                video = videoData.base64EncodedString()
+            } catch {
+                print(error)
+            }
         }
         
         sessionStore.uploadInspections(
@@ -78,8 +111,8 @@ struct CreateInspections: View {
                 car_body_number2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
                 car_vin2: carVin2 == "" ? nil : carVin2,
                 insurance_contract_number2: choiseSeries2.rawValue + insuranceContractNumber2 == "" ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
-                latitude: locationStore.currentLocation!.coordinate.latitude,
-                longitude: locationStore.currentLocation!.coordinate.longitude,
+                latitude: locationStore.latitude,
+                longitude: locationStore.longitude,
                 video: video,
                 photos: photos
             )
@@ -91,8 +124,8 @@ struct CreateInspections: View {
         let id = UUID()
         let localInspections = LocalInspections(context: moc)
         localInspections.id = id
-        localInspections.latitude = locationStore.currentLocation!.coordinate.latitude
-        localInspections.longitude = locationStore.currentLocation!.coordinate.longitude
+        localInspections.latitude = locationStore.latitude
+        localInspections.longitude = locationStore.longitude
         localInspections.carBodyNumber = vinAndNumber ? carVin : carBodyNumber
         localInspections.carModel = carModel
         localInspections.carRegNumber = carRegNumber
@@ -199,50 +232,10 @@ struct CreateInspections: View {
                 if sessionStore.uploadState == .none {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            if choiceCar == 0 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
-                                    sessionStore.alertType = .emptyTextField
-                                    sessionStore.showAlert = true
-                                } else if sessionStore.photosData.isEmpty {
-                                    sessionStore.alertType = .emptyPhoto
-                                    sessionStore.showAlert = true
-                                } else {
-                                    uploadInspections()
-                                }
-                            } else if choiceCar == 1 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
-                                    sessionStore.alertType = .emptyTextField
-                                    sessionStore.showAlert = true
-                                } else if sessionStore.photosData.isEmpty {
-                                    sessionStore.alertType = .emptyPhoto
-                                    sessionStore.showAlert = true
-                                } else {
-                                    uploadInspections()
-                                }
-                            }
+                            validateInput(upload: true)
                         }.padding(.trailing, 4)
                         CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                            if choiceCar == 0 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
-                                    sessionStore.alertType = .emptyTextField
-                                    sessionStore.showAlert = true
-                                } else if sessionStore.photosData.isEmpty {
-                                    sessionStore.alertType = .emptyPhoto
-                                    sessionStore.showAlert = true
-                                } else {
-                                    saveInspections()
-                                }
-                            } else if choiceCar == 1 {
-                                if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
-                                    sessionStore.alertType = .emptyTextField
-                                    sessionStore.showAlert = true
-                                } else if sessionStore.photosData.isEmpty {
-                                    sessionStore.alertType = .emptyPhoto
-                                    sessionStore.showAlert = true
-                                } else {
-                                    saveInspections()
-                                }
-                            }
+                            validateInput(upload: false)
                         }.padding(.leading, 4)
                     }
                     .padding(.horizontal)
@@ -257,8 +250,6 @@ struct CreateInspections: View {
         .onDisappear { sessionStore.photosData.removeAll() }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView(showRecordVideo: $showRecordVideo)
-                .environmentObject(sessionStore)
-                .environmentObject(locationStore)
                 .ignoresSafeArea(edges: .vertical)
         }
         .navigationTitle("Новый осмотр")

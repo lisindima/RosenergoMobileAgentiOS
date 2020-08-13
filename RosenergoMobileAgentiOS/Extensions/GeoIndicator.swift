@@ -22,12 +22,12 @@ struct GeoIndicator: View {
         case .authorizedAlways, .authorizedWhenInUse:
             HStack {
                 Spacer()
-                Text("Широта: \(locationStore.currentLocation?.coordinate.latitude ?? 0.0)")
+                Text("Широта: \(locationStore.latitude)")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 Spacer()
-                Text("Долгота: \(locationStore.currentLocation?.coordinate.longitude ?? 0.0)")
+                Text("Долгота: \(locationStore.longitude)")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.white)

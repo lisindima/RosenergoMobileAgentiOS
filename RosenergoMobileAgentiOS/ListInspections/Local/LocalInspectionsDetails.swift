@@ -53,11 +53,13 @@ struct LocalInspectionsDetails: View {
             photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, maked_photo_at: localInspections.dateInspections!))
         }
         
-        do {
-            let videoData = try Data(contentsOf: URL(string: localInspections.videoURL!)!)
-            video = videoData.base64EncodedString()
-        } catch {
-           print(error)
+        if localInspections.videoURL != nil {
+            do {
+                let videoData = try Data(contentsOf: URL(string: localInspections.videoURL!)!)
+                video = videoData.base64EncodedString()
+            } catch {
+                print(error)
+            }
         }
         
         sessionStore.uploadInspections(

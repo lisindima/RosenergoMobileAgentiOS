@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct RootView: View {
     
@@ -14,7 +15,9 @@ struct RootView: View {
     
     #if !os(watchOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var locationStore: LocationStore
     @StateObject var notificationStore = NotificationStore.shared
+    @State private var manager = CLLocationManager()
     #endif
     
     var body: some View {
@@ -22,9 +25,11 @@ struct RootView: View {
             #if os(iOS)
             if horizontalSizeClass == .compact {
                 MenuView()
+                    .onAppear { manager.delegate = locationStore }
                     .environmentObject(notificationStore)
             } else {
                 SideBar()
+                    .onAppear { manager.delegate = locationStore }
                     .environmentObject(notificationStore)
             }
             #else

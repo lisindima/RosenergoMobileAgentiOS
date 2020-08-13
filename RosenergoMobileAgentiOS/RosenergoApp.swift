@@ -38,7 +38,6 @@ struct RosenergoApp: App {
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     #if !os(watchOS)
                     LinkDetails()
-                        .environmentObject(sessionStore)
                     #endif
                 }
                 .onChange(of: scenePhase) { phase in
@@ -48,7 +47,6 @@ struct RosenergoApp: App {
                         UIApplication.shared.applicationIconBadgeNumber = 0
                         NotificationStore.shared.requestPermission()
                         NotificationStore.shared.refreshNotificationStatus()
-                        LocationStore.shared.getLocation()
                         #endif
                         if SessionStore.shared.loginModel != nil {
                             SessionStore.shared.validateToken()
