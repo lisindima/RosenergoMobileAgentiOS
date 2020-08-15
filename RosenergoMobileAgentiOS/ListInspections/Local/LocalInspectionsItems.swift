@@ -27,11 +27,6 @@ struct LocalInspectionsItems: View {
                     .font(.title3)
                     .foregroundColor(.red)
                     .fontWeight(.bold)
-                    .padding(8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .foregroundColor(Color.red.opacity(0.2))
-                    )
                 HStack {
                     VStack(alignment: .leading) {
                         Text(localInspections.insuranceContractNumber!)

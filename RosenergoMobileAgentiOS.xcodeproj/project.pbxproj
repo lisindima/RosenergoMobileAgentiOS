@@ -366,7 +366,6 @@
 				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CBD07BA4248A082800A863D6 /* UploadIndicator.swift */,
-				CB717C33248DF8B200DE31FE /* GeoIndicator.swift */,
 				CB9D62D124A455B1000C1C3A /* SectionItem.swift */,
 				CB758D7024AEEB67000A6B3C /* UIImage.swift */,
 				CB758D8A24B17C93000A6B3C /* String.swift */,
@@ -501,6 +500,7 @@
 		CBB4B0B724C82B9C00C25A59 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				CB717C33248DF8B200DE31FE /* GeoIndicator.swift */,
 				CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */,
 			);
 			path = Location;
@@ -1029,7 +1029,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -1054,7 +1054,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

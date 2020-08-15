@@ -9,7 +9,6 @@
 import SwiftUI
 #if !os(watchOS)
 import MessageUI
-import WidgetKit
 #endif
 
 struct SettingsView: View {

@@ -247,11 +247,6 @@ struct CreateInspections: View {
                 }
             }
         }
-        .onDisappear { sessionStore.photosData.removeAll() }
-        .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView(showRecordVideo: $showRecordVideo)
-                .ignoresSafeArea(edges: .vertical)
-        }
         .navigationTitle("Новый осмотр")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -264,6 +259,11 @@ struct CreateInspections: View {
                 .labelsHidden()
                 .pickerStyle(InlinePickerStyle())
             }
+        }
+        .onDisappear { sessionStore.photosData.removeAll() }
+        .fullScreenCover(isPresented: $showCustomCameraView) {
+            CustomCameraView(showRecordVideo: $showRecordVideo)
+                .ignoresSafeArea(edges: .vertical)
         }
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {

@@ -33,16 +33,14 @@ struct VyplatnyedelaItems: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 Text("\(vyplatnyedela.id)")
-                    .font(.title)
+                    .font(.title3)
                     .fontWeight(.bold)
-                Group {
-                    Text(vyplatnyedela.insuranceContractNumber)
-                    Text(vyplatnyedela.numberZayavlenia)
-                }
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .lineLimit(1)
+                Text(vyplatnyedela.insuranceContractNumber)
+                Text(vyplatnyedela.numberZayavlenia)
             }
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .lineLimit(1)
             Spacer(minLength: 0)
             if !vyplatnyedela.photos.isEmpty {
                 URLImage(URL(string: vyplatnyedela.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in

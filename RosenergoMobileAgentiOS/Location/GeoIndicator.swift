@@ -17,9 +17,7 @@ struct GeoIndicator: View {
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     
     var body: some View {
-        
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
             HStack {
                 Spacer()
                 Text("Широта: \(locationStore.latitude)")
@@ -38,23 +36,7 @@ struct GeoIndicator: View {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(Color.rosenergo)
             )
-        case .notDetermined, .restricted, .denied:
-            Link(destination: settingsURL!) {
-                HStack {
-                    Spacer()
-                    Text("Не разрешен доступ к геопозиции!")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                    Spacer()
-                }
-                .padding(8)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .foregroundColor(Color.red.opacity(0.2))
-                )
-            }
-        @unknown default:
+        } else {
             Link(destination: settingsURL!) {
                 HStack {
                     Spacer()

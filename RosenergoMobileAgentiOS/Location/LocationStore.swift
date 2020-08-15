@@ -20,7 +20,6 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus() {
         case .authorizedAlways, .authorizedWhenInUse:
-            print("Авторизован")
             latitude = manager.location?.coordinate.latitude ?? 0.0
             longitude = manager.location?.coordinate.longitude ?? 0.0
             manager.startUpdatingLocation()
@@ -34,10 +33,8 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
                 break
             }
         case .notDetermined, .restricted, .denied:
-            print("не авторизован")
             manager.requestWhenInUseAuthorization()
         @unknown default:
-            print("не авторизован")
             manager.requestWhenInUseAuthorization()
         }
     }

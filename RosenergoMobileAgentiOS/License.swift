@@ -27,9 +27,11 @@ struct License: View {
                     .onAppear(perform: sessionStore.loadLicense)
             } else {
                 Form {
-                    ForEach(sessionStore.licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
-                        NavigationLink(destination: LicenseDetail(license: license)) {
-                            Text(license.nameFramework)
+                    Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.")) {
+                        ForEach(sessionStore.licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
+                            NavigationLink(destination: LicenseDetail(license: license)) {
+                                Text(license.nameFramework)
+                            }
                         }
                     }
                 }

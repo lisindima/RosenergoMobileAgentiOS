@@ -34,13 +34,7 @@ struct InspectionsItems: View {
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")
                     .font(.title3)
-                    .foregroundColor(.rosenergo)
                     .fontWeight(.bold)
-                    .padding(8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .foregroundColor(Color.rosenergo.opacity(0.2))
-                    )
                 HStack {
                     VStack(alignment: .leading) {
                         Text(inspection.insuranceContractNumber)
