@@ -30,6 +30,14 @@ struct LocalInspectionsDetails: View {
     
     var localInspections: LocalInspections
     
+    private func alert(title: String, message: String, action: Bool) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: action ? .default(Text("Закрыть"), action: delete) : .default(Text("Закрыть"))
+        )
+    }
+    
     private func delete() {
         #if !os(watchOS)
         notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
@@ -260,19 +268,8 @@ struct LocalInspectionsDetails: View {
             }
         }
         .navigationTitle("Не отправлено")
-        .alert(isPresented: $sessionStore.showAlert) {
-            switch sessionStore.alertType {
-            case .success:
-                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
-            case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже.\n\(sessionStore.alertError ?? "")"), dismissButton: .default(Text("Закрыть")))
-            case .emptyLocation:
-                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
-            case .emptyPhoto:
-                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
-            case .emptyTextField:
-                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: delete))
-            }
+        .alert(item: $sessionStore.alertError) { error in
+            alert(title: error.title, message: error.message, action: error.action)
         }
         .onAppear {
             region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: localInspections.latitude, longitude: localInspections.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))

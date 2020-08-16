@@ -61,7 +61,7 @@ struct RosenergoApp: App {
 }
 
 extension URL {
-    subscript(queryParam:String) -> String? {
+    subscript(queryParam: String) -> String? {
         guard let url = URLComponents(string: self.absoluteString) else { return nil }
         return url.queryItems?.first(where: { $0.name == queryParam })?.value
     }

@@ -22,11 +22,18 @@ struct CreateVyplatnyeDela: View {
     
     func openCamera() {
         if locationStore.latitude == 0 {
-            sessionStore.alertType = .emptyLocation
-            sessionStore.showAlert = true
+            sessionStore.alertError = AlertError(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
             showCustomCameraView = true
         }
+    }
+    
+    private func alert(title: String, message: String, action: Bool) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .default(Text("Закрыть"))
+        )
     }
     
     private func uploadVyplatnyeDela() {
@@ -68,11 +75,9 @@ struct CreateVyplatnyeDela: View {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                         if insuranceContractNumber == "" || numberZayavlenia == "" {
-                            sessionStore.alertType = .emptyTextField
-                            sessionStore.showAlert = true
+                            sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
                         } else if sessionStore.photosData.isEmpty {
-                            sessionStore.alertType = .emptyPhoto
-                            sessionStore.showAlert = true
+                            sessionStore.alertError = AlertError(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
                         } else {
                             uploadVyplatnyeDela()
                         }
@@ -86,27 +91,14 @@ struct CreateVyplatnyeDela: View {
                 }
             }
         }
-        .onDisappear { sessionStore.photosData.removeAll() }
+        .navigationTitle("Выплатное дело")
+        .alert(item: $sessionStore.alertError) { error in
+            alert(title: error.title, message: error.message, action: error.action)
+        }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView(showRecordVideo: $showRecordVideo)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .navigationTitle("Выплатное дело")
-        .alert(isPresented: $sessionStore.showAlert) {
-            switch sessionStore.alertType {
-            case .success:
-                return Alert(title: Text("Успешно"), message: Text("Выплатное дело успешно загружено на сервер."), dismissButton: .default(Text("Закрыть"), action: {
-                    presentationMode.wrappedValue.dismiss()
-                }))
-            case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже.\n\(sessionStore.alertError ?? "")"), dismissButton: .default(Text("Закрыть")))
-            case .emptyLocation:
-                return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
-            case .emptyPhoto:
-                return Alert(title: Text("Ошибка"), message: Text("Прикрепите хотя бы одну фотографию"), dismissButton: .default(Text("Закрыть")))
-            case .emptyTextField:
-                return Alert(title: Text("Ошибка"), message: Text("Заполните все представленные поля."), dismissButton: .default(Text("Закрыть")))
-            }
-        }
+        .onDisappear { sessionStore.photosData.removeAll() }
     }
 }

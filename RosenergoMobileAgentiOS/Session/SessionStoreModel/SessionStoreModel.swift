@@ -185,3 +185,10 @@ struct LicenseModel: Identifiable, Codable {
     let id: Int
     let nameFramework, urlFramework, textLicenseFramework: String
 }
+
+struct AlertError: Identifiable {
+    var id: String { return message }
+    var title: String
+    var message: String
+    var action: Bool
+}

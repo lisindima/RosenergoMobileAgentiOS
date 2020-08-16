@@ -31,14 +31,13 @@ class SessionStore: ObservableObject {
     @Published var photosData: [Data] = [Data]()
     @Published var videoURL: String?
     @Published var showAlert: Bool = false
+    @Published var alertError: AlertError?
     @Published var showServerAlert: Bool = false
     @Published var loadingLogin: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var alertType: AlertType = .success
-    @Published var alertError: String?
     @Published var uploadProgress: Double = 0.0
     @Published var isOpenUrlId: String?
     @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
@@ -81,7 +80,7 @@ class SessionStore: ObservableObject {
                     loadingLogin = false
                     print(error)
                 }
-        }
+            }
     }
     
     func logout() {
@@ -111,7 +110,7 @@ class SessionStore: ObservableObject {
                     inspectionsLoadingState = .loading
                     print(error.errorDescription!)
                 }
-        }
+            }
     }
     
     func validateToken() {
@@ -162,7 +161,7 @@ class SessionStore: ObservableObject {
                     inspectionsLoadingState = .failure
                     print(error.errorDescription!)
                 }
-        }
+            }
     }
     
     func getVyplatnyedela() {
@@ -184,7 +183,7 @@ class SessionStore: ObservableObject {
                     vyplatnyedelaLoadingState = .failure
                     print(error.errorDescription!)
                 }
-        }
+            }
     }
     
 //    func test(parameters: InspectionParameters) {
@@ -195,7 +194,7 @@ class SessionStore: ObservableObject {
 //            .contentType("multipart/form-data"),
 //            .accept("application/json")
 //        ]
-//        
+//
 //        let param: [String: String] = [
 //            "car_body_number": parameters.car_body_number,
 //            "car_model": parameters.car_model,
@@ -250,17 +249,14 @@ class SessionStore: ObservableObject {
             .response { [self] response in
                 switch response.result {
                 case .success:
-                    alertType = .success
+                    alertError = AlertError(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
                     uploadState = .none
-                    showAlert = true
                 case .failure(let error):
-                    alertError = error.errorDescription
-                    alertType = .error
+                    alertError = AlertError(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.errorDescription ?? "")", action: false)
                     uploadState = .none
-                    showAlert = true
                     debugPrint(error)
+                }
             }
-        }
     }
     
     func uploadVyplatnyeDela(parameters: VyplatnyeDelaParameters) {
@@ -280,17 +276,14 @@ class SessionStore: ObservableObject {
             .response { [self] response in
                 switch response.result {
                 case .success:
-                    alertType = .success
+                    alertError = AlertError(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
                     uploadState = .none
-                    showAlert = true
                 case .failure(let error):
-                    alertError = error.errorDescription
-                    alertType = .error
+                    alertError = AlertError(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.errorDescription ?? "")", action: false)
                     uploadState = .none
-                    showAlert = true
                     print(error.errorDescription!)
+                }
             }
-        }
     }
     
     func loadChangelog() {
@@ -305,7 +298,7 @@ class SessionStore: ObservableObject {
                     changelogLoadingFailure = true
                     print("Список изменений не загружен: \(error.errorDescription!)")
                 }
-        }
+            }
     }
     
     func loadLicense() {
@@ -320,7 +313,7 @@ class SessionStore: ObservableObject {
                     licenseLoadingFailure = true
                     print("Список лицензий не загружен: \(error.errorDescription!)")
                 }
-        }
+            }
     }
 }
 
@@ -335,8 +328,3 @@ enum UploadState {
 enum AlertMailType {
     case sent, saved, failed, error
 }
-
-enum AlertType {
-    case success, error, emptyLocation, emptyPhoto, emptyTextField
-}
-

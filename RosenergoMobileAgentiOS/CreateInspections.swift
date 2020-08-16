@@ -38,22 +38,27 @@ struct CreateInspections: View {
     
     private func openCamera() {
         if locationStore.latitude == 0 {
-            sessionStore.alertType = .emptyLocation
-            sessionStore.showAlert = true
+            sessionStore.alertError = AlertError(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
             showCustomCameraView = true
         }
+    }
+    
+    private func alert(title: String, message: String, action: Bool) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .default(Text("Закрыть"))
+        )
     }
     
     private func validateInput(upload: Bool) {
         switch choiceCar {
         case 0:
             if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
-                sessionStore.alertType = .emptyTextField
-                sessionStore.showAlert = true
+                sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertType = .emptyPhoto
-                sessionStore.showAlert = true
+                sessionStore.alertError = AlertError(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
                     uploadInspections()
@@ -63,11 +68,9 @@ struct CreateInspections: View {
             }
         case 1:
             if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
-                sessionStore.alertType = .emptyTextField
-                sessionStore.showAlert = true
+                sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertType = .emptyPhoto
-                sessionStore.showAlert = true
+                sessionStore.alertError = AlertError(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
                     uploadInspections()
@@ -156,8 +159,7 @@ struct CreateInspections: View {
         }
         
         try? moc.save()
-        sessionStore.alertType = .success
-        sessionStore.showAlert = true
+        sessionStore.alertError = AlertError(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
         notificationStore.setNotification(id: id.uuidString)
     }
     
@@ -260,26 +262,13 @@ struct CreateInspections: View {
                 .pickerStyle(InlinePickerStyle())
             }
         }
-        .onDisappear { sessionStore.photosData.removeAll() }
+        .alert(item: $sessionStore.alertError) { error in
+            alert(title: error.title, message: error.message, action: error.action)
+        }
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView(showRecordVideo: $showRecordVideo)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .alert(isPresented: $sessionStore.showAlert) {
-            switch sessionStore.alertType {
-            case .success:
-                return Alert(title: Text("Успешно"), message: Text("Осмотр успешно загружен на сервер."), dismissButton: .default(Text("Закрыть"), action: {
-                    presentationMode.wrappedValue.dismiss()
-                }))
-            case .error:
-                return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить осмотр позже.\n\(sessionStore.alertError ?? "")"), dismissButton: .default(Text("Закрыть")))
-            case .emptyLocation:
-                return Alert(title: Text("Ошибка"), message: Text("Не удалось определить геопозицию."), dismissButton: .default(Text("Закрыть")))
-            case .emptyPhoto:
-                return Alert(title: Text("Ошибка"), message: Text("Прикрепите хотя бы одну фотографию"), dismissButton: .default(Text("Закрыть")))
-            case .emptyTextField:
-                return Alert(title: Text("Ошибка"), message: Text("Заполните все представленные поля."), dismissButton: .default(Text("Закрыть")))
-            }
-        }
+        .onDisappear { sessionStore.photosData.removeAll() }
     }
 }
