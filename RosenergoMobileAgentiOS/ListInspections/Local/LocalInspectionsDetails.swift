@@ -244,7 +244,7 @@ struct LocalInspectionsDetails: View {
                     .padding(.vertical)
                 }
             }
-            if sessionStore.uploadState == .none {
+            if !sessionStore.uploadState {
                 #if os(iOS)
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
                     uploadLocalInspections()
@@ -256,7 +256,7 @@ struct LocalInspectionsDetails: View {
                     uploadLocalInspections()
                 }.padding(.bottom, 8)
                 #endif
-            } else if sessionStore.uploadState == .upload {
+            } else {
                 #if os(iOS)
                 UploadIndicator(progress: $sessionStore.uploadProgress)
                     .padding(.horizontal)

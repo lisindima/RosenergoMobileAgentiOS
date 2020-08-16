@@ -72,7 +72,7 @@ struct CreateVyplatnyeDela: View {
                 }
             }
             Group {
-                if sessionStore.uploadState == .none {
+                if !sessionStore.uploadState {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                         if insuranceContractNumber == "" || numberZayavlenia == "" {
                             sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
@@ -84,7 +84,7 @@ struct CreateVyplatnyeDela: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 8)
-                } else if sessionStore.uploadState == .upload {
+                } else {
                     UploadIndicator(progress: $sessionStore.uploadProgress)
                         .padding(.horizontal)
                         .padding(.bottom, 8)

@@ -35,7 +35,7 @@ class SessionStore: ObservableObject {
     @Published var showServerAlert: Bool = false
     @Published var loadingLogin: Bool = false
     @Published var logoutState: Bool = false
-    @Published var uploadState: UploadState = .none
+    @Published var uploadState: Bool = false
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var uploadProgress: Double = 0.0
@@ -234,7 +234,7 @@ class SessionStore: ObservableObject {
     
     func uploadInspections(parameters: InspectionParameters) {
         
-        uploadState = .upload
+        uploadState = true
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
@@ -250,10 +250,10 @@ class SessionStore: ObservableObject {
                 switch response.result {
                 case .success:
                     alertError = AlertError(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
-                    uploadState = .none
+                    uploadState = false
                 case .failure(let error):
                     alertError = AlertError(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.errorDescription ?? "")", action: false)
-                    uploadState = .none
+                    uploadState = false
                     debugPrint(error)
                 }
             }
@@ -261,7 +261,7 @@ class SessionStore: ObservableObject {
     
     func uploadVyplatnyeDela(parameters: VyplatnyeDelaParameters) {
         
-        uploadState = .upload
+        uploadState = true
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
@@ -277,10 +277,10 @@ class SessionStore: ObservableObject {
                 switch response.result {
                 case .success:
                     alertError = AlertError(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
-                    uploadState = .none
+                    uploadState = false
                 case .failure(let error):
                     alertError = AlertError(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.errorDescription ?? "")", action: false)
-                    uploadState = .none
+                    uploadState = false
                     print(error.errorDescription!)
                 }
             }
@@ -319,12 +319,4 @@ class SessionStore: ObservableObject {
 
 enum LoadingState {
     case loading, failure, success
-}
-
-enum UploadState {
-    case upload, none
-}
-
-enum AlertMailType {
-    case sent, saved, failed, error
 }

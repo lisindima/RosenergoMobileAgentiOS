@@ -21,24 +21,17 @@ struct SettingsView: View {
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     #endif
     
-    @State private var showAlert: Bool = false
-    @State private var alertMailType: AlertMailType = .sent
+    @State private var alertError: AlertError?
     @State private var showActionSheetExit: Bool = false
+    @State private var showMailFeedback: Bool = false
     
-    #if !os(watchOS)
-    private func showMailView() {
-        DispatchQueue.main.async {
-            let mailFeedback = UIHostingController(rootView:
-                MailFeedback(showAlert: $showAlert, alertMailType: $alertMailType)
-                    .ignoresSafeArea(edges: .bottom)
-                    .accentColor(.rosenergo)
-            )
-            UIApplication.shared.windows.first?.rootViewController?.present(
-                mailFeedback, animated: true, completion: nil
-            )
-        }
+    private func alert(title: String, message: String) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: .default(Text("Закрыть"))
+        )
     }
-    #endif
     
     private var appVersionView: some View {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
@@ -149,10 +142,9 @@ struct SettingsView: View {
                     titleColor: .primary
                 ) {
                     if MFMailComposeViewController.canSendMail() {
-                        showMailView()
+                        showMailFeedback = true
                     } else {
-                        alertMailType = .error
-                        showAlert = true
+                        alertError = AlertError(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.", action: false)
                     }
                 }
                 #endif
@@ -177,24 +169,22 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Настройки")
+        .alert(item: $alertError) { error in
+            alert(title: error.title, message: error.message)
+        }
+        .sheet(isPresented: $showMailFeedback) {
+            #if !os(watchOS)
+            MailFeedback(alertError: $alertError)
+                .ignoresSafeArea(edges: .bottom)
+                .accentColor(.rosenergo)
+            #endif
+        }
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [
                 .destructive(Text("Выйти")) {
                     sessionStore.logout()
                 }, .cancel()
             ])
-        }
-        .alert(isPresented: $showAlert) {
-            switch alertMailType {
-            case .sent:
-                return Alert(title: Text("Сообщение отправлено"), message: Text("Я отвечу на него в ближайшее время."), dismissButton: .default(Text("Закрыть")))
-            case .saved:
-                return Alert(title: Text("Сообщение сохранено"), message: Text("Сообщение ждет вас в черновиках."), dismissButton: .default(Text("Закрыть")))
-            case .failed:
-                return Alert(title: Text("Ошибка"), message: Text("Повторите попытку позже."), dismissButton: .default(Text("Закрыть")))
-            case .error:
-                return Alert(title: Text("Не установлено приложение \"Почта\""), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .default(Text("Закрыть")))
-            }
         }
     }
 }

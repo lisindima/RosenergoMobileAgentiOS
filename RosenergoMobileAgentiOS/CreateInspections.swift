@@ -231,7 +231,7 @@ struct CreateInspections: View {
                 }
             }
             Group {
-                if sessionStore.uploadState == .none {
+                if !sessionStore.uploadState {
                     HStack {
                         CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                             validateInput(upload: true)
@@ -242,7 +242,7 @@ struct CreateInspections: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 8)
-                } else if sessionStore.uploadState == .upload {
+                } else {
                     UploadIndicator(progress: $sessionStore.uploadProgress)
                         .padding(.horizontal)
                         .padding(.bottom, 8)
