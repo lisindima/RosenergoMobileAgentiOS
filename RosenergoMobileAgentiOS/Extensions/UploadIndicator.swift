@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct UploadIndicator: View {
-    
     @Binding var progress: Double
-    
+
     var body: some View {
         Group {
             if progress == 1.0 {

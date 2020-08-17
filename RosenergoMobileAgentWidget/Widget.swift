@@ -6,18 +6,18 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct Provider: TimelineProvider {
     public typealias Entry = SimpleEntry
 
-    public func snapshot(with context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    public func snapshot(with _: Context, completion: @escaping (SimpleEntry) -> Void) {
         let entry = SimpleEntry(date: Date())
         completion(entry)
     }
 
-    public func timeline(with context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    public func timeline(with _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
@@ -77,7 +77,7 @@ struct WidgetApp: Widget {
     private let kind: String = "Widget"
 
     public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider()) { _ in
             Test()
         }
         .configurationDisplayName("Осмотры")

@@ -10,15 +10,14 @@ import SwiftUI
 
 @main
 struct RosenergoApp: App {
-    
     @StateObject private var sessionStore = SessionStore.shared
     @StateObject private var locationStore = LocationStore.shared
     @StateObject private var coreData = CoreData.shared
-    
+
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @State private var showfullScreenCover: Bool = false
-    
+
     var body: some Scene {
         WindowGroup {
             RootView()
@@ -37,16 +36,16 @@ struct RosenergoApp: App {
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     #if !os(watchOS)
-                    LinkDetails()
+                        LinkDetails()
                     #endif
                 }
                 .onChange(of: scenePhase) { phase in
                     if phase == .active {
                         print("scene is now active!")
                         #if !os(watchOS)
-                        UIApplication.shared.applicationIconBadgeNumber = 0
-                        NotificationStore.shared.requestPermission()
-                        NotificationStore.shared.refreshNotificationStatus()
+                            UIApplication.shared.applicationIconBadgeNumber = 0
+                            NotificationStore.shared.requestPermission()
+                            NotificationStore.shared.refreshNotificationStatus()
                         #endif
                         if SessionStore.shared.loginModel != nil {
                             SessionStore.shared.validateToken()
@@ -62,7 +61,7 @@ struct RosenergoApp: App {
 
 extension URL {
     subscript(queryParam: String) -> String? {
-        guard let url = URLComponents(string: self.absoluteString) else { return nil }
+        guard let url = URLComponents(string: absoluteString) else { return nil }
         return url.queryItems?.first(where: { $0.name == queryParam })?.value
     }
 }

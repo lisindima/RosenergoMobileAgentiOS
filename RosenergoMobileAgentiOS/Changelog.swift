@@ -6,18 +6,17 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
-import Combine
 import Alamofire
+import Combine
+import SwiftUI
 
 struct Changelog: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }
-    
+
     var body: some View {
         VStack {
             if sessionStore.сhangelogModel.isEmpty, !sessionStore.changelogLoadingFailure {

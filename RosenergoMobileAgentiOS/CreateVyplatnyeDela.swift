@@ -6,20 +6,19 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import CoreLocation
+import SwiftUI
 
 struct CreateVyplatnyeDela: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
     @Environment(\.presentationMode) private var presentationMode
-    
+
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
-    
+
     func openCamera() {
         if locationStore.latitude == 0 {
             sessionStore.alertError = AlertError(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
@@ -27,7 +26,7 @@ struct CreateVyplatnyeDela: View {
             showCustomCameraView = true
         }
     }
-    
+
     private func alert(title: String, message: String, action: Bool) -> Alert {
         Alert(
             title: Text(title),
@@ -35,16 +34,15 @@ struct CreateVyplatnyeDela: View {
             dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .default(Text("Закрыть"))
         )
     }
-    
+
     private func uploadVyplatnyeDela() {
-        
         var photos: [PhotoParameters] = []
-        
+
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
-        
+
         sessionStore.uploadVyplatnyeDela(
             parameters: VyplatnyeDelaParameters(
                 insurance_contract_number: insuranceContractNumber,
@@ -55,7 +53,7 @@ struct CreateVyplatnyeDela: View {
             )
         )
     }
-    
+
     var body: some View {
         VStack {
             ScrollView {

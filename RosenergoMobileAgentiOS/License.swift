@@ -6,14 +6,13 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
-import Combine
 import Alamofire
+import Combine
+import SwiftUI
 
 struct License: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     var body: some View {
         VStack {
             if sessionStore.licenseModel.isEmpty, !sessionStore.licenseLoadingFailure {
@@ -42,9 +41,8 @@ struct License: View {
 }
 
 struct LicenseDetail: View {
-    
     var license: LicenseModel
-    
+
     var body: some View {
         ScrollView {
             Text(license.textLicenseFramework)

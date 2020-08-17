@@ -6,30 +6,29 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import CoreLocation
 import MapKit
+import SwiftUI
 #if !os(watchOS)
-import AVKit
+    import AVKit
 #endif
 
 struct LocalInspectionsDetails: View {
-    
     #if !os(watchOS)
-    @EnvironmentObject private var notificationStore: NotificationStore
+        @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-    
+
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
-    
+
     @State private var address: String?
     @State private var pins: [Pin] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
+
     var localInspections: LocalInspections
-    
+
     private func alert(title: String, message: String, action: Bool) -> Alert {
         Alert(
             title: Text(title),
@@ -37,10 +36,10 @@ struct LocalInspectionsDetails: View {
             dismissButton: action ? .default(Text("Закрыть"), action: delete) : .default(Text("Закрыть"))
         )
     }
-    
+
     private func delete() {
         #if !os(watchOS)
-        notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
+            notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
         #endif
         presentationMode.wrappedValue.dismiss()
         moc.delete(localInspections)
@@ -50,17 +49,16 @@ struct LocalInspectionsDetails: View {
             print(error)
         }
     }
-    
+
     private func uploadLocalInspections() {
-        
         var photos: [PhotoParameters] = []
         var video: String?
-        
+
         for photo in localInspections.localPhotos! {
             let encodedPhoto = photo.photosData!.base64EncodedString()
             photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, maked_photo_at: localInspections.dateInspections!))
         }
-        
+
         if localInspections.videoURL != nil {
             do {
                 let videoData = try Data(contentsOf: URL(string: localInspections.videoURL!)!)
@@ -69,7 +67,7 @@ struct LocalInspectionsDetails: View {
                 print(error)
             }
         }
-        
+
         sessionStore.uploadInspections(
             parameters: InspectionParameters(
                 car_model: localInspections.carModel!,
@@ -89,39 +87,39 @@ struct LocalInspectionsDetails: View {
             )
         )
     }
-    
+
     var size: Double {
         #if os(watchOS)
-        return 75.0
+            return 75.0
         #else
-        return 100.0
+            return 100.0
         #endif
     }
-    
+
     var body: some View {
         #if os(watchOS)
-        formLocalInspections
-            .ignoresSafeArea(edges: .bottom)
+            formLocalInspections
+                .ignoresSafeArea(edges: .bottom)
         #else
-        formLocalInspections
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Menu {
-                        Button(action: {}) {
-                            Label("Изменить", systemImage: "pencil")
+            formLocalInspections
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            Button(action: {}) {
+                                Label("Изменить", systemImage: "pencil")
+                            }
+                            Button(action: delete) {
+                                Label("Удалить", systemImage: "trash")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle.fill")
+                                .imageScale(.large)
                         }
-                        Button(action: delete) {
-                            Label("Удалить", systemImage: "trash")
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .imageScale(.large)
                     }
                 }
-            }
         #endif
     }
-    
+
     var formLocalInspections: some View {
         VStack {
             Form {
@@ -142,14 +140,14 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 #if !os(watchOS)
-                if localInspections.videoURL != nil {
-                    Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
-                            .frame(height: 200)
-                            .cornerRadius(8)
-                            .padding(.vertical, 8)
+                    if localInspections.videoURL != nil {
+                        Section(header: Text("Видео").fontWeight(.bold)) {
+                            VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
+                                .frame(height: 200)
+                                .cornerRadius(8)
+                                .padding(.vertical, 8)
+                        }
                     }
-                }
                 #endif
                 if localInspections.dateInspections != nil {
                     Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
@@ -246,24 +244,24 @@ struct LocalInspectionsDetails: View {
             }
             if !sessionStore.uploadState {
                 #if os(iOS)
-                CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                    uploadLocalInspections()
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 8)
-                #else
-                Button("Отправить") {
-                    uploadLocalInspections()
-                }.padding(.bottom, 8)
-                #endif
-            } else {
-                #if os(iOS)
-                UploadIndicator(progress: $sessionStore.uploadProgress)
+                    CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
+                        uploadLocalInspections()
+                    }
                     .padding(.horizontal)
                     .padding(.bottom, 8)
                 #else
-                ProgressView()
-                    .padding(.bottom, 8)
+                    Button("Отправить") {
+                        uploadLocalInspections()
+                    }.padding(.bottom, 8)
+                #endif
+            } else {
+                #if os(iOS)
+                    UploadIndicator(progress: $sessionStore.uploadProgress)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                #else
+                    ProgressView()
+                        .padding(.bottom, 8)
                 #endif
             }
         }

@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(LocalInspections)
-public class LocalInspections: NSManagedObject {
-
-}
+public class LocalInspections: NSManagedObject {}

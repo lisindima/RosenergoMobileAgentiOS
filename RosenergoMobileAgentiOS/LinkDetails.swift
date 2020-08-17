@@ -6,30 +6,28 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Alamofire
-import URLImage
-import CoreLocation
 import AVKit
+import CoreLocation
+import SwiftUI
+import URLImage
 
 struct LinkDetails: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     @Environment(\.presentationMode) private var presentationMode
-    
+
     @State private var presentMapActionSheet: Bool = false
     @State private var address: String?
     @State private var inspection: LinkInspections?
     @State private var loadAddress: Bool = false
-    
+
     func getInspections() {
-        
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),
-            .accept("application/json")
+            .accept("application/json"),
         ]
-        
+
         AF.request(sessionStore.serverURL + "inspection" + "/" + "\(sessionStore.isOpenUrlId!)", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: LinkInspections.self) { [self] response in
@@ -38,19 +36,19 @@ struct LinkDetails: View {
                     guard let inspectionsResponse = response.value else { return }
                     inspection = inspectionsResponse
                     loadAddress = true
-                case .failure(let error):
+                case let .failure(error):
                     presentationMode.wrappedValue.dismiss()
                     debugPrint(error)
                 }
             }
     }
-    
+
     var body: some View {
         NavigationView {
             Form {
                 if inspection?.video != nil {
                     Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url:  URL(string: inspection!.video!)!))
+                        VideoPlayer(player: AVPlayer(url: URL(string: inspection!.video!)!))
                             .frame(height: 200)
                             .cornerRadius(8)
                             .padding(.vertical, 8)
@@ -154,8 +152,7 @@ struct LinkDetails: View {
                     UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection!.latitude),\(inspection!.longitude)")!)
                 }, .default(Text("Яндекс.Карты")) {
                     UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection!.longitude),\(inspection!.latitude)")!)
-                }, .cancel()
-                ])
+                }, .cancel()])
             }
             .onChange(of: loadAddress) { _ in
                 let location = CLLocation(latitude: inspection!.latitude, longitude: inspection!.longitude)

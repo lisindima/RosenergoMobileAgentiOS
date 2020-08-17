@@ -6,14 +6,13 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 struct CustomCameraRepresentable: UIViewControllerRepresentable {
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
-    
+
     @Binding var didTapCapture: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
 
@@ -23,12 +22,12 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
         return controller
     }
 
-    func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
+    func updateUIViewController(_ cameraViewController: CustomCameraController, context _: Context) {
         if didTapCapture {
             cameraViewController.didTapRecord(flashMode: flashMode)
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -40,7 +39,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        func photoOutput(_: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error _: Error?) {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
@@ -53,10 +52,9 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
 }
 
 struct CustomVideoRepresentable: UIViewControllerRepresentable {
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
-    
+
     @Binding var startRecording: Bool
     @Binding var stopRecording: Bool
 
@@ -66,7 +64,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         return controller
     }
 
-    func updateUIViewController(_ customVideoController: CustomVideoController, context: Context) {
+    func updateUIViewController(_ customVideoController: CustomVideoController, context _: Context) {
         if startRecording {
             customVideoController.startRecording()
         }
@@ -74,34 +72,32 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
             customVideoController.stopRecording()
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
     class Coordinator: NSObject, UINavigationControllerDelegate, AVCaptureFileOutputRecordingDelegate {
-        
         let parent: CustomVideoRepresentable
 
         init(_ parent: CustomVideoRepresentable) {
             self.parent = parent
         }
-        
+
         func getDocumentsDirectory() -> URL {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             return paths[0]
         }
-        
-        func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+
+        func fileOutput(_: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from _: [AVCaptureConnection], error: Error?) {
             do {
                 let url = getDocumentsDirectory().appendingPathComponent("video.mp4")
                 let data = try Data(contentsOf: outputFileURL, options: .mappedIfSafe)
                 try data.write(to: url)
                 parent.sessionStore.videoURL = url.absoluteString
-            } catch  {
+            } catch {
                 print(error)
             }
         }
-        
     }
 }

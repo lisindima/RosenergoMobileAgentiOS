@@ -6,8 +6,8 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct Pin: Identifiable {
     let id = UUID()

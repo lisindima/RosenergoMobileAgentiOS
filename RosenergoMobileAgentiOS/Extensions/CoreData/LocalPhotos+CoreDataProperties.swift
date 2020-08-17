@@ -7,14 +7,12 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension LocalPhotos {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<LocalPhotos> {
-        return NSFetchRequest<LocalPhotos>(entityName: "LocalPhotos")
+        NSFetchRequest<LocalPhotos>(entityName: "LocalPhotos")
     }
 
     @NSManaged public var id: Int16

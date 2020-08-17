@@ -9,20 +9,19 @@
 import SwiftUI
 
 struct SignIn: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     @State private var email: String = ""
     @State private var password: String = ""
-    
+
     var body: some View {
         #if os(watchOS)
-        watch
+            watch
         #else
-        phone
+            phone
         #endif
     }
-    
+
     var watch: some View {
         NavigationView {
             VStack {
@@ -41,37 +40,37 @@ struct SignIn: View {
             }
         }
     }
-    
+
     #if !os(watchOS)
-    var phone: some View {
-        VStack {
-            Spacer()
-            Image("rosenergo")
-                .resizable()
-                .frame(width: 300, height: 169)
-            Text("Мобильный агент")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
-            Group {
-                CustomInput(text: $email, name: "Эл.почта")
-                    .textContentType(.emailAddress)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                SecureField("Пароль", text: $password)
-                    .textContentType(.password)
-                    .autocapitalization(.none)
-                    .modifier(InputModifier())
-            }.padding(.horizontal)
-            CustomButton(label: sessionStore.loginState ? "Загрузка" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
-                sessionStore.login(email: email, password: password)
+        var phone: some View {
+            VStack {
+                Spacer()
+                Image("rosenergo")
+                    .resizable()
+                    .frame(width: 300, height: 169)
+                Text("Мобильный агент")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                Group {
+                    CustomInput(text: $email, name: "Эл.почта")
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
+                    SecureField("Пароль", text: $password)
+                        .textContentType(.password)
+                        .autocapitalization(.none)
+                        .modifier(InputModifier())
+                }.padding(.horizontal)
+                CustomButton(label: sessionStore.loginState ? "Загрузка" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
+                    sessionStore.login(email: email, password: password)
+                }
+                .padding()
             }
-            .padding()
+            .alert(isPresented: $sessionStore.showAlert) {
+                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+            }
+            .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
         }
-        .alert(isPresented: $sessionStore.showAlert) {
-            Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
-        }
-        .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-    }
     #endif
 }

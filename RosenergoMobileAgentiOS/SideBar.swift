@@ -9,10 +9,9 @@
 import SwiftUI
 
 struct SideBar: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var notificationStore: NotificationStore
-    
+
     enum NavigationItem {
         case createInspections
         case createVyplatnye
@@ -22,22 +21,22 @@ struct SideBar: View {
 
     @State private var selection: Set<NavigationItem> = [.createInspections]
     @State private var openSettings = false
-    
+
     var body: some View {
         NavigationView {
             List(selection: $selection) {
                 #if !targetEnvironment(macCatalyst)
-                NavigationLink(destination: CreateInspections()) {
-                    Label("Новый осмотр", systemImage: "car")
-                }.tag(NavigationItem.createInspections)
+                    NavigationLink(destination: CreateInspections()) {
+                        Label("Новый осмотр", systemImage: "car")
+                    }.tag(NavigationItem.createInspections)
                 #endif
                 NavigationLink(destination: ListInspections()) {
                     Label("Осмотры", systemImage: "archivebox")
                 }.tag(NavigationItem.listInspections)
                 #if !targetEnvironment(macCatalyst)
-                NavigationLink(destination: CreateVyplatnyeDela()) {
-                    Label("Новое выплатное дело", systemImage: "doc.badge.plus")
-                }.tag(NavigationItem.createVyplatnye)
+                    NavigationLink(destination: CreateVyplatnyeDela()) {
+                        Label("Новое выплатное дело", systemImage: "doc.badge.plus")
+                    }.tag(NavigationItem.createVyplatnye)
                 #endif
                 NavigationLink(destination: ListVyplatnyedela()) {
                     Label("Выплатные дела", systemImage: "doc.on.doc")
@@ -65,14 +64,14 @@ struct SideBar: View {
                         }
                 }
             }
-        
+
             Text("Выберите\nпункт в меню")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
             Text("Выберите осмотр\nили выплатное дело\nдля просмотра")
                 .font(.title)
                 .fontWeight(.bold)

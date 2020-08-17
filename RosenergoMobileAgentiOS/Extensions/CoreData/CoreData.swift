@@ -6,17 +6,16 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Combine
 import CoreData
+import SwiftUI
 
 class CoreData: ObservableObject {
-    
     static let shared = CoreData()
-    
+
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "RosenergoMobileAgentiOS")
-        container.loadPersistentStores(completionHandler: { storeDescription, error in
+        container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -25,7 +24,7 @@ class CoreData: ObservableObject {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return container
     }()
-    
+
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {

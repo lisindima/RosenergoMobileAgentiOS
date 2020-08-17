@@ -9,17 +9,16 @@
 import SwiftUI
 
 struct LocalInspectionsItems: View {
-    
     var localInspections: LocalInspections
-    
+
     var size: Double {
         #if os(watchOS)
-        return 75.0
+            return 75.0
         #else
-        return 100.0
+            return 100.0
         #endif
     }
-    
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {

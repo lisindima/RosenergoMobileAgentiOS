@@ -20,7 +20,7 @@ struct InputModifier: ViewModifier {
 struct CustomInput: View {
     @Binding var text: String
     var name: String
-    
+
     var body: some View {
         TextField(name, text: $text)
             .modifier(InputModifier())

@@ -6,36 +6,34 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-
 import SwiftUI
 import URLImage
 
 struct VyplatnyedelaDetails: View {
-    
     #if !os(watchOS)
-    @Environment(\.exportFiles) var exportAction
+        @Environment(\.exportFiles) var exportAction
     #endif
-    
+
     @State private var showAlert: Bool = false
-    
+
     var vyplatnyedela: Vyplatnyedela
-    
+
     var scale: CGFloat {
         #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
+            return WKInterfaceDevice.current().screenScale
         #else
-        return UIScreen.main.scale
+            return UIScreen.main.scale
         #endif
     }
-    
+
     var size: Double {
         #if os(watchOS)
-        return 75.0
+            return 75.0
         #else
-        return 100.0
+            return 100.0
         #endif
     }
-    
+
     var body: some View {
         Form {
             if !vyplatnyedela.photos.isEmpty {
@@ -50,8 +48,8 @@ struct VyplatnyedelaDetails: View {
                                         $0.image
                                             .resizable()
                                     })
-                                    .cornerRadius(8)
-                                    .frame(width: CGFloat(size), height: CGFloat(size))
+                                        .cornerRadius(8)
+                                        .frame(width: CGFloat(size), height: CGFloat(size))
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)
@@ -83,33 +81,33 @@ struct VyplatnyedelaDetails: View {
         .navigationTitle("Дело: \(vyplatnyedela.id)")
         .toolbar {
             #if !os(watchOS)
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    Button(action: {
-                        UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
-                        showAlert = true
-                    }) {
-                        Label("Скопировать", systemImage: "link")
-                    }
-                    Button(action: {
-                        exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
-                            switch result {
-                            case .success(let url):
-                                print("Success! \(url)")
-                            case .failure(let error):
-                                print("Oops: \(error.localizedDescription)")
-                            case .none:
-                                print("Cancelled")
-                            }
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(action: {
+                            UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
+                            showAlert = true
+                        }) {
+                            Label("Скопировать", systemImage: "link")
                         }
-                    }) {
-                        Label("Загрузить", systemImage: "square.and.arrow.down")
+                        Button(action: {
+                            exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
+                                switch result {
+                                case let .success(url):
+                                    print("Success! \(url)")
+                                case let .failure(error):
+                                    print("Oops: \(error.localizedDescription)")
+                                case .none:
+                                    print("Cancelled")
+                                }
+                            }
+                        }) {
+                            Label("Загрузить", systemImage: "square.and.arrow.down")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .imageScale(.large)
                     }
-                } label: {
-                    Image(systemName: "ellipsis.circle.fill")
-                        .imageScale(.large)
                 }
-            }
             #endif
         }
         .alert(isPresented: $showAlert) {

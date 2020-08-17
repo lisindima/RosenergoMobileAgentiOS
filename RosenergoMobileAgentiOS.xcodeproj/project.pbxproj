@@ -1249,7 +1249,7 @@
 			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.2;
+				minimumVersion = 2.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

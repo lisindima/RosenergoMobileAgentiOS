@@ -6,18 +6,17 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import CoreData
 import CoreLocation
+import SwiftUI
 
 struct CreateInspections: View {
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
     @EnvironmentObject private var notificationStore: NotificationStore
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) private var moc
-    
+
     @State private var showRecordVideo: Bool = true
     @State private var showCustomCameraView: Bool = false
     @State private var choiceCar: Int = 0
@@ -35,7 +34,7 @@ struct CreateInspections: View {
     @State private var vinAndNumber2: Bool = false
     @State private var choiseSeries: Series = .XXX
     @State private var choiseSeries2: Series = .XXX
-    
+
     private func openCamera() {
         if locationStore.latitude == 0 {
             sessionStore.alertError = AlertError(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
@@ -43,7 +42,7 @@ struct CreateInspections: View {
             showCustomCameraView = true
         }
     }
-    
+
     private func alert(title: String, message: String, action: Bool) -> Alert {
         Alert(
             title: Text(title),
@@ -51,7 +50,7 @@ struct CreateInspections: View {
             dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .default(Text("Закрыть"))
         )
     }
-    
+
     private func validateInput(upload: Bool) {
         switch choiceCar {
         case 0:
@@ -82,17 +81,16 @@ struct CreateInspections: View {
             print("ОЙ")
         }
     }
-    
+
     private func uploadInspections() {
-        
         var photos: [PhotoParameters] = []
         var video: String?
-        
+
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
-        
+
         if sessionStore.videoURL != nil {
             do {
                 let videoData = try Data(contentsOf: URL(string: sessionStore.videoURL!)!)
@@ -101,7 +99,7 @@ struct CreateInspections: View {
                 print(error)
             }
         }
-        
+
         sessionStore.uploadInspections(
             parameters: InspectionParameters(
                 car_model: carModel,
@@ -121,9 +119,8 @@ struct CreateInspections: View {
             )
         )
     }
-    
+
     private func saveInspections() {
-        
         let id = UUID()
         let localInspections = LocalInspections(context: moc)
         localInspections.id = id
@@ -136,10 +133,10 @@ struct CreateInspections: View {
         localInspections.insuranceContractNumber = choiseSeries.rawValue + insuranceContractNumber
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.videoURL = sessionStore.videoURL
-        
+
         var localPhotos: [LocalPhotos] = []
         var setPhotoId: Int16 = 0
-        
+
         for photo in sessionStore.photosData {
             setPhotoId += 1
             let photos = NSEntityDescription.insertNewObject(forEntityName: "LocalPhotos", into: moc) as! LocalPhotos
@@ -147,9 +144,9 @@ struct CreateInspections: View {
             photos.photosData = photo
             localPhotos.append(photos)
         }
-        
+
         localInspections.localPhotos = Set(localPhotos)
-        
+
         if choiceCar == 1 {
             localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
             localInspections.carModel2 = carModel2
@@ -157,12 +154,12 @@ struct CreateInspections: View {
             localInspections.carVin2 = carVin2
             localInspections.insuranceContractNumber2 = choiseSeries2.rawValue + insuranceContractNumber2
         }
-        
+
         try? moc.save()
         sessionStore.alertError = AlertError(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
         notificationStore.setNotification(id: id.uuidString)
     }
-    
+
     var body: some View {
         VStack {
             ScrollView {

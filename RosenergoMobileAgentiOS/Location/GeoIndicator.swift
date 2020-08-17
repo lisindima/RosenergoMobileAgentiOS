@@ -6,16 +6,15 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import CoreLocation
+import SwiftUI
 
 struct GeoIndicator: View {
-    
     @EnvironmentObject private var locationStore: LocationStore
-    
+
     private let status = CLLocationManager().authorizationStatus()
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)
-    
+
     var body: some View {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             HStack {

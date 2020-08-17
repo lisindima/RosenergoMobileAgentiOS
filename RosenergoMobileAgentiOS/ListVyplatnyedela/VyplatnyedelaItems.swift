@@ -10,25 +10,24 @@ import SwiftUI
 import URLImage
 
 struct VyplatnyedelaItems: View {
-    
     var vyplatnyedela: Vyplatnyedela
-    
+
     var scale: CGFloat {
         #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
+            return WKInterfaceDevice.current().screenScale
         #else
-        return UIScreen.main.scale
+            return UIScreen.main.scale
         #endif
     }
-    
+
     var size: Double {
         #if os(watchOS)
-        return 75.0
+            return 75.0
         #else
-        return 100.0
+            return 100.0
         #endif
     }
-    
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
@@ -51,8 +50,8 @@ struct VyplatnyedelaItems: View {
                     $0.image
                         .resizable()
                 })
-                .cornerRadius(8)
-                .frame(width: CGFloat(size), height: CGFloat(size))
+                    .cornerRadius(8)
+                    .frame(width: CGFloat(size), height: CGFloat(size))
             }
         }.padding(.vertical, 6)
     }

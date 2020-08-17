@@ -160,7 +160,7 @@ struct DataClass: Codable, Identifiable {
     let name, email, avatar: String
     let createdAt, updatedAt, apiToken: String
     let agentID: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case roleID = "role_id"
@@ -187,7 +187,7 @@ struct LicenseModel: Identifiable, Codable {
 }
 
 struct AlertError: Identifiable {
-    var id: String { return message }
+    var id: String { message }
     var title: String
     var message: String
     var action: Bool

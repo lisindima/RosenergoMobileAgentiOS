@@ -9,7 +9,7 @@
 import SwiftUI
 
 @propertyWrapper
-struct CodableUserDefaults <T: Codable> {
+struct CodableUserDefaults<T: Codable> {
     let key: String
     let defaultValue: T
 

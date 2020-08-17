@@ -6,83 +6,82 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
-import URLImage
 import CoreLocation
 import MapKit
+import SwiftUI
+import URLImage
 #if !os(watchOS)
-import AVKit
+    import AVKit
 #endif
 
 struct InspectionsDetails: View {
-    
     #if !os(watchOS)
-    @Environment(\.exportFiles) var exportAction
-    @State private var showAlert: Bool = false
+        @Environment(\.exportFiles) var exportAction
+        @State private var showAlert: Bool = false
     #endif
-    
+
     @State private var address: String?
     @State private var pins: [Pin] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
+
     var inspection: Inspections
-    
+
     var scale: CGFloat {
         #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
+            return WKInterfaceDevice.current().screenScale
         #else
-        return UIScreen.main.scale
+            return UIScreen.main.scale
         #endif
     }
-    
+
     var size: Double {
         #if os(watchOS)
-        return 75.0
+            return 75.0
         #else
-        return 100.0
+            return 100.0
         #endif
     }
-    
+
     var body: some View {
         #if os(watchOS)
-        formInspections
+            formInspections
         #else
-        formInspections
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Menu {
-                        Button(action: {
-                            UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
-                            showAlert = true
-                        }) {
-                            Label("Скопировать", systemImage: "link")
-                        }
-                        Button(action: {
-                            exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
-                                switch result {
-                                case .success(let url):
-                                    print("Success! \(url)")
-                                case .failure(let error):
-                                    print("Oops: \(error.localizedDescription)")
-                                case .none:
-                                    print("Cancelled")
-                                }
+            formInspections
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            Button(action: {
+                                UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
+                                showAlert = true
+                            }) {
+                                Label("Скопировать", systemImage: "link")
                             }
-                        }) {
-                            Label("Загрузить", systemImage: "square.and.arrow.down")
+                            Button(action: {
+                                exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
+                                    switch result {
+                                    case let .success(url):
+                                        print("Success! \(url)")
+                                    case let .failure(error):
+                                        print("Oops: \(error.localizedDescription)")
+                                    case .none:
+                                        print("Cancelled")
+                                    }
+                                }
+                            }) {
+                                Label("Загрузить", systemImage: "square.and.arrow.down")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle.fill")
+                                .imageScale(.large)
                         }
-                    } label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .imageScale(.large)
                     }
                 }
-            }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
-            }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
+                }
         #endif
     }
-    
+
     var formInspections: some View {
         Form {
             if !inspection.photos.isEmpty {
@@ -97,8 +96,8 @@ struct InspectionsDetails: View {
                                         $0.image
                                             .resizable()
                                     })
-                                    .cornerRadius(8)
-                                    .frame(width: CGFloat(size), height: CGFloat(size))
+                                        .cornerRadius(8)
+                                        .frame(width: CGFloat(size), height: CGFloat(size))
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)
@@ -106,14 +105,14 @@ struct InspectionsDetails: View {
                 }
             }
             #if !os(watchOS)
-            if inspection.video != nil {
-                Section(header: Text("Видео").fontWeight(.bold)) {
-                    VideoPlayer(player: AVPlayer(url: URL(string: inspection.video!)!))
-                        .frame(height: 200)
-                        .cornerRadius(8)
-                        .padding(.vertical, 8)
+                if inspection.video != nil {
+                    Section(header: Text("Видео").fontWeight(.bold)) {
+                        VideoPlayer(player: AVPlayer(url: URL(string: inspection.video!)!))
+                            .frame(height: 200)
+                            .cornerRadius(8)
+                            .padding(.vertical, 8)
+                    }
                 }
-            }
             #endif
             Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
                 SectionItem(

@@ -6,31 +6,30 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import NativeSearchBar
+import SwiftUI
 
 struct ListInspections: View {
-    
     @Environment(\.managedObjectContext) private var moc
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     @StateObject private var searchBar = SearchBar.shared
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     #if !os(watchOS)
-    @EnvironmentObject private var notificationStore: NotificationStore
+        @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-    
+
     func delete(at offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
             #if !os(watchOS)
-            notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
+                notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
             #endif
         }
         try? moc.save()
     }
-    
+
     var listInspections: some View {
         List {
             if !localInspections.isEmpty {
@@ -57,7 +56,7 @@ struct ListInspections: View {
             }
         }.addSearchBar(searchBar)
     }
-    
+
     var body: some View {
         Group {
             if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .failure {
@@ -79,10 +78,10 @@ struct ListInspections: View {
                 ProgressView()
             } else {
                 #if os(watchOS)
-                listInspections
+                    listInspections
                 #else
-                listInspections
-                    .listStyle(InsetGroupedListStyle())
+                    listInspections
+                        .listStyle(InsetGroupedListStyle())
                 #endif
             }
         }
@@ -90,12 +89,12 @@ struct ListInspections: View {
         .navigationTitle("Осмотры")
         .toolbar {
             #if !os(watchOS)
-            ToolbarItem(placement: .primaryAction) {
-                NavigationLink(destination: CreateInspections()) {
-                    Image(systemName: "plus.circle.fill")
-                        .imageScale(.large)
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink(destination: CreateInspections()) {
+                        Image(systemName: "plus.circle.fill")
+                            .imageScale(.large)
+                    }
                 }
-            }
             #endif
         }
     }

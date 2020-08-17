@@ -9,13 +9,12 @@
 import SwiftUI
 
 struct CustomButton: View {
-    
     var label: String
     var loading: Bool = false
     var colorButton: Color
     var colorText: Color
     var action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             HStack {
@@ -40,10 +39,9 @@ struct CustomButton: View {
 }
 
 struct ImageButton: View {
-    
     var action: () -> Void
     var countPhoto: [Data]
-    
+
     var body: some View {
         Button(action: action) {
             ZStack {
@@ -67,11 +65,10 @@ struct ImageButton: View {
 }
 
 struct MenuButton: View {
-    
     var title: String
     var image: String
     var color: Color
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -90,4 +87,3 @@ struct MenuButton: View {
         }
     }
 }
-

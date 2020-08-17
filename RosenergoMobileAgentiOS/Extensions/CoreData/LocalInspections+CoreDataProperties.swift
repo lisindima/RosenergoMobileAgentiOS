@@ -7,14 +7,12 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension LocalInspections {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<LocalInspections> {
-        return NSFetchRequest<LocalInspections>(entityName: "LocalInspections")
+        NSFetchRequest<LocalInspections>(entityName: "LocalInspections")
     }
 
     @NSManaged public var carBodyNumber: String?
@@ -33,7 +31,7 @@ extension LocalInspections {
     @NSManaged public var longitude: Double
     @NSManaged public var localPhotos: Set<LocalPhotos>?
     @NSManaged public var videoURL: String?
-    
+
     public var arrayPhoto: [LocalPhotos] {
         let set = localPhotos ?? []
         return set.sorted {
@@ -43,8 +41,8 @@ extension LocalInspections {
 }
 
 // MARK: Generated accessors for localPhotos
-extension LocalInspections {
 
+extension LocalInspections {
     @objc(addLocalPhotosObject:)
     @NSManaged public func addToLocalPhotos(_ value: LocalPhotos)
 
@@ -56,5 +54,4 @@ extension LocalInspections {
 
     @objc(removeLocalPhotos:)
     @NSManaged public func removeFromLocalPhotos(_ values: NSSet)
-
 }

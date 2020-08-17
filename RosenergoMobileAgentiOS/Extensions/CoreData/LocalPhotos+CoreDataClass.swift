@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(LocalPhotos)
-public class LocalPhotos: NSManagedObject {
-
-}
+public class LocalPhotos: NSManagedObject {}
