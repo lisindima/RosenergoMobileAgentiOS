@@ -33,7 +33,7 @@ class SessionStore: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertError: AlertError?
     @Published var showServerAlert: Bool = false
-    @Published var loadingLogin: Bool = false
+    @Published var loginState: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: Bool = false
     @Published var inspectionsLoadingState: LoadingState = .loading
@@ -59,7 +59,7 @@ class SessionStore: ObservableObject {
     
     func login(email: String, password: String) {
         
-        loadingLogin = true
+        loginState = true
         
         let parameters = LoginParameters(
             email: email,
@@ -74,10 +74,10 @@ class SessionStore: ObservableObject {
                     guard let loginModelResponse = response.value else { return }
                     loginModel = loginModelResponse
                     loginParameters = parameters
-                    loadingLogin = false
+                    loginState = false
                 case .failure(let error):
                     showAlert = true
-                    loadingLogin = false
+                    loginState = false
                     print(error)
                 }
             }
@@ -185,52 +185,6 @@ class SessionStore: ObservableObject {
                 }
             }
     }
-    
-//    func test(parameters: InspectionParameters) {
-//        uploadState = .upload
-//
-//        let headers: HTTPHeaders = [
-//            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-//            .contentType("multipart/form-data"),
-//            .accept("application/json")
-//        ]
-//
-//        let param: [String: String] = [
-//            "car_body_number": parameters.car_body_number,
-//            "car_model": parameters.car_model,
-//            "car_reg_number": parameters.car_reg_number,
-//            "car_vin": parameters.car_vin,
-//            "insurance_contract_number": parameters.insurance_contract_number,
-//            "latitude": "\(parameters.latitude)",
-//            "longitude": "\(parameters.longitude)"
-//        ]
-//
-//        AF.upload(multipartFormData: { [self] multipartFormData in
-//            for (key, value) in param {
-//                multipartFormData.append(value.data(using: .utf8)!, withName: key)
-//            }
-//            multipartFormData.append(URL(string: videoURL!)!, withName: "video")
-//        }, to: serverURL + "testinspection", method: .post, headers: headers)
-//        .validate()
-//        .uploadProgress { [self] progress in
-//            uploadProgress = progress.fractionCompleted
-//        }
-//        .responseJSON { [self] response in
-//            switch response.result {
-//            case .success(let test):
-//                debugPrint(test)
-//                alertType = .success
-//                uploadState = .none
-//                showAlert = true
-//            case .failure(let error):
-//                alertError = error.errorDescription
-//                alertType = .error
-//                uploadState = .none
-//                showAlert = true
-//                debugPrint(error)
-//            }
-//        }
-//    }
     
     func uploadInspections(parameters: InspectionParameters) {
         
