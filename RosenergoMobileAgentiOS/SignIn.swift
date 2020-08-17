@@ -18,31 +18,27 @@ struct SignIn: View {
     var body: some View {
         #if os(watchOS)
         watch
-            .alert(isPresented: $sessionStore.showAlert) {
-                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
-            }
         #else
         phone
-            .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-            .alert(isPresented: $sessionStore.showAlert) {
-                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
-            }
         #endif
     }
     
     var watch: some View {
         NavigationView {
             VStack {
-                TextField("Эл.почта", text: $email)
+                CustomInput(text: $email, name: "Эл.почта")
                     .textContentType(.emailAddress)
                 SecureField("Пароль", text: $password)
                     .textContentType(.password)
-                Button(action: {
+                    .modifier(InputModifier())
+                CustomButton(label: sessionStore.loginState ? "" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
                     sessionStore.login(email: email, password: password)
-                }) {
-                    Text("Войти")
-                }
-            }.navigationTitle("Мобильный агент")
+                }.buttonStyle(PlainButtonStyle())
+            }
+            .navigationTitle("Мобильный агент")
+            .alert(isPresented: $sessionStore.showAlert) {
+                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+            }
         }
     }
     
@@ -72,6 +68,10 @@ struct SignIn: View {
             }
             .padding()
         }
+        .alert(isPresented: $sessionStore.showAlert) {
+            Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
+        }
+        .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
     }
     #endif
 }

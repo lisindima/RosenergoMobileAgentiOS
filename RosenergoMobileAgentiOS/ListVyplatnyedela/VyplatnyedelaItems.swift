@@ -35,12 +35,14 @@ struct VyplatnyedelaItems: View {
                 Text("\(vyplatnyedela.id)")
                     .font(.title3)
                     .fontWeight(.bold)
-                Text(vyplatnyedela.insuranceContractNumber)
-                Text(vyplatnyedela.numberZayavlenia)
+                Group {
+                    Text(vyplatnyedela.insuranceContractNumber)
+                    Text(vyplatnyedela.numberZayavlenia)
+                }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                .lineLimit(1)
             }
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .lineLimit(1)
             Spacer(minLength: 0)
             if !vyplatnyedela.photos.isEmpty {
                 URLImage(URL(string: vyplatnyedela.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
