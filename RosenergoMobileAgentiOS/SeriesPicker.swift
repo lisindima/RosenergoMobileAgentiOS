@@ -15,7 +15,8 @@ struct SeriesPicker: View {
         Picker(selection: $selectedSeries, label:
             Text("\(selectedSeries.rawValue)")
                 .frame(width: 70)
-                .foregroundColor(Color.secondary.opacity(0.6))) {
+                .foregroundColor(.primary)
+        ) {
             Text("ХХХ").tag(Series.XXX)
             Text("ССС").tag(Series.CCC)
             Text("РРР").tag(Series.PPP)

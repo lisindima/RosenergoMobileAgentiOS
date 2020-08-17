@@ -83,15 +83,11 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         init(_ parent: CustomVideoRepresentable) {
             self.parent = parent
         }
-
-        func getDocumentsDirectory() -> URL {
-            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            return paths[0]
-        }
-
+        
         func fileOutput(_: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from _: [AVCaptureConnection], error: Error?) {
             do {
-                let url = getDocumentsDirectory().appendingPathComponent("video.mp4")
+                let directory = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
+                let url = directory!.appendingPathComponent("video.mp4")
                 let data = try Data(contentsOf: outputFileURL, options: .mappedIfSafe)
                 try data.write(to: url)
                 parent.sessionStore.videoURL = url.absoluteString
