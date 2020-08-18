@@ -37,6 +37,7 @@ struct RosenergoApp: App {
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     #if !os(watchOS)
                         LinkDetails()
+                            .environmentObject(sessionStore)
                     #endif
                 }
                 .onChange(of: scenePhase) { phase in
