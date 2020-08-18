@@ -11,16 +11,18 @@ import AVKit
 import CoreLocation
 import SwiftUI
 import URLImage
+import MapKit
 
 struct LinkDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
 
     @Environment(\.presentationMode) private var presentationMode
 
-    @State private var presentMapActionSheet: Bool = false
     @State private var address: String?
     @State private var inspection: LinkInspections?
     @State private var loadAddress: Bool = false
+    @State private var pins: [Pin] = []
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
 
     func getInspections() {
         let headers: HTTPHeaders = [
@@ -46,6 +48,7 @@ struct LinkDetails: View {
     var body: some View {
         NavigationView {
             Form {
+                #if !os(watchOS)
                 if inspection?.video != nil {
                     Section(header: Text("Видео").fontWeight(.bold)) {
                         VideoPlayer(player: AVPlayer(url: URL(string: inspection!.video!)!))
@@ -54,6 +57,7 @@ struct LinkDetails: View {
                             .padding(.vertical, 8)
                     }
                 }
+                #endif
                 Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "timer",
@@ -127,16 +131,21 @@ struct LinkDetails: View {
                         )
                     }
                 }
-                Section(header: Text("Место проведения осмотра").fontWeight(.bold)) {
-                    Button(action: {
-                        presentMapActionSheet = true
-                    }) {
-                        SectionItem(
-                            imageName: "map",
-                            imageColor: .rosenergo,
-                            title: address
-                        )
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
+                    SectionLink(
+                        imageName: "map",
+                        imageColor: .rosenergo,
+                        title: address,
+                        titleColor: .primary,
+                        destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection?.longitude ?? 0.0),\(inspection?.latitude ?? 0.0)")!
+                    )
+                    .disabled(inspection == nil ? true : false)
+                    Map(coordinateRegion: $region, annotationItems: pins) { pin in
+                        MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
                     }
+                    .frame(height: 200)
+                    .cornerRadius(8)
+                    .padding(.vertical)
                 }
             }
             .navigationTitle("Осмотр: \(sessionStore.isOpenUrlId!)")
@@ -147,27 +156,20 @@ struct LinkDetails: View {
                     }
                 }
             }
-            .actionSheet(isPresented: $presentMapActionSheet) {
-                ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
-                    UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection!.latitude),\(inspection!.longitude)")!)
-                }, .default(Text("Яндекс.Карты")) {
-                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection!.longitude),\(inspection!.latitude)")!)
-                }, .cancel()])
-            }
             .onChange(of: loadAddress) { _ in
+                region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: inspection!.latitude, longitude: inspection!.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                pins.append(Pin(coordinate: .init(latitude: inspection!.latitude, longitude: inspection!.longitude)))
                 let location = CLLocation(latitude: inspection!.latitude, longitude: inspection!.longitude)
                 location.geocode { placemark, error in
-                    if let error = error as? CLError {
-                        print("CLError:", error)
+                    if let error = error {
+                        print(error)
                         return
                     } else if let placemark = placemark?.first {
                         address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
                     }
                 }
             }
-            .onAppear {
-                getInspections()
-            }
+            .onAppear(perform: getInspections)
         }
     }
 }

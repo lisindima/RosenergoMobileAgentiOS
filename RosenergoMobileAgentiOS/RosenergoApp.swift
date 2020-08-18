@@ -35,10 +35,8 @@ struct RosenergoApp: App {
                     Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .default(Text("Закрыть")))
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
-                    #if !os(watchOS)
-                        LinkDetails()
-                            .environmentObject(sessionStore)
-                    #endif
+                    LinkDetails()
+                        .environmentObject(sessionStore)
                 }
                 .onChange(of: scenePhase) { phase in
                     if phase == .active {
