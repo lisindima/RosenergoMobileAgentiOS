@@ -21,11 +21,27 @@ struct LinkDetails: View {
     @Binding var isOpenUrlId: String?
 
     @State private var address: String?
-    @State private var inspection: LinkInspections?
+    @State private var inspection: Inspections?
     @State private var loadAddress: Bool = false
     @State private var pins: [Pin] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
 
+    var scale: CGFloat {
+        #if os(watchOS)
+            return WKInterfaceDevice.current().screenScale
+        #else
+            return UIScreen.main.scale
+        #endif
+    }
+
+    var size: Double {
+        #if os(watchOS)
+            return 75.0
+        #else
+            return 100.0
+        #endif
+    }
+    
     func getInspections() {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),
@@ -34,7 +50,7 @@ struct LinkDetails: View {
 
         AF.request(sessionStore.serverURL + "inspection" + "/" + "\(isOpenUrlId!)", method: .get, headers: headers)
             .validate()
-            .responseDecodable(of: LinkInspections.self) { [self] response in
+            .responseDecodable(of: Inspections.self) { [self] response in
                 switch response.result {
                 case .success:
                     guard let inspectionsResponse = response.value else { return }
@@ -50,6 +66,26 @@ struct LinkDetails: View {
     var body: some View {
         NavigationView {
             Form {
+                if inspection?.photos != nil {
+                    Section(header: Text("Фотографии").fontWeight(.bold)) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack {
+                                ForEach(inspection!.photos, id: \.id) { photo in
+                                    NavigationLink(destination: ImageDetail(photos: inspection!.photos)) {
+                                        URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                                            ProgressView()
+                                        }, content: {
+                                            $0.image
+                                                .resizable()
+                                        })
+                                            .cornerRadius(8)
+                                            .frame(width: CGFloat(size), height: CGFloat(size))
+                                    }.buttonStyle(PlainButtonStyle())
+                                }
+                            }.padding(.vertical, 8)
+                        }
+                    }
+                }
                 #if !os(watchOS)
                     if inspection?.video != nil {
                         Section(header: Text("Видео").fontWeight(.bold)) {
