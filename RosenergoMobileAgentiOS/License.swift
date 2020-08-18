@@ -16,7 +16,7 @@ struct License: View {
     var body: some View {
         VStack {
             if sessionStore.licenseModel.isEmpty, !sessionStore.licenseLoadingFailure {
-                ProgressView()
+                ProgressView("Загрузка")
                     .onAppear(perform: sessionStore.loadLicense)
             } else if sessionStore.licenseModel.isEmpty, sessionStore.licenseLoadingFailure {
                 Text("Нет подключения к интернету!")

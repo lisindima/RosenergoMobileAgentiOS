@@ -20,7 +20,7 @@ struct Changelog: View {
     var body: some View {
         VStack {
             if sessionStore.сhangelogModel.isEmpty, !sessionStore.changelogLoadingFailure {
-                ProgressView()
+                ProgressView("Загрузка")
                     .onAppear(perform: sessionStore.loadChangelog)
             } else if sessionStore.сhangelogModel.isEmpty, sessionStore.changelogLoadingFailure {
                 Text("Нет подключения к интернету!")

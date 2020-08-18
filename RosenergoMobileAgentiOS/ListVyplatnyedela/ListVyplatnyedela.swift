@@ -44,7 +44,7 @@ struct ListVyplatnyedela: View {
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             } else if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .loading {
-                ProgressView()
+                ProgressView("Загрузка")
             } else {
                 #if os(watchOS)
                     listVyplatnyedela

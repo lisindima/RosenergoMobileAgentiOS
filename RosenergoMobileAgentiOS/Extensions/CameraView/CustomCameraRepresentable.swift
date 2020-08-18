@@ -67,9 +67,11 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ customVideoController: CustomVideoController, context _: Context) {
         if startRecording {
             customVideoController.startRecording()
+            print("ЗАПИСЬ")
         }
         if stopRecording {
             customVideoController.stopRecording()
+            print("ОСТАНОВКА")
         }
     }
 
@@ -87,7 +89,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         func fileOutput(_: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from _: [AVCaptureConnection], error: Error?) {
             do {
                 let directory = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
-                let url = directory!.appendingPathComponent("video.mp4")
+                let url = directory!.appendingPathComponent("video_\(Date()).mp4")
                 let data = try Data(contentsOf: outputFileURL, options: .mappedIfSafe)
                 try data.write(to: url)
                 parent.sessionStore.videoURL = url.absoluteString
