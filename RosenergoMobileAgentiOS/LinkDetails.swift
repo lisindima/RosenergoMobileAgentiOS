@@ -9,14 +9,16 @@
 import Alamofire
 import AVKit
 import CoreLocation
+import MapKit
 import SwiftUI
 import URLImage
-import MapKit
 
 struct LinkDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
 
     @Environment(\.presentationMode) private var presentationMode
+
+    @Binding var isOpenUrlId: String?
 
     @State private var address: String?
     @State private var inspection: LinkInspections?
@@ -30,7 +32,7 @@ struct LinkDetails: View {
             .accept("application/json"),
         ]
 
-        AF.request(sessionStore.serverURL + "inspection" + "/" + "\(sessionStore.isOpenUrlId!)", method: .get, headers: headers)
+        AF.request(sessionStore.serverURL + "inspection" + "/" + "\(isOpenUrlId!)", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: LinkInspections.self) { [self] response in
                 switch response.result {
@@ -49,14 +51,14 @@ struct LinkDetails: View {
         NavigationView {
             Form {
                 #if !os(watchOS)
-                if inspection?.video != nil {
-                    Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url: URL(string: inspection!.video!)!))
-                            .frame(height: 200)
-                            .cornerRadius(8)
-                            .padding(.vertical, 8)
+                    if inspection?.video != nil {
+                        Section(header: Text("Видео").fontWeight(.bold)) {
+                            VideoPlayer(player: AVPlayer(url: URL(string: inspection!.video!)!))
+                                .frame(height: 200)
+                                .cornerRadius(8)
+                                .padding(.vertical, 8)
+                        }
                     }
-                }
                 #endif
                 Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
                     SectionItem(
@@ -148,7 +150,7 @@ struct LinkDetails: View {
                     .padding(.vertical)
                 }
             }
-            .navigationTitle("Осмотр: \(sessionStore.isOpenUrlId!)")
+            .navigationTitle("Осмотр: \(isOpenUrlId!)")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {

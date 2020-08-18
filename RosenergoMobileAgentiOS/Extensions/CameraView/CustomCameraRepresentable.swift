@@ -85,7 +85,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         init(_ parent: CustomVideoRepresentable) {
             self.parent = parent
         }
-        
+
         func fileOutput(_: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from _: [AVCaptureConnection], error: Error?) {
             do {
                 let directory = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")

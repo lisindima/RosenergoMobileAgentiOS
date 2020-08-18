@@ -23,7 +23,7 @@ struct SignIn: View {
             #endif
         }
     }
-    
+
     private func alert(title: String, message: String) -> Alert {
         Alert(
             title: Text(title),
@@ -31,7 +31,7 @@ struct SignIn: View {
             dismissButton: .default(Text("Закрыть"))
         )
     }
-    
+
     var watch: some View {
         VStack {
             CustomInput(text: $email, name: "Эл.почта")

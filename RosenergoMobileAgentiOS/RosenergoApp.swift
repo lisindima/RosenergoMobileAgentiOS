@@ -17,6 +17,7 @@ struct RosenergoApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var showfullScreenCover: Bool = false
+    @State private var isOpenUrlId: String?
 
     var body: some Scene {
         WindowGroup {
@@ -26,8 +27,8 @@ struct RosenergoApp: App {
                 .environmentObject(locationStore)
                 .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
                 .onOpenURL { url in
-                    sessionStore.isOpenUrlId = url["inspection"]
-                    if sessionStore.isOpenUrlId != nil {
+                    isOpenUrlId = url["inspection"]
+                    if isOpenUrlId != nil {
                         showfullScreenCover = true
                     }
                 }
@@ -35,7 +36,7 @@ struct RosenergoApp: App {
                     Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .default(Text("Закрыть")))
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
-                    LinkDetails()
+                    LinkDetails(isOpenUrlId: $isOpenUrlId)
                         .environmentObject(sessionStore)
                 }
                 .onChange(of: scenePhase) { phase in
