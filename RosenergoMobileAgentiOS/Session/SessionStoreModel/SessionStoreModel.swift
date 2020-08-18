@@ -186,7 +186,7 @@ struct LicenseModel: Identifiable, Codable {
     let nameFramework, urlFramework, textLicenseFramework: String
 }
 
-struct AlertError: Identifiable {
+struct AlertItem: Identifiable {
     var id: String { message }
     var title: String
     var message: String

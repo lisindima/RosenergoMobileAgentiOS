@@ -266,7 +266,7 @@ struct LocalInspectionsDetails: View {
             }
         }
         .navigationTitle("Не отправлено")
-        .alert(item: $sessionStore.alertError) { error in
+        .alert(item: $sessionStore.alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
         }
         .onAppear {

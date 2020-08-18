@@ -29,8 +29,7 @@ class SessionStore: ObservableObject {
     @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var photosData: [Data] = [Data]()
     @Published var videoURL: String?
-    @Published var showAlert: Bool = false
-    @Published var alertError: AlertError?
+    @Published var alertItem: AlertItem?
     @Published var showServerAlert: Bool = false
     @Published var loginState: Bool = false
     @Published var logoutState: Bool = false
@@ -74,7 +73,7 @@ class SessionStore: ObservableObject {
                     loginParameters = parameters
                     loginState = false
                 case let .failure(error):
-                    showAlert = true
+                    alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
                     loginState = false
                     print(error)
                 }
@@ -196,10 +195,10 @@ class SessionStore: ObservableObject {
             .response { [self] response in
                 switch response.result {
                 case .success:
-                    alertError = AlertError(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                    alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
                     uploadState = false
                 case let .failure(error):
-                    alertError = AlertError(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.errorDescription ?? "")", action: false)
+                    alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.errorDescription ?? "")", action: false)
                     uploadState = false
                     debugPrint(error)
                 }
@@ -222,10 +221,10 @@ class SessionStore: ObservableObject {
             .response { [self] response in
                 switch response.result {
                 case .success:
-                    alertError = AlertError(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
+                    alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
                     uploadState = false
                 case let .failure(error):
-                    alertError = AlertError(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.errorDescription ?? "")", action: false)
+                    alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.errorDescription ?? "")", action: false)
                     uploadState = false
                     print(error.errorDescription!)
                 }

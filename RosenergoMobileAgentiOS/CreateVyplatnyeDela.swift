@@ -21,7 +21,7 @@ struct CreateVyplatnyeDela: View {
 
     func openCamera() {
         if locationStore.latitude == 0 {
-            sessionStore.alertError = AlertError(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
             showCustomCameraView = true
         }
@@ -73,9 +73,9 @@ struct CreateVyplatnyeDela: View {
                 if !sessionStore.uploadState {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                         if insuranceContractNumber == "" || numberZayavlenia == "" {
-                            sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
                         } else if sessionStore.photosData.isEmpty {
-                            sessionStore.alertError = AlertError(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
                         } else {
                             uploadVyplatnyeDela()
                         }
@@ -90,7 +90,7 @@ struct CreateVyplatnyeDela: View {
             }
         }
         .navigationTitle("Выплатное дело")
-        .alert(item: $sessionStore.alertError) { error in
+        .alert(item: $sessionStore.alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
         }
         .fullScreenCover(isPresented: $showCustomCameraView) {

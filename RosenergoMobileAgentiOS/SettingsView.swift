@@ -20,7 +20,7 @@ struct SettingsView: View {
         private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     #endif
 
-    @State private var alertError: AlertError?
+    @State private var alertError: AlertItem?
     @State private var showActionSheetExit: Bool = false
     @State private var showMailFeedback: Bool = false
 
@@ -144,7 +144,7 @@ struct SettingsView: View {
                         if MFMailComposeViewController.canSendMail() {
                             showMailFeedback = true
                         } else {
-                            alertError = AlertError(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.", action: false)
+                            alertError = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.", action: false)
                         }
                     }
                 #endif

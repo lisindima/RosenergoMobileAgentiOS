@@ -15,29 +15,38 @@ struct SignIn: View {
     @State private var password: String = ""
 
     var body: some View {
-        #if os(watchOS)
-            watch
-        #else
-            phone
-        #endif
-    }
-
-    var watch: some View {
         NavigationView {
-            VStack {
-                CustomInput(text: $email, name: "Эл.почта")
-                    .textContentType(.emailAddress)
-                SecureField("Пароль", text: $password)
-                    .textContentType(.password)
-                    .modifier(InputModifier())
-                CustomButton(label: sessionStore.loginState ? "" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
-                    sessionStore.login(email: email, password: password)
-                }.buttonStyle(PlainButtonStyle())
+            #if os(watchOS)
+                watch
+            #else
+                phone
+            #endif
+        }
+    }
+    
+    private func alert(title: String, message: String) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: .default(Text("Закрыть"))
+        )
+    }
+    
+    var watch: some View {
+        VStack {
+            CustomInput(text: $email, name: "Эл.почта")
+                .textContentType(.emailAddress)
+            SecureField("Пароль", text: $password)
+                .textContentType(.password)
+                .modifier(InputModifier())
+            CustomButton(label: sessionStore.loginState ? "" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
+                sessionStore.login(email: email, password: password)
             }
-            .navigationTitle("Мобильный агент")
-            .alert(isPresented: $sessionStore.showAlert) {
-                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
-            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        .navigationTitle("Мобильный агент")
+        .alert(item: $sessionStore.alertItem) { error in
+            alert(title: error.title, message: error.message)
         }
     }
 
@@ -61,16 +70,32 @@ struct SignIn: View {
                         .textContentType(.password)
                         .autocapitalization(.none)
                         .modifier(InputModifier())
-                }.padding(.horizontal)
+                }
+                .padding(.horizontal)
                 CustomButton(label: sessionStore.loginState ? "Загрузка" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
                     sessionStore.login(email: email, password: password)
                 }
                 .padding()
+                Divider()
+                HStack {
+                    Text("У вас еще нет аккаунта?")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                    Button(action: {
+                        sessionStore.alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.", action: false)
+                    }) {
+                        Text("Регистрация")
+                            .font(.footnote)
+                    }
+                }
+                .padding(.top, 5)
+                .padding(.bottom)
             }
-            .alert(isPresented: $sessionStore.showAlert) {
-                Alert(title: Text("Ошибка"), message: Text("Логин или пароль неверны, либо отсутствует соединение с интернетом."), dismissButton: .default(Text("Закрыть")))
-            }
+            .navigationBarHidden(true)
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
+            .alert(item: $sessionStore.alertItem) { error in
+                alert(title: error.title, message: error.message)
+            }
         }
     #endif
 }

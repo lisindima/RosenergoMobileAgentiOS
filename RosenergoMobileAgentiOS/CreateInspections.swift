@@ -37,7 +37,7 @@ struct CreateInspections: View {
 
     private func openCamera() {
         if locationStore.latitude == 0 {
-            sessionStore.alertError = AlertError(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
             showCustomCameraView = true
         }
@@ -55,9 +55,9 @@ struct CreateInspections: View {
         switch choiceCar {
         case 0:
             if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
-                sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertError = AlertError(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
                     uploadInspections()
@@ -67,9 +67,9 @@ struct CreateInspections: View {
             }
         case 1:
             if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
-                sessionStore.alertError = AlertError(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertError = AlertError(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
                     uploadInspections()
@@ -156,7 +156,7 @@ struct CreateInspections: View {
         }
 
         try? moc.save()
-        sessionStore.alertError = AlertError(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
+        sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
         notificationStore.setNotification(id: id.uuidString)
     }
 
@@ -259,7 +259,7 @@ struct CreateInspections: View {
                 .pickerStyle(InlinePickerStyle())
             }
         }
-        .alert(item: $sessionStore.alertError) { error in
+        .alert(item: $sessionStore.alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
         }
         .fullScreenCover(isPresented: $showCustomCameraView) {
