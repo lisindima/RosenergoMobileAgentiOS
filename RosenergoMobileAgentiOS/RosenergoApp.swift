@@ -16,7 +16,7 @@ struct RosenergoApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var showfullScreenCover: Bool = false
-    @State private var isOpenUrlId: String?
+    @State private var inspectionID: String?
 
     let persistenceController = PersistenceController.shared
 
@@ -28,8 +28,8 @@ struct RosenergoApp: App {
                 .environmentObject(locationStore)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
-                    isOpenUrlId = url["inspection"]
-                    if isOpenUrlId != nil {
+                    inspectionID = url["inspection"]
+                    if inspectionID != nil {
                         showfullScreenCover = true
                     }
                 }
@@ -37,7 +37,7 @@ struct RosenergoApp: App {
                     Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .default(Text("Закрыть")))
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
-                    LinkDetails(isOpenUrlId: $isOpenUrlId)
+                    LinkDetails(inspectionID: $inspectionID)
                         .environmentObject(sessionStore)
                 }
                 .onChange(of: scenePhase) { phase in

@@ -18,7 +18,7 @@ struct LinkDetails: View {
 
     @Environment(\.presentationMode) private var presentationMode
 
-    @Binding var isOpenUrlId: String?
+    @Binding var inspectionID: String?
 
     @State private var address: String?
     @State private var inspection: Inspections?
@@ -48,7 +48,7 @@ struct LinkDetails: View {
             .accept("application/json"),
         ]
 
-        AF.request(sessionStore.serverURL + "inspection" + "/" + "\(isOpenUrlId!)", method: .get, headers: headers)
+        AF.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID!)", method: .get, headers: headers)
             .validate()
             .responseDecodable(of: Inspections.self) { [self] response in
                 switch response.result {
@@ -186,7 +186,7 @@ struct LinkDetails: View {
                     .padding(.vertical)
                 }
             }
-            .navigationTitle("Осмотр: \(isOpenUrlId!)")
+            .navigationTitle(inspection?.id != nil ? "Осмотр: \(inspection!.id)" : "Загрузка")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {
