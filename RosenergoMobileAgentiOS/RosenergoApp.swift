@@ -12,12 +12,13 @@ import SwiftUI
 struct RosenergoApp: App {
     @StateObject private var sessionStore = SessionStore.shared
     @StateObject private var locationStore = LocationStore.shared
-    @StateObject private var coreData = CoreData.shared
 
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var showfullScreenCover: Bool = false
     @State private var isOpenUrlId: String?
+
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
@@ -25,7 +26,7 @@ struct RosenergoApp: App {
                 .accentColor(.rosenergo)
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
-                .environment(\.managedObjectContext, coreData.persistentContainer.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     isOpenUrlId = url["inspection"]
                     if isOpenUrlId != nil {
@@ -50,9 +51,6 @@ struct RosenergoApp: App {
                         if SessionStore.shared.loginModel != nil {
                             SessionStore.shared.validateToken()
                         }
-                    } else if phase == .background {
-                        print("scene is now background!")
-                        coreData.saveContext()
                     }
                 }
         }

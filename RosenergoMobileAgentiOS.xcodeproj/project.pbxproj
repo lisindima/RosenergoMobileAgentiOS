@@ -101,8 +101,8 @@
 		CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
-		CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* CoreData.swift */; };
-		CBB4B0BC24C8330B00C25A59 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* CoreData.swift */; };
+		CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
+		CBB4B0BC24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
 		CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
 		CBB842EA24E3AD8D0008EB07 /* Changelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842E924E3AD8C0008EB07 /* Changelog.swift */; };
 		CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842E924E3AD8C0008EB07 /* Changelog.swift */; };
@@ -240,7 +240,7 @@
 		CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
-		CBB4B0BA24C8330B00C25A59 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		CBB842E924E3AD8C0008EB07 /* Changelog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changelog.swift; sourceTree = "<group>"; };
 		CBB842EC24E3AE600008EB07 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
 		CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUserDefaults.swift; sourceTree = "<group>"; };
@@ -414,7 +414,7 @@
 				CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */,
 				CB2B5B0724C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift */,
 				CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */,
-				CBB4B0BA24C8330B00C25A59 /* CoreData.swift */,
+				CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -710,7 +710,7 @@
 				CBB842EA24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
-				CBB4B0BB24C8330B00C25A59 /* CoreData.swift in Sources */,
+				CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CBD9354824DA77F600E0F902 /* SeriesPicker.swift in Sources */,
@@ -779,7 +779,7 @@
 				CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */,
-				CBB4B0BC24C8330B00C25A59 /* CoreData.swift in Sources */,
+				CBB4B0BC24C8330B00C25A59 /* PersistenceController.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,

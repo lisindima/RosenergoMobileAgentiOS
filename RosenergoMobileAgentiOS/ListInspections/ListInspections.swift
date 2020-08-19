@@ -11,15 +11,21 @@ import SwiftUI
 
 struct ListInspections: View {
     @Environment(\.managedObjectContext) private var moc
-    @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
+    
     @StateObject private var searchBar = SearchBar.shared
+    
     @EnvironmentObject private var sessionStore: SessionStore
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
+        animation: .default)
+    private var localInspections: FetchedResults<LocalInspections>
 
     #if !os(watchOS)
         @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-
-    func delete(at offsets: IndexSet) {
+    
+    private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
@@ -27,7 +33,12 @@ struct ListInspections: View {
                 notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
             #endif
         }
-        try? moc.save()
+        do {
+            try moc.save()
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
 
     var listInspections: some View {
