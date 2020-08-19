@@ -12,7 +12,7 @@ import SwiftUI
 struct GeoIndicator: View {
     @EnvironmentObject private var locationStore: LocationStore
 
-    private let status = CLLocationManager().authorizationStatus()
+    private let status = CLLocationManager().authorizationStatus
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)
 
     var body: some View {

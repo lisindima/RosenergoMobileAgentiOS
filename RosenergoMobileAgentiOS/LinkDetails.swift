@@ -41,7 +41,7 @@ struct LinkDetails: View {
             return 100.0
         #endif
     }
-    
+
     func getInspections() {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),

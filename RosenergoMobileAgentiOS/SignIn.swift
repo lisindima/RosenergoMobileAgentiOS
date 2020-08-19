@@ -22,6 +22,7 @@ struct SignIn: View {
                 phone
             #endif
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private func alert(title: String, message: String) -> Alert {
@@ -75,6 +76,7 @@ struct SignIn: View {
                 CustomButton(label: sessionStore.loginState ? "Загрузка" : "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
                     sessionStore.login(email: email, password: password)
                 }
+                .keyboardShortcut(.defaultAction)
                 .padding()
                 Divider()
                 HStack {

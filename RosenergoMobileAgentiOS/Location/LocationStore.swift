@@ -17,7 +17,7 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
     static let shared = LocationStore()
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus() {
+        switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             latitude = manager.location?.coordinate.latitude ?? 0.0
             longitude = manager.location?.coordinate.longitude ?? 0.0
