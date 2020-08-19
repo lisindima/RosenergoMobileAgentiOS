@@ -41,7 +41,7 @@ struct VyplatnyedelaDetails: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(vyplatnyedela.photos, id: \.id) { photo in
-                                NavigationLink(destination: ImageDetail(photos: vyplatnyedela.photos)) {
+                                NavigationLink(destination: ImageDetail(id: photo.id, photos: vyplatnyedela.photos)) {
                                     URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                                         ProgressView()
                                     }, content: {
