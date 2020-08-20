@@ -53,7 +53,6 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
 
 struct CustomVideoRepresentable: UIViewControllerRepresentable {
     @EnvironmentObject private var sessionStore: SessionStore
-    @EnvironmentObject private var locationStore: LocationStore
 
     @Binding var startRecording: Bool
     @Binding var stopRecording: Bool
@@ -67,11 +66,9 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ customVideoController: CustomVideoController, context _: Context) {
         if startRecording {
             customVideoController.startRecording()
-            print("ЗАПИСЬ")
         }
         if stopRecording {
             customVideoController.stopRecording()
-            print("ОСТАНОВКА")
         }
     }
 

@@ -96,7 +96,6 @@ class CustomVideoController: UIViewController {
     let movieOutput = AVCaptureMovieFileOutput()
     var previewLayer: AVCaptureVideoPreviewLayer!
     var activeInput: AVCaptureDeviceInput!
-    var outputURL: URL!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,25 +148,25 @@ class CustomVideoController: UIViewController {
 
         return true
     }
+    
+    func videoQueue() -> DispatchQueue {
+        DispatchQueue.main
+    }
 
     func startSession() {
         if !captureSession.isRunning {
-            videoQueue().async {
-                self.captureSession.startRunning()
+            videoQueue().async { [self] in
+                captureSession.startRunning()
             }
         }
     }
 
     func stopSession() {
         if captureSession.isRunning {
-            videoQueue().async {
-                self.captureSession.stopRunning()
+            videoQueue().async { [self] in
+                captureSession.stopRunning()
             }
         }
-    }
-
-    func videoQueue() -> DispatchQueue {
-        DispatchQueue.main
     }
 
     func currentVideoOrientation() -> AVCaptureVideoOrientation {
@@ -197,7 +196,7 @@ class CustomVideoController: UIViewController {
     }
 
     func startRecording() {
-        if movieOutput.isRecording == false {
+        if !movieOutput.isRecording {
             let connection = movieOutput.connection(with: AVMediaType.video)
 
             if (connection?.isVideoOrientationSupported)! {
@@ -219,16 +218,15 @@ class CustomVideoController: UIViewController {
                 }
             }
 
-            outputURL = tempURL()
-            movieOutput.startRecording(to: outputURL, recordingDelegate: delegate!)
-        } else {
-            stopRecording()
+            print("ПИШЕМ")
+            movieOutput.startRecording(to: tempURL()!, recordingDelegate: delegate!)
         }
     }
 
     func stopRecording() {
-        if movieOutput.isRecording == true {
+        if movieOutput.isRecording {
             movieOutput.stopRecording()
+            print("НЕ ПИШЕМ")
         }
     }
 }
