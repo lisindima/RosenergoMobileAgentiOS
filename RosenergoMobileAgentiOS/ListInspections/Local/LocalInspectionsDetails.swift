@@ -242,28 +242,11 @@ struct LocalInspectionsDetails: View {
                     .padding(.vertical)
                 }
             }
-            if !sessionStore.uploadState {
-                #if os(iOS)
-                    CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
-                        uploadLocalInspections()
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
-                #else
-                    Button("Отправить") {
-                        uploadLocalInspections()
-                    }.padding(.bottom, 8)
-                #endif
-            } else {
-                #if os(iOS)
-                    UploadIndicator(progress: $sessionStore.uploadProgress)
-                        .padding(.horizontal)
-                        .padding(.bottom, 8)
-                #else
-                    ProgressView()
-                        .padding(.bottom, 8)
-                #endif
+            CustomButton(label: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+                uploadLocalInspections()
             }
+            .padding(.horizontal)
+            .padding(.bottom, 8)
         }
         .navigationTitle("Не отправлено")
         .alert(item: $sessionStore.alertItem) { error in

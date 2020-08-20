@@ -69,25 +69,17 @@ struct CreateVyplatnyeDela: View {
                         .padding()
                 }
             }
-            Group {
-                if !sessionStore.uploadState {
-                    CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                        if insuranceContractNumber == "" || numberZayavlenia == "" {
-                            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
-                        } else if sessionStore.photosData.isEmpty {
-                            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
-                        } else {
-                            uploadVyplatnyeDela()
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
+            CustomButton(label: "Отправить", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+                if insuranceContractNumber == "" || numberZayavlenia == "" {
+                    sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                } else if sessionStore.photosData.isEmpty {
+                    sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
                 } else {
-                    UploadIndicator(progress: $sessionStore.uploadProgress)
-                        .padding(.horizontal)
-                        .padding(.bottom, 8)
+                    uploadVyplatnyeDela()
                 }
             }
+            .padding(.horizontal)
+            .padding(.bottom, 8)
         }
         .navigationTitle("Выплатное дело")
         .alert(item: $sessionStore.alertItem) { error in

@@ -12,8 +12,10 @@ struct InputModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .background(RoundedRectangle(cornerRadius: 8)
-                .foregroundColor(Color.secondary.opacity(0.1)))
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(Color.secondary.opacity(0.1))
+            )
     }
 }
 

@@ -227,24 +227,18 @@ struct CreateInspections: View {
                     }
                 }
             }
-            Group {
+            HStack {
+                CustomButton(label: "Отправить", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+                    validateInput(upload: true)
+                }
                 if !sessionStore.uploadState {
-                    HStack {
-                        CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
-                            validateInput(upload: true)
-                        }.padding(.trailing, 4)
-                        CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                            validateInput(upload: false)
-                        }.padding(.leading, 4)
+                    CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                        validateInput(upload: false)
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
-                } else {
-                    UploadIndicator(progress: $sessionStore.uploadProgress)
-                        .padding(.horizontal)
-                        .padding(.bottom, 8)
                 }
             }
+            .padding(.horizontal)
+            .padding(.bottom, 8)
         }
         .navigationTitle("Новый осмотр")
         .toolbar {

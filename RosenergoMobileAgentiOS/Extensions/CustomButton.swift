@@ -11,6 +11,7 @@ import SwiftUI
 struct CustomButton: View {
     var label: String
     var loading: Bool = false
+    var progress: Double = 0.0
     var colorButton: Color
     var colorText: Color
     var action: () -> Void
@@ -18,22 +19,26 @@ struct CustomButton: View {
     var body: some View {
         Button(action: action) {
             HStack {
-                Spacer()
-                Text(label)
-                    .fontWeight(.bold)
-                    .foregroundColor(colorText)
-                    .multilineTextAlignment(.center)
-                if loading {
-                    ProgressView()
-                        .padding(.leading, 6)
-                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                if loading, progress != 0.0 {
+                    ProgressView(value: progress)
+                } else {
+                    Spacer()
+                    if loading, progress == 0.0 {
+                        ProgressView()
+                            .padding(.trailing, 3)
+                            .progressViewStyle(CircularProgressViewStyle(tint: colorText))
+                    }
+                    Text(loading ? "Загрузка" : label)
+                        .fontWeight(.bold)
+                        .foregroundColor(colorText)
+                        .multilineTextAlignment(.center)
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .disabled(loading)
         .padding()
-        .background(colorButton)
+        .background(loading ? colorButton.opacity(0.2) : colorButton)
         .cornerRadius(8)
     }
 }
@@ -44,22 +49,22 @@ struct ImageButton: View {
 
     var body: some View {
         Button(action: action) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.rosenergo.opacity(0.2))
-                    .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 72, idealHeight: 72, maxHeight: 72)
-                VStack {
-                    if countPhoto.count == 0 {
-                        Image(systemName: "camera")
-                            .font(.title)
-                            .foregroundColor(.rosenergo)
-                    } else {
-                        Text("Фотографий добавлено: \(countPhoto.count)")
-                            .fontWeight(.bold)
-                            .foregroundColor(.rosenergo)
-                    }
+            VStack {
+                if countPhoto.count == 0 {
+                    Image(systemName: "camera")
+                        .font(.title)
+                        .foregroundColor(.rosenergo)
+                } else {
+                    Text("Фотографий добавлено: \(countPhoto.count)")
+                        .fontWeight(.bold)
+                        .foregroundColor(.rosenergo)
                 }
             }
+            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 72, idealHeight: 72, maxHeight: 72)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.rosenergo.opacity(0.2))
+            )
         }
     }
 }
@@ -68,22 +73,22 @@ struct MenuButton: View {
     var title: String
     var image: String
     var color: Color
-
+    
     var body: some View {
-        ZStack {
+        VStack {
+            Image(systemName: image)
+                .font(.largeTitle)
+                .foregroundColor(color)
+                .padding(.bottom, 3)
+            Text(title)
+                .fontWeight(.bold)
+                .foregroundColor(color)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
+        .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(color.opacity(0.2))
-                .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
-            VStack {
-                Image(systemName: image)
-                    .font(.largeTitle)
-                    .foregroundColor(color)
-                    .padding(.bottom, 3)
-                Text(title)
-                    .fontWeight(.bold)
-                    .foregroundColor(color)
-                    .multilineTextAlignment(.center)
-            }
-        }
+        )
     }
 }

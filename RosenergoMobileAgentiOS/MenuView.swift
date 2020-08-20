@@ -17,7 +17,7 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1), spacing: 8) {
                     #if !os(watchOS)
                         NavigationLink(destination: CreateInspections()) {
                             MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
