@@ -34,7 +34,7 @@ struct RosenergoApp: App {
                     }
                 }
                 .alert(isPresented: $sessionStore.showServerAlert) {
-                    Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .default(Text("Закрыть")))
+                    Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .cancel())
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     LinkDetails(inspectionID: $inspectionID)

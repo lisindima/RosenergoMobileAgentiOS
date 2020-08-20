@@ -11,6 +11,7 @@ import SwiftUI
 struct LocalImageDetail: View {
     @State private var selectionImage: Int = 1
     
+    var id: Int
     var photos: [LocalPhotos]
     
     var body: some View {
@@ -22,6 +23,7 @@ struct LocalImageDetail: View {
             }
         }
         .tabViewStyle(PageTabViewStyle())
-        .navigationTitle("\(selectionImage) из \(photos.count)")
+        .navigationTitle("\(selectionImage) из \(photos.last!.id)")
+        .onAppear { selectionImage = id }
     }
 }

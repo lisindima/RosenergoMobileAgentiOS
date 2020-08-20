@@ -33,7 +33,7 @@ struct LocalInspectionsDetails: View {
         Alert(
             title: Text(title),
             message: Text(message),
-            dismissButton: action ? .default(Text("Закрыть"), action: delete) : .default(Text("Закрыть"))
+            dismissButton: action ? .default(Text("Закрыть"), action: delete) : .cancel()
         )
     }
 
@@ -128,7 +128,7 @@ struct LocalInspectionsDetails: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEach(localInspections.arrayPhoto, id: \.id) { photo in
-                                    NavigationLink(destination: LocalImageDetail(photos: localInspections.arrayPhoto)) {
+                                    NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.arrayPhoto)) {
                                         Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
                                             .resizable()
                                             .frame(width: CGFloat(size), height: CGFloat(size))

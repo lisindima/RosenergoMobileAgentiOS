@@ -29,7 +29,7 @@ struct SignIn: View {
         Alert(
             title: Text(title),
             message: Text(message),
-            dismissButton: .default(Text("Закрыть"))
+            dismissButton: .cancel()
         )
     }
 

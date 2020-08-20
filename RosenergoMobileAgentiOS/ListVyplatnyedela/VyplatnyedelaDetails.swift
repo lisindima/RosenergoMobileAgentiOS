@@ -111,7 +111,7 @@ struct VyplatnyedelaDetails: View {
             #endif
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
+            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .cancel())
         }
     }
 }

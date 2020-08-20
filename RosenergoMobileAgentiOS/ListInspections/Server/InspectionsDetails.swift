@@ -77,7 +77,7 @@ struct InspectionsDetails: View {
                     }
                 }
                 .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .default(Text("Закрыть")))
+                    Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .cancel())
                 }
         #endif
     }

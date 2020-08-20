@@ -31,7 +31,7 @@ struct CreateVyplatnyeDela: View {
         Alert(
             title: Text(title),
             message: Text(message),
-            dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .default(Text("Закрыть"))
+            dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .cancel()
         )
     }
 

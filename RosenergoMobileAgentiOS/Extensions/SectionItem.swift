@@ -13,26 +13,26 @@ struct SectionItem: View {
     var imageColor: Color
     var subTitle: String = ""
     var title: String?
-
-    @ViewBuilder var secondaryTitle: Text {
+    
+    var secondaryTitle: Text {
         #if os(watchOS)
-            Text(subTitle)
-                .font(.system(size: 11))
+        return Text(subTitle)
+            .font(.system(size: 11))
         #else
-            Text(subTitle)
-                .font(.caption)
+        return Text(subTitle)
+            .font(.caption)
         #endif
     }
-
-    @ViewBuilder var primaryTitle: Text {
+    
+    var primaryTitle: Text {
         #if os(watchOS)
-            Text(title ?? "Пролетарская, 114")
-                .font(.footnote)
+        return Text(title ?? "Пролетарская, 114")
+            .font(.footnote)
         #else
-            Text(title ?? "Пролетарская, 114")
+        return Text(title ?? "Пролетарская, 114")
         #endif
     }
-
+    
     var body: some View {
         HStack {
             Image(systemName: imageName)
@@ -78,16 +78,16 @@ struct SectionLink: View {
     var titleColor: Color
     var showLinkLabel: Bool = false
     var destination: URL
-
-    @ViewBuilder var primaryTitle: Text {
+    
+    var primaryTitle: Text {
         #if os(watchOS)
-            Text(title ?? "Пролетарская, 114")
-                .font(.footnote)
+        return Text(title ?? "Пролетарская, 114")
+            .font(.footnote)
         #else
-            Text(title ?? "Пролетарская, 114")
+        return Text(title ?? "Пролетарская, 114")
         #endif
     }
-
+    
     var body: some View {
         Link(destination: destination) {
             HStack {
