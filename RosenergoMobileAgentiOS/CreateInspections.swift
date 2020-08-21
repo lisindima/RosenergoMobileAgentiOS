@@ -228,11 +228,11 @@ struct CreateInspections: View {
                 }
             }
             HStack {
-                CustomButton(label: "Отправить", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+                CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
                     validateInput(upload: true)
                 }
                 if !sessionStore.uploadState {
-                    CustomButton(label: "Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                    CustomButton(title: "Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                         validateInput(upload: false)
                     }
                 }

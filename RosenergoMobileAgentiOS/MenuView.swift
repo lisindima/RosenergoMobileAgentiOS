@@ -13,11 +13,19 @@ struct MenuView: View {
     #if !os(watchOS)
         @EnvironmentObject private var notificationStore: NotificationStore
     #endif
+    
+    var countColumns: Int {
+        #if os(watchOS)
+        return 1
+        #else
+        return 2
+        #endif
+    }
 
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1), spacing: 8) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
                     #if !os(watchOS)
                         NavigationLink(destination: CreateInspections()) {
                             MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)

@@ -40,7 +40,7 @@ struct SignIn: View {
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
                 .modifier(InputModifier())
-            CustomButton(label: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
+            CustomButton(title: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
                 sessionStore.login(email: email, password: password)
             }
             .buttonStyle(PlainButtonStyle())
@@ -73,7 +73,7 @@ struct SignIn: View {
                         .modifier(InputModifier())
                 }
                 .padding(.horizontal)
-                CustomButton(label: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
+                CustomButton(title: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
                     sessionStore.login(email: email, password: password)
                 }
                 .keyboardShortcut(.defaultAction)

@@ -36,7 +36,7 @@ class SessionStore: ObservableObject {
     @Published var uploadState: Bool = false
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var uploadProgress: Double = 0.0
+    @Published var uploadProgress: Double = 0.56
     @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
     @Published var changelogLoadingFailure: Bool = false
     @Published var licenseModel: [LicenseModel] = [LicenseModel]()

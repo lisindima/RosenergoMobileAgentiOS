@@ -69,7 +69,7 @@ struct CreateVyplatnyeDela: View {
                         .padding()
                 }
             }
-            CustomButton(label: "Отправить", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+            CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
                 if insuranceContractNumber == "" || numberZayavlenia == "" {
                     sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
                 } else if sessionStore.photosData.isEmpty {

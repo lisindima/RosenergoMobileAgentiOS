@@ -9,36 +9,56 @@
 import SwiftUI
 
 struct CustomButton: View {
-    var label: String
+    var title: String
+    var subTitle: String = ""
     var loading: Bool = false
     var progress: Double = 0.0
     var colorButton: Color
     var colorText: Color
     var action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
-            HStack {
-                if loading, progress != 0.0 {
-                    ProgressView(value: progress)
-                } else {
-                    Spacer()
-                    if loading, progress == 0.0 {
-                        ProgressView()
-                            .padding(.trailing, 3)
-                            .progressViewStyle(CircularProgressViewStyle(tint: colorText))
+            if loading, progress != 0.0 {
+                ProgressView(
+                    value: progress,
+                    label: { Text("Загрузка").foregroundColor(.rosenergo).fontWeight(.bold) },
+                    currentValueLabel: { Text("\(Int(progress * 100)) %") }
+                )
+                .padding(8)
+            } else {
+                if subTitle != "" {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Text(loading ? "Загрузка" : title)
+                                .fontWeight(.bold)
+                                .foregroundColor(colorText)
+                            Text(subTitle)
+                                .font(.footnote)
+                                .foregroundColor(colorText)
+                        }
+                        Spacer()
                     }
-                    Text(loading ? "Загрузка" : label)
-                        .fontWeight(.bold)
-                        .foregroundColor(colorText)
-                        .multilineTextAlignment(.center)
-                    Spacer()
+                    .padding(10)
+                } else {
+                    HStack {
+                        Spacer()
+                        if loading, progress == 0.0 {
+                            ProgressView()
+                                .padding(.trailing, 3)
+                                .progressViewStyle(CircularProgressViewStyle(tint: colorText))
+                        }
+                        Text(loading ? "Загрузка" : title)
+                            .fontWeight(.bold)
+                            .foregroundColor(colorText)
+                        Spacer()
+                    }.padding()
                 }
             }
         }
         .disabled(loading)
-        .padding()
-        .background(loading ? colorButton.opacity(0.2) : colorButton)
+        .background(colorButton)
         .cornerRadius(8)
     }
 }
@@ -60,7 +80,7 @@ struct ImageButton: View {
                         .foregroundColor(.rosenergo)
                 }
             }
-            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 72, idealHeight: 72, maxHeight: 72)
+            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color.rosenergo.opacity(0.2))

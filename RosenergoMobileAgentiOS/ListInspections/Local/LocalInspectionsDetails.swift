@@ -242,7 +242,7 @@ struct LocalInspectionsDetails: View {
                     .padding(.vertical)
                 }
             }
-            CustomButton(label: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+            CustomButton(title: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
                 uploadLocalInspections()
             }
             .padding(.horizontal)
