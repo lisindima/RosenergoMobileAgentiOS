@@ -17,13 +17,11 @@ struct License: View {
         VStack {
             if sessionStore.licenseModel.isEmpty, !sessionStore.licenseLoadingFailure {
                 ProgressView("Загрузка")
-                    .onAppear(perform: sessionStore.loadLicense)
             } else if sessionStore.licenseModel.isEmpty, sessionStore.licenseLoadingFailure {
                 Text("Нет подключения к интернету!")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
-                    .onAppear(perform: sessionStore.loadLicense)
             } else {
                 Form {
                     Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.")) {
@@ -36,6 +34,7 @@ struct License: View {
                 }
             }
         }
+        .onAppear(perform: sessionStore.loadLicense)
         .navigationTitle("Лицензии")
     }
 }

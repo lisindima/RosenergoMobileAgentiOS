@@ -21,13 +21,11 @@ struct Changelog: View {
         VStack {
             if sessionStore.сhangelogModel.isEmpty, !sessionStore.changelogLoadingFailure {
                 ProgressView("Загрузка")
-                    .onAppear(perform: sessionStore.loadChangelog)
             } else if sessionStore.сhangelogModel.isEmpty, sessionStore.changelogLoadingFailure {
                 Text("Нет подключения к интернету!")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
-                    .onAppear(perform: sessionStore.loadChangelog)
             } else {
                 Form {
                     ForEach(sessionStore.сhangelogModel.sorted { $0.version > $1.version }, id: \.id) { changelog in
@@ -76,6 +74,7 @@ struct Changelog: View {
                 }
             }
         }
+        .onAppear(perform: sessionStore.loadChangelog)
         .navigationTitle("Что нового?")
     }
 }
