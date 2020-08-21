@@ -6,8 +6,6 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import CoreLocation
-import MapKit
 import SwiftUI
 #if !os(watchOS)
     import AVKit
@@ -22,10 +20,6 @@ struct LocalInspectionsDetails: View {
 
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
-
-    @State private var address: String?
-    @State private var pins: [Pin] = []
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
 
     var localInspections: LocalInspections
 
@@ -105,9 +99,6 @@ struct LocalInspectionsDetails: View {
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         Menu {
-                            Button(action: {}) {
-                                Label("Изменить", systemImage: "pencil")
-                            }
                             Button(action: delete) {
                                 Label("Удалить", systemImage: "trash")
                             }
@@ -227,19 +218,7 @@ struct LocalInspectionsDetails: View {
                     }
                 }
                 Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
-                    SectionLink(
-                        imageName: "map",
-                        imageColor: .rosenergo,
-                        title: address,
-                        titleColor: .primary,
-                        destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!
-                    )
-                    Map(coordinateRegion: $region, annotationItems: pins) { pin in
-                        MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
-                    }
-                    .frame(height: 200)
-                    .cornerRadius(8)
-                    .padding(.vertical)
+                    MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
                 }
             }
             CustomButton(title: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
@@ -251,19 +230,6 @@ struct LocalInspectionsDetails: View {
         .navigationTitle("Не отправлено")
         .alert(item: $sessionStore.alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
-        }
-        .onAppear {
-            region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: localInspections.latitude, longitude: localInspections.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            pins.append(Pin(coordinate: .init(latitude: localInspections.latitude, longitude: localInspections.longitude)))
-            let location = CLLocation(latitude: localInspections.latitude, longitude: localInspections.longitude)
-            location.geocode { placemark, error in
-                if let error = error {
-                    print(error)
-                    return
-                } else if let placemark = placemark?.first {
-                    address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
-                }
-            }
         }
     }
 }

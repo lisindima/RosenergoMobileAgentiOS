@@ -39,7 +39,7 @@ struct SectionItem: View {
                 .frame(width: 24)
                 .foregroundColor(imageColor)
             VStack(alignment: .leading) {
-                if subTitle != "" {
+                if !subTitle.isEmpty {
                     secondaryTitle
                         .foregroundColor(.secondary)
                 }

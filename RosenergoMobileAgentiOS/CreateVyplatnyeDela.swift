@@ -70,7 +70,7 @@ struct CreateVyplatnyeDela: View {
                 }
             }
             CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
-                if insuranceContractNumber == "" || numberZayavlenia == "" {
+                if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                     sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
                 } else if sessionStore.photosData.isEmpty {
                     sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)

@@ -54,7 +54,7 @@ struct CreateInspections: View {
     private func validateInput(upload: Bool) {
         switch choiceCar {
         case 0:
-            if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" {
+            if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
                 sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
                 sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
@@ -66,7 +66,7 @@ struct CreateInspections: View {
                 }
             }
         case 1:
-            if carModel == "" || carRegNumber == "" || carBodyNumber == "" || carVin == "" || insuranceContractNumber == "" || carModel2 == "" || carRegNumber2 == "" || carBodyNumber2 == "" || carVin2 == "" || insuranceContractNumber2 == "" {
+            if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
                 sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
                 sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
@@ -107,11 +107,11 @@ struct CreateInspections: View {
                 car_body_number: vinAndNumber ? carVin : carBodyNumber,
                 car_vin: carVin,
                 insurance_contract_number: choiseSeries.rawValue + insuranceContractNumber,
-                car_model2: carModel2 == "" ? nil : carModel2,
-                car_reg_number2: carRegNumber2 == "" ? nil : carRegNumber2,
-                car_body_number2: vinAndNumber2 ? (carVin2 == "" ? nil : carVin2) : (carBodyNumber2 == "" ? nil : carBodyNumber2),
-                car_vin2: carVin2 == "" ? nil : carVin2,
-                insurance_contract_number2: choiseSeries2.rawValue + insuranceContractNumber2 == "" ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
+                car_model2: carModel2.isEmpty ? nil : carModel2,
+                car_reg_number2: carRegNumber2.isEmpty ? nil : carRegNumber2,
+                car_body_number2: vinAndNumber2 ? (carVin2.isEmpty ? nil : carVin2) : (carBodyNumber2.isEmpty ? nil : carBodyNumber2),
+                car_vin2: carVin2.isEmpty ? nil : carVin2,
+                insurance_contract_number2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
                 latitude: locationStore.latitude,
                 longitude: locationStore.longitude,
                 video: video,

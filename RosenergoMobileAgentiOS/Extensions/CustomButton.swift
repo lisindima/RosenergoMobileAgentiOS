@@ -27,7 +27,7 @@ struct CustomButton: View {
                 )
                 .padding(8)
             } else {
-                if subTitle != "" {
+                if !subTitle.isEmpty {
                     HStack {
                         Spacer()
                         VStack {
@@ -58,7 +58,7 @@ struct CustomButton: View {
             }
         }
         .disabled(loading)
-        .background(colorButton)
+        .background(progress != 0.0 ? colorButton : colorButton.opacity(0.2))
         .cornerRadius(8)
     }
 }
