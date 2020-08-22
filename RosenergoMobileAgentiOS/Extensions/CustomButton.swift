@@ -58,7 +58,7 @@ struct CustomButton: View {
             }
         }
         .disabled(loading)
-        .background(progress != 0.0 ? colorButton : colorButton.opacity(0.2))
+        .background(colorButton)
         .cornerRadius(8)
     }
 }
