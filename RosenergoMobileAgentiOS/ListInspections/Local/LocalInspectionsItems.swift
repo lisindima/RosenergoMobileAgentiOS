@@ -21,6 +21,12 @@ struct LocalInspectionsItems: View {
 
     var body: some View {
         HStack(alignment: .top) {
+            if !localInspections.arrayPhoto.isEmpty {
+                Image(uiImage: UIImage(data: (localInspections.arrayPhoto.first?.photosData)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
+                    .resizable()
+                    .cornerRadius(8)
+                    .frame(width: CGFloat(size), height: CGFloat(size))
+            }
             VStack(alignment: .leading) {
                 Text("Не отправлено")
                     .font(.title3)
@@ -49,12 +55,6 @@ struct LocalInspectionsItems: View {
                 .lineLimit(1)
             }
             Spacer()
-            if !localInspections.arrayPhoto.isEmpty {
-                Image(uiImage: UIImage(data: (localInspections.arrayPhoto.first?.photosData)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
-                    .resizable()
-                    .cornerRadius(8)
-                    .frame(width: CGFloat(size), height: CGFloat(size))
-            }
         }.padding(.vertical, 6)
     }
 }

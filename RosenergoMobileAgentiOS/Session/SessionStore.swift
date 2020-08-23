@@ -25,22 +25,22 @@ class SessionStore: ObservableObject {
         }
     }
 
-    @Published var inspections: [Inspections] = [Inspections]()
-    @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var photosData: [Data] = [Data]()
     @Published var videoURL: String?
     @Published var alertItem: AlertItem?
+    @Published var uploadProgress: Double = 0.0
     @Published var showServerAlert: Bool = false
     @Published var loginState: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: Bool = false
-    @Published var inspectionsLoadingState: LoadingState = .loading
-    @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var uploadProgress: Double = 0.0
-    @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
     @Published var changelogLoadingFailure: Bool = false
-    @Published var licenseModel: [LicenseModel] = [LicenseModel]()
     @Published var licenseLoadingFailure: Bool = false
+    @Published var inspectionsLoadingState: LoadingState = .success
+    @Published var vyplatnyedelaLoadingState: LoadingState = .success
+    @Published var inspections: [Inspections] = [Inspections]()
+    @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
+    @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
+    @Published var licenseModel: [LicenseModel] = [LicenseModel]()
 
     static let shared = SessionStore()
 
@@ -140,48 +140,6 @@ class SessionStore: ObservableObject {
             }
     }
 
-    func getInspections() {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-
-        AF.request(serverURL + "inspections", method: .get, headers: headers)
-            .validate()
-            .responseDecodable(of: [Inspections].self) { [self] response in
-                switch response.result {
-                case .success:
-                    guard let inspectionsResponse = response.value else { return }
-                    inspections = inspectionsResponse
-                    inspectionsLoadingState = .success
-                case let .failure(error):
-                    inspectionsLoadingState = .failure
-                    print(error.errorDescription!)
-                }
-            }
-    }
-
-    func getVyplatnyedela() {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-
-        AF.request(serverURL + "vyplatnyedelas", method: .get, headers: headers)
-            .validate()
-            .responseDecodable(of: [Vyplatnyedela].self) { [self] response in
-                switch response.result {
-                case .success:
-                    guard let vyplatnyedelaResponse = response.value else { return }
-                    vyplatnyedela = vyplatnyedelaResponse
-                    vyplatnyedelaLoadingState = .success
-                case let .failure(error):
-                    vyplatnyedelaLoadingState = .failure
-                    print(error.errorDescription!)
-                }
-            }
-    }
-
     func uploadInspections(parameters: InspectionParameters) {
         uploadState = true
 
@@ -233,35 +191,92 @@ class SessionStore: ObservableObject {
                 }
             }
     }
-
-    func loadChangelog() {
-        AF.request("https://api.lisindmitriy.me/changelog")
+    
+    var cancellation: AnyCancellable?
+    
+    func request<T: Codable>(_ url: String, method: HTTPMethod = .get,  headers: HTTPHeaders? = nil, parameters: Encodable? = nil) -> AnyPublisher<T,AFError> {
+        let publisher = AF.request(url, method: method, headers: headers)
             .validate()
-            .responseDecodable(of: [ChangelogModel].self) { [self] response in
-                switch response.result {
-                case .success:
-                    guard let сhangelog = response.value else { return }
-                    сhangelogModel = сhangelog
-                case let .failure(error):
-                    changelogLoadingFailure = true
-                    print("Список изменений не загружен: \(error.errorDescription!)")
-                }
-            }
+            .publishDecodable(type : T.self)
+        return publisher.value()
     }
-
-    func loadLicense() {
-        AF.request("https://api.lisindmitriy.me/license")
-            .validate()
-            .responseDecodable(of: [LicenseModel].self) { [self] response in
-                switch response.result {
-                case .success:
-                    guard let license = response.value else { return }
-                    licenseModel = license
-                case let .failure(error):
-                    licenseLoadingFailure = true
-                    print("Список лицензий не загружен: \(error.errorDescription!)")
-                }
+    
+    func test(email: String, password: String) {
+        loginState = true
+        
+        let parameters = LoginParameters(
+            email: email,
+            password: password
+        )
+        
+        cancellation = request(serverURL + "login", method: .post, parameters: parameters)
+            .mapError { [self] error -> AFError in
+                print(error)
+                loginState = false
+                alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
+                return error
             }
+            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+                loginModel = response
+            })
+    }
+    
+    func getVyplatnyedela() {
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .accept("application/json"),
+        ]
+        
+        cancellation = request(serverURL + "vyplatnyedelas", headers: headers)
+            .mapError { [self] error -> AFError in
+                print(error)
+                vyplatnyedelaLoadingState = .failure
+                return error
+            }
+            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+                vyplatnyedela = response
+            })
+    }
+    
+    func getInspections() {
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .accept("application/json"),
+        ]
+        
+        cancellation = request(serverURL + "inspections", headers: headers)
+            .mapError { [self] error -> AFError in
+                print(error)
+                inspectionsLoadingState = .failure
+                return error
+            }
+            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+                inspections = response
+            })
+    }
+    
+    func loadLicense() {
+        cancellation = request("https://api.lisindmitriy.me/license")
+            .mapError { [self] error -> AFError in
+                print(error)
+                licenseLoadingFailure = true
+                return error
+            }
+            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+                licenseModel = response
+            })
+    }
+    
+    func loadChangelog() {
+        cancellation = request("https://api.lisindmitriy.me/changelog")
+            .mapError { [self] error -> AFError in
+                print(error)
+                changelogLoadingFailure = true
+                return error
+            }
+            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+                сhangelogModel = response
+            })
     }
 }
 

@@ -30,6 +30,16 @@ struct InspectionsItems: View {
 
     var body: some View {
         HStack(alignment: .top) {
+            if !inspection.photos.isEmpty {
+                URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                    ProgressView()
+                }, content: {
+                    $0.image
+                        .resizable()
+                })
+                    .cornerRadius(8)
+                    .frame(width: CGFloat(size), height: CGFloat(size))
+            }
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")
                     .font(.title3)
@@ -57,16 +67,6 @@ struct InspectionsItems: View {
                 .lineLimit(1)
             }
             Spacer()
-            if !inspection.photos.isEmpty {
-                URLImage(URL(string: inspection.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
-                    ProgressView()
-                }, content: {
-                    $0.image
-                        .resizable()
-                })
-                    .cornerRadius(8)
-                    .frame(width: CGFloat(size), height: CGFloat(size))
-            }
         }.padding(.vertical, 6)
     }
 }

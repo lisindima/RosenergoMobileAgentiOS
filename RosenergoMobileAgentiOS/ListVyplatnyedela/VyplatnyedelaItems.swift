@@ -30,6 +30,16 @@ struct VyplatnyedelaItems: View {
 
     var body: some View {
         HStack(alignment: .top) {
+            if !vyplatnyedela.photos.isEmpty {
+                URLImage(URL(string: vyplatnyedela.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                    ProgressView()
+                }, content: {
+                    $0.image
+                        .resizable()
+                })
+                    .cornerRadius(8)
+                    .frame(width: CGFloat(size), height: CGFloat(size))
+            }
             VStack(alignment: .leading) {
                 Text("\(vyplatnyedela.id)")
                     .font(.title3)
@@ -42,17 +52,7 @@ struct VyplatnyedelaItems: View {
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             }
-            Spacer(minLength: 0)
-            if !vyplatnyedela.photos.isEmpty {
-                URLImage(URL(string: vyplatnyedela.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
-                    ProgressView()
-                }, content: {
-                    $0.image
-                        .resizable()
-                })
-                    .cornerRadius(8)
-                    .frame(width: CGFloat(size), height: CGFloat(size))
-            }
+            Spacer()
         }.padding(.vertical, 6)
     }
 }
