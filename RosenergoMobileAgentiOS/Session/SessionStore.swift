@@ -97,12 +97,16 @@ class SessionStore: ObservableObject {
                     loginParameters = nil
                     inspections.removeAll()
                     inspectionsLoadingState = .loading
+                    vyplatnyedela.removeAll()
+                    vyplatnyedelaLoadingState = .loading
                 case let .failure(error):
                     loginModel = nil
                     logoutState = false
                     loginParameters = nil
                     inspections.removeAll()
                     inspectionsLoadingState = .loading
+                    vyplatnyedela.removeAll()
+                    vyplatnyedelaLoadingState = .loading
                     print(error.errorDescription!)
                 }
             }
