@@ -53,7 +53,7 @@ class SessionStore: ObservableObject {
         let createStringDate = dateFormatter.string(from: currentDate)
         return createStringDate
     }
-    
+
     private func clearData() {
         loginModel = nil
         logoutState = false
@@ -63,7 +63,7 @@ class SessionStore: ObservableObject {
         vyplatnyedela.removeAll()
         vyplatnyedelaLoadingState = .loading
     }
-    
+
     func login(email: String, password: String) {
         loginState = true
 
@@ -191,8 +191,8 @@ class SessionStore: ObservableObject {
     }
 
     var cancellation: AnyCancellable?
-    
-    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil, parameters: Codable? = nil)  -> AnyPublisher<T, AFError> {
+
+    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<T, AFError> {
         let publisher = AF.request(url, method: method, headers: headers)
             .validate()
             .uploadProgress { [self] progress in
@@ -213,7 +213,7 @@ class SessionStore: ObservableObject {
                 switch completion {
                 case .finished:
                     vyplatnyedelaLoadingState = .success
-                case .failure(let error):
+                case let .failure(error):
                     vyplatnyedelaLoadingState = .failure
                     print(error)
                 }
@@ -233,7 +233,7 @@ class SessionStore: ObservableObject {
                 switch completion {
                 case .finished:
                     inspectionsLoadingState = .success
-                case .failure(let error):
+                case let .failure(error):
                     inspectionsLoadingState = .failure
                     print(error)
                 }
@@ -248,7 +248,7 @@ class SessionStore: ObservableObject {
                 switch completion {
                 case .finished:
                     break
-                case .failure(let error):
+                case let .failure(error):
                     licenseLoadingFailure = true
                     print(error)
                 }
@@ -263,7 +263,7 @@ class SessionStore: ObservableObject {
                 switch completion {
                 case .finished:
                     break
-                case .failure(let error):
+                case let .failure(error):
                     changelogLoadingFailure = true
                     print(error)
                 }

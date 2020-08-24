@@ -107,10 +107,10 @@ struct CreateInspections: View {
                 car_body_number: vinAndNumber ? carVin : carBodyNumber,
                 car_vin: carVin,
                 insurance_contract_number: choiseSeries.rawValue + insuranceContractNumber,
-                car_model2: carModel2.isEmpty ? nil : carModel2,
-                car_reg_number2: carRegNumber2.isEmpty ? nil : carRegNumber2,
-                car_body_number2: vinAndNumber2 ? (carVin2.isEmpty ? nil : carVin2) : (carBodyNumber2.isEmpty ? nil : carBodyNumber2),
-                car_vin2: carVin2.isEmpty ? nil : carVin2,
+                car_model2: carModel2,
+                car_reg_number2: carRegNumber2,
+                car_body_number2: vinAndNumber2 ? carVin2 : carBodyNumber2,
+                car_vin2: carVin2,
                 insurance_contract_number2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
                 latitude: locationStore.latitude,
                 longitude: locationStore.longitude,
@@ -134,6 +134,14 @@ struct CreateInspections: View {
         localInspections.dateInspections = sessionStore.stringDate()
         localInspections.videoURL = sessionStore.videoURL
 
+        if choiceCar == 1 {
+            localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
+            localInspections.carModel2 = carModel2
+            localInspections.carRegNumber2 = carRegNumber2
+            localInspections.carVin2 = carVin2
+            localInspections.insuranceContractNumber2 = choiseSeries2.rawValue + insuranceContractNumber2
+        }
+
         var localPhotos: [LocalPhotos] = []
         var setPhotoId: Int16 = 0
 
@@ -147,17 +155,15 @@ struct CreateInspections: View {
 
         localInspections.localPhotos = Set(localPhotos)
 
-        if choiceCar == 1 {
-            localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
-            localInspections.carModel2 = carModel2
-            localInspections.carRegNumber2 = carRegNumber2
-            localInspections.carVin2 = carVin2
-            localInspections.insuranceContractNumber2 = choiseSeries2.rawValue + insuranceContractNumber2
+        do {
+            try moc.save()
+            sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
+            notificationStore.setNotification(id: id.uuidString)
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)", action: false)
         }
-
-        try? moc.save()
-        sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
-        notificationStore.setNotification(id: id.uuidString)
     }
 
     var body: some View {
@@ -166,65 +172,67 @@ struct CreateInspections: View {
                 GeoIndicator()
                     .padding(.top, 8)
                     .padding([.horizontal, .bottom])
-                VStack {
+                Group {
+                    GroupBox(label:
+                        Label("Страховой полис", systemImage: "doc.plaintext")
+                    ) {
+                        HStack {
+                            SeriesPicker(selectedSeries: $choiseSeries)
+                                .modifier(InputModifier())
+                            CustomInput(text: $insuranceContractNumber, name: "Номер")
+                                .keyboardType(.numberPad)
+                        }
+                    }
+                    GroupBox {
+                        CustomInput(text: $carModel, name: "Марка автомобиля")
+                        CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
+                    }
+                    GroupBox(label:
+                        Toggle(isOn: $vinAndNumber, label: {
+                            Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                        })
+                    ) {
+                        CustomInput(text: $carVin, name: "VIN")
+                        CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
+                            .disabled(vinAndNumber)
+                    }
+                }.padding(.horizontal)
+                ImageButton(countPhoto: sessionStore.photosData) {
+                    openCamera()
+                }
+                .padding()
+                if choiceCar == 1 {
+                    Divider()
+                        .padding([.horizontal, .bottom])
                     Group {
                         GroupBox(label:
                             Label("Страховой полис", systemImage: "doc.plaintext")
                         ) {
                             HStack {
-                                SeriesPicker(selectedSeries: $choiseSeries)
+                                SeriesPicker(selectedSeries: $choiseSeries2)
                                     .modifier(InputModifier())
-                                CustomInput(text: $insuranceContractNumber, name: "Номер")
+                                CustomInput(text: $insuranceContractNumber2, name: "Номер")
                                     .keyboardType(.numberPad)
                             }
                         }
                         GroupBox {
-                            CustomInput(text: $carModel, name: "Марка автомобиля")
-                            CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
+                            CustomInput(text: $carModel2, name: "Марка автомобиля")
+                            CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
                         }
                         GroupBox(label:
-                            Toggle(isOn: $vinAndNumber, label: {
+                            Toggle(isOn: $vinAndNumber2, label: {
                                 Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
                             })
                         ) {
-                            CustomInput(text: $carVin, name: "VIN")
-                            CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
-                                .disabled(vinAndNumber)
+                            CustomInput(text: $carVin2, name: "VIN")
+                            CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")
+                                .disabled(vinAndNumber2)
                         }
                     }.padding(.horizontal)
-                    ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
-                        .padding()
-                    if choiceCar == 1 {
-                        Divider()
-                            .padding([.horizontal, .bottom])
-                        Group {
-                            GroupBox(label:
-                                Label("Страховой полис", systemImage: "doc.plaintext")
-                            ) {
-                                HStack {
-                                    SeriesPicker(selectedSeries: $choiseSeries2)
-                                        .modifier(InputModifier())
-                                    CustomInput(text: $insuranceContractNumber2, name: "Номер")
-                                        .keyboardType(.numberPad)
-                                }
-                            }
-                            GroupBox {
-                                CustomInput(text: $carModel2, name: "Марка автомобиля")
-                                CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
-                            }
-                            GroupBox(label:
-                                Toggle(isOn: $vinAndNumber2, label: {
-                                    Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                                })
-                            ) {
-                                CustomInput(text: $carVin2, name: "VIN")
-                                CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")
-                                    .disabled(vinAndNumber2)
-                            }
-                        }.padding(.horizontal)
-                        ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
-                            .padding()
+                    ImageButton(countPhoto: sessionStore.photosData) {
+                        openCamera()
                     }
+                    .padding()
                 }
             }
             HStack {

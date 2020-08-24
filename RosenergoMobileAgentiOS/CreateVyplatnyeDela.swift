@@ -60,14 +60,14 @@ struct CreateVyplatnyeDela: View {
                 GeoIndicator()
                     .padding(.top, 8)
                     .padding([.horizontal, .bottom])
-                VStack {
-                    GroupBox {
-                        CustomInput(text: $numberZayavlenia, name: "Номер заявления")
-                        CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
-                    }.padding(.horizontal)
-                    ImageButton(action: openCamera, countPhoto: sessionStore.photosData)
-                        .padding()
+                GroupBox {
+                    CustomInput(text: $numberZayavlenia, name: "Номер заявления")
+                    CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
+                }.padding(.horizontal)
+                ImageButton(countPhoto: sessionStore.photosData) {
+                    openCamera()
                 }
+                .padding()
             }
             CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
                 if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
