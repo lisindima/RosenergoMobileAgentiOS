@@ -99,14 +99,8 @@ class SessionStore: ObservableObject {
 
         AF.request(serverURL + "logout", method: .post, headers: headers)
             .validate()
-            .responseJSON { [self] response in
-                switch response.result {
-                case .success:
-                    clearData()
-                case let .failure(error):
-                    clearData()
-                    print(error)
-                }
+            .response { [self] _ in
+                clearData()
             }
     }
 
@@ -118,7 +112,7 @@ class SessionStore: ObservableObject {
 
         AF.request(serverURL + "token", method: .post, headers: headers)
             .validate()
-            .responseJSON { [self] response in
+            .response { [self] response in
                 switch response.result {
                 case .success:
                     break
@@ -192,14 +186,14 @@ class SessionStore: ObservableObject {
 
     var cancellation: AnyCancellable?
 
-    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<T, AFError> {
+    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
         let publisher = AF.request(url, method: method, headers: headers)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
             }
             .publishDecodable(type: T.self)
-        return publisher.value()
+        return publisher.result()
     }
 
     func getVyplatnyedela() {
@@ -209,17 +203,16 @@ class SessionStore: ObservableObject {
         ]
 
         cancellation = request(serverURL + "vyplatnyedelas", headers: headers)
-            .sink(receiveCompletion: { [self] completion in
-                switch completion {
-                case .finished:
+            .sink { [self] (response: Result<[Vyplatnyedela], AFError>) in
+                switch response {
+                case .success(let value):
+                    vyplatnyedela = value
                     vyplatnyedelaLoadingState = .success
-                case let .failure(error):
+                case .failure(let error):
                     vyplatnyedelaLoadingState = .failure
                     print(error)
                 }
-            }, receiveValue: { [self] response in
-                vyplatnyedela = response
-            })
+            }
     }
 
     func getInspections() {
@@ -229,47 +222,42 @@ class SessionStore: ObservableObject {
         ]
 
         cancellation = request(serverURL + "inspections", headers: headers)
-            .sink(receiveCompletion: { [self] completion in
-                switch completion {
-                case .finished:
+            .sink { [self] (response: Result<[Inspections], AFError>) in
+                switch response {
+                case .success(let value):
+                    inspections = value
                     inspectionsLoadingState = .success
-                case let .failure(error):
+                case .failure(let error):
                     inspectionsLoadingState = .failure
                     print(error)
                 }
-            }, receiveValue: { [self] response in
-                inspections = response
-            })
+            }
     }
 
     func loadLicense() {
         cancellation = request("https://api.lisindmitriy.me/license")
-            .sink(receiveCompletion: { [self] completion in
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
+            .sink { [self] (response: Result<[LicenseModel], AFError>) in
+                switch response {
+                case .success(let value):
+                    licenseModel = value
+                case .failure(let error):
                     licenseLoadingFailure = true
                     print(error)
                 }
-            }, receiveValue: { [self] response in
-                licenseModel = response
-            })
+            }
     }
 
     func loadChangelog() {
         cancellation = request("https://api.lisindmitriy.me/changelog")
-            .sink(receiveCompletion: { [self] completion in
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
+            .sink { [self] (response: Result<[ChangelogModel], AFError>) in
+                switch response {
+                case .success(let value):
+                    сhangelogModel = value
+                case .failure(let error):
                     changelogLoadingFailure = true
                     print(error)
                 }
-            }, receiveValue: { [self] response in
-                сhangelogModel = response
-            })
+            }
     }
 }
 

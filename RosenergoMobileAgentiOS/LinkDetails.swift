@@ -49,17 +49,16 @@ struct LinkDetails: View {
         ]
 
         sessionStore.cancellation = sessionStore.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID!)", headers: headers)
-            .sink(receiveCompletion: { [self] completion in
-                switch completion {
-                case .finished:
+            .sink { [self] (response: Result<Inspections, AFError>) in
+                switch response {
+                case .success(let value):
+                    inspection = value
                     loadAddress = true
-                case let .failure(error):
+                case .failure(let error):
                     presentationMode.wrappedValue.dismiss()
-                    debugPrint(error)
+                    print(error)
                 }
-            }, receiveValue: { [self] response in
-                inspection = response
-            })
+            }
     }
 
     var body: some View {
