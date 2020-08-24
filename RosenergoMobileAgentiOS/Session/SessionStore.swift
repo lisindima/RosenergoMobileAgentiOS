@@ -35,8 +35,8 @@ class SessionStore: ObservableObject {
     @Published var uploadState: Bool = false
     @Published var changelogLoadingFailure: Bool = false
     @Published var licenseLoadingFailure: Bool = false
-    @Published var inspectionsLoadingState: LoadingState = .success
-    @Published var vyplatnyedelaLoadingState: LoadingState = .success
+    @Published var inspectionsLoadingState: LoadingState = .loading
+    @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var inspections: [Inspections] = [Inspections]()
     @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
     @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
@@ -213,13 +213,17 @@ class SessionStore: ObservableObject {
         )
 
         cancellation = request(serverURL + "login", method: .post, parameters: parameters)
-            .mapError { [self] error -> AFError in
-                print(error)
-                loginState = false
-                alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
-                return error
-            }
-            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+            .sink(receiveCompletion: { [self] completion in
+                switch completion {
+                case .finished:
+                    loginParameters = parameters
+                    loginState = false
+                case .failure(let error):
+                    alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
+                    loginState = false
+                    print(error)
+                }
+            }, receiveValue: { [self] response in
                 loginModel = response
             })
     }
@@ -231,12 +235,15 @@ class SessionStore: ObservableObject {
         ]
 
         cancellation = request(serverURL + "vyplatnyedelas", headers: headers)
-            .mapError { [self] error -> AFError in
-                print(error)
-                vyplatnyedelaLoadingState = .failure
-                return error
-            }
-            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+            .sink(receiveCompletion: { [self] completion in
+                switch completion {
+                case .finished:
+                    vyplatnyedelaLoadingState = .success
+                case .failure(let error):
+                    vyplatnyedelaLoadingState = .failure
+                    print(error)
+                }
+            }, receiveValue: { [self] response in
                 vyplatnyedela = response
             })
     }
@@ -248,36 +255,45 @@ class SessionStore: ObservableObject {
         ]
 
         cancellation = request(serverURL + "inspections", headers: headers)
-            .mapError { [self] error -> AFError in
-                print(error)
-                inspectionsLoadingState = .failure
-                return error
-            }
-            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+            .sink(receiveCompletion: { [self] completion in
+                switch completion {
+                case .finished:
+                    inspectionsLoadingState = .success
+                case .failure(let error):
+                    inspectionsLoadingState = .failure
+                    print(error)
+                }
+            }, receiveValue: { [self] response in
                 inspections = response
             })
     }
 
     func loadLicense() {
         cancellation = request("https://api.lisindmitriy.me/license")
-            .mapError { [self] error -> AFError in
-                print(error)
-                licenseLoadingFailure = true
-                return error
-            }
-            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+            .sink(receiveCompletion: { [self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    licenseLoadingFailure = true
+                    print(error)
+                }
+            }, receiveValue: { [self] response in
                 licenseModel = response
             })
     }
 
     func loadChangelog() {
         cancellation = request("https://api.lisindmitriy.me/changelog")
-            .mapError { [self] error -> AFError in
-                print(error)
-                changelogLoadingFailure = true
-                return error
-            }
-            .sink(receiveCompletion: { _ in }, receiveValue: { [self] response in
+            .sink(receiveCompletion: { [self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    changelogLoadingFailure = true
+                    print(error)
+                }
+            }, receiveValue: { [self] response in
                 сhangelogModel = response
             })
     }
