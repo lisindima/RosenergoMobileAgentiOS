@@ -53,7 +53,17 @@ class SessionStore: ObservableObject {
         let createStringDate = dateFormatter.string(from: currentDate)
         return createStringDate
     }
-
+    
+    private func clearData() {
+        loginModel = nil
+        logoutState = false
+        loginParameters = nil
+        inspections.removeAll()
+        inspectionsLoadingState = .loading
+        vyplatnyedela.removeAll()
+        vyplatnyedelaLoadingState = .loading
+    }
+    
     func login(email: String, password: String) {
         loginState = true
 
@@ -92,22 +102,10 @@ class SessionStore: ObservableObject {
             .responseJSON { [self] response in
                 switch response.result {
                 case .success:
-                    loginModel = nil
-                    logoutState = false
-                    loginParameters = nil
-                    inspections.removeAll()
-                    inspectionsLoadingState = .loading
-                    vyplatnyedela.removeAll()
-                    vyplatnyedelaLoadingState = .loading
+                    clearData()
                 case let .failure(error):
-                    loginModel = nil
-                    logoutState = false
-                    loginParameters = nil
-                    inspections.removeAll()
-                    inspectionsLoadingState = .loading
-                    vyplatnyedela.removeAll()
-                    vyplatnyedelaLoadingState = .loading
-                    print(error.errorDescription!)
+                    clearData()
+                    print(error)
                 }
             }
     }
@@ -202,30 +200,6 @@ class SessionStore: ObservableObject {
             }
             .publishDecodable(type: T.self)
         return publisher.value()
-    }
-
-    func logind(email: String, password: String) {
-        loginState = true
-
-        let parameters = LoginParameters(
-            email: email,
-            password: password
-        )
-
-        cancellation = request(serverURL + "login", method: .post, parameters: parameters)
-            .sink(receiveCompletion: { [self] completion in
-                switch completion {
-                case .finished:
-                    loginParameters = parameters
-                    loginState = false
-                case .failure(let error):
-                    alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
-                    loginState = false
-                    print(error)
-                }
-            }, receiveValue: { [self] response in
-                loginModel = response
-            })
     }
 
     func getVyplatnyedela() {
