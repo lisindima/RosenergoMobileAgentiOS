@@ -41,26 +41,25 @@ struct LinkDetails: View {
             return 100.0
         #endif
     }
-
+    
     func getInspections() {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
 
-        AF.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID!)", method: .get, headers: headers)
-            .validate()
-            .responseDecodable(of: Inspections.self) { [self] response in
-                switch response.result {
-                case .success:
-                    guard let inspectionsResponse = response.value else { return }
-                    inspection = inspectionsResponse
+        sessionStore.cancellation = sessionStore.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID!)", headers: headers)
+            .sink(receiveCompletion: { [self] completion in
+                switch completion {
+                case .finished:
                     loadAddress = true
                 case let .failure(error):
                     presentationMode.wrappedValue.dismiss()
                     debugPrint(error)
                 }
-            }
+            }, receiveValue: { [self] response in
+                inspection = response
+            })
     }
 
     var body: some View {
