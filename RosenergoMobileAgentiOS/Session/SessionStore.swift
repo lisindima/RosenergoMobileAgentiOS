@@ -194,7 +194,7 @@ class SessionStore: ObservableObject {
 
     var cancellation: AnyCancellable?
 
-    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil, parameters _: Codable? = nil, showProgress: Bool = false) -> AnyPublisher<T, AFError> {
+    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil, parameters: Codable? = nil, showProgress: Bool = false) -> AnyPublisher<T, AFError> {
         let publisher = AF.request(url, method: method, headers: headers)
             .validate()
             .uploadProgress { [self] progress in
