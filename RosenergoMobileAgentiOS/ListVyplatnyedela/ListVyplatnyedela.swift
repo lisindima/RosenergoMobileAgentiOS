@@ -16,11 +16,13 @@ struct ListVyplatnyedela: View {
 
     var listVyplatnyedela: some View {
         List {
-            ForEach(sessionStore.vyplatnyedela.reversed().filter {
-                searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
-            }, id: \.id) { vyplatnyedela in
-                NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
-                    VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
+            Section(header: Text("Отправленные дела").fontWeight(.bold)) {
+                ForEach(sessionStore.vyplatnyedela.reversed().filter {
+                    searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
+                }, id: \.id) { vyplatnyedela in
+                    NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
+                        VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
+                    }
                 }
             }
         }.addSearchBar(searchBar)

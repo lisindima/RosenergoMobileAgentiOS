@@ -16,7 +16,7 @@ struct CustomButton: View {
     var colorButton: Color
     var colorText: Color
     var action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             if loading, progress != 0.0 {
@@ -70,7 +70,7 @@ struct ImageButton: View {
     var body: some View {
         Button(action: action) {
             VStack {
-                if countPhoto.count == 0 {
+                if countPhoto.isEmpty {
                     Image(systemName: "camera")
                         .font(.title)
                         .foregroundColor(.rosenergo)
@@ -93,7 +93,7 @@ struct MenuButton: View {
     var title: String
     var image: String
     var color: Color
-    
+
     var body: some View {
         VStack {
             Image(systemName: image)

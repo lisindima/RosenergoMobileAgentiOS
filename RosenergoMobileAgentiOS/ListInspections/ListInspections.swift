@@ -11,20 +11,21 @@ import SwiftUI
 
 struct ListInspections: View {
     @Environment(\.managedObjectContext) private var moc
-    
+
     @StateObject private var searchBar = SearchBar.shared
-    
+
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
-        animation: .default)
+        animation: .default
+    )
     private var localInspections: FetchedResults<LocalInspections>
 
     #if !os(watchOS)
         @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-    
+
     private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]

@@ -1,0 +1,7 @@
+# file options
+--swiftversion 5.3
+
+# rules
+--enable isEmpty
+
+# format options

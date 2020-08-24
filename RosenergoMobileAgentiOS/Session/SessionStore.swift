@@ -62,7 +62,7 @@ class SessionStore: ObservableObject {
             password: password
         )
 
-        AF.request(serverURL + "login", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
             .responseDecodable(of: LoginModel.self) { [self] response in
                 switch response.result {
@@ -191,24 +191,29 @@ class SessionStore: ObservableObject {
                 }
             }
     }
-    
+
     var cancellation: AnyCancellable?
-    
-    func request<T: Codable>(_ url: String, method: HTTPMethod = .get,  headers: HTTPHeaders? = nil, parameters: Encodable? = nil) -> AnyPublisher<T,AFError> {
+
+    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil, parameters _: Codable? = nil, showProgress: Bool = false) -> AnyPublisher<T, AFError> {
         let publisher = AF.request(url, method: method, headers: headers)
             .validate()
-            .publishDecodable(type : T.self)
+            .uploadProgress { [self] progress in
+                if showProgress {
+                    uploadProgress = progress.fractionCompleted
+                }
+            }
+            .publishDecodable(type: T.self)
         return publisher.value()
     }
-    
-    func test(email: String, password: String) {
+
+    func logind(email: String, password: String) {
         loginState = true
-        
+
         let parameters = LoginParameters(
             email: email,
             password: password
         )
-        
+
         cancellation = request(serverURL + "login", method: .post, parameters: parameters)
             .mapError { [self] error -> AFError in
                 print(error)
@@ -220,13 +225,13 @@ class SessionStore: ObservableObject {
                 loginModel = response
             })
     }
-    
+
     func getVyplatnyedela() {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-        
+
         cancellation = request(serverURL + "vyplatnyedelas", headers: headers)
             .mapError { [self] error -> AFError in
                 print(error)
@@ -237,13 +242,13 @@ class SessionStore: ObservableObject {
                 vyplatnyedela = response
             })
     }
-    
+
     func getInspections() {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-        
+
         cancellation = request(serverURL + "inspections", headers: headers)
             .mapError { [self] error -> AFError in
                 print(error)
@@ -254,7 +259,7 @@ class SessionStore: ObservableObject {
                 inspections = response
             })
     }
-    
+
     func loadLicense() {
         cancellation = request("https://api.lisindmitriy.me/license")
             .mapError { [self] error -> AFError in
@@ -266,7 +271,7 @@ class SessionStore: ObservableObject {
                 licenseModel = response
             })
     }
-    
+
     func loadChangelog() {
         cancellation = request("https://api.lisindmitriy.me/changelog")
             .mapError { [self] error -> AFError in

@@ -10,10 +10,10 @@ import SwiftUI
 
 struct LocalImageDetail: View {
     @State private var selectionImage: Int = 1
-    
+
     var id: Int
     var photos: [LocalPhotos]
-    
+
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in

@@ -148,7 +148,7 @@ class CustomVideoController: UIViewController {
 
         return true
     }
-    
+
     func videoQueue() -> DispatchQueue {
         DispatchQueue.main
     }

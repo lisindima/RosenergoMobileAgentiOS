@@ -11,10 +11,10 @@ import URLImage
 
 struct ImageDetail: View {
     @State private var selectionImage: Int = 1
-    
+
     var id: Int
     var photos: [Photo]
-    
+
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in

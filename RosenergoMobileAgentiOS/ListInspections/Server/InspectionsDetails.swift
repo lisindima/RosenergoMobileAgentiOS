@@ -17,7 +17,7 @@ struct InspectionsDetails: View {
         @Environment(\.exportFiles) var exportAction
         @State private var showAlert: Bool = false
     #endif
-    
+
     var inspection: Inspections
 
     var scale: CGFloat {
