@@ -38,7 +38,7 @@ struct MailFeedback: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error _: Error?) {
+        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
             controller.dismiss(animated: true, completion: nil)
             switch result {
             case .sent:
@@ -46,7 +46,7 @@ struct MailFeedback: UIViewControllerRepresentable {
             case .saved:
                 parent.alertError = AlertItem(title: "Сообщение сохранено", message: "Сообщение ждет вас в черновиках.", action: false)
             case .failed:
-                parent.alertError = AlertItem(title: "Ошибка", message: "Повторите попытку позже.", action: false)
+                parent.alertError = AlertItem(title: "Ошибка", message: "Повторите попытку позже.\n\(error?.localizedDescription ?? "")", action: false)
             case .cancelled:
                 print("Отменено пользователем")
             @unknown default:

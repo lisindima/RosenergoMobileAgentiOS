@@ -39,7 +39,6 @@ struct RosenergoApp: App {
                 }
                 .onChange(of: scenePhase) { phase in
                     if phase == .active {
-                        print("scene is now active!")
                         #if !os(watchOS)
                             UIApplication.shared.applicationIconBadgeNumber = 0
                             NotificationStore.shared.requestPermission()
