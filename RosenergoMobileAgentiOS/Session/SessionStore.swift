@@ -29,7 +29,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var videoURL: String?
     @Published var alertItem: AlertItem?
     @Published var uploadProgress: Double = 0.0
-    @Published var loginState: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: Bool = false
     @Published var changelogLoadingFailure: Bool = false
@@ -86,8 +85,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
 
     func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
-        loginState = true
-
         let parameters = LoginParameters(
             email: email,
             password: password
@@ -114,7 +111,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .accept("application/json"),
         ]
 
-        AF.request(serverURL + "logout", method: .post, headers: headers)
+        AF.request(serverURL + "logout", method: .post, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .response { [self] _ in
                 clearData()
@@ -129,7 +126,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .accept("application/json"),
         ]
 
-        AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore())
+        AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -155,7 +152,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .accept("application/json"),
         ]
 
-        AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore())
+        AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -176,7 +173,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     var cancellation: AnyCancellable?
 
     func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
-        let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore())
+        let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted

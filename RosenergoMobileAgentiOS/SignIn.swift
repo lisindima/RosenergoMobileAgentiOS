@@ -13,6 +13,7 @@ struct SignIn: View {
 
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var loading: Bool = false
 
     private func alert(title: String, message: String) -> Alert {
         Alert(
@@ -23,15 +24,16 @@ struct SignIn: View {
     }
     
     private func signIn(email: String, password: String) {
+        loading = true
         sessionStore.login(email: email, password: password) { [self] result in
             switch result {
             case let .success(response):
                 sessionStore.loginModel = response
                 sessionStore.loginParameters = LoginParameters(email: email, password: password)
-                sessionStore.loginState = false
+                loading = false
             case let .failure(error):
                 sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
-                sessionStore.loginState = false
+                loading = false
                 print(error)
             }
         }
@@ -55,7 +57,7 @@ struct SignIn: View {
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
                 .modifier(InputModifier())
-            CustomButton(title: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
+            CustomButton(title: "Войти", loading: loading, colorButton: .rosenergo, colorText: .white) {
                 signIn(email: email, password: password)
             }
             .buttonStyle(PlainButtonStyle())
@@ -88,7 +90,7 @@ struct SignIn: View {
                         .modifier(InputModifier())
                 }
                 .padding(.horizontal)
-                CustomButton(title: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
+                CustomButton(title: "Войти", loading: loading, colorButton: .rosenergo, colorText: .white) {
                     signIn(email: email, password: password)
                 }
                 .keyboardShortcut(.defaultAction)
