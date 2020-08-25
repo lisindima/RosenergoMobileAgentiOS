@@ -111,122 +111,121 @@ struct LocalInspectionsDetails: View {
         #endif
     }
 
+    @ViewBuilder
     var formLocalInspections: some View {
-        VStack {
-            Form {
-                if !localInspections.arrayPhoto.isEmpty {
-                    Section(header: Text("Фотографии").fontWeight(.bold)) {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack {
-                                ForEach(localInspections.arrayPhoto, id: \.id) { photo in
-                                    NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.arrayPhoto)) {
-                                        Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
-                                            .resizable()
-                                            .frame(width: CGFloat(size), height: CGFloat(size))
-                                            .cornerRadius(8)
-                                    }.buttonStyle(PlainButtonStyle())
-                                }
-                            }.padding(.vertical, 8)
-                        }
+        Form {
+            if !localInspections.arrayPhoto.isEmpty {
+                Section(header: Text("Фотографии").fontWeight(.bold)) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(localInspections.arrayPhoto, id: \.id) { photo in
+                                NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.arrayPhoto)) {
+                                    Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
+                                        .resizable()
+                                        .frame(width: CGFloat(size), height: CGFloat(size))
+                                        .cornerRadius(8)
+                                }.buttonStyle(PlainButtonStyle())
+                            }
+                        }.padding(.vertical, 8)
                     }
-                }
-                #if !os(watchOS)
-                    if localInspections.videoURL != nil {
-                        Section(header: Text("Видео").fontWeight(.bold)) {
-                            VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
-                                .frame(height: 200)
-                                .cornerRadius(8)
-                                .padding(.vertical, 8)
-                        }
-                    }
-                #endif
-                if localInspections.dateInspections != nil {
-                    Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
-                        SectionItem(
-                            imageName: "timer",
-                            imageColor: .rosenergo,
-                            title: localInspections.dateInspections!.dataInspection(local: true)
-                        )
-                    }
-                }
-                if localInspections.carModel != nil {
-                    Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
-                        SectionItem(
-                            imageName: "doc.plaintext",
-                            imageColor: .rosenergo,
-                            subTitle: "Страховой полис",
-                            title: localInspections.insuranceContractNumber
-                        )
-                        SectionItem(
-                            imageName: "car",
-                            imageColor: .rosenergo,
-                            subTitle: "Модель автомобиля",
-                            title: localInspections.carModel
-                        )
-                        SectionItem(
-                            imageName: "rectangle",
-                            imageColor: .rosenergo,
-                            subTitle: "Регистрационный номер",
-                            title: localInspections.carRegNumber
-                        )
-                        SectionItem(
-                            imageName: "v.circle",
-                            imageColor: .rosenergo,
-                            subTitle: "VIN",
-                            title: localInspections.carVin
-                        )
-                        SectionItem(
-                            imageName: "textformat.123",
-                            imageColor: .rosenergo,
-                            subTitle: "Номер кузова",
-                            title: localInspections.carBodyNumber
-                        )
-                    }
-                }
-                if localInspections.carModel2 != nil {
-                    Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
-                        SectionItem(
-                            imageName: "doc.plaintext",
-                            imageColor: .rosenergo,
-                            subTitle: "Страховой полис",
-                            title: localInspections.insuranceContractNumber2
-                        )
-                        SectionItem(
-                            imageName: "car",
-                            imageColor: .rosenergo,
-                            subTitle: "Модель автомобиля",
-                            title: localInspections.carModel2
-                        )
-                        SectionItem(
-                            imageName: "rectangle",
-                            imageColor: .rosenergo,
-                            subTitle: "Регистрационный номер",
-                            title: localInspections.carRegNumber2
-                        )
-                        SectionItem(
-                            imageName: "v.circle",
-                            imageColor: .rosenergo,
-                            subTitle: "VIN",
-                            title: localInspections.carVin2
-                        )
-                        SectionItem(
-                            imageName: "textformat.123",
-                            imageColor: .rosenergo,
-                            subTitle: "Номер кузова",
-                            title: localInspections.carBodyNumber2
-                        )
-                    }
-                }
-                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
-                    MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
                 }
             }
-            CustomButton(title: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
-                uploadLocalInspections()
+            #if !os(watchOS)
+                if localInspections.videoURL != nil {
+                    Section(header: Text("Видео").fontWeight(.bold)) {
+                        VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
+                            .frame(height: 200)
+                            .cornerRadius(8)
+                            .padding(.vertical, 8)
+                    }
+                }
+            #endif
+            if localInspections.dateInspections != nil {
+                Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "timer",
+                        imageColor: .rosenergo,
+                        title: localInspections.dateInspections!.dataInspection(local: true)
+                    )
+                }
             }
-            .padding(.horizontal)
-            .padding(.bottom, 8)
+            if localInspections.carModel != nil {
+                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "doc.plaintext",
+                        imageColor: .rosenergo,
+                        subTitle: "Страховой полис",
+                        title: localInspections.insuranceContractNumber
+                    )
+                    SectionItem(
+                        imageName: "car",
+                        imageColor: .rosenergo,
+                        subTitle: "Модель автомобиля",
+                        title: localInspections.carModel
+                    )
+                    SectionItem(
+                        imageName: "rectangle",
+                        imageColor: .rosenergo,
+                        subTitle: "Регистрационный номер",
+                        title: localInspections.carRegNumber
+                    )
+                    SectionItem(
+                        imageName: "v.circle",
+                        imageColor: .rosenergo,
+                        subTitle: "VIN",
+                        title: localInspections.carVin
+                    )
+                    SectionItem(
+                        imageName: "textformat.123",
+                        imageColor: .rosenergo,
+                        subTitle: "Номер кузова",
+                        title: localInspections.carBodyNumber
+                    )
+                }
+            }
+            if localInspections.carModel2 != nil {
+                Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "doc.plaintext",
+                        imageColor: .rosenergo,
+                        subTitle: "Страховой полис",
+                        title: localInspections.insuranceContractNumber2
+                    )
+                    SectionItem(
+                        imageName: "car",
+                        imageColor: .rosenergo,
+                        subTitle: "Модель автомобиля",
+                        title: localInspections.carModel2
+                    )
+                    SectionItem(
+                        imageName: "rectangle",
+                        imageColor: .rosenergo,
+                        subTitle: "Регистрационный номер",
+                        title: localInspections.carRegNumber2
+                    )
+                    SectionItem(
+                        imageName: "v.circle",
+                        imageColor: .rosenergo,
+                        subTitle: "VIN",
+                        title: localInspections.carVin2
+                    )
+                    SectionItem(
+                        imageName: "textformat.123",
+                        imageColor: .rosenergo,
+                        subTitle: "Номер кузова",
+                        title: localInspections.carBodyNumber2
+                    )
+                }
+            }
+            Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
+                MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
+            }
         }
+        CustomButton(title: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+            uploadLocalInspections()
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 8)
         .navigationTitle("Не отправлено")
         .alert(item: $sessionStore.alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)

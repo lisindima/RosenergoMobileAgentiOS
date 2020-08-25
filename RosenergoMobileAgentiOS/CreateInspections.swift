@@ -167,87 +167,87 @@ struct CreateInspections: View {
     }
 
     var body: some View {
-        VStack {
-            ScrollView {
-                GeoIndicator()
-                    .padding(.top, 8)
+        ScrollView {
+            GeoIndicator()
+                .padding(.top, 8)
+                .padding([.horizontal, .bottom])
+            GroupBox(label:
+                Label("Страховой полис", systemImage: "doc.plaintext")
+            ) {
+                HStack {
+                    SeriesPicker(selectedSeries: $choiseSeries)
+                        .modifier(InputModifier())
+                    CustomInput(text: $insuranceContractNumber, name: "Номер")
+                        .keyboardType(.numberPad)
+                }
+            }
+            .padding(.horizontal)
+            GroupBox {
+                CustomInput(text: $carModel, name: "Марка автомобиля")
+                CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
+            }
+            .padding(.horizontal)
+            GroupBox(label:
+                Toggle(isOn: $vinAndNumber, label: {
+                    Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                })
+            ) {
+                CustomInput(text: $carVin, name: "VIN")
+                CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
+                    .disabled(vinAndNumber)
+            }
+            .padding(.horizontal)
+            ImageButton(countPhoto: sessionStore.photosData) {
+                openCamera()
+            }
+            .padding()
+            if choiceCar == 1 {
+                Divider()
                     .padding([.horizontal, .bottom])
-                Group {
-                    GroupBox(label:
-                        Label("Страховой полис", systemImage: "doc.plaintext")
-                    ) {
-                        HStack {
-                            SeriesPicker(selectedSeries: $choiseSeries)
-                                .modifier(InputModifier())
-                            CustomInput(text: $insuranceContractNumber, name: "Номер")
-                                .keyboardType(.numberPad)
-                        }
+                GroupBox(label:
+                    Label("Страховой полис", systemImage: "doc.plaintext")
+                ) {
+                    HStack {
+                        SeriesPicker(selectedSeries: $choiseSeries2)
+                            .modifier(InputModifier())
+                        CustomInput(text: $insuranceContractNumber2, name: "Номер")
+                            .keyboardType(.numberPad)
                     }
-                    GroupBox {
-                        CustomInput(text: $carModel, name: "Марка автомобиля")
-                        CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
-                    }
-                    GroupBox(label:
-                        Toggle(isOn: $vinAndNumber, label: {
-                            Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                        })
-                    ) {
-                        CustomInput(text: $carVin, name: "VIN")
-                        CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
-                            .disabled(vinAndNumber)
-                    }
-                }.padding(.horizontal)
+                }
+                .padding(.horizontal)
+                GroupBox {
+                    CustomInput(text: $carModel2, name: "Марка автомобиля")
+                    CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
+                }
+                .padding(.horizontal)
+                GroupBox(label:
+                    Toggle(isOn: $vinAndNumber2, label: {
+                        Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                    })
+                ) {
+                    CustomInput(text: $carVin2, name: "VIN")
+                    CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")
+                        .disabled(vinAndNumber2)
+                }
+                .padding(.horizontal)
                 ImageButton(countPhoto: sessionStore.photosData) {
                     openCamera()
                 }
                 .padding()
-                if choiceCar == 1 {
-                    Divider()
-                        .padding([.horizontal, .bottom])
-                    Group {
-                        GroupBox(label:
-                            Label("Страховой полис", systemImage: "doc.plaintext")
-                        ) {
-                            HStack {
-                                SeriesPicker(selectedSeries: $choiseSeries2)
-                                    .modifier(InputModifier())
-                                CustomInput(text: $insuranceContractNumber2, name: "Номер")
-                                    .keyboardType(.numberPad)
-                            }
-                        }
-                        GroupBox {
-                            CustomInput(text: $carModel2, name: "Марка автомобиля")
-                            CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
-                        }
-                        GroupBox(label:
-                            Toggle(isOn: $vinAndNumber2, label: {
-                                Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                            })
-                        ) {
-                            CustomInput(text: $carVin2, name: "VIN")
-                            CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")
-                                .disabled(vinAndNumber2)
-                        }
-                    }.padding(.horizontal)
-                    ImageButton(countPhoto: sessionStore.photosData) {
-                        openCamera()
-                    }
-                    .padding()
-                }
             }
-            HStack {
-                CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
-                    validateInput(upload: true)
-                }
-                if !sessionStore.uploadState {
-                    CustomButton(title: "Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                        validateInput(upload: false)
-                    }
-                }
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 8)
         }
+        HStack {
+            CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+                validateInput(upload: true)
+            }
+            if !sessionStore.uploadState {
+                CustomButton(title: "Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                    validateInput(upload: false)
+                }
+            }
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 8)
         .navigationTitle("Новый осмотр")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

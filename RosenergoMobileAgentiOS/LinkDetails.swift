@@ -41,7 +41,7 @@ struct LinkDetails: View {
             return 100.0
         #endif
     }
-    
+
     func getInspections() {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),
@@ -51,10 +51,10 @@ struct LinkDetails: View {
         sessionStore.cancellation = sessionStore.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID!)", headers: headers)
             .sink { [self] (response: Result<Inspections, AFError>) in
                 switch response {
-                case .success(let value):
+                case let .success(value):
                     inspection = value
                     loadAddress = true
-                case .failure(let error):
+                case let .failure(error):
                     presentationMode.wrappedValue.dismiss()
                     print(error)
                 }

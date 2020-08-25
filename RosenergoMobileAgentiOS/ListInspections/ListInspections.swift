@@ -11,11 +11,8 @@ import SwiftUI
 
 struct ListInspections: View {
     @Environment(\.managedObjectContext) private var moc
-
     @StateObject private var searchBar = SearchBar.shared
-
     @EnvironmentObject private var sessionStore: SessionStore
-
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
         animation: .default

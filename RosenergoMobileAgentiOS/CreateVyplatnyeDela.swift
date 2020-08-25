@@ -19,7 +19,7 @@ struct CreateVyplatnyeDela: View {
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
 
-    func openCamera() {
+    private func openCamera() {
         if locationStore.latitude == 0 {
             sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
@@ -55,32 +55,31 @@ struct CreateVyplatnyeDela: View {
     }
 
     var body: some View {
-        VStack {
-            ScrollView {
-                GeoIndicator()
-                    .padding(.top, 8)
-                    .padding([.horizontal, .bottom])
-                GroupBox {
-                    CustomInput(text: $numberZayavlenia, name: "Номер заявления")
-                    CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
-                }.padding(.horizontal)
-                ImageButton(countPhoto: sessionStore.photosData) {
-                    openCamera()
-                }
-                .padding()
-            }
-            CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
-                if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
-                    sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
-                } else if sessionStore.photosData.isEmpty {
-                    sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
-                } else {
-                    uploadVyplatnyeDela()
-                }
+        ScrollView {
+            GeoIndicator()
+                .padding(.top, 8)
+                .padding([.horizontal, .bottom])
+            GroupBox {
+                CustomInput(text: $numberZayavlenia, name: "Номер заявления")
+                CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
             }
             .padding(.horizontal)
-            .padding(.bottom, 8)
+            ImageButton(countPhoto: sessionStore.photosData) {
+                openCamera()
+            }
+            .padding()
         }
+        CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+            if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+            } else if sessionStore.photosData.isEmpty {
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+            } else {
+                uploadVyplatnyeDela()
+            }
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 8)
         .navigationTitle("Выплатное дело")
         .alert(item: $sessionStore.alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)

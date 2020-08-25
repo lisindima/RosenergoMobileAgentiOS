@@ -55,10 +55,10 @@ struct CustomCameraView: View {
                             HStack {
                                 ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
                                     Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
-                                        .renderingMode(.original)
                                         .resizable()
                                         .frame(width: 100, height: 100)
                                         .cornerRadius(8)
+                                        .animation(.interactiveSpring())
                                         .contextMenu {
                                             Button(action: {
                                                 if let index = sessionStore.photosData.firstIndex(of: photo) {
