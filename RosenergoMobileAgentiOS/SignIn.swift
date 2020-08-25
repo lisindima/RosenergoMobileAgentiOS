@@ -14,6 +14,29 @@ struct SignIn: View {
     @State private var email: String = ""
     @State private var password: String = ""
 
+    private func alert(title: String, message: String) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: .cancel()
+        )
+    }
+    
+    private func signIn(email: String, password: String) {
+        sessionStore.login(email: email, password: password) { [self] result in
+            switch result {
+            case let .success(response):
+                sessionStore.loginModel = response
+                sessionStore.loginParameters = LoginParameters(email: email, password: password)
+                sessionStore.loginState = false
+            case let .failure(error):
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
+                sessionStore.loginState = false
+                print(error)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             #if os(watchOS)
@@ -25,14 +48,6 @@ struct SignIn: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    private func alert(title: String, message: String) -> Alert {
-        Alert(
-            title: Text(title),
-            message: Text(message),
-            dismissButton: .cancel()
-        )
-    }
-
     var watch: some View {
         VStack {
             CustomInput(text: $email, name: "Эл.почта")
@@ -41,7 +56,7 @@ struct SignIn: View {
                 .textContentType(.password)
                 .modifier(InputModifier())
             CustomButton(title: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
-                sessionStore.login(email: email, password: password)
+                signIn(email: email, password: password)
             }
             .buttonStyle(PlainButtonStyle())
         }
@@ -74,7 +89,7 @@ struct SignIn: View {
                 }
                 .padding(.horizontal)
                 CustomButton(title: "Войти", loading: sessionStore.loginState, colorButton: .rosenergo, colorText: .white) {
-                    sessionStore.login(email: email, password: password)
+                    signIn(email: email, password: password)
                 }
                 .keyboardShortcut(.defaultAction)
                 .padding()

@@ -33,9 +33,6 @@ struct RosenergoApp: App {
                         showfullScreenCover = true
                     }
                 }
-                .alert(isPresented: $sessionStore.showServerAlert) {
-                    Alert(title: Text("Нет интернета"), message: Text("Сохраняйте осмотры на устройство."), dismissButton: .cancel())
-                }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     LinkDetails(inspectionID: $inspectionID)
                         .environmentObject(sessionStore)
@@ -48,9 +45,6 @@ struct RosenergoApp: App {
                             NotificationStore.shared.requestPermission()
                             NotificationStore.shared.refreshNotificationStatus()
                         #endif
-                        if SessionStore.shared.loginModel != nil {
-                            SessionStore.shared.validateToken()
-                        }
                     }
                 }
         }

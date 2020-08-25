@@ -10,7 +10,7 @@ import Alamofire
 import Combine
 import SwiftUI
 
-class SessionStore: ObservableObject {
+class SessionStore: ObservableObject, RequestInterceptor {
     @CodableUserDefaults(key: "loginModel", default: nil)
     var loginModel: LoginModel? {
         willSet {
@@ -29,7 +29,6 @@ class SessionStore: ObservableObject {
     @Published var videoURL: String?
     @Published var alertItem: AlertItem?
     @Published var uploadProgress: Double = 0.0
-    @Published var showServerAlert: Bool = false
     @Published var loginState: Bool = false
     @Published var logoutState: Bool = false
     @Published var uploadState: Bool = false
@@ -64,7 +63,29 @@ class SessionStore: ObservableObject {
         vyplatnyedelaLoadingState = .loading
     }
 
-    func login(email: String, password: String) {
+    func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        var urlRequest = urlRequest
+        urlRequest.headers.add(.authorization(bearerToken: loginModel!.data.apiToken))
+        completion(.success(urlRequest))
+    }
+
+    func retry(_ request: Request, for _: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
+            return completion(.doNotRetryWithError(error))
+        }
+
+        login(email: loginParameters!.email, password: loginParameters!.password) { [self] result in
+            switch result {
+            case let .success(response):
+                loginModel = response
+                completion(.retry)
+            case .failure:
+                completion(.doNotRetryWithError(error))
+            }
+        }
+    }
+
+    func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
         loginState = true
 
         let parameters = LoginParameters(
@@ -74,17 +95,13 @@ class SessionStore: ObservableObject {
 
         AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
-            .responseDecodable(of: LoginModel.self) { [self] response in
+            .responseDecodable(of: LoginModel.self) { response in
                 switch response.result {
                 case .success:
-                    guard let loginModelResponse = response.value else { return }
-                    loginModel = loginModelResponse
-                    loginParameters = parameters
-                    loginState = false
+                    guard let response = response.value else { return }
+                    completion(.success(response))
                 case let .failure(error):
-                    alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
-                    loginState = false
-                    print(error)
+                    completion(.failure(error))
                 }
             }
     }
@@ -104,34 +121,6 @@ class SessionStore: ObservableObject {
             }
     }
 
-    func validateToken() {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-
-        AF.request(serverURL + "token", method: .post, headers: headers)
-            .validate()
-            .response { [self] response in
-                switch response.result {
-                case .success:
-                    break
-                case .failure:
-                    if let code = response.response?.statusCode {
-                        if code != 200, loginParameters != nil {
-                            login(email: loginParameters!.email, password: loginParameters!.password)
-                        } else if code != 200, loginParameters == nil {
-                            loginModel = nil
-                        } else {
-                            break
-                        }
-                    } else {
-                        showServerAlert = true
-                    }
-                }
-            }
-    }
-
     func uploadInspections(parameters: InspectionParameters) {
         uploadState = true
 
@@ -140,7 +129,7 @@ class SessionStore: ObservableObject {
             .accept("application/json"),
         ]
 
-        AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
+        AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore())
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -166,7 +155,7 @@ class SessionStore: ObservableObject {
             .accept("application/json"),
         ]
 
-        AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
+        AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore())
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -187,7 +176,7 @@ class SessionStore: ObservableObject {
     var cancellation: AnyCancellable?
 
     func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
-        let publisher = AF.request(url, method: method, headers: headers)
+        let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore())
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -205,10 +194,10 @@ class SessionStore: ObservableObject {
         cancellation = request(serverURL + "vyplatnyedelas", headers: headers)
             .sink { [self] (response: Result<[Vyplatnyedela], AFError>) in
                 switch response {
-                case .success(let value):
+                case let .success(value):
                     vyplatnyedela = value
                     vyplatnyedelaLoadingState = .success
-                case .failure(let error):
+                case let .failure(error):
                     vyplatnyedelaLoadingState = .failure
                     print(error)
                 }
@@ -224,10 +213,10 @@ class SessionStore: ObservableObject {
         cancellation = request(serverURL + "inspections", headers: headers)
             .sink { [self] (response: Result<[Inspections], AFError>) in
                 switch response {
-                case .success(let value):
+                case let .success(value):
                     inspections = value
                     inspectionsLoadingState = .success
-                case .failure(let error):
+                case let .failure(error):
                     inspectionsLoadingState = .failure
                     print(error)
                 }
@@ -238,9 +227,9 @@ class SessionStore: ObservableObject {
         cancellation = request("https://api.lisindmitriy.me/license")
             .sink { [self] (response: Result<[LicenseModel], AFError>) in
                 switch response {
-                case .success(let value):
+                case let .success(value):
                     licenseModel = value
-                case .failure(let error):
+                case let .failure(error):
                     licenseLoadingFailure = true
                     print(error)
                 }
@@ -251,9 +240,9 @@ class SessionStore: ObservableObject {
         cancellation = request("https://api.lisindmitriy.me/changelog")
             .sink { [self] (response: Result<[ChangelogModel], AFError>) in
                 switch response {
-                case .success(let value):
+                case let .success(value):
                     сhangelogModel = value
-                case .failure(let error):
+                case let .failure(error):
                     changelogLoadingFailure = true
                     print(error)
                 }
