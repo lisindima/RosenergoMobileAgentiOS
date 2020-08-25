@@ -54,13 +54,20 @@ struct CustomCameraView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
-                                    NavigationLink(destination: CustomCameraImageDetails(photos: sessionStore.photosData)) {
-                                        Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
-                                            .renderingMode(.original)
-                                            .resizable()
-                                            .frame(width: 100, height: 100)
-                                            .cornerRadius(8)
-                                    }
+                                    Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(8)
+                                        .contextMenu {
+                                            Button(action: {
+                                                if let index = sessionStore.photosData.firstIndex(of: photo) {
+                                                    sessionStore.photosData.remove(at: index)
+                                                }
+                                            }) {
+                                                Label("Удалить", systemImage: "trash")
+                                            }
+                                        }
                                 }
                             }.padding()
                         }
@@ -122,32 +129,5 @@ struct CustomCameraView: View {
                 }
             }
         }
-    }
-}
-
-struct CustomCameraImageDetails: View {
-    @GestureState var scale: CGFloat = 1.0
-    @State private var selectionImage: Int = 1
-
-    var photos: [Data]
-
-    var body: some View {
-        TabView(selection: $selectionImage) {
-            ForEach(photos.reversed(), id: \.self) { photo in
-                Image(uiImage: UIImage(data: photo)!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .scaleEffect(scale)
-                    .gesture(
-                        MagnificationGesture()
-                            .updating($scale, body: { value, scale, _ in
-                                scale = value.magnitude
-                            })
-                    )
-            }
-        }
-        .tabViewStyle(PageTabViewStyle())
-        .navigationTitle("\(selectionImage) из \(photos.count)")
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
     }
 }
