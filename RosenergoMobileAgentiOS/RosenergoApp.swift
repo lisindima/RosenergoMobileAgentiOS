@@ -37,15 +37,15 @@ struct RosenergoApp: App {
                     LinkDetails(inspectionID: $inspectionID)
                         .environmentObject(sessionStore)
                 }
-                .onChange(of: scenePhase) { phase in
-                    if phase == .active {
-                        #if !os(watchOS)
-                            UIApplication.shared.applicationIconBadgeNumber = 0
-                            NotificationStore.shared.requestPermission()
-                            NotificationStore.shared.refreshNotificationStatus()
-                        #endif
-                    }
-                }
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .active {
+                #if !os(watchOS)
+                    UIApplication.shared.applicationIconBadgeNumber = 0
+                    NotificationStore.shared.requestPermission()
+                    NotificationStore.shared.refreshNotificationStatus()
+                #endif
+            }
         }
     }
 }
