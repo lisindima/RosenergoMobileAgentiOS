@@ -28,19 +28,23 @@ struct SideBar: View {
                 #if !targetEnvironment(macCatalyst)
                     NavigationLink(destination: CreateInspections()) {
                         Label("Новый осмотр", systemImage: "car")
-                    }.tag(NavigationItem.createInspections)
+                    }
+                    .tag(NavigationItem.createInspections)
                 #endif
                 NavigationLink(destination: ListInspections()) {
                     Label("Осмотры", systemImage: "archivebox")
-                }.tag(NavigationItem.listInspections)
+                }
+                .tag(NavigationItem.listInspections)
                 #if !targetEnvironment(macCatalyst)
                     NavigationLink(destination: CreateVyplatnyeDela()) {
                         Label("Новое выплатное дело", systemImage: "doc.badge.plus")
-                    }.tag(NavigationItem.createVyplatnye)
+                    }
+                    .tag(NavigationItem.createVyplatnye)
                 #endif
                 NavigationLink(destination: ListVyplatnyedela()) {
                     Label("Выплатные дела", systemImage: "doc.on.doc")
-                }.tag(NavigationItem.listVyplatnyedela)
+                }
+                .tag(NavigationItem.listVyplatnyedela)
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("Главная")

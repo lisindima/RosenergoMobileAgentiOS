@@ -11,10 +11,10 @@ import URLImage
 
 struct VyplatnyedelaDetails: View {
     #if !os(watchOS)
-        @Environment(\.exportFiles) var exportAction
+        @State private var showAlert: Bool = false
+        @State private var isMove: Bool = false
+        @State private var selectedFiles: [URL] = [URL(string: "https://via.placeholder.com/300.png")!]
     #endif
-
-    @State private var showAlert: Bool = false
 
     var vyplatnyedela: Vyplatnyedela
 
@@ -35,6 +35,44 @@ struct VyplatnyedelaDetails: View {
     }
 
     var body: some View {
+        #if os(watchOS)
+            form
+        #else
+            form
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            Button(action: {
+                                UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
+                                showAlert = true
+                            }) {
+                                Label("Скопировать", systemImage: "link")
+                            }
+                            Button(action: {
+                                isMove = true
+                            }) {
+                                Label("Загрузить", systemImage: "square.and.arrow.down")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle.fill")
+                                .imageScale(.large)
+                        }
+                    }
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .cancel())
+                }
+                .fileMover(isPresented: $isMove, files: selectedFiles) {
+                    if case .success = $0 {
+                        selectedFiles = []
+                    } else {
+                        print("Ошибка")
+                    }
+                }
+        #endif
+    }
+
+    var form: some View {
         Form {
             if !vyplatnyedela.photos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {
@@ -79,39 +117,5 @@ struct VyplatnyedelaDetails: View {
             }
         }
         .navigationTitle("Дело: \(vyplatnyedela.id)")
-        .toolbar {
-            #if !os(watchOS)
-                ToolbarItem(placement: .primaryAction) {
-                    Menu {
-                        Button(action: {
-                            UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
-                            showAlert = true
-                        }) {
-                            Label("Скопировать", systemImage: "link")
-                        }
-                        Button(action: {
-                            exportAction(moving: URL(string: "https://via.placeholder.com/300.png")!) { result in
-                                switch result {
-                                case let .success(url):
-                                    print("Success! \(url)")
-                                case let .failure(error):
-                                    print("Oops: \(error.localizedDescription)")
-                                case .none:
-                                    print("Cancelled")
-                                }
-                            }
-                        }) {
-                            Label("Загрузить", systemImage: "square.and.arrow.down")
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .imageScale(.large)
-                    }
-                }
-            #endif
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .cancel())
-        }
     }
 }

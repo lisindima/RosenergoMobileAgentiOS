@@ -22,7 +22,7 @@ struct SignIn: View {
             dismissButton: .cancel()
         )
     }
-    
+
     private func signIn(email: String, password: String) {
         loading = true
         sessionStore.login(email: email, password: password) { [self] result in
@@ -38,7 +38,7 @@ struct SignIn: View {
             }
         }
     }
-    
+
     var body: some View {
         NavigationView {
             #if os(watchOS)
