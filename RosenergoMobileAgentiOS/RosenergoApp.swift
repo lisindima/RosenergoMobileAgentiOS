@@ -16,7 +16,7 @@ struct RosenergoApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var showfullScreenCover: Bool = false
-    @State private var inspectionID: String?
+    @State private var inspectionID: String = ""
 
     let persistenceController = PersistenceController.shared
 
@@ -29,7 +29,7 @@ struct RosenergoApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     inspectionID = url["inspection"]
-                    if inspectionID != nil {
+                    if !inspectionID.isEmpty {
                         showfullScreenCover = true
                     }
                 }
@@ -51,8 +51,8 @@ struct RosenergoApp: App {
 }
 
 extension URL {
-    subscript(queryParam: String) -> String? {
-        guard let url = URLComponents(string: absoluteString) else { return nil }
-        return url.queryItems?.first(where: { $0.name == queryParam })?.value
+    subscript(queryParam: String) -> String {
+        guard let url = URLComponents(string: absoluteString) else { return "" }
+        return url.queryItems?.first(where: { $0.name == queryParam })?.value ?? ""
     }
 }

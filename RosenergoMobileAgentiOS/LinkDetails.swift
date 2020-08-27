@@ -18,7 +18,7 @@ struct LinkDetails: View {
 
     @Environment(\.presentationMode) private var presentationMode
 
-    @Binding var inspectionID: String?
+    @Binding var inspectionID: String
 
     @State private var inspection: Inspections?
 
@@ -44,7 +44,7 @@ struct LinkDetails: View {
             .accept("application/json"),
         ]
 
-        sessionStore.cancellation = sessionStore.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID!)", headers: headers)
+        sessionStore.cancellation = sessionStore.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID)", headers: headers)
             .sink { [self] (response: Result<Inspections, AFError>) in
                 switch response {
                 case let .success(value):
