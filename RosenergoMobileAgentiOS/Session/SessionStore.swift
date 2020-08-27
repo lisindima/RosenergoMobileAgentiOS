@@ -29,7 +29,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var videoURL: String?
     @Published var alertItem: AlertItem?
     @Published var uploadProgress: Double = 0.0
-    @Published var logoutState: Bool = false
     @Published var uploadState: Bool = false
     @Published var changelogLoadingFailure: Bool = false
     @Published var licenseLoadingFailure: Bool = false
@@ -54,7 +53,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
 
     private func clearData() {
         loginModel = nil
-        logoutState = false
         loginParameters = nil
         inspections.removeAll()
         inspectionsLoadingState = .loading
@@ -103,9 +101,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
 
-    func logout() {
-        logoutState = true
-
+    func logout(completion: @escaping (_ result: Bool) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
@@ -114,6 +110,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         AF.request(serverURL + "logout", method: .post, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .response { [self] _ in
+                completion(true)
                 clearData()
             }
     }

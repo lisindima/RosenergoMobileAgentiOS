@@ -13,6 +13,8 @@ struct MenuView: View {
     #if !os(watchOS)
         @EnvironmentObject private var notificationStore: NotificationStore
     #endif
+    
+    @State private var openSettings: Bool = false
 
     var countColumns: Int {
         #if os(watchOS)
@@ -56,10 +58,22 @@ struct MenuView: View {
             .navigationTitle("Мобильный агент")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    NavigationLink(destination: SettingsView()) {
+                    Button(action: { openSettings = true }) {
                         Image(systemName: "gear")
                             .imageScale(.large)
                     }
+                }
+            }
+            .sheet(isPresented: $openSettings) {
+                NavigationView {
+                    SettingsView()
+                        .toolbar {
+                            ToolbarItem(placement: .primaryAction) {
+                                Button(action: { openSettings = false }) {
+                                    Text("Закрыть")
+                                }
+                            }
+                        }
                 }
             }
         }

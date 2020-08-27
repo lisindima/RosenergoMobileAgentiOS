@@ -23,6 +23,7 @@ struct SettingsView: View {
     @State private var alertError: AlertItem?
     @State private var showActionSheetExit: Bool = false
     @State private var showMailFeedback: Bool = false
+    @State private var loading: Bool = false
 
     private func alert(title: String, message: String) -> Alert {
         Alert(
@@ -150,7 +151,7 @@ struct SettingsView: View {
                 #endif
             }
             Section(footer: appVersionView) {
-                if !sessionStore.logoutState {
+                if !loading {
                     SectionButton(
                         imageName: "flame",
                         imageColor: .red,
@@ -182,7 +183,11 @@ struct SettingsView: View {
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [
                 .destructive(Text("Выйти")) {
-                    sessionStore.logout()
+                    loading = true
+                    sessionStore.logout { _ in
+                        loading = false
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }, .cancel(),
             ])
         }
