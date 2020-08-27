@@ -190,7 +190,7 @@ struct CreateInspections: View {
             GroupBox(label:
                 Toggle(isOn: $vinAndNumber, label: {
                     Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                })
+                }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
             ) {
                 CustomInput(text: $carVin, name: "VIN")
                 CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
@@ -223,7 +223,7 @@ struct CreateInspections: View {
                 GroupBox(label:
                     Toggle(isOn: $vinAndNumber2, label: {
                         Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                    })
+                    }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
                 ) {
                     CustomInput(text: $carVin2, name: "VIN")
                     CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")
