@@ -1056,7 +1056,7 @@
 			repositoryURL = "https://github.com/sindresorhus/Defaults/";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 4.1.0;
 			};
 		};
 		CB6EF0D52499DDAD00B56039 /* XCRemoteSwiftPackageReference "Espera" */ = {
