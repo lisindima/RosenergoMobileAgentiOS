@@ -242,6 +242,52 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
+    
+    func downloadPhoto(_ photos: [Photo], completion: @escaping (Result<URL, Error>) -> Void) {
+        for photo in photos {
+            let destination: DownloadRequest.Destination = { _, _ in
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let fileURL = documentsURL.appendingPathComponent("\(photo.id).jpeg")
+
+                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+            }
+            
+            AF.download(photo.path, to: destination)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        guard let photoURL = response.value else { return }
+                        completion(.success(photoURL!))
+                    case let .failure(error):
+                        print(error)
+                    }
+                }
+        }
+    }
+    
+    func downloadVideo(_ url: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let destination: DownloadRequest.Destination = { _, _ in
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let fileURL = documentsURL.appendingPathComponent("video.mp4")
+
+            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+        }
+        
+        AF.download(url, to: destination)
+            .downloadProgress { progress in
+                print("Download Progress: \(progress.fractionCompleted)")
+            }
+            .response { response in
+                switch response.result {
+                case .success:
+                    guard let videoURL = response.value else { return }
+                    print(videoURL!)
+                    completion(.success(videoURL!))
+                case let .failure(error):
+                    print(error)
+                }
+            }
+    }
 }
 
 enum LoadingState {

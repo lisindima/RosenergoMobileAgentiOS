@@ -9,14 +9,14 @@
 import SwiftUI
 import URLImage
 #if !os(watchOS)
-    import Alamofire
     import AVKit
 #endif
 
 struct InspectionsDetails: View {
+    @EnvironmentObject private var sessionStore: SessionStore
+    
     #if !os(watchOS)
         @State private var showAlert: Bool = false
-        @State private var photoDownload: [UIImage] = []
     #endif
 
     var inspection: Inspections
@@ -37,35 +37,31 @@ struct InspectionsDetails: View {
 
         private func downloadImage() {
             var countImage = 0
-            if photoDownload.isEmpty {
-                for photo in inspection.photos {
-                    AF.download(photo.path).responseData { response in
-                        if let data = response.value {
-                            photoDownload.append(UIImage(data: data)!)
-                            print(photo.path)
-                            countImage += 1
-                            if countImage == inspection.photos.count {
-                                showShareSheet(activityItems: [photoDownload])
-                                countImage = 0
-                            }
-                        }
+            var photoURL: [URL] = []
+            sessionStore.downloadPhoto(inspection.photos) { [self] result in
+                switch result {
+                case let .success(response):
+                    photoURL.append(response)
+                    countImage += 1
+                    if countImage == inspection.photos.count {
+                        showShareSheet(activityItems: [photoURL])
+                        countImage = 0
                     }
+                case let .failure(error):
+                    print(error)
                 }
-            } else {
-                showShareSheet(activityItems: photoDownload)
             }
         }
 
         private func downloadVideo() {
-            AF.download(inspection.video!)
-                .downloadProgress { progress in
-                    print("Download Progress: \(progress.fractionCompleted)")
+            sessionStore.downloadVideo(inspection.video!) { [self] result in
+                switch result {
+                case let .success(response):
+                   showShareSheet(activityItems: [response])
+                case let .failure(error):
+                    print(error)
                 }
-                .responseData { response in
-                    if let data = response.value {
-                        showShareSheet(activityItems: [data])
-                    }
-                }
+            }
         }
     #endif
 
