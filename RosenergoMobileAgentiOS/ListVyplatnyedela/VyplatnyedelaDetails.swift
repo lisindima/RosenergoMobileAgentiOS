@@ -12,8 +12,6 @@ import URLImage
 struct VyplatnyedelaDetails: View {
     #if !os(watchOS)
         @State private var showAlert: Bool = false
-        @State private var isMove: Bool = false
-        @State private var selectedFiles: [URL] = [URL(string: "https://via.placeholder.com/300.png")!]
     #endif
 
     var vyplatnyedela: Vyplatnyedela
@@ -49,7 +47,7 @@ struct VyplatnyedelaDetails: View {
                                 Label("Скопировать", systemImage: "link")
                             }
                             Button(action: {
-                                isMove = true
+                                print("sds")
                             }) {
                                 Label("Загрузить", systemImage: "square.and.arrow.down")
                             }
@@ -61,13 +59,6 @@ struct VyplatnyedelaDetails: View {
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .cancel())
-                }
-                .fileMover(isPresented: $isMove, files: selectedFiles) {
-                    if case .success = $0 {
-                        selectedFiles = []
-                    } else {
-                        print("Ошибка")
-                    }
                 }
         #endif
     }

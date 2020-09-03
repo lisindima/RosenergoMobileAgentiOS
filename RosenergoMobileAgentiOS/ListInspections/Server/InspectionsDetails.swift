@@ -15,8 +15,6 @@ import URLImage
 struct InspectionsDetails: View {
     #if !os(watchOS)
         @State private var showAlert: Bool = false
-        @State private var isMove: Bool = false
-        @State private var selectedFiles: [URL] = [URL(string: "https://via.placeholder.com/300.png")!]
     #endif
 
     var inspection: Inspections
@@ -52,7 +50,7 @@ struct InspectionsDetails: View {
                                 Label("Скопировать", systemImage: "link")
                             }
                             Button(action: {
-                                isMove = true
+                                
                             }) {
                                 Label("Загрузить", systemImage: "square.and.arrow.down")
                             }
@@ -60,13 +58,6 @@ struct InspectionsDetails: View {
                             Image(systemName: "ellipsis.circle.fill")
                                 .imageScale(.large)
                         }
-                    }
-                }
-                .fileMover(isPresented: $isMove, files: selectedFiles) {
-                    if case .success = $0 {
-                        selectedFiles = []
-                    } else {
-                        print("Ошибка")
                     }
                 }
                 .alert(isPresented: $showAlert) {
