@@ -13,7 +13,7 @@ struct MenuView: View {
     #if !os(watchOS)
         @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-    
+
     @State private var openSettings: Bool = false
 
     var countColumns: Int {

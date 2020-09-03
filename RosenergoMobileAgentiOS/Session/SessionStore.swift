@@ -25,7 +25,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         }
     }
 
-    @Published var photosData: [Data] = [Data]()
+    @Published var photosData = [Data]()
     @Published var videoURL: String?
     @Published var alertItem: AlertItem?
     @Published var uploadProgress: Double = 0.0
@@ -34,17 +34,17 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var licenseLoadingFailure: Bool = false
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var inspections: [Inspections] = [Inspections]()
-    @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
-    @Published var сhangelogModel: [ChangelogModel] = [ChangelogModel]()
-    @Published var licenseModel: [LicenseModel] = [LicenseModel]()
+    @Published var inspections = [Inspections]()
+    @Published var vyplatnyedela = [Vyplatnyedela]()
+    @Published var сhangelogModel = [ChangelogModel]()
+    @Published var licenseModel = [LicenseModel]()
 
     static let shared = SessionStore()
 
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
 
     func stringDate() -> String {
-        let currentDate: Date = Date()
+        let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let createStringDate = dateFormatter.string(from: currentDate)
