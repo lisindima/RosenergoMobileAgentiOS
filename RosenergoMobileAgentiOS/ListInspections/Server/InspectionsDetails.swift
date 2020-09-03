@@ -9,16 +9,54 @@
 import SwiftUI
 import URLImage
 #if !os(watchOS)
+    import Alamofire
     import AVKit
 #endif
 
 struct InspectionsDetails: View {
     #if !os(watchOS)
         @State private var showAlert: Bool = false
+        @State private var photoDownload: [UIImage] = []
+        @State private var countImage: Int = 0
     #endif
 
     var inspection: Inspections
-
+    
+    #if !os(watchOS)
+    private func showShareSheet() {
+        DispatchQueue.main.async {
+            let shareSheet = UIHostingController(
+                rootView:
+                    ShareSheet(activityItems: photoDownload)
+                    .ignoresSafeArea(edges: .bottom)
+            )
+            UIApplication.shared.windows.first?.rootViewController?.present(
+                shareSheet, animated: true, completion: nil
+            )
+        }
+    }
+    
+    private func downloadImage() {
+        if photoDownload.isEmpty {
+            for photo in inspection.photos {
+                AF.download(photo.path).responseData { response in
+                    if let data = response.value {
+                        photoDownload.append(UIImage(data: data)!)
+                        print(photo.path)
+                        countImage += 1
+                        if countImage == inspection.photos.count {
+                            showShareSheet()
+                            countImage = 0
+                        }
+                    }
+                }
+            }
+        } else {
+            showShareSheet()
+        }
+    }
+    #endif
+    
     var scale: CGFloat {
         #if os(watchOS)
             return WKInterfaceDevice.current().screenScale
@@ -42,21 +80,32 @@ struct InspectionsDetails: View {
             formInspections
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
-                        Menu {
-                            Button(action: {
-                                UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
-                                showAlert = true
-                            }) {
-                                Label("Скопировать", systemImage: "link")
+                        if countImage != 0 {
+                            Text("\(countImage) из \(inspection.photos.count)")
+                        } else {
+                            Menu {
+                                Button(action: {
+                                    UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
+                                    showAlert = true
+                                }) {
+                                    Label("Скопировать", systemImage: "link")
+                                }
+                                if !inspection.photos.isEmpty {
+                                    Button(action: downloadImage) {
+                                        Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                                    }
+                                }
+                                if inspection.video != nil {
+                                    Button(action: {
+                                        
+                                    }) {
+                                        Label("Загрузить видео", systemImage: "video")
+                                    }
+                                }
+                            } label: {
+                                Image(systemName: "ellipsis.circle.fill")
+                                    .imageScale(.large)
                             }
-                            Button(action: {
-                                
-                            }) {
-                                Label("Загрузить", systemImage: "square.and.arrow.down")
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis.circle.fill")
-                                .imageScale(.large)
                         }
                     }
                 }

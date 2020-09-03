@@ -73,6 +73,7 @@
 		CB9DE950249758B500F4E72A /* RosenergoMobileAgentwatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB9DE95E24975A4100F4E72A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB9DE95D24975A4100F4E72A /* Alamofire */; };
 		CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
+		CBA6118E2500998D009CD8BD /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheet.swift */; };
 		CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */; };
 		CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */; };
 		CBAC7F3624D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */; };
@@ -204,6 +205,7 @@
 		CB9DE947249758B500F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CB9DE94C249758B500F4E72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBA6118D2500998D009CD8BD /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVyplatnyedela.swift; sourceTree = "<group>"; };
 		CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaItems.swift; sourceTree = "<group>"; };
 		CBAC7F3724D270640081597D /* VyplatnyedelaDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaDetails.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				CB758D8A24B17C93000A6B3C /* String.swift */,
 				CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */,
 				CB9AD06E24DD96BC00D220D8 /* Map.swift */,
+				CBA6118D2500998D009CD8BD /* ShareSheet.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 				CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */,
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
 				CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
+				CBA6118E2500998D009CD8BD /* ShareSheet.swift in Sources */,
 				CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
