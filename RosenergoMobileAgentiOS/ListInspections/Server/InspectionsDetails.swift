@@ -14,7 +14,7 @@ import URLImage
 
 struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     #if !os(watchOS)
         @State private var showAlert: Bool = false
     #endif
@@ -35,17 +35,14 @@ struct InspectionsDetails: View {
             }
         }
 
-        private func downloadImage() {
-            var countImage = 0
+        private func downloadPhoto() {
             var photoURL: [URL] = []
             sessionStore.downloadPhoto(inspection.photos) { [self] result in
                 switch result {
                 case let .success(response):
                     photoURL.append(response)
-                    countImage += 1
-                    if countImage == inspection.photos.count {
-                        showShareSheet(activityItems: [photoURL])
-                        countImage = 0
+                    if photoURL.count == inspection.photos.count {
+                        showShareSheet(activityItems: photoURL)
                     }
                 case let .failure(error):
                     print(error)
@@ -57,7 +54,7 @@ struct InspectionsDetails: View {
             sessionStore.downloadVideo(inspection.video!) { [self] result in
                 switch result {
                 case let .success(response):
-                   showShareSheet(activityItems: [response])
+                    showShareSheet(activityItems: [response])
                 case let .failure(error):
                     print(error)
                 }
@@ -96,7 +93,7 @@ struct InspectionsDetails: View {
                                 Label("Скопировать", systemImage: "link")
                             }
                             if !inspection.photos.isEmpty {
-                                Button(action: downloadImage) {
+                                Button(action: downloadPhoto) {
                                     Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
                                 }
                             }

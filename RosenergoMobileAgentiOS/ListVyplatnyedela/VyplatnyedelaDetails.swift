@@ -11,13 +11,13 @@ import URLImage
 
 struct VyplatnyedelaDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     #if !os(watchOS)
         @State private var showAlert: Bool = false
     #endif
 
     var vyplatnyedela: Vyplatnyedela
-    
+
     #if !os(watchOS)
         private func showShareSheet(activityItems: [Any]) {
             DispatchQueue.main.async {
@@ -32,17 +32,14 @@ struct VyplatnyedelaDetails: View {
             }
         }
 
-        private func downloadImage() {
-            var countImage = 0
+        private func downloadPhoto() {
             var photoURL: [URL] = []
             sessionStore.downloadPhoto(vyplatnyedela.photos) { [self] result in
                 switch result {
                 case let .success(response):
                     photoURL.append(response)
-                    countImage += 1
-                    if countImage == vyplatnyedela.photos.count {
-                        showShareSheet(activityItems: [photoURL])
-                        countImage = 0
+                    if photoURL.count == vyplatnyedela.photos.count {
+                        showShareSheet(activityItems: photoURL)
                     }
                 case let .failure(error):
                     print(error)
@@ -82,7 +79,7 @@ struct VyplatnyedelaDetails: View {
                                 Label("Скопировать", systemImage: "link")
                             }
                             if !vyplatnyedela.photos.isEmpty {
-                                Button(action: downloadImage) {
+                                Button(action: downloadPhoto) {
                                     Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
                                 }
                             }
