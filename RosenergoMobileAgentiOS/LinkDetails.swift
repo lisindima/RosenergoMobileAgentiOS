@@ -55,7 +55,47 @@ struct LinkDetails: View {
                 }
             }
     }
+    #if !os(watchOS)
+    private func showShareSheet(activityItems: [Any]) {
+        DispatchQueue.main.async {
+            let shareSheet = UIHostingController(
+                rootView:
+                ShareSheet(activityItems: activityItems)
+                    .ignoresSafeArea(edges: .bottom)
+            )
+            UIApplication.shared.windows.first?.rootViewController?.present(
+                shareSheet, animated: true, completion: nil
+            )
+        }
+    }
+    
+    private func downloadPhoto() {
+        var photoURL: [URL] = []
+        sessionStore.downloadPhoto(inspection!.photos) { [self] result in
+            switch result {
+            case let .success(response):
+                photoURL.append(response)
+                if photoURL.count == inspection!.photos.count {
+                    showShareSheet(activityItems: photoURL)
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 
+    private func downloadVideo() {
+        sessionStore.downloadVideo(inspection!.video!) { [self] result in
+            switch result {
+            case let .success(response):
+                showShareSheet(activityItems: [response])
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    #endif
+    
     var body: some View {
         NavigationView {
             if inspection == nil {
@@ -172,11 +212,30 @@ struct LinkDetails: View {
                 }
                 .navigationTitle("Осмотр: \(inspection!.id)")
                 .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
+                    ToolbarItem(placement: .cancellationAction) {
                         Button(action: { presentationMode.wrappedValue.dismiss() }) {
                             Text("Закрыть")
                         }
                     }
+                    #if !os(watchOS)
+                    ToolbarItem(placement: .primaryAction) {
+                        Menu {
+                            if !inspection!.photos.isEmpty {
+                                Button(action: downloadPhoto) {
+                                    Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                                }
+                            }
+                            if inspection?.video != nil {
+                                Button(action: downloadVideo) {
+                                    Label("Загрузить видео", systemImage: "video")
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle.fill")
+                                .imageScale(.large)
+                        }
+                    }
+                    #endif
                 }
             }
         }
