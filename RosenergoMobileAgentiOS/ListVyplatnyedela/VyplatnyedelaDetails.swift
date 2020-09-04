@@ -10,11 +10,46 @@ import SwiftUI
 import URLImage
 
 struct VyplatnyedelaDetails: View {
+    @EnvironmentObject private var sessionStore: SessionStore
+    
     #if !os(watchOS)
         @State private var showAlert: Bool = false
     #endif
 
     var vyplatnyedela: Vyplatnyedela
+    
+    #if !os(watchOS)
+        private func showShareSheet(activityItems: [Any]) {
+            DispatchQueue.main.async {
+                let shareSheet = UIHostingController(
+                    rootView:
+                    ShareSheet(activityItems: activityItems)
+                        .ignoresSafeArea(edges: .bottom)
+                )
+                UIApplication.shared.windows.first?.rootViewController?.present(
+                    shareSheet, animated: true, completion: nil
+                )
+            }
+        }
+
+        private func downloadImage() {
+            var countImage = 0
+            var photoURL: [URL] = []
+            sessionStore.downloadPhoto(vyplatnyedela.photos) { [self] result in
+                switch result {
+                case let .success(response):
+                    photoURL.append(response)
+                    countImage += 1
+                    if countImage == vyplatnyedela.photos.count {
+                        showShareSheet(activityItems: [photoURL])
+                        countImage = 0
+                    }
+                case let .failure(error):
+                    print(error)
+                }
+            }
+        }
+    #endif
 
     var scale: CGFloat {
         #if os(watchOS)
@@ -46,10 +81,10 @@ struct VyplatnyedelaDetails: View {
                             }) {
                                 Label("Скопировать", systemImage: "link")
                             }
-                            Button(action: {
-                                print("sds")
-                            }) {
-                                Label("Загрузить", systemImage: "square.and.arrow.down")
+                            if !vyplatnyedela.photos.isEmpty {
+                                Button(action: downloadImage) {
+                                    Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                                }
                             }
                         } label: {
                             Image(systemName: "ellipsis.circle.fill")
