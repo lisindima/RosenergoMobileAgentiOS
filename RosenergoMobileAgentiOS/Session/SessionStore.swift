@@ -179,42 +179,73 @@ class SessionStore: ObservableObject, RequestInterceptor {
         return publisher.result()
     }
 
-    func getVyplatnyedela() {
+    func load<T: Codable>(_ url: String, completion: @escaping (Result<T, Error>) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
 
-        cancellation = request(serverURL + "vyplatnyedelas", headers: headers)
-            .sink { [self] (response: Result<[Vyplatnyedela], AFError>) in
+        cancellation = request(serverURL + url, headers: headers)
+            .sink { (response: Result<T, AFError>) in
                 switch response {
                 case let .success(value):
-                    vyplatnyedela = value
-                    vyplatnyedelaLoadingState = .success
+                    completion(.success(value))
                 case let .failure(error):
-                    vyplatnyedelaLoadingState = .failure
-                    print(error)
+                    completion(.failure(error))
                 }
             }
     }
 
-    func getInspections() {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-
-        cancellation = request(serverURL + "inspections", headers: headers)
-            .sink { [self] (response: Result<[Inspections], AFError>) in
-                switch response {
-                case let .success(value):
-                    inspections = value
-                    inspectionsLoadingState = .success
-                case let .failure(error):
-                    inspectionsLoadingState = .failure
-                    print(error)
-                }
+    func getVyplatnyedela() {
+        load("vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
+            switch response {
+            case let .success(value):
+                vyplatnyedela = value
+                vyplatnyedelaLoadingState = .success
+            case let .failure(error):
+                vyplatnyedelaLoadingState = .failure
+                print(error)
             }
+        }
+    }
+
+    func getInspections() {
+        load("inspections") { [self] (response: Result<[Inspections], Error>) in
+            switch response {
+            case let .success(value):
+                inspections = value
+                inspectionsLoadingState = .success
+            case let .failure(error):
+                inspectionsLoadingState = .failure
+                print(error)
+            }
+        }
+    }
+
+    func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
+        for item in items {
+            let destination: DownloadRequest.Destination = { _, _ in
+                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let fileURL = documentsURL.appendingPathComponent(fileType == .photo ? "\((item as! Photo).id).jpeg" : "video.mp4")
+
+                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+            }
+
+            AF.download(fileType == .photo ? (item as! Photo).path : "\(items.first!)", to: destination)
+                .validate()
+                .downloadProgress { progress in
+                    print("Download Progress: \(progress.fractionCompleted)")
+                }
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        guard let fileURL = response.value else { return }
+                        completion(.success(fileURL!))
+                    case let .failure(error):
+                        completion(.failure(error))
+                    }
+                }
+        }
     }
 
     func loadLicense() {
@@ -242,55 +273,12 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
-
-    func downloadPhoto(_ photos: [Photo], completion: @escaping (Result<URL, Error>) -> Void) {
-        for photo in photos {
-            let destination: DownloadRequest.Destination = { _, _ in
-                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let fileURL = documentsURL.appendingPathComponent("\(photo.id).jpeg")
-
-                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-            }
-
-            AF.download(photo.path, to: destination)
-                .validate()
-                .response { response in
-                    switch response.result {
-                    case .success:
-                        guard let photoURL = response.value else { return }
-                        completion(.success(photoURL!))
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                }
-        }
-    }
-
-    func downloadVideo(_ url: String, completion: @escaping (Result<URL, Error>) -> Void) {
-        let destination: DownloadRequest.Destination = { _, _ in
-            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            let fileURL = documentsURL.appendingPathComponent("video.mp4")
-
-            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-        }
-
-        AF.download(url, to: destination)
-            .validate()
-            .downloadProgress { progress in
-                print("Download Progress: \(progress.fractionCompleted)")
-            }
-            .response { response in
-                switch response.result {
-                case .success:
-                    guard let videoURL = response.value else { return }
-                    completion(.success(videoURL!))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
-    }
 }
 
 enum LoadingState {
     case loading, failure, success
+}
+
+enum FileType {
+    case photo, video
 }

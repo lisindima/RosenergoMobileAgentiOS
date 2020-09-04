@@ -6,7 +6,6 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import Alamofire
 import Combine
 import SwiftUI
 

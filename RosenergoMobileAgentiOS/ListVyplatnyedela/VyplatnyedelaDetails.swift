@@ -34,7 +34,7 @@ struct VyplatnyedelaDetails: View {
 
         private func downloadPhoto() {
             var photoURL: [URL] = []
-            sessionStore.downloadPhoto(vyplatnyedela.photos) { [self] result in
+            sessionStore.download(vyplatnyedela.photos, fileType: .photo) { [self] result in
                 switch result {
                 case let .success(response):
                     photoURL.append(response)

@@ -37,7 +37,7 @@ struct InspectionsDetails: View {
 
         private func downloadPhoto() {
             var photoURL: [URL] = []
-            sessionStore.downloadPhoto(inspection.photos) { [self] result in
+            sessionStore.download(inspection.photos, fileType: .photo) { [self] result in
                 switch result {
                 case let .success(response):
                     photoURL.append(response)
@@ -51,7 +51,7 @@ struct InspectionsDetails: View {
         }
 
         private func downloadVideo() {
-            sessionStore.downloadVideo(inspection.video!) { [self] result in
+            sessionStore.download([inspection.video!], fileType: .video) { [self] result in
                 switch result {
                 case let .success(response):
                     showShareSheet(activityItems: [response])

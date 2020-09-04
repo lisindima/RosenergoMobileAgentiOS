@@ -6,7 +6,6 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import Alamofire
 #if !os(watchOS)
     import AVKit
 #endif
@@ -39,63 +38,58 @@ struct LinkDetails: View {
     }
 
     func getInspections() {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: sessionStore.loginModel?.data.apiToken ?? ""),
-            .accept("application/json"),
-        ]
+        sessionStore.load("inspection/" + "\(inspectionID)") { [self] (response: Result<Inspections, Error>) in
+            switch response {
+            case let .success(value):
+                inspection = value
+            case let .failure(error):
+                presentationMode.wrappedValue.dismiss()
+                print(error)
+            }
+        }
+    }
 
-        sessionStore.cancellation = sessionStore.request(sessionStore.serverURL + "inspection" + "/" + "\(inspectionID)", headers: headers)
-            .sink { [self] (response: Result<Inspections, AFError>) in
-                switch response {
-                case let .success(value):
-                    inspection = value
+    #if !os(watchOS)
+        private func showShareSheet(activityItems: [Any]) {
+            DispatchQueue.main.async {
+                let shareSheet = UIHostingController(
+                    rootView:
+                    ShareSheet(activityItems: activityItems)
+                        .ignoresSafeArea(edges: .bottom)
+                )
+                UIApplication.shared.windows.first?.rootViewController?.present(
+                    shareSheet, animated: true, completion: nil
+                )
+            }
+        }
+
+        private func downloadPhoto() {
+            var photoURL: [URL] = []
+            sessionStore.download(inspection!.photos, fileType: .photo) { [self] result in
+                switch result {
+                case let .success(response):
+                    photoURL.append(response)
+                    if photoURL.count == inspection!.photos.count {
+                        showShareSheet(activityItems: photoURL)
+                    }
                 case let .failure(error):
-                    presentationMode.wrappedValue.dismiss()
                     print(error)
                 }
             }
-    }
-    #if !os(watchOS)
-    private func showShareSheet(activityItems: [Any]) {
-        DispatchQueue.main.async {
-            let shareSheet = UIHostingController(
-                rootView:
-                ShareSheet(activityItems: activityItems)
-                    .ignoresSafeArea(edges: .bottom)
-            )
-            UIApplication.shared.windows.first?.rootViewController?.present(
-                shareSheet, animated: true, completion: nil
-            )
         }
-    }
-    
-    private func downloadPhoto() {
-        var photoURL: [URL] = []
-        sessionStore.downloadPhoto(inspection!.photos) { [self] result in
-            switch result {
-            case let .success(response):
-                photoURL.append(response)
-                if photoURL.count == inspection!.photos.count {
-                    showShareSheet(activityItems: photoURL)
-                }
-            case let .failure(error):
-                print(error)
-            }
-        }
-    }
 
-    private func downloadVideo() {
-        sessionStore.downloadVideo(inspection!.video!) { [self] result in
-            switch result {
-            case let .success(response):
-                showShareSheet(activityItems: [response])
-            case let .failure(error):
-                print(error)
+        private func downloadVideo() {
+            sessionStore.download([inspection!.video!], fileType: .video) { [self] result in
+                switch result {
+                case let .success(response):
+                    showShareSheet(activityItems: [response])
+                case let .failure(error):
+                    print(error)
+                }
             }
         }
-    }
     #endif
-    
+
     var body: some View {
         NavigationView {
             if inspection == nil {
@@ -218,23 +212,23 @@ struct LinkDetails: View {
                         }
                     }
                     #if !os(watchOS)
-                    ToolbarItem(placement: .primaryAction) {
-                        Menu {
-                            if !inspection!.photos.isEmpty {
-                                Button(action: downloadPhoto) {
-                                    Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                        ToolbarItem(placement: .primaryAction) {
+                            Menu {
+                                if !inspection!.photos.isEmpty {
+                                    Button(action: downloadPhoto) {
+                                        Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                                    }
                                 }
-                            }
-                            if inspection?.video != nil {
-                                Button(action: downloadVideo) {
-                                    Label("Загрузить видео", systemImage: "video")
+                                if inspection?.video != nil {
+                                    Button(action: downloadVideo) {
+                                        Label("Загрузить видео", systemImage: "video")
+                                    }
                                 }
+                            } label: {
+                                Image(systemName: "ellipsis.circle.fill")
+                                    .imageScale(.large)
                             }
-                        } label: {
-                            Image(systemName: "ellipsis.circle.fill")
-                                .imageScale(.large)
                         }
-                    }
                     #endif
                 }
             }
