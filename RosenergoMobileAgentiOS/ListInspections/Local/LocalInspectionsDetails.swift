@@ -21,6 +21,8 @@ struct LocalInspectionsDetails: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentationMode
 
+    @State private var uploadState: Bool = false
+
     var localInspections: LocalInspections
 
     private func alert(title: String, message: String, action: Bool) -> Alert {
@@ -45,6 +47,7 @@ struct LocalInspectionsDetails: View {
     }
 
     private func uploadLocalInspections() {
+        uploadState = true
         var photos: [PhotoParameters] = []
         var video: String?
 
@@ -62,24 +65,32 @@ struct LocalInspectionsDetails: View {
             }
         }
 
-        sessionStore.uploadInspections(
-            parameters: InspectionParameters(
-                car_model: localInspections.carModel!,
-                car_reg_number: localInspections.carRegNumber!,
-                car_body_number: localInspections.carBodyNumber!,
-                car_vin: localInspections.carVin!,
-                insurance_contract_number: localInspections.insuranceContractNumber!,
-                car_model2: localInspections.carModel2,
-                car_reg_number2: localInspections.carRegNumber2,
-                car_body_number2: localInspections.carBodyNumber2,
-                car_vin2: localInspections.carVin2,
-                insurance_contract_number2: localInspections.insuranceContractNumber2,
-                latitude: localInspections.latitude,
-                longitude: localInspections.longitude,
-                video: video,
-                photos: photos
-            )
-        )
+        sessionStore.upload("testinspection", parameters: InspectionParameters(
+            car_model: localInspections.carModel!,
+            car_reg_number: localInspections.carRegNumber!,
+            car_body_number: localInspections.carBodyNumber!,
+            car_vin: localInspections.carVin!,
+            insurance_contract_number: localInspections.insuranceContractNumber!,
+            car_model2: localInspections.carModel2,
+            car_reg_number2: localInspections.carRegNumber2,
+            car_body_number2: localInspections.carBodyNumber2,
+            car_vin2: localInspections.carVin2,
+            insurance_contract_number2: localInspections.insuranceContractNumber2,
+            latitude: localInspections.latitude,
+            longitude: localInspections.longitude,
+            video: video,
+            photos: photos
+        )) { response in
+            switch response {
+            case .success:
+                sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                uploadState = false
+            case let .failure(error):
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                uploadState = false
+                print(error)
+            }
+        }
     }
 
     var size: Double {
@@ -221,7 +232,7 @@ struct LocalInspectionsDetails: View {
                 MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
             }
         }
-        CustomButton(title: "Отправить на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+        CustomButton(title: "Отправить на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
             uploadLocalInspections()
         }
         .padding(.horizontal)

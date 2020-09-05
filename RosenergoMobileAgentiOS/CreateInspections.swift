@@ -17,6 +17,7 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) private var moc
 
+    @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = true
     @State private var showCustomCameraView: Bool = false
     @State private var choiceCar: Int = 0
@@ -83,6 +84,7 @@ struct CreateInspections: View {
     }
 
     private func uploadInspections() {
+        uploadState = true
         var photos: [PhotoParameters] = []
         var video: String?
 
@@ -100,24 +102,32 @@ struct CreateInspections: View {
             }
         }
 
-        sessionStore.uploadInspections(
-            parameters: InspectionParameters(
-                car_model: carModel,
-                car_reg_number: carRegNumber,
-                car_body_number: vinAndNumber ? carVin : carBodyNumber,
-                car_vin: carVin,
-                insurance_contract_number: choiseSeries.rawValue + insuranceContractNumber,
-                car_model2: carModel2,
-                car_reg_number2: carRegNumber2,
-                car_body_number2: vinAndNumber2 ? carVin2 : carBodyNumber2,
-                car_vin2: carVin2,
-                insurance_contract_number2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
-                latitude: locationStore.latitude,
-                longitude: locationStore.longitude,
-                video: video,
-                photos: photos
-            )
-        )
+        sessionStore.upload("testinspection", parameters: InspectionParameters(
+            car_model: carModel,
+            car_reg_number: carRegNumber,
+            car_body_number: vinAndNumber ? carVin : carBodyNumber,
+            car_vin: carVin,
+            insurance_contract_number: choiseSeries.rawValue + insuranceContractNumber,
+            car_model2: carModel2,
+            car_reg_number2: carRegNumber2,
+            car_body_number2: vinAndNumber2 ? carVin2 : carBodyNumber2,
+            car_vin2: carVin2,
+            insurance_contract_number2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
+            latitude: locationStore.latitude,
+            longitude: locationStore.longitude,
+            video: video,
+            photos: photos
+        )) { response in
+            switch response {
+            case .success:
+                sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                uploadState = false
+            case let .failure(error):
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                uploadState = false
+                print(error)
+            }
+        }
     }
 
     private func saveInspections() {
@@ -237,10 +247,10 @@ struct CreateInspections: View {
             }
         }
         HStack {
-            CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+            CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
                 validateInput(upload: true)
             }
-            if !sessionStore.uploadState {
+            if !uploadState {
                 CustomButton(title: "Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                     validateInput(upload: false)
                 }

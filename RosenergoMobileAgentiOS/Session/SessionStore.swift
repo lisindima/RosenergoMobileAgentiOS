@@ -29,7 +29,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var videoURL: String?
     @Published var alertItem: AlertItem?
     @Published var uploadProgress: Double = 0.0
-    @Published var uploadState: Bool = false
     @Published var changelogLoadingFailure: Bool = false
     @Published var licenseLoadingFailure: Bool = false
     @Published var inspectionsLoadingState: LoadingState = .loading
@@ -115,54 +114,24 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
 
-    func uploadInspections(parameters: InspectionParameters) {
-        uploadState = true
-
+    func upload<Parameters: Encodable>(_ url: String, parameters: Parameters? = nil, completion: @escaping (Result<Bool, Error>) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
 
-        AF.request(serverURL + "testinspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore.shared)
+        AF.request(serverURL + url, method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
             }
-            .response { [self] response in
+            .response { response in
                 switch response.result {
                 case .success:
-                    alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
-                    uploadState = false
+                    completion(.success(true))
                 case let .failure(error):
-                    alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.errorDescription ?? "")", action: false)
-                    uploadState = false
+                    completion(.failure(error))
                     debugPrint(error)
-                }
-            }
-    }
-
-    func uploadVyplatnyeDela(parameters: VyplatnyeDelaParameters) {
-        uploadState = true
-
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-
-        AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore.shared)
-            .validate()
-            .uploadProgress { [self] progress in
-                uploadProgress = progress.fractionCompleted
-            }
-            .response { [self] response in
-                switch response.result {
-                case .success:
-                    alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
-                    uploadState = false
-                case let .failure(error):
-                    alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.errorDescription ?? "")", action: false)
-                    uploadState = false
-                    print(error.errorDescription!)
                 }
             }
     }

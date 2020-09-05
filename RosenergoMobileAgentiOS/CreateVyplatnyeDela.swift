@@ -14,6 +14,7 @@ struct CreateVyplatnyeDela: View {
     @EnvironmentObject private var locationStore: LocationStore
     @Environment(\.presentationMode) private var presentationMode
 
+    @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
@@ -36,6 +37,7 @@ struct CreateVyplatnyeDela: View {
     }
 
     private func uploadVyplatnyeDela() {
+        uploadState = true
         var photos: [PhotoParameters] = []
 
         for photo in sessionStore.photosData {
@@ -43,15 +45,23 @@ struct CreateVyplatnyeDela: View {
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
         }
 
-        sessionStore.uploadVyplatnyeDela(
-            parameters: VyplatnyeDelaParameters(
-                insurance_contract_number: insuranceContractNumber,
-                number_zayavlenia: numberZayavlenia,
-                latitude: locationStore.latitude,
-                longitude: locationStore.longitude,
-                photos: photos
-            )
-        )
+        sessionStore.upload("vyplatnyedela", parameters: VyplatnyeDelaParameters(
+            insurance_contract_number: insuranceContractNumber,
+            number_zayavlenia: numberZayavlenia,
+            latitude: locationStore.latitude,
+            longitude: locationStore.longitude,
+            photos: photos
+        )) { response in
+            switch response {
+            case .success:
+                sessionStore.alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
+                uploadState = false
+            case let .failure(error):
+                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)", action: false)
+                uploadState = false
+                print(error)
+            }
+        }
     }
 
     var body: some View {
@@ -69,7 +79,7 @@ struct CreateVyplatnyeDela: View {
             }
             .padding()
         }
-        CustomButton(title: "Отправить", subTitle: "на сервер", loading: sessionStore.uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+        CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
