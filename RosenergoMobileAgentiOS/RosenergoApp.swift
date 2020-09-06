@@ -6,6 +6,7 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
+import Firebase
 import SwiftUI
 
 @main
@@ -19,6 +20,10 @@ struct RosenergoApp: App {
     @State private var inspectionID: String = ""
 
     let persistenceController = PersistenceController.shared
+
+    init() {
+        FirebaseApp.configure()
+    }
 
     var body: some Scene {
         WindowGroup {
