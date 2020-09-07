@@ -52,7 +52,7 @@ struct LoginParameters: Codable {
 // MARK: Codable модель для разбора списка осмотров.
 
 struct Inspections: Codable, Identifiable {
-    let id, agentID: Int
+    let id, agentId: Int
     let carModel, carRegNumber, carVin, carBodyNumber: String
     let insuranceContractNumber: String
     let carModel2, carRegNumber2, carVin2, carBodyNumber2: String?
@@ -61,25 +61,6 @@ struct Inspections: Codable, Identifiable {
     let latitude, longitude: Double
     let photos: [Photo]
     let video: String?
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case agentID = "agent_id"
-        case carModel = "car_model"
-        case carRegNumber = "car_reg_number"
-        case carVin = "car_vin"
-        case carBodyNumber = "car_body_number"
-        case insuranceContractNumber = "insurance_contract_number"
-        case carModel2 = "car_model2"
-        case carRegNumber2 = "car_reg_number2"
-        case carVin2 = "car_vin2"
-        case carBodyNumber2 = "car_body_number2"
-        case insuranceContractNumber2 = "insurance_contract_number2"
-        case createdAt = "created_at"
-        case latitude, longitude
-        case photos
-        case video
-    }
 }
 
 // MARK: Codable модель для разбора массива фотографий.
@@ -89,35 +70,16 @@ struct Photo: Codable, Identifiable {
     let path: URL
     let latitude, longitude: Double
     let createdAt, updatedAt, makedPhotoAt: String
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case path, latitude, longitude
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case makedPhotoAt = "maked_photo_at"
-    }
 }
 
 // MARK: Codable модель для разбора списка выплатных дел.
 
 struct Vyplatnyedela: Codable, Identifiable {
-    let id, agentID: Int
+    let id, agentId: Int
     let insuranceContractNumber, numberZayavlenia: String
     let latitude, longitude: Double
     let createdAt, updatedAt: String
     let photos: [Photo]
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case agentID = "agent_id"
-        case insuranceContractNumber = "insurance_contract_number"
-        case numberZayavlenia = "number_zayavlenia"
-        case latitude, longitude
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case photos
-    }
 }
 
 // MARK: Codable модель для загрузки данных пользователя.
@@ -127,20 +89,10 @@ struct LoginModel: Codable {
 }
 
 struct DataClass: Codable, Identifiable {
-    let id, roleID: Int
+    let id, roleId: Int
     let name, email, avatar: String
     let createdAt, updatedAt, apiToken: String
-    let agentID: Int
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case roleID = "role_id"
-        case name, email, avatar
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case apiToken = "api_token"
-        case agentID = "agent_id"
-    }
+    let agentId: Int
 }
 
 // MARK: Codable модель для загрузки списка изменений.

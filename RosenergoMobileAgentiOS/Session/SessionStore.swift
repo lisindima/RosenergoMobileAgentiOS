@@ -87,9 +87,12 @@ class SessionStore: ObservableObject, RequestInterceptor {
             password: password
         )
 
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
         AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
-            .responseDecodable(of: LoginModel.self) { response in
+            .responseDecodable(of: LoginModel.self, decoder: decoder) { response in
                 switch response.result {
                 case .success:
                     guard let response = response.value else { return }
@@ -139,12 +142,15 @@ class SessionStore: ObservableObject, RequestInterceptor {
     var cancellation: AnyCancellable?
 
     func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
         let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
             }
-            .publishDecodable(type: T.self)
+            .publishDecodable(type: T.self, decoder: decoder)
         return publisher.result()
     }
 
