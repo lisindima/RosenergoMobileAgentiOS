@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB0115BF25061E3700801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115BE25061E3700801969 /* GoogleService-Info.plist */; };
-		CB0115C225061F9000801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115C125061F9000801969 /* GoogleService-Info.plist */; };
+		CB0115C4250624C200801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115C3250624C200801969 /* GoogleService-Info.plist */; };
 		CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
 		CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
@@ -166,7 +166,7 @@
 
 /* Begin PBXFileReference section */
 		CB0115BE25061E3700801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CB0115C125061F9000801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB0115C3250624C200801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
 		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -405,8 +405,8 @@
 		CB9DE93C249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
-				CB0115C125061F9000801969 /* GoogleService-Info.plist */,
 				CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */,
+				CB0115C3250624C200801969 /* GoogleService-Info.plist */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
 				CB9DE949249758B500F4E72A /* Preview Content */,
@@ -633,7 +633,7 @@
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
 				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
 				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
-				CB0115C225061F9000801969 /* GoogleService-Info.plist in Resources */,
+				CB0115C4250624C200801969 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

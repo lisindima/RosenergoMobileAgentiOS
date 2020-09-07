@@ -39,13 +39,20 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             self.parent = parent
         }
 
+        func getDocumentsDirectory() -> URL {
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            return paths
+        }
+
         func photoOutput(_: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error _: Error?) {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
                 let imageWithText = uiimage!.addText("Широта: \(parent.locationStore.latitude)\nДолгота: \(parent.locationStore.longitude)\nДата: \(parent.sessionStore.stringDate())", point: CGPoint(x: 20, y: 20))
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 80)
-                parent.sessionStore.photosData.append(inspectionsImageData!)
+                let filename = getDocumentsDirectory().appendingPathComponent("\(parent.sessionStore.stringDate()).png")
+                try? inspectionsImageData?.write(to: filename)
+                parent.sessionStore.photosURL.append(filename)
             }
         }
     }

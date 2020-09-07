@@ -58,7 +58,7 @@ struct CreateInspections: View {
         case 0:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
-            } else if sessionStore.photosData.isEmpty {
+            } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
@@ -70,7 +70,7 @@ struct CreateInspections: View {
         case 1:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
-            } else if sessionStore.photosData.isEmpty {
+            } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
@@ -89,8 +89,9 @@ struct CreateInspections: View {
         var photos: [PhotoParameters] = []
         var video: String?
 
-        for photo in sessionStore.photosData {
-            let encodedPhoto = photo.base64EncodedString()
+        for photo in sessionStore.photosURL {
+            let photoData = try! Data(contentsOf: photo)
+            let encodedPhoto = photoData.base64EncodedString()
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, makedPhotoAt: sessionStore.stringDate()))
         }
 
@@ -156,11 +157,12 @@ struct CreateInspections: View {
         var localPhotos: [LocalPhotos] = []
         var setPhotoId: Int16 = 0
 
-        for photo in sessionStore.photosData {
+        for photo in sessionStore.photosURL {
             setPhotoId += 1
             let photos = NSEntityDescription.insertNewObject(forEntityName: "LocalPhotos", into: moc) as! LocalPhotos
+            let photoData = try! Data(contentsOf: photo)
             photos.id = setPhotoId
-            photos.photosData = photo
+            photos.photosData = photoData
             localPhotos.append(photos)
         }
 
@@ -208,7 +210,7 @@ struct CreateInspections: View {
                     .disabled(vinAndNumber)
             }
             .padding(.horizontal)
-            ImageButton(countPhoto: sessionStore.photosData) {
+            ImageButton(countPhoto: sessionStore.photosURL) {
                 openCamera()
             }
             .padding()
@@ -241,7 +243,7 @@ struct CreateInspections: View {
                         .disabled(vinAndNumber2)
                 }
                 .padding(.horizontal)
-                ImageButton(countPhoto: sessionStore.photosData) {
+                ImageButton(countPhoto: sessionStore.photosURL) {
                     openCamera()
                 }
                 .padding()
@@ -279,6 +281,6 @@ struct CreateInspections: View {
             CustomCameraView(showRecordVideo: $showRecordVideo)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .onDisappear { sessionStore.photosData.removeAll() }
+        .onDisappear { sessionStore.photosURL.removeAll() }
     }
 }

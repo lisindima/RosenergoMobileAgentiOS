@@ -64,7 +64,7 @@ struct CustomButton: View {
 }
 
 struct ImageButton: View {
-    var countPhoto: [Data]
+    var countPhoto: [URL]
     var action: () -> Void
 
     var body: some View {

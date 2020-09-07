@@ -53,16 +53,16 @@ struct CustomCameraView: View {
                     if choiceMode == 0 {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(sessionStore.photosData.reversed(), id: \.self) { photo in
-                                    Image(uiImage: UIImage(data: photo)!.resizedImage(width: 100, height: 100))
+                                ForEach(sessionStore.photosURL.reversed(), id: \.self) { photo in
+                                    Image(uiImage: UIImage(data: try! Data(contentsOf: photo))!.resizedImage(width: 100, height: 100))
                                         .resizable()
                                         .frame(width: 100, height: 100)
                                         .cornerRadius(8)
                                         .animation(.interactiveSpring())
                                         .contextMenu {
                                             Button(action: {
-                                                if let index = sessionStore.photosData.firstIndex(of: photo) {
-                                                    sessionStore.photosData.remove(at: index)
+                                                if let index = sessionStore.photosURL.firstIndex(of: photo) {
+                                                    sessionStore.photosURL.remove(at: index)
                                                 }
                                             }) {
                                                 Label("Удалить", systemImage: "trash")

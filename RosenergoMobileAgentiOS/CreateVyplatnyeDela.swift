@@ -41,8 +41,9 @@ struct CreateVyplatnyeDela: View {
         uploadState = true
         var photos: [PhotoParameters] = []
 
-        for photo in sessionStore.photosData {
-            let file = photo.base64EncodedString()
+        for photo in sessionStore.photosURL {
+            let photoData = try! Data(contentsOf: photo)
+            let file = photoData.base64EncodedString()
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: sessionStore.stringDate()))
         }
 
@@ -75,7 +76,7 @@ struct CreateVyplatnyeDela: View {
                 CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
             }
             .padding(.horizontal)
-            ImageButton(countPhoto: sessionStore.photosData) {
+            ImageButton(countPhoto: sessionStore.photosURL) {
                 openCamera()
             }
             .padding()
@@ -83,7 +84,7 @@ struct CreateVyplatnyeDela: View {
         CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
-            } else if sessionStore.photosData.isEmpty {
+            } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 uploadVyplatnyeDela()
@@ -99,6 +100,6 @@ struct CreateVyplatnyeDela: View {
             CustomCameraView(showRecordVideo: $showRecordVideo)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .onDisappear { sessionStore.photosData.removeAll() }
+        .onDisappear { sessionStore.photosURL.removeAll() }
     }
 }
