@@ -50,7 +50,7 @@ struct LicenseDetail: View {
         .navigationTitle(license.nameFramework)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Link(destination: URL(string: license.urlFramework)!) {
+                Link(destination: license.urlFramework) {
                     Image(systemName: "safari")
                         .imageScale(.large)
                 }

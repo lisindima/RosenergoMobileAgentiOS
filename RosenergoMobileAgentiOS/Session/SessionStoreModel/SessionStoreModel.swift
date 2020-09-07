@@ -60,7 +60,7 @@ struct Inspections: Codable, Identifiable {
     let createdAt: String
     let latitude, longitude: Double
     let photos: [Photo]
-    let video: String?
+    let video: URL?
 }
 
 // MARK: Codable модель для разбора массива фотографий.
@@ -106,7 +106,8 @@ struct ChangelogModel: Identifiable, Codable {
 
 struct LicenseModel: Identifiable, Codable {
     let id: Int
-    let nameFramework, urlFramework, textLicenseFramework: String
+    let urlFramework: URL
+    let nameFramework, textLicenseFramework: String
 }
 
 // MARK: Модель для отображения уведомлений.

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0115BF25061E3700801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115BE25061E3700801969 /* GoogleService-Info.plist */; };
+		CB0115C225061F9000801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115C125061F9000801969 /* GoogleService-Info.plist */; };
 		CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
 		CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
@@ -44,7 +46,6 @@
 		CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB677F2F2504E09900B410ED /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB677F2E2504E09900B410ED /* FirebaseAnalytics */; };
 		CB677F312504E09900B410ED /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB677F302504E09900B410ED /* FirebaseCrashlytics */; };
-		CB677F332504E21000B410ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB677F322504E21000B410ED /* GoogleService-Info.plist */; };
 		CB677F352504E68E00B410ED /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB677F342504E68E00B410ED /* FirebaseCrashlytics */; };
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
@@ -164,6 +165,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CB0115BE25061E3700801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB0115C125061F9000801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
 		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -193,7 +196,6 @@
 		CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStore.swift; sourceTree = "<group>"; };
 		CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImageDetail.swift; sourceTree = "<group>"; };
 		CB66D74A24A5D989005C616A /* RosenergoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoApp.swift; sourceTree = "<group>"; };
-		CB677F322504E21000B410ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
 		CB758D7024AEEB67000A6B3C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		CB758D7824AEFA45000A6B3C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -313,7 +315,7 @@
 				CBC5283A247CB4AC00E337B4 /* Session */,
 				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E56C2466644500CDBB1A /* Info.plist */,
-				CB677F322504E21000B410ED /* GoogleService-Info.plist */,
+				CB0115BE25061E3700801969 /* GoogleService-Info.plist */,
 				CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */,
 				CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */,
 				CB17E5662466644500CDBB1A /* Preview Content */,
@@ -403,6 +405,7 @@
 		CB9DE93C249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CB0115C125061F9000801969 /* GoogleService-Info.plist */,
 				CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
@@ -611,7 +614,7 @@
 			files = (
 				CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */,
 				CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */,
-				CB677F332504E21000B410ED /* GoogleService-Info.plist in Resources */,
+				CB0115BF25061E3700801969 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +633,7 @@
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
 				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
 				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
+				CB0115C225061F9000801969 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
