@@ -86,7 +86,7 @@ struct Inspections: Codable, Identifiable {
 
 struct Photo: Codable, Identifiable {
     let id: Int
-    let path: String
+    let path: URL
     let latitude, longitude: Double
     let createdAt, updatedAt, makedPhotoAt: String
 

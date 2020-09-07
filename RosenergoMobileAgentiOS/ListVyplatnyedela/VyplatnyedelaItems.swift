@@ -31,7 +31,7 @@ struct VyplatnyedelaItems: View {
     var body: some View {
         HStack(alignment: .top) {
             if !vyplatnyedela.photos.isEmpty {
-                URLImage(URL(string: vyplatnyedela.photos.first!.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                URLImage(vyplatnyedela.photos.first!.path, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                     ProgressView()
                 }, content: {
                     $0.image

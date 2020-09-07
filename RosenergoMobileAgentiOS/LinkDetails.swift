@@ -103,7 +103,7 @@ struct LinkDetails: View {
                                 LazyHStack {
                                     ForEach(inspection!.photos, id: \.id) { photo in
                                         NavigationLink(destination: ImageDetail(id: photo.id, photos: inspection!.photos)) {
-                                            URLImage(URL(string: photo.path)!, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
+                                            URLImage(photo.path, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
                                                 ProgressView()
                                             }, content: {
                                                 $0.image

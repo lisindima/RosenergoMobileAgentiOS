@@ -18,7 +18,7 @@ struct ImageDetail: View {
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in
-                URLImage(URL(string: photo.path)!, placeholder: { _ in
+                URLImage(photo.path, placeholder: { _ in
                     ProgressView()
                 }, content: {
                     $0.image
