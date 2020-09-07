@@ -90,7 +90,7 @@ struct CreateInspections: View {
 
         for photo in sessionStore.photosData {
             let encodedPhoto = photo.base64EncodedString()
-            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, makedPhotoAt: sessionStore.stringDate()))
         }
 
         if sessionStore.videoURL != nil {
@@ -103,16 +103,16 @@ struct CreateInspections: View {
         }
 
         sessionStore.upload("testinspection", parameters: InspectionParameters(
-            car_model: carModel,
-            car_reg_number: carRegNumber,
-            car_body_number: vinAndNumber ? carVin : carBodyNumber,
-            car_vin: carVin,
-            insurance_contract_number: choiseSeries.rawValue + insuranceContractNumber,
-            car_model2: carModel2,
-            car_reg_number2: carRegNumber2,
-            car_body_number2: vinAndNumber2 ? carVin2 : carBodyNumber2,
-            car_vin2: carVin2,
-            insurance_contract_number2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
+            carModel: carModel,
+            carRegNumber: carRegNumber,
+            carBodyNumber: vinAndNumber ? carVin : carBodyNumber,
+            carVin: carVin,
+            insuranceContractNumber: choiseSeries.rawValue + insuranceContractNumber,
+            carModel2: carModel2,
+            carRegNumber2: carRegNumber2,
+            carBodyNumber2: vinAndNumber2 ? carVin2 : carBodyNumber2,
+            carVin2: carVin2,
+            insuranceContractNumber2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
             latitude: locationStore.latitude,
             longitude: locationStore.longitude,
             video: video,

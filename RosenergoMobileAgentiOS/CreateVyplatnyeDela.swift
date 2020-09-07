@@ -41,13 +41,13 @@ struct CreateVyplatnyeDela: View {
         var photos: [PhotoParameters] = []
 
         for photo in sessionStore.photosData {
-            let encodedPhoto = photo.base64EncodedString()
-            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, maked_photo_at: sessionStore.stringDate()))
+            let file = photo.base64EncodedString()
+            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: sessionStore.stringDate()))
         }
 
         sessionStore.upload("vyplatnyedela", parameters: VyplatnyeDelaParameters(
-            insurance_contract_number: insuranceContractNumber,
-            number_zayavlenia: numberZayavlenia,
+            insuranceContractNumber: insuranceContractNumber,
+            numberZayavlenia: numberZayavlenia,
             latitude: locationStore.latitude,
             longitude: locationStore.longitude,
             photos: photos

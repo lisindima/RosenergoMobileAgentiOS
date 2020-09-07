@@ -122,8 +122,11 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-
-        AF.request(serverURL + url, method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers, interceptor: SessionStore.shared)
+        
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        
+        AF.request(serverURL + url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: encoder), headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted

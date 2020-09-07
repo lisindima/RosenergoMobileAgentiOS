@@ -11,24 +11,24 @@ import SwiftUI
 // MARK: Параметры для загрузки осмотров и выплатных дел.
 
 struct VyplatnyeDelaParameters: Encodable {
-    let insurance_contract_number: String
-    let number_zayavlenia: String
+    let insuranceContractNumber: String
+    let numberZayavlenia: String
     let latitude: Double
     let longitude: Double
     let photos: [PhotoParameters]
 }
 
 struct InspectionParameters: Encodable {
-    let car_model: String
-    let car_reg_number: String
-    let car_body_number: String
-    let car_vin: String
-    let insurance_contract_number: String
-    let car_model2: String?
-    let car_reg_number2: String?
-    let car_body_number2: String?
-    let car_vin2: String?
-    let insurance_contract_number2: String?
+    let carModel: String
+    let carRegNumber: String
+    let carBodyNumber: String
+    let carVin: String
+    let insuranceContractNumber: String
+    let carModel2: String?
+    let carRegNumber2: String?
+    let carBodyNumber2: String?
+    let carVin2: String?
+    let insuranceContractNumber2: String?
     let latitude: Double
     let longitude: Double
     let video: String?
@@ -39,7 +39,7 @@ struct PhotoParameters: Encodable, Equatable {
     let latitude: Double
     let longitude: Double
     let file: String
-    let maked_photo_at: String
+    let makedPhotoAt: String
 }
 
 // MARK: Параметры для логина в приложение.
