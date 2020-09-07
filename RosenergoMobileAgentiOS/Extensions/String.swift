@@ -15,7 +15,7 @@ extension String {
         let date = dateFormatter.date(from: self)
         let newDateFormatter = DateFormatter()
         newDateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
-        let dataInspection = newDateFormatter.string(from: date!)
-        return dataInspection
+        newDateFormatter.timeZone = .autoupdatingCurrent
+        return newDateFormatter.string(from: date!)
     }
 }

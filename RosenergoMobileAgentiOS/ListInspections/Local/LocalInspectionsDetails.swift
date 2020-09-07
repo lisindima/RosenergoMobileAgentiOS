@@ -22,6 +22,7 @@ struct LocalInspectionsDetails: View {
     @Environment(\.presentationMode) private var presentationMode
 
     @State private var uploadState: Bool = false
+    @State private var alertItem: AlertItem?
 
     var localInspections: LocalInspections
 
@@ -83,10 +84,10 @@ struct LocalInspectionsDetails: View {
         )) { response in
             switch response {
             case .success:
-                sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
                 uploadState = false
             case let .failure(error):
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
                 uploadState = false
                 print(error)
             }
@@ -238,7 +239,7 @@ struct LocalInspectionsDetails: View {
         .padding(.horizontal)
         .padding(.bottom, 8)
         .navigationTitle("Не отправлено")
-        .alert(item: $sessionStore.alertItem) { error in
+        .alert(item: $alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
         }
     }

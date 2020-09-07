@@ -20,7 +20,7 @@ struct SettingsView: View {
         private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     #endif
 
-    @State private var alertError: AlertItem?
+    @State private var alertItem: AlertItem?
     @State private var showActionSheetExit: Bool = false
     @State private var showMailFeedback: Bool = false
     @State private var loading: Bool = false
@@ -145,7 +145,7 @@ struct SettingsView: View {
                         if MFMailComposeViewController.canSendMail() {
                             showMailFeedback = true
                         } else {
-                            alertError = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.", action: false)
+                            alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.", action: false)
                         }
                     }
                 #endif
@@ -170,12 +170,12 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Настройки")
-        .alert(item: $alertError) { error in
+        .alert(item: $alertItem) { error in
             alert(title: error.title, message: error.message)
         }
         .sheet(isPresented: $showMailFeedback) {
             #if !os(watchOS)
-                MailFeedback(alertError: $alertError)
+                MailFeedback(alertError: $alertItem)
                     .ignoresSafeArea(edges: .bottom)
                     .accentColor(.rosenergo)
             #endif

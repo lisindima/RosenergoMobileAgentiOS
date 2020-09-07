@@ -14,6 +14,7 @@ struct SignIn: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var loading: Bool = false
+    @State private var alertItem: AlertItem?
 
     private func alert(title: String, message: String) -> Alert {
         Alert(
@@ -32,7 +33,7 @@ struct SignIn: View {
                 sessionStore.loginParameters = LoginParameters(email: email, password: password)
                 loading = false
             case let .failure(error):
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
                 loading = false
                 print(error)
             }
@@ -63,7 +64,7 @@ struct SignIn: View {
             .buttonStyle(PlainButtonStyle())
         }
         .navigationTitle("Мобильный агент")
-        .alert(item: $sessionStore.alertItem) { error in
+        .alert(item: $alertItem) { error in
             alert(title: error.title, message: error.message)
         }
     }
@@ -101,7 +102,7 @@ struct SignIn: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                     Button(action: {
-                        sessionStore.alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.", action: false)
+                        alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.", action: false)
                     }) {
                         Text("Регистрация")
                             .font(.footnote)
@@ -112,7 +113,7 @@ struct SignIn: View {
             }
             .navigationBarHidden(true)
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-            .alert(item: $sessionStore.alertItem) { error in
+            .alert(item: $alertItem) { error in
                 alert(title: error.title, message: error.message)
             }
         }

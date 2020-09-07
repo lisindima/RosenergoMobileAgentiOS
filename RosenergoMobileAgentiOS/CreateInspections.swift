@@ -35,10 +35,11 @@ struct CreateInspections: View {
     @State private var vinAndNumber2: Bool = false
     @State private var choiseSeries: Series = .XXX
     @State private var choiseSeries2: Series = .XXX
+    @State private var alertItem: AlertItem?
 
     private func openCamera() {
         if locationStore.latitude == 0 {
-            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
             showCustomCameraView = true
         }
@@ -56,9 +57,9 @@ struct CreateInspections: View {
         switch choiceCar {
         case 0:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
                     uploadInspections()
@@ -68,9 +69,9 @@ struct CreateInspections: View {
             }
         case 1:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 if upload {
                     uploadInspections()
@@ -120,10 +121,10 @@ struct CreateInspections: View {
         )) { response in
             switch response {
             case .success:
-                sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
                 uploadState = false
             case let .failure(error):
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
                 uploadState = false
                 print(error)
             }
@@ -167,12 +168,12 @@ struct CreateInspections: View {
 
         do {
             try moc.save()
-            sessionStore.alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
+            alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
             notificationStore.setNotification(id: id.uuidString)
         } catch {
             let nsError = error as NSError
             print("Unresolved error \(nsError), \(nsError.userInfo)")
-            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)", action: false)
+            alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)", action: false)
         }
     }
 
@@ -271,7 +272,7 @@ struct CreateInspections: View {
                 .pickerStyle(InlinePickerStyle())
             }
         }
-        .alert(item: $sessionStore.alertItem) { error in
+        .alert(item: $alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
         }
         .fullScreenCover(isPresented: $showCustomCameraView) {

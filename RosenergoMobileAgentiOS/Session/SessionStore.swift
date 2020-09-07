@@ -27,8 +27,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
 
     @Published var photosData = [Data]()
     @Published var videoURL: String?
-    @Published var alertItem: AlertItem?
     @Published var uploadProgress: Double = 0.0
+    @Published var downloadProgress: Double = 0.0
     @Published var changelogLoadingFailure: Bool = false
     @Published var licenseLoadingFailure: Bool = false
     @Published var inspectionsLoadingState: LoadingState = .loading
@@ -39,6 +39,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var licenseModel = [LicenseModel]()
 
     static let shared = SessionStore()
+
+    var cancellation: AnyCancellable?
 
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
 
@@ -103,7 +105,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
 
-    func logout(completion: @escaping (_ result: Bool) -> Void) {
+    func logout(completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
@@ -122,10 +124,10 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-        
+
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
-        
+
         AF.request(serverURL + url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: encoder), headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
@@ -141,8 +143,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
-
-    var cancellation: AnyCancellable?
 
     func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
         let decoder = JSONDecoder()
@@ -211,8 +211,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
 
             AF.download(fileType == .photo ? (item as! Photo).path : "\(items.first!)", to: destination)
                 .validate()
-                .downloadProgress { progress in
-                    print("Download Progress: \(progress.fractionCompleted)")
+                .downloadProgress { [self] progress in
+                    downloadProgress = progress.fractionCompleted
                 }
                 .response { response in
                     switch response.result {

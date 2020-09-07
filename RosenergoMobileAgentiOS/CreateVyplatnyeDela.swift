@@ -19,10 +19,11 @@ struct CreateVyplatnyeDela: View {
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
+    @State private var alertItem: AlertItem?
 
     private func openCamera() {
         if locationStore.latitude == 0 {
-            sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
         } else {
             showCustomCameraView = true
         }
@@ -54,10 +55,10 @@ struct CreateVyplatnyeDela: View {
         )) { response in
             switch response {
             case .success:
-                sessionStore.alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
+                alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
                 uploadState = false
             case let .failure(error):
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)", action: false)
                 uploadState = false
                 print(error)
             }
@@ -81,9 +82,9 @@ struct CreateVyplatnyeDela: View {
         }
         CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
             } else if sessionStore.photosData.isEmpty {
-                sessionStore.alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
             } else {
                 uploadVyplatnyeDela()
             }
@@ -91,7 +92,7 @@ struct CreateVyplatnyeDela: View {
         .padding(.horizontal)
         .padding(.bottom, 8)
         .navigationTitle("Выплатное дело")
-        .alert(item: $sessionStore.alertItem) { error in
+        .alert(item: $alertItem) { error in
             alert(title: error.title, message: error.message, action: error.action)
         }
         .fullScreenCover(isPresented: $showCustomCameraView) {
