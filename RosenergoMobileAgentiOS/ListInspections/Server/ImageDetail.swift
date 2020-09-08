@@ -18,13 +18,16 @@ struct ImageDetail: View {
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in
-                URLImage(photo.path, placeholder: { _ in
-                    ProgressView()
-                }, content: {
+                URLImage(
+                    photo.path,
+                    placeholder: { _ in
+                        ProgressView()
+                    }
+                ) {
                     $0.image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                })
+                }
             }
         }
         .tabViewStyle(PageTabViewStyle())

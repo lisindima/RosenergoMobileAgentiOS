@@ -20,7 +20,7 @@ struct InspectionsItems: View {
         #endif
     }
 
-    var size: Double {
+    var size: CGFloat {
         #if os(watchOS)
             return 75.0
         #else
@@ -31,14 +31,19 @@ struct InspectionsItems: View {
     var body: some View {
         HStack(alignment: .top) {
             if !inspection.photos.isEmpty {
-                URLImage(inspection.photos.first!.path, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
-                    ProgressView()
-                }, content: {
+                URLImage(
+                    inspection.photos.first!.path,
+                    delay: 0.25,
+                    processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
+                    placeholder: { _ in
+                        ProgressView()
+                    }
+                ) {
                     $0.image
                         .resizable()
-                })
-                    .cornerRadius(8)
-                    .frame(width: CGFloat(size), height: CGFloat(size))
+                }
+                .cornerRadius(8)
+                .frame(width: size, height: size)
             }
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")

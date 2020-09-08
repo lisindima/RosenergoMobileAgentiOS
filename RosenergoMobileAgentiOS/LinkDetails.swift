@@ -29,7 +29,7 @@ struct LinkDetails: View {
         #endif
     }
 
-    var size: Double {
+    var size: CGFloat {
         #if os(watchOS)
             return 75.0
         #else
@@ -103,14 +103,19 @@ struct LinkDetails: View {
                                 LazyHStack {
                                     ForEach(inspection!.photos, id: \.id) { photo in
                                         NavigationLink(destination: ImageDetail(id: photo.id, photos: inspection!.photos)) {
-                                            URLImage(photo.path, delay: 0.25, processors: [Resize(size: CGSize(width: size, height: size), scale: scale)], placeholder: { _ in
-                                                ProgressView()
-                                            }, content: {
+                                            URLImage(
+                                                photo.path,
+                                                delay: 0.25,
+                                                processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
+                                                placeholder: { _ in
+                                                    ProgressView()
+                                                }
+                                            ) {
                                                 $0.image
                                                     .resizable()
-                                            })
-                                                .cornerRadius(8)
-                                                .frame(width: CGFloat(size), height: CGFloat(size))
+                                            }
+                                            .cornerRadius(8)
+                                            .frame(width: size, height: size)
                                         }.buttonStyle(PlainButtonStyle())
                                     }
                                 }.padding(.vertical, 8)

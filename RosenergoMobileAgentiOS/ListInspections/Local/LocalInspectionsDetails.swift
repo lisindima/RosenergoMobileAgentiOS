@@ -94,7 +94,7 @@ struct LocalInspectionsDetails: View {
         }
     }
 
-    var size: Double {
+    var size: CGFloat {
         #if os(watchOS)
             return 75.0
         #else
@@ -132,9 +132,9 @@ struct LocalInspectionsDetails: View {
                         LazyHStack {
                             ForEach(localInspections.arrayPhoto, id: \.id) { photo in
                                 NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.arrayPhoto)) {
-                                    Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
+                                    Image(uiImage: UIImage(data: photo.photosData!)!.resizedImage(width: size, height: size))
                                         .resizable()
-                                        .frame(width: CGFloat(size), height: CGFloat(size))
+                                        .frame(width: size, height: size)
                                         .cornerRadius(8)
                                 }.buttonStyle(PlainButtonStyle())
                             }

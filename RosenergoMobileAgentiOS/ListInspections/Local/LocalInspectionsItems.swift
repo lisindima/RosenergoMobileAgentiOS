@@ -11,7 +11,7 @@ import SwiftUI
 struct LocalInspectionsItems: View {
     var localInspections: LocalInspections
 
-    var size: Double {
+    var size: CGFloat {
         #if os(watchOS)
             return 75.0
         #else
@@ -22,10 +22,10 @@ struct LocalInspectionsItems: View {
     var body: some View {
         HStack(alignment: .top) {
             if !localInspections.arrayPhoto.isEmpty {
-                Image(uiImage: UIImage(data: (localInspections.arrayPhoto.first?.photosData)!)!.resizedImage(width: CGFloat(size), height: CGFloat(size)))
+                Image(uiImage: UIImage(data: localInspections.arrayPhoto.first!.photosData!)!.resizedImage(width: size, height: size))
                     .resizable()
                     .cornerRadius(8)
-                    .frame(width: CGFloat(size), height: CGFloat(size))
+                    .frame(width: size, height: size)
             }
             VStack(alignment: .leading) {
                 Text("Не отправлено")
