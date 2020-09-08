@@ -12,7 +12,9 @@ extension UIImage {
     func resizedImage(width: CGFloat, height: CGFloat) -> UIImage {
         let size = CGSize(width: width, height: height)
         #if os(iOS)
-            let renderer = UIGraphicsImageRenderer(size: size)
+            let format = UIGraphicsImageRendererFormat()
+            format.opaque = true
+            let renderer = UIGraphicsImageRenderer(size: size, format: format)
             return renderer.image { _ in
                 self.draw(in: CGRect(origin: .zero, size: size))
             }

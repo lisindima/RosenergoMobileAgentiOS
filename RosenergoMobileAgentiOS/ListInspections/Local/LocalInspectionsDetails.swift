@@ -59,7 +59,7 @@ struct LocalInspectionsDetails: View {
 
         if localInspections.videoURL != nil {
             do {
-                let videoData = try Data(contentsOf: URL(string: localInspections.videoURL!)!)
+                let videoData = try Data(contentsOf: localInspections.videoURL!)
                 video = videoData.base64EncodedString()
             } catch {
                 print(error)
@@ -145,7 +145,7 @@ struct LocalInspectionsDetails: View {
             #if !os(watchOS)
                 if localInspections.videoURL != nil {
                     Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url: URL(string: localInspections.videoURL!)!))
+                        VideoPlayer(player: AVPlayer(url: localInspections.videoURL!))
                             .frame(height: 200)
                             .cornerRadius(8)
                             .padding(.vertical, 8)

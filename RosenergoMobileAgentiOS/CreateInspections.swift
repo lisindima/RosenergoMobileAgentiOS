@@ -97,7 +97,7 @@ struct CreateInspections: View {
 
         if sessionStore.videoURL != nil {
             do {
-                let videoData = try Data(contentsOf: URL(string: sessionStore.videoURL!)!)
+                let videoData = try Data(contentsOf: sessionStore.videoURL!)
                 video = videoData.base64EncodedString()
             } catch {
                 print(error)

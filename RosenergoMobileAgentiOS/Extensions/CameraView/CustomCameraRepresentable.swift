@@ -39,18 +39,14 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func getDocumentsDirectory() -> URL {
-            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            return paths
-        }
-
         func photoOutput(_: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error _: Error?) {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
                 let imageWithText = uiimage!.addText("Широта: \(parent.locationStore.latitude)\nДолгота: \(parent.locationStore.longitude)\nДата: \(parent.sessionStore.stringDate())", point: CGPoint(x: 20, y: 20))
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 80)
-                let filename = getDocumentsDirectory().appendingPathComponent("\(parent.sessionStore.stringDate()).png")
+                let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let filename = directory.appendingPathComponent("\(parent.sessionStore.stringDate()).png")
                 try? inspectionsImageData?.write(to: filename)
                 parent.sessionStore.photosURL.append(filename)
             }
@@ -93,10 +89,10 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         func fileOutput(_: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from _: [AVCaptureConnection], error: Error?) {
             do {
                 let directory = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
-                let url = directory!.appendingPathComponent("video_\(Date()).mp4")
+                let filename = directory!.appendingPathComponent("video_\(Date()).mp4")
                 let data = try Data(contentsOf: outputFileURL, options: .mappedIfSafe)
-                try data.write(to: url)
-                parent.sessionStore.videoURL = url.absoluteString
+                try data.write(to: filename)
+                parent.sessionStore.videoURL = filename.absoluteURL
             } catch {
                 print(error)
             }

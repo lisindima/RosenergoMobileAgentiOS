@@ -172,10 +172,10 @@ import SwiftUI
     }
 #else
     struct PinchToZoom: ViewModifier {
-        @State var scale: CGFloat = 1.0
-        @State var anchor: UnitPoint = .center
-        @State var offset: CGSize = .zero
-        @State var isPinching: Bool = false
+        @State private var scale: CGFloat = 1.0
+        @State private var anchor: UnitPoint = .center
+        @State private var offset: CGSize = .zero
+        @State private var isPinching: Bool = false
 
         func body(content: Content) -> some View {
             content

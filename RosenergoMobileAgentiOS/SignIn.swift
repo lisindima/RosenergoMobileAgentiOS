@@ -41,14 +41,11 @@ struct SignIn: View {
     }
 
     var body: some View {
-        NavigationView {
-            #if os(watchOS)
-                watch
-            #else
-                phone
-            #endif
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
+        #if os(watchOS)
+            watch
+        #else
+            phone
+        #endif
     }
 
     var watch: some View {
@@ -111,7 +108,6 @@ struct SignIn: View {
                 .padding(.top, 5)
                 .padding(.bottom)
             }
-            .navigationBarHidden(true)
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
             .alert(item: $alertItem) { error in
                 alert(title: error.title, message: error.message)

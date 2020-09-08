@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17175" systemVersion="20A5323l" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="20A5364e" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="LocalInspections" representedClassName="LocalInspections" syncable="YES">
         <attribute name="carBodyNumber" attributeType="String" defaultValueString=""/>
         <attribute name="carBodyNumber2" optional="YES" attributeType="String"/>
@@ -15,7 +15,7 @@
         <attribute name="insuranceContractNumber2" optional="YES" attributeType="String"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="videoURL" optional="YES" attributeType="String"/>
+        <attribute name="videoURL" optional="YES" attributeType="URI"/>
         <relationship name="localPhotos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalPhotos" inverseName="localInspections" inverseEntity="LocalPhotos"/>
     </entity>
     <entity name="LocalPhotos" representedClassName="LocalPhotos" syncable="YES">
