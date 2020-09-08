@@ -20,6 +20,7 @@ struct LocalImageDetail: View {
                 Image(uiImage: UIImage(data: photo.photosData!)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .pinchToZoom()
             }
         }
         .tabViewStyle(PageTabViewStyle())

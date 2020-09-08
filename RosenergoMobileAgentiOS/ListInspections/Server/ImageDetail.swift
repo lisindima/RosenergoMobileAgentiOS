@@ -27,6 +27,7 @@ struct ImageDetail: View {
                     $0.image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .pinchToZoom()
                 }
             }
         }
