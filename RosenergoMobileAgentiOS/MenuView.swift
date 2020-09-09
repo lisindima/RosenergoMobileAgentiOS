@@ -23,58 +23,69 @@ struct MenuView: View {
             return 2
         #endif
     }
-
+    
     var body: some View {
         NavigationView {
+            #if os(watchOS)
             ScrollView {
-                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
-                    #if !os(watchOS)
-                        NavigationLink(destination: CreateInspections()) {
-                            MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    #endif
-
-                    NavigationLink(destination: ListInspections()) {
-                        MenuButton(title: "Осмотры", image: "archivebox", color: .red)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-
-                    #if !os(watchOS)
-                        NavigationLink(destination: CreateVyplatnyeDela()) {
-                            MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    #endif
-
-                    NavigationLink(destination: ListVyplatnyedela()) {
-                        MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                .padding(.top, 8)
-                .padding(.horizontal)
+                menu
             }
-            .navigationTitle("Мобильный агент")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: { openSettings = true }) {
-                        Image(systemName: "gear")
-                            .imageScale(.large)
-                    }
+            #else
+            VStack {
+                menu
+                Spacer()
+            }
+            #endif
+        }
+    }
+    
+    var menu: some View {
+        LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
+            #if !os(watchOS)
+            NavigationLink(destination: CreateInspections()) {
+                MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
+            }
+            .buttonStyle(PlainButtonStyle())
+            #endif
+            
+            NavigationLink(destination: ListInspections()) {
+                MenuButton(title: "Осмотры", image: "archivebox", color: .red)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            #if !os(watchOS)
+            NavigationLink(destination: CreateVyplatnyeDela()) {
+                MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple)
+            }
+            .buttonStyle(PlainButtonStyle())
+            #endif
+            
+            NavigationLink(destination: ListVyplatnyedela()) {
+                MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow)
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        .padding(.top, 8)
+        .padding(.horizontal)
+        .navigationTitle("Мобильный агент")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { openSettings = true }) {
+                    Image(systemName: "gear")
+                        .imageScale(.large)
                 }
             }
-            .sheet(isPresented: $openSettings) {
-                NavigationView {
-                    SettingsView()
-                        .toolbar {
-                            ToolbarItem(placement: .primaryAction) {
-                                Button(action: { openSettings = false }) {
-                                    Text("Закрыть")
-                                }
+        }
+        .sheet(isPresented: $openSettings) {
+            NavigationView {
+                SettingsView()
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button(action: { openSettings = false }) {
+                                Text("Закрыть")
                             }
                         }
-                }
+                    }
             }
         }
     }

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB0115BF25061E3700801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115BE25061E3700801969 /* GoogleService-Info.plist */; };
-		CB0115C4250624C200801969 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB0115C3250624C200801969 /* GoogleService-Info.plist */; };
 		CB0115C62507335400801969 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C52507335400801969 /* PinchToZoom.swift */; };
 		CB0115C72507335400801969 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C52507335400801969 /* PinchToZoom.swift */; };
 		CB0115C925073C4000801969 /* TabViewBackgroundMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */; };
@@ -28,6 +26,8 @@
 		CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E58E24699F8400CDBB1A /* CreateInspections.swift */; };
 		CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */; };
+		CB1ECFCC2508BD9700523D9E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1ECFCB2508BD9700523D9E /* Enum.swift */; };
+		CB1ECFCD2508BD9700523D9E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1ECFCB2508BD9700523D9E /* Enum.swift */; };
 		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
 		CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */; };
 		CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */; };
@@ -48,9 +48,6 @@
 		CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
 		CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
-		CB677F2F2504E09900B410ED /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB677F2E2504E09900B410ED /* FirebaseAnalytics */; };
-		CB677F312504E09900B410ED /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB677F302504E09900B410ED /* FirebaseCrashlytics */; };
-		CB677F352504E68E00B410ED /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB677F342504E68E00B410ED /* FirebaseCrashlytics */; };
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
@@ -169,8 +166,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CB0115BE25061E3700801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CB0115C3250624C200801969 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB0115C52507335400801969 /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
 		CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewBackgroundMode.swift; sourceTree = "<group>"; };
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +182,7 @@
 		CB17E584246864AE00CDBB1A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		CB17E58E24699F8400CDBB1A /* CreateInspections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInspections.swift; sourceTree = "<group>"; };
 		CB17E5912469B57F00CDBB1A /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
+		CB1ECFCB2508BD9700523D9E /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraController.swift; sourceTree = "<group>"; };
 		CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraRepresentable.swift; sourceTree = "<group>"; };
 		CB27F54E24DBB190000A43FB /* RosenergoMobileAgentwatchOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RosenergoMobileAgentwatchOS.entitlements; sourceTree = "<group>"; };
@@ -254,8 +250,6 @@
 			files = (
 				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
 				CBAC7F4024D27CF60081597D /* NativeSearchBar in Frameworks */,
-				CB677F2F2504E09900B410ED /* FirebaseAnalytics in Frameworks */,
-				CB677F312504E09900B410ED /* FirebaseCrashlytics in Frameworks */,
 				CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
@@ -268,7 +262,6 @@
 			files = (
 				CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */,
 				CBAC7F4224D280E30081597D /* NativeSearchBar in Frameworks */,
-				CB677F352504E68E00B410ED /* FirebaseCrashlytics in Frameworks */,
 				CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */,
 				CB9DE95E24975A4100F4E72A /* Alamofire in Frameworks */,
 			);
@@ -321,7 +314,6 @@
 				CBC5283A247CB4AC00E337B4 /* Session */,
 				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E56C2466644500CDBB1A /* Info.plist */,
-				CB0115BE25061E3700801969 /* GoogleService-Info.plist */,
 				CB2B5B82246BA8CE006F35AC /* Мобильный агент.entitlements */,
 				CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */,
 				CB17E5662466644500CDBB1A /* Preview Content */,
@@ -354,6 +346,7 @@
 				CBA6118D2500998D009CD8BD /* ShareSheet.swift */,
 				CB0115C52507335400801969 /* PinchToZoom.swift */,
 				CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */,
+				CB1ECFCB2508BD9700523D9E /* Enum.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,7 +407,6 @@
 			isa = PBXGroup;
 			children = (
 				CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */,
-				CB0115C3250624C200801969 /* GoogleService-Info.plist */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
 				CB9DE949249758B500F4E72A /* Preview Content */,
@@ -519,8 +511,6 @@
 				CB17E5732466654E00CDBB1A /* Alamofire */,
 				CB870229249C5FF400B5DA72 /* URLImage */,
 				CBAC7F3F24D27CF60081597D /* NativeSearchBar */,
-				CB677F2E2504E09900B410ED /* FirebaseAnalytics */,
-				CB677F302504E09900B410ED /* FirebaseCrashlytics */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
@@ -561,7 +551,6 @@
 				CB9DE95D24975A4100F4E72A /* Alamofire */,
 				CB85CDB8249B34A500AAEF04 /* URLImage */,
 				CBAC7F4124D280E30081597D /* NativeSearchBar */,
-				CB677F342504E68E00B410ED /* FirebaseCrashlytics */,
 			);
 			productName = "RosenergoMobileAgentwatchOS Extension";
 			productReference = CB9DE938249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension.appex */;
@@ -602,7 +591,6 @@
 				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
 				CBAC7F3E24D27CF60081597D /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
-				CB677F2D2504E09900B410ED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -622,7 +610,6 @@
 			files = (
 				CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */,
 				CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */,
-				CB0115BF25061E3700801969 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,7 +628,6 @@
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
 				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
 				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
-				CB0115C4250624C200801969 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -677,6 +663,7 @@
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
 				CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */,
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
+				CB1ECFCC2508BD9700523D9E /* Enum.swift in Sources */,
 				CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CBB842ED24E3AE600008EB07 /* License.swift in Sources */,
 				CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */,
@@ -743,6 +730,7 @@
 				CB3805D424EB8F4500925D44 /* LinkDetails.swift in Sources */,
 				CBAC7F3A24D27A5E0081597D /* ListVyplatnyedela.swift in Sources */,
 				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,
+				CB1ECFCD2508BD9700523D9E /* Enum.swift in Sources */,
 				CBAC7F4324D284660081597D /* ListInspections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1112,14 +1100,6 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		CB677F2D2504E09900B410ED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				branch = "6.32-spm-beta";
-				kind = branch;
-			};
-		};
 		CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
@@ -1143,21 +1123,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		CB677F2E2504E09900B410ED /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB677F2D2504E09900B410ED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		CB677F302504E09900B410ED /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB677F2D2504E09900B410ED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-		CB677F342504E68E00B410ED /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB677F2D2504E09900B410ED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
 		};
 		CB85CDB8249B34A500AAEF04 /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;

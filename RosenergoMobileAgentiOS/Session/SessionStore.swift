@@ -252,11 +252,3 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
 }
-
-enum LoadingState {
-    case loading, failure, success
-}
-
-enum FileType {
-    case photo, video
-}
