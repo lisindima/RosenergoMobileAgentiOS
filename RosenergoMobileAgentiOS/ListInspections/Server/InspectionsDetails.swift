@@ -107,9 +107,7 @@ struct InspectionsDetails: View {
                         }
                     }
                 }
-                .alert(item: $alertItem) { error in
-                    alert(title: error.title, message: error.message, action: error.action)
-                }
+                .customAlert($alertItem)
         #endif
     }
 

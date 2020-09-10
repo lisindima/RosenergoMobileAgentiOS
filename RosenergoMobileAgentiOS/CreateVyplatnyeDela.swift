@@ -89,9 +89,7 @@ struct CreateVyplatnyeDela: View {
         .padding(.horizontal)
         .padding(.bottom, 8)
         .navigationTitle("Выплатное дело")
-        .alert(item: $alertItem) { error in
-            alert(title: error.title, message: error.message, action: error.action)
-        }
+        .customAlert($alertItem)
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView(showRecordVideo: $showRecordVideo)
                 .ignoresSafeArea(edges: .vertical)

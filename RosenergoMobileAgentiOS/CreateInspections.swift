@@ -274,9 +274,7 @@ struct CreateInspections: View {
                 .pickerStyle(InlinePickerStyle())
             }
         }
-        .alert(item: $alertItem) { error in
-            alert(title: error.title, message: error.message, action: error.action)
-        }
+        .customAlert($alertItem)
         .fullScreenCover(isPresented: $showCustomCameraView) {
             CustomCameraView(showRecordVideo: $showRecordVideo)
                 .ignoresSafeArea(edges: .vertical)

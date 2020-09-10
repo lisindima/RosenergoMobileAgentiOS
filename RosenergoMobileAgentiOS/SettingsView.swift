@@ -162,9 +162,7 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Настройки")
-        .alert(item: $alertItem) { error in
-            alert(title: error.title, message: error.message, action: error.action)
-        }
+        .customAlert($alertItem)
         .sheet(isPresented: $showMailFeedback) {
             #if !os(watchOS)
                 MailFeedback(alertItem: $alertItem)
