@@ -38,29 +38,21 @@ struct CreateInspections: View {
 
     private func openCamera() {
         if locationStore.latitude == 0 {
-            alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.")
             playHaptic(.error)
         } else {
             showCustomCameraView = true
         }
     }
 
-    private func alert(title: String, message: String, action: Bool) -> Alert {
-        Alert(
-            title: Text(title),
-            message: Text(message),
-            dismissButton: action ? .default(Text("Закрыть"), action: { presentationMode.wrappedValue.dismiss() }) : .cancel()
-        )
-    }
-
     private func validateInput(upload: Bool) {
         switch choiceCar {
         case 0:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)
             } else if sessionStore.photosURL.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
                 playHaptic(.error)
             } else {
                 if upload {
@@ -71,10 +63,10 @@ struct CreateInspections: View {
             }
         case 1:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)
             } else if sessionStore.photosURL.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
                 playHaptic(.error)
             } else {
                 if upload {
@@ -126,11 +118,11 @@ struct CreateInspections: View {
         )) { response in
             switch response {
             case .success:
-                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.") { presentationMode.wrappedValue.dismiss() }
                 playHaptic(.success)
                 uploadState = false
             case let .failure(error):
-                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
                 playHaptic(.error)
                 uploadState = false
                 print(error)
@@ -176,13 +168,13 @@ struct CreateInspections: View {
 
         do {
             try moc.save()
-            alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
+            alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.") { presentationMode.wrappedValue.dismiss() }
             playHaptic(.success)
             notificationStore.setNotification(id: id.uuidString)
         } catch {
             let nsError = error as NSError
             print("Unresolved error \(nsError), \(nsError.userInfo)")
-            alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)", action: false)
+            alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)")
             playHaptic(.error)
         }
     }

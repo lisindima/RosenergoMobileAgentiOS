@@ -13,7 +13,7 @@ struct VyplatnyedelaDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
 
     #if !os(watchOS)
-        @State private var showAlert: Bool = false
+        @State private var alertItem: AlertItem? = nil
     #endif
 
     var vyplatnyedela: Vyplatnyedela
@@ -72,8 +72,8 @@ struct VyplatnyedelaDetails: View {
                     ToolbarItem(placement: .primaryAction) {
                         Menu {
                             Button(action: {
-                                UIPasteboard.general.string = "rosenergo://share?delo=\(vyplatnyedela.id)"
-                                showAlert = true
+                                UIPasteboard.general.url = URL(string: "rosenergo://share?delo=\(vyplatnyedela.id)")
+                                alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
                             }) {
                                 Label("Скопировать", systemImage: "link")
                             }
@@ -88,8 +88,8 @@ struct VyplatnyedelaDetails: View {
                         }
                     }
                 }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на выплатное дело успешно скопирована в буфер обмена."), dismissButton: .cancel())
+                .alert(item: $alertItem) { error in
+                    alert(title: error.title, message: error.message, action: error.action)
                 }
         #endif
     }

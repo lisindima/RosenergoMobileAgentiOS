@@ -213,6 +213,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 .validate()
                 .downloadProgress { [self] progress in
                     downloadProgress = progress.fractionCompleted
+                    print(downloadProgress)
                 }
                 .response { response in
                     switch response.result {

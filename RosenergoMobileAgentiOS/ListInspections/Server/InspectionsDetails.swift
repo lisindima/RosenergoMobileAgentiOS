@@ -16,7 +16,7 @@ struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
 
     #if !os(watchOS)
-        @State private var showAlert: Bool = false
+        @State private var alertItem: AlertItem? = nil
     #endif
 
     var inspection: Inspections
@@ -86,8 +86,8 @@ struct InspectionsDetails: View {
                     ToolbarItem(placement: .primaryAction) {
                         Menu {
                             Button(action: {
-                                UIPasteboard.general.string = "rosenergo://share?inspection=\(inspection.id)"
-                                showAlert = true
+                                UIPasteboard.general.url = URL(string: "rosenergo://share?inspection=\(inspection.id)")
+                                alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
                             }) {
                                 Label("Скопировать", systemImage: "link")
                             }
@@ -107,8 +107,8 @@ struct InspectionsDetails: View {
                         }
                     }
                 }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Ссылка скопирована"), message: Text("Ссылка на осмотр успешно скопирована в буфер обмена."), dismissButton: .cancel())
+                .alert(item: $alertItem) { error in
+                    alert(title: error.title, message: error.message, action: error.action)
                 }
         #endif
     }

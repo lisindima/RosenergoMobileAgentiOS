@@ -16,14 +16,6 @@ struct SignIn: View {
     @State private var loading: Bool = false
     @State private var alertItem: AlertItem?
 
-    private func alert(title: String, message: String) -> Alert {
-        Alert(
-            title: Text(title),
-            message: Text(message),
-            dismissButton: .cancel()
-        )
-    }
-
     private func signIn(email: String, password: String) {
         loading = true
         sessionStore.login(email: email, password: password) { [self] result in
@@ -34,7 +26,7 @@ struct SignIn: View {
                 playHaptic(.success)
                 loading = false
             case let .failure(error):
-                alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.")
                 playHaptic(.error)
                 loading = false
                 print(error)
@@ -64,7 +56,7 @@ struct SignIn: View {
         }
         .navigationTitle("Мобильный агент")
         .alert(item: $alertItem) { error in
-            alert(title: error.title, message: error.message)
+            alert(title: error.title, message: error.message, action: error.action)
         }
     }
 
@@ -101,7 +93,7 @@ struct SignIn: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                     Button(action: {
-                        alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.", action: false)
+                        alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.")
                     }) {
                         Text("Регистрация")
                             .font(.footnote)
@@ -112,7 +104,7 @@ struct SignIn: View {
             }
             .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
             .alert(item: $alertItem) { error in
-                alert(title: error.title, message: error.message)
+                alert(title: error.title, message: error.message, action: error.action)
             }
         }
     #endif

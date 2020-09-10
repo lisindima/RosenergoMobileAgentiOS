@@ -26,14 +26,6 @@ struct LocalInspectionsDetails: View {
 
     var localInspections: LocalInspections
 
-    private func alert(title: String, message: String, action: Bool) -> Alert {
-        Alert(
-            title: Text(title),
-            message: Text(message),
-            dismissButton: action ? .default(Text("Закрыть"), action: delete) : .cancel()
-        )
-    }
-
     private func delete() {
         #if !os(watchOS)
             notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
@@ -84,11 +76,11 @@ struct LocalInspectionsDetails: View {
         )) { response in
             switch response {
             case .success:
-                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: delete)
                 playHaptic(.success)
                 uploadState = false
             case let .failure(error):
-                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
                 playHaptic(.error)
                 uploadState = false
                 print(error)

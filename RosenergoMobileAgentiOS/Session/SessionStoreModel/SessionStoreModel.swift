@@ -116,5 +116,5 @@ struct AlertItem: Identifiable {
     var id: String { message }
     var title: String
     var message: String
-    var action: Bool
+    var action: (() -> Void)? = {}
 }

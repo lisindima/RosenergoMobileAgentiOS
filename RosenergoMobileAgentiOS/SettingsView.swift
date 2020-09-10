@@ -25,14 +25,6 @@ struct SettingsView: View {
     @State private var showMailFeedback: Bool = false
     @State private var loading: Bool = false
 
-    private func alert(title: String, message: String) -> Alert {
-        Alert(
-            title: Text(title),
-            message: Text(message),
-            dismissButton: .cancel()
-        )
-    }
-
     private var appVersionView: some View {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
             let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -145,7 +137,7 @@ struct SettingsView: View {
                         if MFMailComposeViewController.canSendMail() {
                             showMailFeedback = true
                         } else {
-                            alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.", action: false)
+                            alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
                         }
                     }
                 #endif
@@ -171,7 +163,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Настройки")
         .alert(item: $alertItem) { error in
-            alert(title: error.title, message: error.message)
+            alert(title: error.title, message: error.message, action: error.action)
         }
         .sheet(isPresented: $showMailFeedback) {
             #if !os(watchOS)

@@ -1,5 +1,5 @@
 //
-//  HapticFeedback.swift
+//  View.swift
 //  RosenergoMobileAgentiOS
 //
 //  Created by Дмитрий Лисин on 10.09.2020.
@@ -41,4 +41,12 @@ extension View {
         generator.notificationOccurred(type)
     }
     #endif
+    
+    func alert(title: String, message: String, action: (() -> Void)? = {}) -> Alert {
+        Alert(
+            title: Text(title),
+            message: Text(message),
+            dismissButton: .default(Text("Закрыть"), action: action)
+        )
+    }
 }
