@@ -113,6 +113,8 @@
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CBED06C82509C77600216056 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* View.swift */; };
 		CBED06C92509C77600216056 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* View.swift */; };
+		CBED06CB250A24C300216056 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
+		CBED06CC250A24C300216056 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +239,7 @@
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		CBED06C72509C77600216056 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		CBED06CA250A24C300216056 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +354,7 @@
 				CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */,
 				CB1ECFCB2508BD9700523D9E /* Enum.swift */,
 				CBED06C72509C77600216056 /* View.swift */,
+				CBED06CA250A24C300216056 /* CustomAlert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -678,6 +682,7 @@
 				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
 				CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */,
 				CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */,
+				CBED06CB250A24C300216056 /* CustomAlert.swift in Sources */,
 				CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CBED06C82509C77600216056 /* View.swift in Sources */,
 				CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */,
@@ -738,6 +743,7 @@
 				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,
 				CB1ECFCD2508BD9700523D9E /* Enum.swift in Sources */,
 				CBAC7F4324D284660081597D /* ListInspections.swift in Sources */,
+				CBED06CC250A24C300216056 /* CustomAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

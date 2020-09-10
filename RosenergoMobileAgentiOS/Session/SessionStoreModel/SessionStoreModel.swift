@@ -109,12 +109,3 @@ struct LicenseModel: Identifiable, Codable {
     let urlFramework: URL
     let nameFramework, textLicenseFramework: String
 }
-
-// MARK: Модель для отображения уведомлений.
-
-struct AlertItem: Identifiable {
-    var id: String { message }
-    var title: String
-    var message: String
-    var action: (() -> Void)? = {}
-}
