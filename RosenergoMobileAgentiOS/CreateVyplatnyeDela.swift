@@ -6,7 +6,6 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import CoreLocation
 import SwiftUI
 
 struct CreateVyplatnyeDela: View {
@@ -24,7 +23,7 @@ struct CreateVyplatnyeDela: View {
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
-            sessionStore.playHaptic(.error)
+            playHaptic(.error)
         } else {
             showCustomCameraView = true
         }
@@ -58,9 +57,11 @@ struct CreateVyplatnyeDela: View {
             switch response {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.", action: true)
+                playHaptic(.success)
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)", action: false)
+                playHaptic(.error)
                 uploadState = false
                 print(error)
             }
@@ -85,10 +86,10 @@ struct CreateVyplatnyeDela: View {
         CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
-                sessionStore.playHaptic(.error)
+                playHaptic(.error)
             } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
-                sessionStore.playHaptic(.error)
+                playHaptic(.error)
             } else {
                 uploadVyplatnyeDela()
             }

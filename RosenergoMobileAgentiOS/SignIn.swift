@@ -31,11 +31,11 @@ struct SignIn: View {
             case let .success(response):
                 sessionStore.loginModel = response
                 sessionStore.loginParameters = LoginParameters(email: email, password: password)
-                sessionStore.playHaptic(.success)
+                playHaptic(.success)
                 loading = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.", action: false)
-                sessionStore.playHaptic(.error)
+                playHaptic(.error)
                 loading = false
                 print(error)
             }

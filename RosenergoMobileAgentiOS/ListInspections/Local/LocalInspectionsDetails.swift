@@ -85,9 +85,11 @@ struct LocalInspectionsDetails: View {
             switch response {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: true)
+                playHaptic(.success)
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)", action: false)
+                playHaptic(.error)
                 uploadState = false
                 print(error)
             }
