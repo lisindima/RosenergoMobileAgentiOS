@@ -51,6 +51,39 @@ class SessionStore: ObservableObject, RequestInterceptor {
         let createStringDate = dateFormatter.string(from: currentDate)
         return createStringDate
     }
+    
+    func playHaptic(_ type: HapticType) {
+        switch type {
+        case .error:
+            #if os(watchOS)
+            playNotificationWatchHaptic(.retry)
+            #else
+            playNotificationHaptic(.error)
+            #endif
+        case .success:
+            #if os(watchOS)
+            playNotificationWatchHaptic(.success)
+            #else
+            playNotificationHaptic(.success)
+            #endif
+        case .warning:
+            #if os(watchOS)
+            playNotificationWatchHaptic(.failure)
+            #else
+            playNotificationHaptic(.warning)
+            #endif
+        }
+    }
+    #if os(watchOS)
+    func playNotificationWatchHaptic(_ type: WKHapticType) {
+        WKInterfaceDevice.current().play(type)
+    }
+    #else
+    func playNotificationHaptic(_ type: UINotificationFeedbackGenerator.FeedbackType) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(type)
+    }
+    #endif
 
     private func clearData() {
         loginModel = nil
@@ -133,11 +166,13 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
             }
-            .response { response in
+            .response { [self] response in
                 switch response.result {
                 case .success:
+                    playHaptic(.success)
                     completion(.success(true))
                 case let .failure(error):
+                    playHaptic(.error)
                     completion(.failure(error))
                     debugPrint(error)
                 }

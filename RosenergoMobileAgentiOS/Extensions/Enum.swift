@@ -15,3 +15,7 @@ enum LoadingState {
 enum FileType {
     case photo, video
 }
+
+enum HapticType {
+    case error, success, warning
+}

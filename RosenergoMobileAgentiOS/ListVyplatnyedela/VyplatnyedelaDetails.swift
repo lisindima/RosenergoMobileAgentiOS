@@ -22,8 +22,7 @@ struct VyplatnyedelaDetails: View {
         private func showShareSheet(activityItems: [Any]) {
             DispatchQueue.main.async {
                 let shareSheet = UIHostingController(
-                    rootView:
-                    ShareSheet(activityItems: activityItems)
+                    rootView: ShareSheet(activityItems: activityItems)
                         .ignoresSafeArea(edges: .bottom)
                 )
                 UIApplication.shared.windows.first?.rootViewController?.present(

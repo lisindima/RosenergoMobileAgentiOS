@@ -175,7 +175,7 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showMailFeedback) {
             #if !os(watchOS)
-                MailFeedback(alertError: $alertItem)
+                MailFeedback(alertItem: $alertItem)
                     .ignoresSafeArea(edges: .bottom)
                     .accentColor(.rosenergo)
             #endif

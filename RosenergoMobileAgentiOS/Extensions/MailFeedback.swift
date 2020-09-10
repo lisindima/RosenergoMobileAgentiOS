@@ -10,7 +10,9 @@ import MessageUI
 import SwiftUI
 
 struct MailFeedback: UIViewControllerRepresentable {
-    @Binding var alertError: AlertItem?
+    @EnvironmentObject private var sessionStore: SessionStore
+    
+    @Binding var alertItem: AlertItem?
 
     let deviceInfo = UIDevice.current
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
@@ -42,11 +44,14 @@ struct MailFeedback: UIViewControllerRepresentable {
             controller.dismiss(animated: true, completion: nil)
             switch result {
             case .sent:
-                parent.alertError = AlertItem(title: "Сообщение отправлено", message: "Я отвечу на него в ближайшее время.", action: false)
+                parent.sessionStore.playHaptic(.success)
+                parent.alertItem = AlertItem(title: "Сообщение отправлено", message: "Я отвечу на него в ближайшее время.", action: false)
             case .saved:
-                parent.alertError = AlertItem(title: "Сообщение сохранено", message: "Сообщение ждет вас в черновиках.", action: false)
+                parent.sessionStore.playHaptic(.warning)
+                parent.alertItem = AlertItem(title: "Сообщение сохранено", message: "Сообщение ждет вас в черновиках.", action: false)
             case .failed:
-                parent.alertError = AlertItem(title: "Ошибка", message: "Повторите попытку позже.\n\(error?.localizedDescription ?? "")", action: false)
+                parent.sessionStore.playHaptic(.error)
+                parent.alertItem = AlertItem(title: "Ошибка", message: "Повторите попытку позже.\n\(error?.localizedDescription ?? "")", action: false)
             case .cancelled:
                 print("Отменено пользователем")
             @unknown default:

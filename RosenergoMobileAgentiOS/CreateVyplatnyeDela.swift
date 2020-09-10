@@ -24,6 +24,7 @@ struct CreateVyplatnyeDela: View {
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            sessionStore.playHaptic(.error)
         } else {
             showCustomCameraView = true
         }
@@ -84,8 +85,10 @@ struct CreateVyplatnyeDela: View {
         CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                sessionStore.playHaptic(.error)
             } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                sessionStore.playHaptic(.error)
             } else {
                 uploadVyplatnyeDela()
             }

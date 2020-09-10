@@ -40,6 +40,7 @@ struct CreateInspections: View {
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.", action: false)
+            sessionStore.playHaptic(.error)
         } else {
             showCustomCameraView = true
         }
@@ -58,8 +59,10 @@ struct CreateInspections: View {
         case 0:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                sessionStore.playHaptic(.error)
             } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                sessionStore.playHaptic(.error)
             } else {
                 if upload {
                     uploadInspections()
@@ -70,8 +73,10 @@ struct CreateInspections: View {
         case 1:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.", action: false)
+                sessionStore.playHaptic(.error)
             } else if sessionStore.photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.", action: false)
+                sessionStore.playHaptic(.error)
             } else {
                 if upload {
                     uploadInspections()
@@ -171,11 +176,13 @@ struct CreateInspections: View {
         do {
             try moc.save()
             alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.", action: true)
+            sessionStore.playHaptic(.success)
             notificationStore.setNotification(id: id.uuidString)
         } catch {
             let nsError = error as NSError
             print("Unresolved error \(nsError), \(nsError.userInfo)")
             alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)", action: false)
+            sessionStore.playHaptic(.error)
         }
     }
 
