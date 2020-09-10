@@ -32,19 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        switch shortcutItem.type {
-        case "CreateVyplatnyeDela":
-            self.sessionStore.openCreateVyplatnyeDela = true
-            break
-        case "ListInspections":
-            self.sessionStore.openListInspections = true
-            break
-        case "CreateInspections":
-            self.sessionStore.openCreateInspections = true
-            break
-        default:
-            break
-        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -65,15 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        var shortcutItems = UIApplication.shared.shortcutItems ?? []
-        if shortcutItems.isEmpty {
-            shortcutItems += [
-                UIApplicationShortcutItem(type: "CreateVyplatnyeDela", localizedTitle: "Выплатные дела", localizedSubtitle: "Создайте выплатное дело", icon: UIApplicationShortcutIcon.init(systemImageName: "tray")),
-                UIApplicationShortcutItem(type: "ListInspections", localizedTitle: "Осмотры", localizedSubtitle: "Архив осмотров", icon: UIApplicationShortcutIcon.init(systemImageName: "list.bullet.below.rectangle")),
-                UIApplicationShortcutItem(type: "CreateInspections", localizedTitle: "Новый осмотр", localizedSubtitle: "Создайте осмотр", icon: UIApplicationShortcutIcon.init(systemImageName: "car"))
-            ]
-        }
-        UIApplication.shared.shortcutItems = shortcutItems
+        
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
