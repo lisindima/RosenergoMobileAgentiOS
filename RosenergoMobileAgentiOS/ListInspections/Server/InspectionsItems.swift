@@ -47,7 +47,6 @@ struct InspectionsItems: View {
             }
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")
-                    .font(.title3)
                     .fontWeight(.bold)
                 HStack {
                     VStack(alignment: .leading) {
@@ -72,6 +71,9 @@ struct InspectionsItems: View {
                 .lineLimit(1)
             }
             Spacer()
+            Text(inspection.createdAt.calenderTimeSinceNow())
+                .font(.footnote)
+                .foregroundColor(.secondary)
         }.padding(.vertical, 6)
     }
 }

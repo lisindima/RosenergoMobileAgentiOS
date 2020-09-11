@@ -47,7 +47,6 @@ struct VyplatnyedelaItems: View {
             }
             VStack(alignment: .leading) {
                 Text("\(vyplatnyedela.id)")
-                    .font(.title3)
                     .fontWeight(.bold)
                 Group {
                     Text(vyplatnyedela.insuranceContractNumber)
@@ -58,6 +57,9 @@ struct VyplatnyedelaItems: View {
                 .lineLimit(1)
             }
             Spacer()
+            Text(vyplatnyedela.createdAt.calenderTimeSinceNow())
+                .font(.footnote)
+                .foregroundColor(.secondary)
         }.padding(.vertical, 6)
     }
 }

@@ -31,7 +31,7 @@ struct Changelog: View {
                         Section(header:
                             HStack(alignment: .bottom) {
                                 Text(changelog.version)
-                                    .font(.title3)
+                                    .font(.body)
                                     .fontWeight(.bold)
                                     .foregroundColor(.primary)
                                 Spacer()

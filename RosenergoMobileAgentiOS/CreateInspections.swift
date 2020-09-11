@@ -141,7 +141,7 @@ struct CreateInspections: View {
         localInspections.carRegNumber = carRegNumber
         localInspections.carVin = carVin
         localInspections.insuranceContractNumber = choiseSeries.rawValue + insuranceContractNumber
-        localInspections.dateInspections = sessionStore.stringDate()
+        localInspections.dateInspections = Date()
         localInspections.videoURL = sessionStore.videoURL
 
         if choiceCar == 1 {

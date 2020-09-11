@@ -147,6 +147,12 @@ class SessionStore: ObservableObject, RequestInterceptor {
     func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 7)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore.shared)
             .validate()

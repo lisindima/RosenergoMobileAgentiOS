@@ -23,7 +23,7 @@ extension LocalInspections {
     @NSManaged public var carRegNumber2: String?
     @NSManaged public var carVin: String?
     @NSManaged public var carVin2: String?
-    @NSManaged public var dateInspections: String?
+    @NSManaged public var dateInspections: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var insuranceContractNumber: String?
     @NSManaged public var insuranceContractNumber2: String?

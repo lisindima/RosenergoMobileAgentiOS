@@ -46,9 +46,9 @@ struct LocalInspectionsDetails: View {
 
         for photo in localInspections.localPhotos! {
             let encodedPhoto = photo.photosData!.base64EncodedString()
-            photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, makedPhotoAt: localInspections.dateInspections!))
+            photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, makedPhotoAt: "\(localInspections.dateInspections!)"))
         }
-
+        #warning("Исправить прикол с несовпадением типа даты и строки в фотографии!")
         if localInspections.videoURL != nil {
             do {
                 let videoData = try Data(contentsOf: localInspections.videoURL!)
@@ -151,7 +151,7 @@ struct LocalInspectionsDetails: View {
                     SectionItem(
                         imageName: "timer",
                         imageColor: .rosenergo,
-                        title: localInspections.dateInspections!.dataInspection(local: true)
+                        title: localInspections.dateInspections?.convertDate()
                     )
                 }
             }

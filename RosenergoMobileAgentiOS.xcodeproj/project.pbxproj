@@ -56,8 +56,8 @@
 		CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
 		CB758D7124AEEB67000A6B3C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7024AEEB67000A6B3C /* UIImage.swift */; };
 		CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7024AEEB67000A6B3C /* UIImage.swift */; };
-		CB758D8B24B17C93000A6B3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* String.swift */; };
-		CB758D8C24B17C93000A6B3C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* String.swift */; };
+		CB758D8B24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
+		CB758D8C24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
 		CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
 		CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
@@ -207,7 +207,7 @@
 		CB758D7024AEEB67000A6B3C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		CB758D7824AEFA45000A6B3C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		CB758D8A24B17C93000A6B3C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		CB758D8A24B17C93000A6B3C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		CB7CEFA824AAC1F9009DF93A /* RosenergoMobileAgentwatchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RosenergoMobileAgentwatchOS Extension.entitlements"; sourceTree = "<group>"; };
 		CB7CEFA924AAC202009DF93A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CB9AD06E24DD96BC00D220D8 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB9D62D124A455B1000C1C3A /* SectionItem.swift */,
 				CB758D7024AEEB67000A6B3C /* UIImage.swift */,
-				CB758D8A24B17C93000A6B3C /* String.swift */,
+				CB758D8A24B17C93000A6B3C /* Date.swift */,
 				CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */,
 				CB9AD06E24DD96BC00D220D8 /* Map.swift */,
 				CBA6118D2500998D009CD8BD /* ShareSheet.swift */,
@@ -669,7 +669,7 @@
 				CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */,
 				CBB2E09C2478F73B0017AB00 /* LocalInspectionsDetails.swift in Sources */,
 				CB9AD06F24DD96BC00D220D8 /* Map.swift in Sources */,
-				CB758D8B24B17C93000A6B3C /* String.swift in Sources */,
+				CB758D8B24B17C93000A6B3C /* Date.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
@@ -741,7 +741,7 @@
 				CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
 				CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */,
-				CB758D8C24B17C93000A6B3C /* String.swift in Sources */,
+				CB758D8C24B17C93000A6B3C /* Date.swift in Sources */,
 				CB3805D424EB8F4500925D44 /* LinkDetails.swift in Sources */,
 				CBAC7F3A24D27A5E0081597D /* ListVyplatnyedela.swift in Sources */,
 				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,

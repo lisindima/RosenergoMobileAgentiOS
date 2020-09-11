@@ -57,7 +57,7 @@ struct Inspections: Codable, Identifiable {
     let insuranceContractNumber: String
     let carModel2, carRegNumber2, carVin2, carBodyNumber2: String?
     let insuranceContractNumber2: String?
-    let createdAt: String
+    let createdAt: Date
     let latitude, longitude: Double
     let photos: [Photo]
     let video: URL?
@@ -78,7 +78,7 @@ struct Vyplatnyedela: Codable, Identifiable {
     let id, agentId: Int
     let insuranceContractNumber, numberZayavlenia: String
     let latitude, longitude: Double
-    let createdAt, updatedAt: String
+    let createdAt: Date
     let photos: [Photo]
 }
 

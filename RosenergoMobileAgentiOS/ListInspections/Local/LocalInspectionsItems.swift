@@ -29,7 +29,6 @@ struct LocalInspectionsItems: View {
             }
             VStack(alignment: .leading) {
                 Text("Не отправлено")
-                    .font(.title3)
                     .foregroundColor(.red)
                     .fontWeight(.bold)
                 HStack {

@@ -134,7 +134,7 @@ struct VyplatnyedelaDetails: View {
                 SectionItem(
                     imageName: "timer",
                     imageColor: .rosenergo,
-                    title: vyplatnyedela.createdAt.dataInspection(local: false)
+                    title: vyplatnyedela.createdAt.convertDate()
                 )
             }
             Section(header: Text("Информация").fontWeight(.bold)) {

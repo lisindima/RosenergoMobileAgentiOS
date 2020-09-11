@@ -9,7 +9,7 @@
         <attribute name="carRegNumber2" optional="YES" attributeType="String"/>
         <attribute name="carVin" attributeType="String" defaultValueString=""/>
         <attribute name="carVin2" optional="YES" attributeType="String"/>
-        <attribute name="dateInspections" optional="YES" attributeType="String"/>
+        <attribute name="dateInspections" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="insuranceContractNumber" attributeType="String" defaultValueString=""/>
         <attribute name="insuranceContractNumber2" optional="YES" attributeType="String"/>
