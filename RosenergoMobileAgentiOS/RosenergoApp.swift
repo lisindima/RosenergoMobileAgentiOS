@@ -33,6 +33,14 @@ struct RosenergoApp: App {
                         showfullScreenCover = true
                     }
                 }
+                .onContinueUserActivity("com.rosenergomobileagent.inspectionsdetails") { userActivity in
+                    if let url = userActivity.userInfo?["url"] as? URL {
+                        inspectionID = url["inspection"]
+                        if !inspectionID.isEmpty {
+                            showfullScreenCover = true
+                        }
+                    }
+                }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     LinkDetails(inspectionID: $inspectionID)
                         .environmentObject(sessionStore)
