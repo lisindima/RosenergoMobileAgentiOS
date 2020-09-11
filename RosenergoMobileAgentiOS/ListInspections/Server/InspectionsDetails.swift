@@ -17,6 +17,8 @@ struct InspectionsDetails: View {
 
     #if !os(watchOS)
         @State private var alertItem: AlertItem? = nil
+        @State private var fileType: FileType = .photo
+        @State private var download: Bool = false
     #endif
 
     var inspection: Inspections
@@ -36,25 +38,33 @@ struct InspectionsDetails: View {
 
         private func downloadPhoto() {
             var photoURL: [URL] = []
+            fileType = .photo
+            download = true
             sessionStore.download(inspection.photos, fileType: .photo) { [self] result in
                 switch result {
                 case let .success(response):
                     photoURL.append(response)
                     if photoURL.count == inspection.photos.count {
                         showShareSheet(activityItems: photoURL)
+                        download = false
                     }
                 case let .failure(error):
+                    download = false
                     print(error)
                 }
             }
         }
 
         private func downloadVideo() {
+            fileType = .video
+            download = true
             sessionStore.download([inspection.video!], fileType: .video) { [self] result in
                 switch result {
                 case let .success(response):
+                    download = false
                     showShareSheet(activityItems: [response])
                 case let .failure(error):
+                    download = false
                     print(error)
                 }
             }
@@ -83,6 +93,11 @@ struct InspectionsDetails: View {
         #else
             formInspections
                 .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        if download {
+                            DownloadIndicator(fileType: $fileType)
+                        }
+                    }
                     ToolbarItem(placement: .primaryAction) {
                         Menu {
                             Button(action: {

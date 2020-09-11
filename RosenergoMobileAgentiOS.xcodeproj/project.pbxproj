@@ -115,6 +115,7 @@
 		CBED06C92509C77600216056 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* View.swift */; };
 		CBED06CB250A24C300216056 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
 		CBED06CC250A24C300216056 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
+		CBED06CE250B1F2E00216056 /* DownloadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +241,7 @@
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		CBED06C72509C77600216056 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		CBED06CA250A24C300216056 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
+		CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +357,7 @@
 				CB1ECFCB2508BD9700523D9E /* Enum.swift */,
 				CBED06C72509C77600216056 /* View.swift */,
 				CBED06CA250A24C300216056 /* CustomAlert.swift */,
+				CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				CBD9354824DA77F600E0F902 /* SeriesPicker.swift in Sources */,
 				CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
+				CBED06CE250B1F2E00216056 /* DownloadIndicator.swift in Sources */,
 				CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */,
 				CB758D7124AEEB67000A6B3C /* UIImage.swift in Sources */,
