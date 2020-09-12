@@ -14,8 +14,8 @@ extension LocalPhotos {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<LocalPhotos> {
         NSFetchRequest<LocalPhotos>(entityName: "LocalPhotos")
     }
-
+    
     @NSManaged public var id: Int16
-    @NSManaged public var photosData: Data?
-    @NSManaged public var localInspections: LocalInspections?
+    @NSManaged public var photosData: Data
+    @NSManaged public var localInspections: LocalInspections
 }

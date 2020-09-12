@@ -12,14 +12,14 @@ struct CreateVyplatnyeDela: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
     @Environment(\.presentationMode) private var presentationMode
-
+    
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
-    @State private var alertItem: AlertItem?
-
+    @State private var alertItem: AlertItem? = nil
+    
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.")
@@ -28,17 +28,17 @@ struct CreateVyplatnyeDela: View {
             showCustomCameraView = true
         }
     }
-
+    
     private func uploadVyplatnyeDela() {
         uploadState = true
         var photos: [PhotoParameters] = []
-
+        
         for photo in sessionStore.photosURL {
             let photoData = try! Data(contentsOf: photo)
             let file = photoData.base64EncodedString()
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: sessionStore.stringDate()))
         }
-
+        
         sessionStore.upload("vyplatnyedela", parameters: VyplatnyeDelaParameters(
             insuranceContractNumber: insuranceContractNumber,
             numberZayavlenia: numberZayavlenia,
@@ -59,7 +59,7 @@ struct CreateVyplatnyeDela: View {
             }
         }
     }
-
+    
     var body: some View {
         ScrollView {
             GeoIndicator()

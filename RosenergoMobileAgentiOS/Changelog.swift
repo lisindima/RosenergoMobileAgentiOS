@@ -6,16 +6,15 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import Combine
 import SwiftUI
 
 struct Changelog: View {
     @EnvironmentObject private var sessionStore: SessionStore
-
+    
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }
-
+    
     var body: some View {
         VStack {
             if sessionStore.сhangelogModel.isEmpty, !sessionStore.changelogLoadingFailure {
@@ -29,15 +28,15 @@ struct Changelog: View {
                 Form {
                     ForEach(sessionStore.сhangelogModel.sorted { $0.version > $1.version }, id: \.id) { changelog in
                         Section(header:
-                            HStack(alignment: .bottom) {
-                                Text(changelog.version)
-                                    .font(.body)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Text(appVersion == changelog.version ? "Текущая версия" : changelog.dateBuild)
-                                    .fontWeight(.bold)
-                            }
+                                    HStack(alignment: .bottom) {
+                                        Text(changelog.version)
+                                            .font(.body)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+                                        Spacer()
+                                        Text(appVersion == changelog.version ? "Текущая версия" : changelog.dateBuild)
+                                            .fontWeight(.bold)
+                                    }
                         ) {
                             VStack(alignment: .leading) {
                                 if !changelog.whatsNew.isEmpty {

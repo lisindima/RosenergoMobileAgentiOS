@@ -9,126 +9,126 @@
 import SwiftUI
 import URLImage
 #if !os(watchOS)
-    import AVKit
+import AVKit
 #endif
 
 struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
-
+    
     #if !os(watchOS)
-        @State private var alertItem: AlertItem? = nil
-        @State private var fileType: FileType = .photo
-        @State private var download: Bool = false
+    @State private var alertItem: AlertItem? = nil
+    @State private var fileType: FileType = .photo
+    @State private var download: Bool = false
     #endif
-
+    
     var inspection: Inspections
-
+    
     #if !os(watchOS)
-        private func showShareSheet(activityItems: [Any]) {
-            DispatchQueue.main.async {
-                let shareSheet = UIHostingController(
-                    rootView: ShareSheet(activityItems: activityItems)
-                        .ignoresSafeArea(edges: .bottom)
-                )
-                UIApplication.shared.windows.first?.rootViewController?.present(
-                    shareSheet, animated: true, completion: nil
-                )
-            }
+    private func showShareSheet(activityItems: [Any]) {
+        DispatchQueue.main.async {
+            let shareSheet = UIHostingController(
+                rootView: ShareSheet(activityItems: activityItems)
+                    .ignoresSafeArea(edges: .bottom)
+            )
+            UIApplication.shared.windows.first?.rootViewController?.present(
+                shareSheet, animated: true, completion: nil
+            )
         }
-
-        private func downloadPhoto() {
-            var photoURL: [URL] = []
-            fileType = .photo
-            download = true
-            sessionStore.download(inspection.photos, fileType: .photo) { [self] result in
-                switch result {
-                case let .success(response):
-                    photoURL.append(response)
-                    if photoURL.count == inspection.photos.count {
-                        showShareSheet(activityItems: photoURL)
-                        download = false
-                    }
-                case let .failure(error):
+    }
+    
+    private func downloadPhoto() {
+        var photoURL: [URL] = []
+        fileType = .photo
+        download = true
+        sessionStore.download(inspection.photos, fileType: .photo) { [self] result in
+            switch result {
+            case let .success(response):
+                photoURL.append(response)
+                if photoURL.count == inspection.photos.count {
+                    showShareSheet(activityItems: photoURL)
                     download = false
-                    print(error)
                 }
+            case let .failure(error):
+                download = false
+                print(error)
             }
         }
-
-        private func downloadVideo() {
-            fileType = .video
-            download = true
-            sessionStore.download([inspection.video!], fileType: .video) { [self] result in
-                switch result {
-                case let .success(response):
-                    download = false
-                    showShareSheet(activityItems: [response])
-                case let .failure(error):
-                    download = false
-                    print(error)
-                }
+    }
+    
+    private func downloadVideo() {
+        fileType = .video
+        download = true
+        sessionStore.download([inspection.video!], fileType: .video) { [self] result in
+            switch result {
+            case let .success(response):
+                download = false
+                showShareSheet(activityItems: [response])
+            case let .failure(error):
+                download = false
+                print(error)
             }
         }
+    }
     #endif
-
+    
     var scale: CGFloat {
         #if os(watchOS)
-            return WKInterfaceDevice.current().screenScale
+        return WKInterfaceDevice.current().screenScale
         #else
-            return UIScreen.main.scale
+        return UIScreen.main.scale
         #endif
     }
-
+    
     var size: CGFloat {
         #if os(watchOS)
-            return 75.0
+        return 75.0
         #else
-            return 100.0
+        return 100.0
         #endif
     }
-
+    
     var body: some View {
         #if os(watchOS)
-            formInspections
+        formInspections
         #else
-            formInspections
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        if download {
-                            DownloadIndicator(fileType: $fileType)
-                        }
-                    }
-                    ToolbarItem(placement: .primaryAction) {
-                        Menu {
-                            Button(action: {
-                                UIPasteboard.general.url = URL(string: "rosenergo://share?inspection=\(inspection.id)")
-                                alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
-                            }) {
-                                Label("Скопировать", systemImage: "link")
-                            }
-                            if !inspection.photos.isEmpty {
-                                Button(action: downloadPhoto) {
-                                    Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
-                                }
-                            }
-                            if inspection.video != nil {
-                                Button(action: downloadVideo) {
-                                    Label("Загрузить видео", systemImage: "video")
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis.circle.fill")
-                                .imageScale(.large)
-                        }
+        formInspections
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if download {
+                        DownloadIndicator(fileType: $fileType)
                     }
                 }
-                .customAlert($alertItem)
-                .userActivity("com.rosenergomobileagent.inspectionsdetails", element: inspection.id) { url, activity in
-                    activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?inspection=\(url)")!])
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(action: {
+                            UIPasteboard.general.url = URL(string: "rosenergo://share?inspection=\(inspection.id)")
+                            alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
+                        }) {
+                            Label("Скопировать", systemImage: "link")
+                        }
+                        if !inspection.photos.isEmpty {
+                            Button(action: downloadPhoto) {
+                                Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                            }
+                        }
+                        if inspection.video != nil {
+                            Button(action: downloadVideo) {
+                                Label("Загрузить видео", systemImage: "video")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .imageScale(.large)
+                    }
                 }
+            }
+            .customAlert($alertItem)
+            .userActivity("com.rosenergomobileagent.inspectionsdetails", element: inspection.id) { url, activity in
+                activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?inspection=\(url)")!])
+            }
         #endif
     }
-
+    
     var formInspections: some View {
         Form {
             if !inspection.photos.isEmpty {
@@ -157,14 +157,14 @@ struct InspectionsDetails: View {
                 }
             }
             #if !os(watchOS)
-                if inspection.video != nil {
-                    Section(header: Text("Видео").fontWeight(.bold)) {
-                        VideoPlayer(player: AVPlayer(url: inspection.video!))
-                            .frame(height: 200)
-                            .cornerRadius(8)
-                            .padding(.vertical, 8)
-                    }
+            if inspection.video != nil {
+                Section(header: Text("Видео").fontWeight(.bold)) {
+                    VideoPlayer(player: AVPlayer(url: inspection.video!))
+                        .frame(height: 200)
+                        .cornerRadius(8)
+                        .padding(.vertical, 8)
                 }
+            }
             #endif
             Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
                 SectionItem(

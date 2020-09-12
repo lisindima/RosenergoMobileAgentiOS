@@ -12,12 +12,12 @@ import SwiftUI
 struct CodableUserDefaults<T: Codable> {
     let key: String
     let defaultValue: T
-
+    
     init(key: String, default: T) {
         self.key = key
         defaultValue = `default`
     }
-
+    
     var wrappedValue: T {
         get {
             guard let jsonString = UserDefaults.standard.string(forKey: key) else {

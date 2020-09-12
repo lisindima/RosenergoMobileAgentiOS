@@ -15,7 +15,7 @@ struct CreateInspections: View {
     @EnvironmentObject private var notificationStore: NotificationStore
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) private var moc
-
+    
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = true
     @State private var showCustomCameraView: Bool = false
@@ -34,8 +34,8 @@ struct CreateInspections: View {
     @State private var vinAndNumber2: Bool = false
     @State private var choiseSeries: Series = .XXX
     @State private var choiseSeries2: Series = .XXX
-    @State private var alertItem: AlertItem?
-
+    @State private var alertItem: AlertItem? = nil
+    
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.")
@@ -44,7 +44,7 @@ struct CreateInspections: View {
             showCustomCameraView = true
         }
     }
-
+    
     private func validateInput(upload: Bool) {
         switch choiceCar {
         case 0:
@@ -79,18 +79,18 @@ struct CreateInspections: View {
             print("ОЙ")
         }
     }
-
+    
     private func uploadInspections() {
         uploadState = true
         var photos: [PhotoParameters] = []
         var video: String?
-
+        
         for photo in sessionStore.photosURL {
             let photoData = try! Data(contentsOf: photo)
             let encodedPhoto = photoData.base64EncodedString()
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: encodedPhoto, makedPhotoAt: sessionStore.stringDate()))
         }
-
+        
         if sessionStore.videoURL != nil {
             do {
                 let videoData = try Data(contentsOf: sessionStore.videoURL!)
@@ -99,7 +99,7 @@ struct CreateInspections: View {
                 print(error)
             }
         }
-
+        
         sessionStore.upload("testinspection", parameters: InspectionParameters(
             carModel: carModel,
             carRegNumber: carRegNumber,
@@ -129,7 +129,7 @@ struct CreateInspections: View {
             }
         }
     }
-
+    
     private func saveInspections() {
         let id = UUID()
         let localInspections = LocalInspections(context: moc)
@@ -143,7 +143,7 @@ struct CreateInspections: View {
         localInspections.insuranceContractNumber = choiseSeries.rawValue + insuranceContractNumber
         localInspections.dateInspections = Date()
         localInspections.videoURL = sessionStore.videoURL
-
+        
         if choiceCar == 1 {
             localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
             localInspections.carModel2 = carModel2
@@ -151,10 +151,10 @@ struct CreateInspections: View {
             localInspections.carVin2 = carVin2
             localInspections.insuranceContractNumber2 = choiseSeries2.rawValue + insuranceContractNumber2
         }
-
+        
         var localPhotos: [LocalPhotos] = []
         var setPhotoId: Int16 = 0
-
+        
         for photo in sessionStore.photosURL {
             setPhotoId += 1
             let photos = NSEntityDescription.insertNewObject(forEntityName: "LocalPhotos", into: moc) as! LocalPhotos
@@ -163,9 +163,9 @@ struct CreateInspections: View {
             photos.photosData = photoData
             localPhotos.append(photos)
         }
-
+        
         localInspections.localPhotos = Set(localPhotos)
-
+        
         do {
             try moc.save()
             alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.") { presentationMode.wrappedValue.dismiss() }
@@ -178,14 +178,14 @@ struct CreateInspections: View {
             playHaptic(.error)
         }
     }
-
+    
     var body: some View {
         ScrollView {
             GeoIndicator()
                 .padding(.top, 8)
                 .padding([.horizontal, .bottom])
             GroupBox(label:
-                Label("Страховой полис", systemImage: "doc.plaintext")
+                        Label("Страховой полис", systemImage: "doc.plaintext")
             ) {
                 HStack {
                     SeriesPicker(selectedSeries: $choiseSeries)
@@ -201,9 +201,9 @@ struct CreateInspections: View {
             }
             .padding(.horizontal)
             GroupBox(label:
-                Toggle(isOn: $vinAndNumber, label: {
-                    Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
+                        Toggle(isOn: $vinAndNumber, label: {
+                            Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                        }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
             ) {
                 CustomInput(text: $carVin, name: "VIN")
                 CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
@@ -218,7 +218,7 @@ struct CreateInspections: View {
                 Divider()
                     .padding([.horizontal, .bottom])
                 GroupBox(label:
-                    Label("Страховой полис", systemImage: "doc.plaintext")
+                            Label("Страховой полис", systemImage: "doc.plaintext")
                 ) {
                     HStack {
                         SeriesPicker(selectedSeries: $choiseSeries2)
@@ -234,9 +234,9 @@ struct CreateInspections: View {
                 }
                 .padding(.horizontal)
                 GroupBox(label:
-                    Toggle(isOn: $vinAndNumber2, label: {
-                        Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                    }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
+                            Toggle(isOn: $vinAndNumber2, label: {
+                                Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                            }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
                 ) {
                     CustomInput(text: $carVin2, name: "VIN")
                     CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")

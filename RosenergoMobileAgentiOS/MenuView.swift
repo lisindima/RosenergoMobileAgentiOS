@@ -11,16 +11,16 @@ import SwiftUI
 struct MenuView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     #if !os(watchOS)
-        @EnvironmentObject private var notificationStore: NotificationStore
+    @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-
+    
     @State private var openSettings: Bool = false
-
+    
     var countColumns: Int {
         #if os(watchOS)
-            return 1
+        return 1
         #else
-            return 2
+        return 2
         #endif
     }
     

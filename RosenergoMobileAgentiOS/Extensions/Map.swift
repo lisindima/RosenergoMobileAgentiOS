@@ -13,10 +13,10 @@ struct MapView: View {
     @State private var address: String?
     @State private var pins: [Pin] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-
+    
     var latitude: Double
     var longitude: Double
-
+    
     private func loadData() {
         region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         pins.append(Pin(coordinate: .init(latitude: latitude, longitude: longitude)))
@@ -30,7 +30,7 @@ struct MapView: View {
             }
         }
     }
-
+    
     var body: some View {
         SectionLink(
             imageName: "map",

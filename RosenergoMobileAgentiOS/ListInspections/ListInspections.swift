@@ -18,17 +18,17 @@ struct ListInspections: View {
         animation: .default
     )
     private var localInspections: FetchedResults<LocalInspections>
-
+    
     #if !os(watchOS)
-        @EnvironmentObject private var notificationStore: NotificationStore
+    @EnvironmentObject private var notificationStore: NotificationStore
     #endif
-
+    
     private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
             #if !os(watchOS)
-                notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
+            notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
             #endif
         }
         do {
@@ -38,13 +38,13 @@ struct ListInspections: View {
             print("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
-
+    
     var listInspections: some View {
         List {
             if !localInspections.isEmpty {
                 Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
                     ForEach(localInspections.filter {
-                        searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
+                        searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
                     }, id: \.id) { localInspections in
                         NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
                             LocalInspectionsItems(localInspections: localInspections)
@@ -65,7 +65,7 @@ struct ListInspections: View {
             }
         }.addSearchBar(searchBar)
     }
-
+    
     var body: some View {
         Group {
             if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .failure {
@@ -87,10 +87,10 @@ struct ListInspections: View {
                 ProgressView("Загрузка")
             } else {
                 #if os(watchOS)
-                    listInspections
+                listInspections
                 #else
-                    listInspections
-                        .listStyle(InsetGroupedListStyle())
+                listInspections
+                    .listStyle(InsetGroupedListStyle())
                 #endif
             }
         }
@@ -98,12 +98,12 @@ struct ListInspections: View {
         .navigationTitle("Осмотры")
         .toolbar {
             #if !os(watchOS)
-                ToolbarItem(placement: .primaryAction) {
-                    NavigationLink(destination: CreateInspections()) {
-                        Image(systemName: "plus.circle.fill")
-                            .imageScale(.large)
-                    }
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink(destination: CreateInspections()) {
+                    Image(systemName: "plus.circle.fill")
+                        .imageScale(.large)
                 }
+            }
             #endif
         }
     }

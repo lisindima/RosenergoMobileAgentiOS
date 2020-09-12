@@ -10,9 +10,9 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
     let container: NSPersistentCloudKitContainer
-
+    
     init() {
         container = NSPersistentCloudKitContainer(name: "RosenergoMobileAgentiOS")
         container.loadPersistentStores(completionHandler: { _, error in

@@ -12,15 +12,15 @@ import SwiftUI
 struct CustomCameraView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @Environment(\.presentationMode) private var presentationMode
-
+    
     @Binding var showRecordVideo: Bool
-
+    
     @State private var didTapCapture2: Bool = false
     @State private var didTapCapture: Bool = false
     @State private var choiceMode: Int = 0
     @State private var flashMode: AVCaptureDevice.FlashMode = .auto
     @State private var setImageFlashButton: String = "bolt.badge.a"
-
+    
     func flashState() {
         if flashMode == .auto {
             flashMode = .on
@@ -33,21 +33,21 @@ struct CustomCameraView: View {
             setImageFlashButton = "bolt.badge.a"
         }
     }
-
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottom) {
                 #if targetEnvironment(simulator) || targetEnvironment(macCatalyst)
-                    Color.green
-                        .ignoresSafeArea(edges: .all)
+                Color.green
+                    .ignoresSafeArea(edges: .all)
                 #else
-                    if choiceMode == 0 {
-                        CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
-                            .ignoresSafeArea(edges: .all)
-                    } else {
-                        CustomVideoRepresentable(startRecording: $didTapCapture, stopRecording: $didTapCapture2)
-                            .ignoresSafeArea(edges: .all)
-                    }
+                if choiceMode == 0 {
+                    CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode)
+                        .ignoresSafeArea(edges: .all)
+                } else {
+                    CustomVideoRepresentable(startRecording: $didTapCapture, stopRecording: $didTapCapture2)
+                        .ignoresSafeArea(edges: .all)
+                }
                 #endif
                 VStack {
                     if choiceMode == 0 {

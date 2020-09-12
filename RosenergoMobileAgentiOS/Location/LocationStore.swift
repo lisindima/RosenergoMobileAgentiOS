@@ -13,9 +13,9 @@ import SwiftUI
 class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var latitude: Double = 0.0
     @Published var longitude: Double = 0.0
-
+    
     static let shared = LocationStore()
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
@@ -36,13 +36,13 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
             manager.requestWhenInUseAuthorization()
         }
     }
-
+    
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations.last
         latitude = currentLocation!.coordinate.latitude
         longitude = currentLocation!.coordinate.longitude
     }
-
+    
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }

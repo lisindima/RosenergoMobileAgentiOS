@@ -10,10 +10,10 @@ import SwiftUI
 
 struct SeriesPicker: View {
     @Binding var selectedSeries: Series
-
+    
     var body: some View {
         Picker(selection: $selectedSeries, label:
-            Text("\(selectedSeries.rawValue)")
+                Text("\(selectedSeries.rawValue)")
                 .frame(width: 70)
                 .foregroundColor(.primary)) {
             Text("ХХХ").tag(Series.XXX)
@@ -38,6 +38,6 @@ enum Series: String, CaseIterable, Identifiable {
     case KKK
     case EEE
     case BBB
-
+    
     var id: String { rawValue }
 }

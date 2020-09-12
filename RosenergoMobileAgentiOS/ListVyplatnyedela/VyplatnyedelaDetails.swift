@@ -11,98 +11,98 @@ import URLImage
 
 struct VyplatnyedelaDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
-
+    
     #if !os(watchOS)
-        @State private var alertItem: AlertItem? = nil
-        @State private var fileType: FileType = .photo
-        @State private var download: Bool = false
+    @State private var alertItem: AlertItem? = nil
+    @State private var fileType: FileType = .photo
+    @State private var download: Bool = false
     #endif
-
+    
     var vyplatnyedela: Vyplatnyedela
-
+    
     #if !os(watchOS)
-        private func showShareSheet(activityItems: [Any]) {
-            DispatchQueue.main.async {
-                let shareSheet = UIHostingController(
-                    rootView: ShareSheet(activityItems: activityItems)
-                        .ignoresSafeArea(edges: .bottom)
-                )
-                UIApplication.shared.windows.first?.rootViewController?.present(
-                    shareSheet, animated: true, completion: nil
-                )
-            }
+    private func showShareSheet(activityItems: [Any]) {
+        DispatchQueue.main.async {
+            let shareSheet = UIHostingController(
+                rootView: ShareSheet(activityItems: activityItems)
+                    .ignoresSafeArea(edges: .bottom)
+            )
+            UIApplication.shared.windows.first?.rootViewController?.present(
+                shareSheet, animated: true, completion: nil
+            )
         }
-
-        private func downloadPhoto() {
-            var photoURL: [URL] = []
-            fileType = .photo
-            download = true
-            sessionStore.download(vyplatnyedela.photos, fileType: .photo) { [self] result in
-                switch result {
-                case let .success(response):
-                    photoURL.append(response)
-                    if photoURL.count == vyplatnyedela.photos.count {
-                        showShareSheet(activityItems: photoURL)
-                        download = false
-                    }
-                case let .failure(error):
+    }
+    
+    private func downloadPhoto() {
+        var photoURL: [URL] = []
+        fileType = .photo
+        download = true
+        sessionStore.download(vyplatnyedela.photos, fileType: .photo) { [self] result in
+            switch result {
+            case let .success(response):
+                photoURL.append(response)
+                if photoURL.count == vyplatnyedela.photos.count {
+                    showShareSheet(activityItems: photoURL)
                     download = false
-                    print(error)
                 }
+            case let .failure(error):
+                download = false
+                print(error)
             }
         }
+    }
     #endif
-
+    
     var scale: CGFloat {
         #if os(watchOS)
-            return WKInterfaceDevice.current().screenScale
+        return WKInterfaceDevice.current().screenScale
         #else
-            return UIScreen.main.scale
+        return UIScreen.main.scale
         #endif
     }
-
+    
     var size: CGFloat {
         #if os(watchOS)
-            return 75.0
+        return 75.0
         #else
-            return 100.0
+        return 100.0
         #endif
     }
-
+    
     var body: some View {
         #if os(watchOS)
-            form
+        form
         #else
-            form
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        if download {
-                            DownloadIndicator(fileType: $fileType)
-                        }
-                    }
-                    ToolbarItem(placement: .primaryAction) {
-                        Menu {
-                            Button(action: {
-                                UIPasteboard.general.url = URL(string: "rosenergo://share?delo=\(vyplatnyedela.id)")
-                                alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
-                            }) {
-                                Label("Скопировать", systemImage: "link")
-                            }
-                            if !vyplatnyedela.photos.isEmpty {
-                                Button(action: downloadPhoto) {
-                                    Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis.circle.fill")
-                                .imageScale(.large)
-                        }
+        form
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if download {
+                        DownloadIndicator(fileType: $fileType)
                     }
                 }
-                .customAlert($alertItem)
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(action: {
+                            UIPasteboard.general.url = URL(string: "rosenergo://share?delo=\(vyplatnyedela.id)")
+                            alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
+                        }) {
+                            Label("Скопировать", systemImage: "link")
+                        }
+                        if !vyplatnyedela.photos.isEmpty {
+                            Button(action: downloadPhoto) {
+                                Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .imageScale(.large)
+                    }
+                }
+            }
+            .customAlert($alertItem)
         #endif
     }
-
+    
     var form: some View {
         Form {
             if !vyplatnyedela.photos.isEmpty {

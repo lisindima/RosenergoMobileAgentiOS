@@ -11,9 +11,9 @@ import SwiftUI
 
 struct ListVyplatnyedela: View {
     @EnvironmentObject private var sessionStore: SessionStore
-
+    
     @StateObject private var searchBar = SearchBar.shared
-
+    
     var listVyplatnyedela: some View {
         List {
             Section(header: Text("Отправленные дела").fontWeight(.bold)) {
@@ -27,7 +27,7 @@ struct ListVyplatnyedela: View {
             }
         }.addSearchBar(searchBar)
     }
-
+    
     var body: some View {
         Group {
             if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .failure {
@@ -49,10 +49,10 @@ struct ListVyplatnyedela: View {
                 ProgressView("Загрузка")
             } else {
                 #if os(watchOS)
-                    listVyplatnyedela
+                listVyplatnyedela
                 #else
-                    listVyplatnyedela
-                        .listStyle(InsetGroupedListStyle())
+                listVyplatnyedela
+                    .listStyle(InsetGroupedListStyle())
                 #endif
             }
         }
@@ -60,12 +60,12 @@ struct ListVyplatnyedela: View {
         .navigationTitle("Выплатные дела")
         .toolbar {
             #if !os(watchOS)
-                ToolbarItem(placement: .primaryAction) {
-                    NavigationLink(destination: CreateVyplatnyeDela()) {
-                        Image(systemName: "plus.circle.fill")
-                            .imageScale(.large)
-                    }
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink(destination: CreateVyplatnyeDela()) {
+                    Image(systemName: "plus.circle.fill")
+                        .imageScale(.large)
                 }
+            }
             #endif
         }
     }

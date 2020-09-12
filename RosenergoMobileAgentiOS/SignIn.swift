@@ -10,12 +10,12 @@ import SwiftUI
 
 struct SignIn: View {
     @EnvironmentObject private var sessionStore: SessionStore
-
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var loading: Bool = false
-    @State private var alertItem: AlertItem?
-
+    @State private var alertItem: AlertItem? = nil
+    
     private func signIn(email: String, password: String) {
         loading = true
         sessionStore.login(email: email, password: password) { [self] result in
@@ -33,15 +33,15 @@ struct SignIn: View {
             }
         }
     }
-
+    
     var body: some View {
         #if os(watchOS)
-            watch
+        watch
         #else
-            phone
+        phone
         #endif
     }
-
+    
     var watch: some View {
         VStack {
             CustomInput(text: $email, name: "Эл.почта")
@@ -57,51 +57,51 @@ struct SignIn: View {
         .navigationTitle("Мобильный агент")
         .customAlert($alertItem)
     }
-
+    
     #if !os(watchOS)
-        var phone: some View {
-            VStack {
-                Spacer()
-                Image("rosenergo")
-                    .resizable()
-                    .frame(width: 300, height: 169)
-                Text("Мобильный агент")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Spacer()
-                Group {
-                    CustomInput(text: $email, name: "Эл.почта")
-                        .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
-                        .autocapitalization(.none)
-                    SecureField("Пароль", text: $password)
-                        .textContentType(.password)
-                        .autocapitalization(.none)
-                        .modifier(InputModifier())
-                }
-                .padding(.horizontal)
-                CustomButton(title: "Войти", loading: loading, colorButton: .rosenergo, colorText: .white) {
-                    signIn(email: email, password: password)
-                }
-                .keyboardShortcut(.defaultAction)
-                .padding()
-                Divider()
-                HStack {
-                    Text("У вас еще нет аккаунта?")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                    Button(action: {
-                        alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.")
-                    }) {
-                        Text("Регистрация")
-                            .font(.footnote)
-                    }
-                }
-                .padding(.top, 5)
-                .padding(.bottom)
+    var phone: some View {
+        VStack {
+            Spacer()
+            Image("rosenergo")
+                .resizable()
+                .frame(width: 300, height: 169)
+            Text("Мобильный агент")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            Spacer()
+            Group {
+                CustomInput(text: $email, name: "Эл.почта")
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+                SecureField("Пароль", text: $password)
+                    .textContentType(.password)
+                    .autocapitalization(.none)
+                    .modifier(InputModifier())
             }
-            .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-            .customAlert($alertItem)
+            .padding(.horizontal)
+            CustomButton(title: "Войти", loading: loading, colorButton: .rosenergo, colorText: .white) {
+                signIn(email: email, password: password)
+            }
+            .keyboardShortcut(.defaultAction)
+            .padding()
+            Divider()
+            HStack {
+                Text("У вас еще нет аккаунта?")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                Button(action: {
+                    alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.")
+                }) {
+                    Text("Регистрация")
+                        .font(.footnote)
+                }
+            }
+            .padding(.top, 5)
+            .padding(.bottom)
         }
+        .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
+        .customAlert($alertItem)
+    }
     #endif
 }

@@ -17,14 +17,14 @@ class SessionStore: ObservableObject, RequestInterceptor {
             objectWillChange.send()
         }
     }
-
+    
     @CodableUserDefaults(key: "loginParameters", default: nil)
     var loginParameters: LoginParameters? {
         willSet {
             objectWillChange.send()
         }
     }
-
+    
     @Published var photosURL = [URL]()
     @Published var videoURL: URL?
     @Published var uploadProgress: Double = 0.0
@@ -37,13 +37,13 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var vyplatnyedela = [Vyplatnyedela]()
     @Published var сhangelogModel = [ChangelogModel]()
     @Published var licenseModel = [LicenseModel]()
-
+    
     static let shared = SessionStore()
-
+    
     var cancellation: AnyCancellable?
-
+    
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
-
+    
     func stringDate() -> String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
@@ -60,18 +60,18 @@ class SessionStore: ObservableObject, RequestInterceptor {
         vyplatnyedela.removeAll()
         vyplatnyedelaLoadingState = .loading
     }
-
+    
     func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var urlRequest = urlRequest
         urlRequest.headers.add(.authorization(bearerToken: loginModel!.data.apiToken))
         completion(.success(urlRequest))
     }
-
+    
     func retry(_ request: Request, for _: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
             return completion(.doNotRetryWithError(error))
         }
-
+        
         login(email: loginParameters!.email, password: loginParameters!.password) { [self] result in
             switch result {
             case let .success(response):
@@ -82,16 +82,16 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
         }
     }
-
+    
     func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
         let parameters = LoginParameters(
             email: email,
             password: password
         )
-
+        
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-
+        
         AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
             .responseDecodable(of: LoginModel.self, decoder: decoder) { response in
@@ -104,13 +104,13 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
-
+    
     func logout(completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-
+        
         AF.request(serverURL + "logout", method: .post, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .response { [self] _ in
@@ -118,16 +118,16 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 clearData()
             }
     }
-
+    
     func upload<Parameters: Encodable>(_ url: String, parameters: Parameters? = nil, completion: @escaping (Result<Bool, Error>) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-
+        
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
-
+        
         AF.request(serverURL + url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: encoder), headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
@@ -143,7 +143,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
-
+    
     func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -153,7 +153,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         dateFormatter.locale = Locale(identifier: "ru_RU")
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 7)
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-
+        
         let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
@@ -162,13 +162,13 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .publishDecodable(type: T.self, decoder: decoder)
         return publisher.result()
     }
-
+    
     func load<T: Codable>(_ url: String, completion: @escaping (Result<T, Error>) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
-
+        
         cancellation = request(serverURL + url, headers: headers)
             .sink { (response: Result<T, AFError>) in
                 switch response {
@@ -179,7 +179,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
-
+    
     func getVyplatnyedela() {
         load("vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
             switch response {
@@ -192,7 +192,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
         }
     }
-
+    
     func getInspections() {
         load("inspections") { [self] (response: Result<[Inspections], Error>) in
             switch response {
@@ -205,16 +205,16 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
         }
     }
-
+    
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
         for item in items {
             let destination: DownloadRequest.Destination = { _, _ in
                 let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                 let fileURL = documentsURL.appendingPathComponent(fileType == .photo ? "\((item as! Photo).id).jpeg" : "video.mp4")
-
+                
                 return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
             }
-
+            
             AF.download(fileType == .photo ? (item as! Photo).path : "\(items.first!)", to: destination)
                 .validate()
                 .downloadProgress { [self] progress in
@@ -232,7 +232,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
         }
     }
-
+    
     func loadLicense() {
         cancellation = request("https://api.lisindmitriy.me/license")
             .sink { [self] (response: Result<[LicenseModel], AFError>) in
@@ -245,7 +245,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
             }
     }
-
+    
     func loadChangelog() {
         cancellation = request("https://api.lisindmitriy.me/changelog")
             .sink { [self] (response: Result<[ChangelogModel], AFError>) in

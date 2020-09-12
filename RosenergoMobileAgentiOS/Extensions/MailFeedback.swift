@@ -11,11 +11,11 @@ import SwiftUI
 
 struct MailFeedback: UIViewControllerRepresentable {
     @Binding var alertItem: AlertItem?
-
+    
     let deviceInfo = UIDevice.current
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
-
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailFeedback>) -> MFMailComposeViewController {
         let mailFeedback = MFMailComposeViewController()
         mailFeedback.setToRecipients(["lisinde@rosen.ttb.ru"])
@@ -24,20 +24,20 @@ struct MailFeedback: UIViewControllerRepresentable {
         mailFeedback.mailComposeDelegate = context.coordinator
         return mailFeedback
     }
-
+    
     func updateUIViewController(_: MFMailComposeViewController, context _: UIViewControllerRepresentableContext<MailFeedback>) {}
-
+    
     func makeCoordinator() -> MailFeedback.Coordinator {
         Coordinator(self)
     }
-
+    
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
         var parent: MailFeedback
-
+        
         init(_ parent: MailFeedback) {
             self.parent = parent
         }
-
+        
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
             controller.dismiss(animated: true, completion: nil)
             switch result {

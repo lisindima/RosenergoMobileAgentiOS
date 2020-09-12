@@ -11,23 +11,23 @@ import URLImage
 
 struct VyplatnyedelaItems: View {
     var vyplatnyedela: Vyplatnyedela
-
+    
     var scale: CGFloat {
         #if os(watchOS)
-            return WKInterfaceDevice.current().screenScale
+        return WKInterfaceDevice.current().screenScale
         #else
-            return UIScreen.main.scale
+        return UIScreen.main.scale
         #endif
     }
-
+    
     var size: CGFloat {
         #if os(watchOS)
-            return 75.0
+        return 75.0
         #else
-            return 100.0
+        return 100.0
         #endif
     }
-
+    
     var body: some View {
         HStack(alignment: .top) {
             if !vyplatnyedela.photos.isEmpty {
@@ -57,7 +57,7 @@ struct VyplatnyedelaItems: View {
                 .lineLimit(1)
             }
             Spacer()
-            Text(vyplatnyedela.createdAt.calenderTimeSinceNow())
+            Text(vyplatnyedela.createdAt, style: .relative)
                 .font(.footnote)
                 .foregroundColor(.secondary)
         }.padding(.vertical, 6)

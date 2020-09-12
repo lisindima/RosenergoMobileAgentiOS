@@ -8,48 +8,48 @@
 
 import SwiftUI
 #if !os(watchOS)
-    import MessageUI
+import MessageUI
 #endif
 
 struct SettingsView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionStore: SessionStore
-
+    
     #if !os(watchOS)
-        @EnvironmentObject private var notificationStore: NotificationStore
-        private let settingsURL = URL(string: UIApplication.openSettingsURLString)
+    @EnvironmentObject private var notificationStore: NotificationStore
+    private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
     #endif
-
-    @State private var alertItem: AlertItem?
+    
+    @State private var alertItem: AlertItem? = nil
     @State private var showActionSheetExit: Bool = false
     @State private var showMailFeedback: Bool = false
     @State private var loading: Bool = false
-
+    
     private var appVersionView: some View {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+           let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         {
             return Text("Версия: \(version) (\(build))")
         } else {
             return Text("")
         }
     }
-
+    
     #if !os(watchOS)
-        var footerNotification: Text {
-            switch notificationStore.enabled {
-            case .denied:
-                return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
-            case .notDetermined:
-                return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
-            case .authorized:
-                return Text("Укажите, через какое время вам придет уведомление после сохранённого осмотра.")
-            default:
-                return Text("")
-            }
+    var footerNotification: Text {
+        switch notificationStore.enabled {
+        case .denied:
+            return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
+        case .notDetermined:
+            return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
+        case .authorized:
+            return Text("Укажите, через какое время вам придет уведомление после сохранённого осмотра.")
+        default:
+            return Text("")
         }
+    }
     #endif
-
+    
     var body: some View {
         Form {
             if sessionStore.loginModel != nil {
@@ -69,42 +69,42 @@ struct SettingsView: View {
                 }
             }
             #if !os(watchOS)
-                Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
-                    if notificationStore.enabled == .authorized {
-                        SectionLink(
-                            imageName: "bell",
-                            imageColor: .rosenergo,
-                            title: "Выключить уведомления",
-                            titleColor: .primary,
-                            destination: settingsURL!
-                        )
-                        Stepper(value: $notificationStore.notifyHour, in: 1 ... 24) {
-                            Image(systemName: "timer")
-                                .frame(width: 24)
-                                .foregroundColor(.rosenergo)
-                            Text("\(notificationStore.notifyHour) ч.")
-                        }
-                    }
-                    if notificationStore.enabled == .notDetermined {
-                        SectionButton(
-                            imageName: "bell",
-                            imageColor: .rosenergo,
-                            title: "Включить уведомления",
-                            titleColor: .primary
-                        ) {
-                            notificationStore.requestPermission()
-                        }
-                    }
-                    if notificationStore.enabled == .denied {
-                        SectionLink(
-                            imageName: "bell",
-                            imageColor: .rosenergo,
-                            title: "Включить уведомления",
-                            titleColor: .primary,
-                            destination: settingsURL!
-                        )
+            Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
+                if notificationStore.enabled == .authorized {
+                    SectionLink(
+                        imageName: "bell",
+                        imageColor: .rosenergo,
+                        title: "Выключить уведомления",
+                        titleColor: .primary,
+                        destination: settingsURL
+                    )
+                    Stepper(value: $notificationStore.notifyHour, in: 1 ... 24) {
+                        Image(systemName: "timer")
+                            .frame(width: 24)
+                            .foregroundColor(.rosenergo)
+                        Text("\(notificationStore.notifyHour) ч.")
                     }
                 }
+                if notificationStore.enabled == .notDetermined {
+                    SectionButton(
+                        imageName: "bell",
+                        imageColor: .rosenergo,
+                        title: "Включить уведомления",
+                        titleColor: .primary
+                    ) {
+                        notificationStore.requestPermission()
+                    }
+                }
+                if notificationStore.enabled == .denied {
+                    SectionLink(
+                        imageName: "bell",
+                        imageColor: .rosenergo,
+                        title: "Включить уведомления",
+                        titleColor: .primary,
+                        destination: settingsURL
+                    )
+                }
+            }
             #endif
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                 NavigationLink(destination: Changelog()) {
@@ -120,26 +120,26 @@ struct SettingsView: View {
                     Text("Лицензии")
                 }
                 #if !os(watchOS)
-                    SectionLink(
-                        imageName: "star",
-                        imageColor: .rosenergo,
-                        title: "Оценить",
-                        titleColor: .primary,
-                        showLinkLabel: true,
-                        destination: URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
-                    )
-                    SectionButton(
-                        imageName: "ant",
-                        imageColor: .rosenergo,
-                        title: "Сообщить об ошибке",
-                        titleColor: .primary
-                    ) {
-                        if MFMailComposeViewController.canSendMail() {
-                            showMailFeedback = true
-                        } else {
-                            alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
-                        }
+                SectionLink(
+                    imageName: "star",
+                    imageColor: .rosenergo,
+                    title: "Оценить",
+                    titleColor: .primary,
+                    showLinkLabel: true,
+                    destination: URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
+                )
+                SectionButton(
+                    imageName: "ant",
+                    imageColor: .rosenergo,
+                    title: "Сообщить об ошибке",
+                    titleColor: .primary
+                ) {
+                    if MFMailComposeViewController.canSendMail() {
+                        showMailFeedback = true
+                    } else {
+                        alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
                     }
+                }
                 #endif
             }
             Section(footer: appVersionView) {
@@ -165,9 +165,9 @@ struct SettingsView: View {
         .customAlert($alertItem)
         .sheet(isPresented: $showMailFeedback) {
             #if !os(watchOS)
-                MailFeedback(alertItem: $alertItem)
-                    .ignoresSafeArea(edges: .bottom)
-                    .accentColor(.rosenergo)
+            MailFeedback(alertItem: $alertItem)
+                .ignoresSafeArea(edges: .bottom)
+                .accentColor(.rosenergo)
             #endif
         }
         .actionSheet(isPresented: $showActionSheetExit) {

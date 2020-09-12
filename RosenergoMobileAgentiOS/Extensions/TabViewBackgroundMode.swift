@@ -11,10 +11,10 @@ import SwiftUI
 struct TabViewBackgroundMode: ViewModifier {
     func body(content: Content) -> some View {
         #if os(watchOS)
-            return content
+        return content
         #else
-            return content
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        return content
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         #endif
     }
 }

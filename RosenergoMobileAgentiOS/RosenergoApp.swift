@@ -12,14 +12,14 @@ import SwiftUI
 struct RosenergoApp: App {
     @StateObject private var sessionStore = SessionStore.shared
     @StateObject private var locationStore = LocationStore.shared
-
+    
     @Environment(\.scenePhase) private var scenePhase
-
+    
     @State private var showfullScreenCover: Bool = false
     @State private var inspectionID: String = ""
-
+    
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
             RootView()
@@ -49,9 +49,9 @@ struct RosenergoApp: App {
         .onChange(of: scenePhase) { phase in
             if phase == .active {
                 #if !os(watchOS)
-                    UIApplication.shared.applicationIconBadgeNumber = 0
-                    NotificationStore.shared.requestPermission()
-                    NotificationStore.shared.refreshNotificationStatus()
+                UIApplication.shared.applicationIconBadgeNumber = 0
+                NotificationStore.shared.requestPermission()
+                NotificationStore.shared.refreshNotificationStatus()
                 #endif
             }
         }
