@@ -17,3 +17,10 @@ extension Date {
     }
 }
 
+func stringDate() -> String {
+    let currentDate = Date()
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    let createStringDate = dateFormatter.string(from: currentDate)
+    return createStringDate
+}

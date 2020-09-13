@@ -44,14 +44,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
-    func stringDate() -> String {
-        let currentDate = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let createStringDate = dateFormatter.string(from: currentDate)
-        return createStringDate
-    }
-    
     private func clearData() {
         loginModel = nil
         loginParameters = nil

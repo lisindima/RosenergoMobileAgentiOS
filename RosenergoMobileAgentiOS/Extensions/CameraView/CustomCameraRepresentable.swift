@@ -43,10 +43,10 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
-                let imageWithText = uiimage!.addText("Широта: \(parent.locationStore.latitude)\nДолгота: \(parent.locationStore.longitude)\nДата: \(parent.sessionStore.stringDate())", point: CGPoint(x: 20, y: 20))
+                let imageWithText = uiimage!.addText("Широта: \(parent.locationStore.latitude)\nДолгота: \(parent.locationStore.longitude)\nДата: \(stringDate())", point: CGPoint(x: 20, y: 20))
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 80)
                 let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let filename = directory.appendingPathComponent("\(parent.sessionStore.stringDate()).png")
+                let filename = directory.appendingPathComponent("\(stringDate()).png")
                 try? inspectionsImageData?.write(to: filename)
                 parent.sessionStore.photosURL.append(filename)
             }

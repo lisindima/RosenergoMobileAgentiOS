@@ -48,7 +48,7 @@ struct LocalInspectionsDetails: View {
             let encodedPhoto = photo.photosData.base64EncodedString()
             photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, makedPhotoAt: "\(localInspections.dateInspections)"))
         }
-        #warning("Исправить прикол с несовпадением типа даты и строки в фотографии!")
+        
         if localInspections.videoURL != nil {
             do {
                 let videoData = try Data(contentsOf: localInspections.videoURL!)
