@@ -47,7 +47,7 @@ struct VyplatnyedelaDetails: View {
                 }
             case let .failure(error):
                 download = false
-                print(error)
+                log(error)
             }
         }
     }

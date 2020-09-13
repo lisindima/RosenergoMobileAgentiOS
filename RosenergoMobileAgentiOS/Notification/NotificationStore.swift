@@ -65,7 +65,7 @@ class NotificationStore: ObservableObject {
             let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { error in
                 guard error == nil else { return }
-                print("Уведомление создано: \(notification.id)")
+                log("Уведомление создано: \(notification.id)")
             }
         }
     }

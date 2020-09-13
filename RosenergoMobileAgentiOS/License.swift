@@ -12,7 +12,7 @@ struct License: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     var body: some View {
-        VStack {
+        Group {
             if sessionStore.licenseModel.isEmpty, !sessionStore.licenseLoadingFailure {
                 ProgressView("Загрузка")
             } else if sessionStore.licenseModel.isEmpty, sessionStore.licenseLoadingFailure {

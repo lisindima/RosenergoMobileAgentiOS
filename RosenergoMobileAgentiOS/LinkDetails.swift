@@ -46,7 +46,7 @@ struct LinkDetails: View {
                 inspection = value
             case let .failure(error):
                 presentationMode.wrappedValue.dismiss()
-                print(error)
+                log(error)
             }
         }
     }
@@ -78,7 +78,7 @@ struct LinkDetails: View {
                 }
             case let .failure(error):
                 download = false
-                print(error)
+                log(error)
             }
         }
     }
@@ -93,7 +93,7 @@ struct LinkDetails: View {
                 showShareSheet(activityItems: [response])
             case let .failure(error):
                 download = false
-                print(error)
+                log(error)
             }
         }
     }

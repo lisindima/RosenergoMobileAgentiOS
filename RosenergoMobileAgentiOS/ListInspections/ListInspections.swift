@@ -35,7 +35,7 @@ struct ListInspections: View {
             try moc.save()
         } catch {
             let nsError = error as NSError
-            print("Unresolved error \(nsError), \(nsError.userInfo)")
+            log("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
     

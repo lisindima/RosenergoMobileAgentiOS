@@ -139,7 +139,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                     completion(.success(true))
                 case let .failure(error):
                     completion(.failure(error))
-                    debugPrint(error)
+                    log(error)
                 }
             }
     }
@@ -188,7 +188,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 vyplatnyedelaLoadingState = .success
             case let .failure(error):
                 vyplatnyedelaLoadingState = .failure
-                print(error)
+                log(error)
             }
         }
     }
@@ -201,7 +201,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 inspectionsLoadingState = .success
             case let .failure(error):
                 inspectionsLoadingState = .failure
-                print(error)
+                log(error)
             }
         }
     }
@@ -219,7 +219,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 .validate()
                 .downloadProgress { [self] progress in
                     downloadProgress = progress.fractionCompleted
-                    print(downloadProgress)
                 }
                 .response { response in
                     switch response.result {
@@ -241,7 +240,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                     licenseModel = value
                 case let .failure(error):
                     licenseLoadingFailure = true
-                    print(error)
+                    log(error)
                 }
             }
     }
@@ -254,7 +253,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
                     сhangelogModel = value
                 case let .failure(error):
                     changelogLoadingFailure = true
-                    print(error)
+                    log(error)
                 }
             }
     }

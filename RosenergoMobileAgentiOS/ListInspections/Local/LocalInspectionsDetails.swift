@@ -35,7 +35,7 @@ struct LocalInspectionsDetails: View {
         do {
             try moc.save()
         } catch {
-            print(error)
+            log(error)
         }
     }
     
@@ -54,7 +54,7 @@ struct LocalInspectionsDetails: View {
                 let videoData = try Data(contentsOf: localInspections.videoURL!)
                 video = videoData.base64EncodedString()
             } catch {
-                print(error)
+                log(error)
             }
         }
         
@@ -83,7 +83,7 @@ struct LocalInspectionsDetails: View {
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
                 playHaptic(.error)
                 uploadState = false
-                print(error)
+                log(error)
             }
         }
     }

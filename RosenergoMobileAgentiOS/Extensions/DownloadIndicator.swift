@@ -16,6 +16,7 @@ struct DownloadIndicator: View {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
             Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
+                .foregroundColor(.white)
                 .padding(.leading, 8)
         }
         .padding(.horizontal)

@@ -72,7 +72,7 @@ class CustomCameraController: UIViewController {
                 photoOutput = setPhotoOutput
             }
         } catch {
-            print(error)
+            log(error)
         }
     }
     
@@ -126,7 +126,7 @@ class CustomVideoController: UIViewController {
                 activeInput = input
             }
         } catch {
-            print("Error setting device video input: \(error)")
+            log("Error setting device video input: \(error)")
             return false
         }
         
@@ -138,7 +138,7 @@ class CustomVideoController: UIViewController {
                 captureSession.addInput(micInput)
             }
         } catch {
-            print("Error setting device audio input: \(error)")
+            log("Error setting device audio input: \(error)")
             return false
         }
         
@@ -214,11 +214,11 @@ class CustomVideoController: UIViewController {
                     device.isSmoothAutoFocusEnabled = false
                     device.unlockForConfiguration()
                 } catch {
-                    print("Error setting configuration: \(error)")
+                    log("Error setting configuration: \(error)")
                 }
             }
             
-            print("ПИШЕМ")
+            log("ПИШЕМ")
             movieOutput.startRecording(to: tempURL()!, recordingDelegate: delegate!)
         }
     }
@@ -226,7 +226,7 @@ class CustomVideoController: UIViewController {
     func stopRecording() {
         if movieOutput.isRecording {
             movieOutput.stopRecording()
-            print("НЕ ПИШЕМ")
+            log("НЕ ПИШЕМ")
         }
     }
 }

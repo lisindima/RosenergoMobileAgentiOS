@@ -94,7 +94,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
                 try data.write(to: filename)
                 parent.sessionStore.videoURL = filename.absoluteURL
             } catch {
-                print(error)
+                log(error)
             }
         }
     }

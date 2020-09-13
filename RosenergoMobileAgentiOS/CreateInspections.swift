@@ -76,7 +76,7 @@ struct CreateInspections: View {
                 }
             }
         default:
-            print("ОЙ")
+            log("ОЙ")
         }
     }
     
@@ -96,7 +96,7 @@ struct CreateInspections: View {
                 let videoData = try Data(contentsOf: sessionStore.videoURL!)
                 video = videoData.base64EncodedString()
             } catch {
-                print(error)
+                log(error)
             }
         }
         
@@ -125,7 +125,7 @@ struct CreateInspections: View {
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
                 playHaptic(.error)
                 uploadState = false
-                print(error)
+                log(error)
             }
         }
     }
@@ -173,7 +173,7 @@ struct CreateInspections: View {
             notificationStore.setNotification(id: id.uuidString)
         } catch {
             let nsError = error as NSError
-            print("Unresolved error \(nsError), \(nsError.userInfo)")
+            log("Unresolved error \(nsError), \(nsError.userInfo)")
             alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)")
             playHaptic(.error)
         }

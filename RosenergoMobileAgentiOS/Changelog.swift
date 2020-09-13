@@ -16,7 +16,7 @@ struct Changelog: View {
     }
     
     var body: some View {
-        VStack {
+        Group {
             if sessionStore.сhangelogModel.isEmpty, !sessionStore.changelogLoadingFailure {
                 ProgressView("Загрузка")
             } else if sessionStore.сhangelogModel.isEmpty, sessionStore.changelogLoadingFailure {

@@ -17,7 +17,7 @@ struct PersistenceController {
         container = NSPersistentCloudKitContainer(name: "RosenergoMobileAgentiOS")
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
-                print("Unresolved error \(error), \(error.userInfo)")
+                log("Unresolved error \(error), \(error.userInfo)")
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true

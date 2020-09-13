@@ -50,7 +50,7 @@ struct InspectionsDetails: View {
                 }
             case let .failure(error):
                 download = false
-                print(error)
+                log(error)
             }
         }
     }
@@ -65,7 +65,7 @@ struct InspectionsDetails: View {
                 showShareSheet(activityItems: [response])
             case let .failure(error):
                 download = false
-                print(error)
+                log(error)
             }
         }
     }

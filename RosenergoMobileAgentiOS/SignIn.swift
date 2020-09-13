@@ -29,7 +29,7 @@ struct SignIn: View {
                 alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.")
                 playHaptic(.error)
                 loading = false
-                print(error)
+                log(error)
             }
         }
     }
