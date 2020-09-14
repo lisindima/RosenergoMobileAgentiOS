@@ -1,5 +1,5 @@
 //
-//  LinkDetails.swift
+//  InspectionLink.swift
 //  RosenergoMobileAgentiOS
 //
 //  Created by Дмитрий Лисин on 31.07.2020.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LinkDetails: View {
+struct InspectionLink: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     @Environment(\.presentationMode) private var presentationMode
@@ -18,7 +18,7 @@ struct LinkDetails: View {
     @State private var inspection: Inspections? = nil
     @State private var loadingState: LoadingState = .loading
 
-    func getInspection() {
+    private func getInspection() {
         sessionStore.load("inspection/" + "\(inspectionID)") { [self] (response: Result<Inspections, Error>) in
             switch response {
             case let .success(value):
@@ -33,21 +33,10 @@ struct LinkDetails: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                switch loadingState {
-                case .success:
-                    InspectionsDetails(inspection: inspection!)
-                case .loading:
-                    ProgressView("Загрузка")
-                        .onAppear(perform: getInspection)
-                case .failure:
-                    Text("Нет подключения к интернету!")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
+            LoadingView(loadingState) {
+                InspectionsDetails(inspection: inspection!)
             }
+            .onAppear(perform: getInspection)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {

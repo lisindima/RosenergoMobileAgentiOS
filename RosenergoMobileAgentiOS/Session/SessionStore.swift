@@ -29,8 +29,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var videoURL: URL?
     @Published var uploadProgress: Double = 0.0
     @Published var downloadProgress: Double = 0.0
-    @Published var changelogLoadingFailure: Bool = false
-    @Published var licenseLoadingFailure: Bool = false
+    @Published var changelogLoadingState: LoadingState = .loading
+    @Published var licenseLoadingState: LoadingState = .loading
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var inspections = [Inspections]()
@@ -230,8 +230,9 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 switch response {
                 case let .success(value):
                     licenseModel = value
+                    licenseLoadingState = .success
                 case let .failure(error):
-                    licenseLoadingFailure = true
+                    licenseLoadingState = .failure
                     log(error)
                 }
             }
@@ -243,8 +244,9 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 switch response {
                 case let .success(value):
                     сhangelogModel = value
+                    changelogLoadingState = .success
                 case let .failure(error):
-                    changelogLoadingFailure = true
+                    changelogLoadingState = .failure
                     log(error)
                 }
             }

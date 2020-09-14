@@ -12,21 +12,12 @@ struct License: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     var body: some View {
-        Group {
-            if sessionStore.licenseModel.isEmpty, !sessionStore.licenseLoadingFailure {
-                ProgressView("Загрузка")
-            } else if sessionStore.licenseModel.isEmpty, sessionStore.licenseLoadingFailure {
-                Text("Нет подключения к интернету!")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.secondary)
-            } else {
-                Form {
-                    Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.")) {
-                        ForEach(sessionStore.licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
-                            NavigationLink(destination: LicenseDetail(license: license)) {
-                                Text(license.nameFramework)
-                            }
+        LoadingView(sessionStore.licenseLoadingState) {
+            Form {
+                Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.")) {
+                    ForEach(sessionStore.licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
+                        NavigationLink(destination: LicenseDetail(license: license)) {
+                            Text(license.nameFramework)
                         }
                     }
                 }

@@ -43,7 +43,7 @@ struct RosenergoApp: App {
                     }
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
-                    LinkDetails(inspectionID: $inspectionID)
+                    InspectionLink(inspectionID: $inspectionID)
                         .environmentObject(sessionStore)
                 }
         }
