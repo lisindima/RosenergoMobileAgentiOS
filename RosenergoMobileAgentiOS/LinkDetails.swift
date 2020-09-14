@@ -132,9 +132,9 @@ struct LinkDetails: View {
                         }
                     }
                     #if !os(watchOS)
-                    if inspection?.video != nil {
+                    if let url = inspection?.video {
                         Section(header: Text("Видео").fontWeight(.bold)) {
-                            VideoPlayer(player: AVPlayer(url: inspection!.video!))
+                            VideoPlayer(player: AVPlayer(url: url))
                                 .frame(height: 200)
                                 .cornerRadius(8)
                                 .padding(.vertical, 8)

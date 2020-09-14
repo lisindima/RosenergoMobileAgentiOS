@@ -52,19 +52,19 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            if sessionStore.loginModel != nil {
+            if let agent = sessionStore.loginModel?.data {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "person",
                         imageColor: .rosenergo,
                         subTitle: "Агент",
-                        title: sessionStore.loginModel!.data.name
+                        title: agent.name
                     )
                     SectionItem(
                         imageName: "envelope",
                         imageColor: .rosenergo,
                         subTitle: "Эл.почта",
-                        title: sessionStore.loginModel!.data.email
+                        title: agent.email
                     )
                 }
             }

@@ -20,6 +20,13 @@ struct RosenergoApp: App {
     
     let persistenceController = PersistenceController.shared
     
+    func open(_ url: URL) {
+        inspectionID = url["inspection"]
+        if !inspectionID.isEmpty {
+            showfullScreenCover = true
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             RootView()
@@ -28,17 +35,11 @@ struct RosenergoApp: App {
                 .environmentObject(locationStore)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
-                    inspectionID = url["inspection"]
-                    if !inspectionID.isEmpty {
-                        showfullScreenCover = true
-                    }
+                    open(url)
                 }
                 .onContinueUserActivity("com.rosenergomobileagent.inspectionsdetails") { userActivity in
                     if let url = userActivity.userInfo?["url"] as? URL {
-                        inspectionID = url["inspection"]
-                        if !inspectionID.isEmpty {
-                            showfullScreenCover = true
-                        }
+                        open(url)
                     }
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {

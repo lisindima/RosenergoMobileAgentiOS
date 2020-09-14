@@ -40,9 +40,9 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     static let shared = SessionStore()
     
-    var cancellation: AnyCancellable?
+    private var cancellation: AnyCancellable?
     
-    let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    private let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     private func clearData() {
         loginModel = nil

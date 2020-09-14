@@ -91,9 +91,9 @@ struct CreateInspections: View {
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: stringDate()))
         }
         
-        if sessionStore.videoURL != nil {
+        if let videoURL = sessionStore.videoURL {
             do {
-                let videoData = try Data(contentsOf: sessionStore.videoURL!)
+                let videoData = try Data(contentsOf: videoURL)
                 video = videoData.base64EncodedString()
             } catch {
                 log(error)

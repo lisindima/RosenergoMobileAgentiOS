@@ -49,9 +49,9 @@ struct LocalInspectionsDetails: View {
             photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, makedPhotoAt: "\(localInspections.dateInspections)"))
         }
         
-        if localInspections.videoURL != nil {
+        if let videoURL = localInspections.videoURL {
             do {
-                let videoData = try Data(contentsOf: localInspections.videoURL!)
+                let videoData = try Data(contentsOf: videoURL)
                 video = videoData.base64EncodedString()
             } catch {
                 log(error)
@@ -137,9 +137,9 @@ struct LocalInspectionsDetails: View {
                 }
             }
             #if !os(watchOS)
-            if localInspections.videoURL != nil {
+            if let url = localInspections.videoURL {
                 Section(header: Text("Видео").fontWeight(.bold)) {
-                    VideoPlayer(player: AVPlayer(url: localInspections.videoURL!))
+                    VideoPlayer(player: AVPlayer(url: url))
                         .frame(height: 200)
                         .cornerRadius(8)
                         .padding(.vertical, 8)
