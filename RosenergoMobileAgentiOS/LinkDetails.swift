@@ -20,8 +20,7 @@ struct LinkDetails: View {
     @Binding var inspectionID: String
     
     @State private var inspection: Inspections?
-    @State private var fileType: FileType = .photo
-    @State private var download: Bool = false
+    @State private var fileType: FileType? = nil
     
     var scale: CGFloat {
         #if os(watchOS)
@@ -67,17 +66,16 @@ struct LinkDetails: View {
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
-        download = true
         sessionStore.download(inspection!.photos, fileType: .photo) { [self] result in
             switch result {
             case let .success(response):
                 photoURL.append(response)
                 if photoURL.count == inspection!.photos.count {
                     showShareSheet(activityItems: photoURL)
-                    download = false
+                    fileType = nil
                 }
             case let .failure(error):
-                download = false
+                fileType = nil
                 log(error)
             }
         }
@@ -85,14 +83,13 @@ struct LinkDetails: View {
     
     private func downloadVideo() {
         fileType = .video
-        download = true
         sessionStore.download([inspection!.video!], fileType: .video) { [self] result in
             switch result {
             case let .success(response):
-                download = false
+                fileType = nil
                 showShareSheet(activityItems: [response])
             case let .failure(error):
-                download = false
+                fileType = nil
                 log(error)
             }
         }
@@ -227,8 +224,8 @@ struct LinkDetails: View {
                     }
                     #if !os(watchOS)
                     ToolbarItem(placement: .principal) {
-                        if download {
-                            DownloadIndicator(fileType: $fileType)
+                        if let fileType = fileType {
+                            DownloadIndicator(fileType: fileType)
                         }
                     }
                     ToolbarItem(placement: .primaryAction) {

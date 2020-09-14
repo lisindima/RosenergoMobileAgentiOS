@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DownloadIndicator: View {
-    @Binding var fileType: FileType
+    var fileType: FileType
     
     var body: some View {
         HStack {

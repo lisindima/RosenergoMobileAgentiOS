@@ -17,8 +17,7 @@ struct InspectionsDetails: View {
     
     #if !os(watchOS)
     @State private var alertItem: AlertItem? = nil
-    @State private var fileType: FileType = .photo
-    @State private var download: Bool = false
+    @State private var fileType: FileType? = nil
     #endif
     
     var inspection: Inspections
@@ -39,17 +38,16 @@ struct InspectionsDetails: View {
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
-        download = true
         sessionStore.download(inspection.photos, fileType: .photo) { [self] result in
             switch result {
             case let .success(response):
                 photoURL.append(response)
                 if photoURL.count == inspection.photos.count {
                     showShareSheet(activityItems: photoURL)
-                    download = false
+                    fileType = nil
                 }
             case let .failure(error):
-                download = false
+                fileType = nil
                 log(error)
             }
         }
@@ -57,14 +55,13 @@ struct InspectionsDetails: View {
     
     private func downloadVideo() {
         fileType = .video
-        download = true
         sessionStore.download([inspection.video!], fileType: .video) { [self] result in
             switch result {
             case let .success(response):
-                download = false
+                fileType = nil
                 showShareSheet(activityItems: [response])
             case let .failure(error):
-                download = false
+                fileType = nil
                 log(error)
             }
         }
@@ -94,8 +91,8 @@ struct InspectionsDetails: View {
         formInspections
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    if download {
-                        DownloadIndicator(fileType: $fileType)
+                    if let fileType = fileType {
+                        DownloadIndicator(fileType: fileType)
                     }
                 }
                 ToolbarItem(placement: .primaryAction) {

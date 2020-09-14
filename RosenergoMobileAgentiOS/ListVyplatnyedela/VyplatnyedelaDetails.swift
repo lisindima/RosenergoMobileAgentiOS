@@ -14,8 +14,7 @@ struct VyplatnyedelaDetails: View {
     
     #if !os(watchOS)
     @State private var alertItem: AlertItem? = nil
-    @State private var fileType: FileType = .photo
-    @State private var download: Bool = false
+    @State private var fileType: FileType? = nil
     #endif
     
     var vyplatnyedela: Vyplatnyedela
@@ -36,17 +35,16 @@ struct VyplatnyedelaDetails: View {
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
-        download = true
         sessionStore.download(vyplatnyedela.photos, fileType: .photo) { [self] result in
             switch result {
             case let .success(response):
                 photoURL.append(response)
                 if photoURL.count == vyplatnyedela.photos.count {
                     showShareSheet(activityItems: photoURL)
-                    download = false
+                    fileType = nil
                 }
             case let .failure(error):
-                download = false
+                fileType = nil
                 log(error)
             }
         }
@@ -76,8 +74,8 @@ struct VyplatnyedelaDetails: View {
         form
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    if download {
-                        DownloadIndicator(fileType: $fileType)
+                    if let fileType = fileType {
+                        DownloadIndicator(fileType: fileType)
                     }
                 }
                 ToolbarItem(placement: .primaryAction) {
