@@ -1,5 +1,5 @@
 //
-//  TabViewBackgroundMode.swift
+//  ViewModifier.swift
 //  RosenergoMobileAgentiOS
 //
 //  Created by Дмитрий Лисин on 08.09.2020.
@@ -15,6 +15,17 @@ struct TabViewBackgroundMode: ViewModifier {
         #else
         return content
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        #endif
+    }
+}
+
+struct ListStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        #if os(watchOS)
+        return content
+        #else
+        return content
+            .listStyle(InsetGroupedListStyle())
         #endif
     }
 }

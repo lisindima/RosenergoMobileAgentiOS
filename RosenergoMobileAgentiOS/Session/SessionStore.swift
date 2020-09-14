@@ -176,8 +176,12 @@ class SessionStore: ObservableObject, RequestInterceptor {
         load("vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
             switch response {
             case let .success(value):
-                vyplatnyedela = value
-                vyplatnyedelaLoadingState = .success
+                if value.isEmpty {
+                    vyplatnyedelaLoadingState = .empty
+                } else {
+                    vyplatnyedela = value
+                    vyplatnyedelaLoadingState = .success
+                }
             case let .failure(error):
                 vyplatnyedelaLoadingState = .failure
                 log(error)
@@ -189,8 +193,12 @@ class SessionStore: ObservableObject, RequestInterceptor {
         load("inspections") { [self] (response: Result<[Inspections], Error>) in
             switch response {
             case let .success(value):
-                inspections = value
-                inspectionsLoadingState = .success
+                if value.isEmpty {
+                    inspectionsLoadingState = .empty
+                } else {
+                    inspections = value
+                    inspectionsLoadingState = .success
+                }
             case let .failure(error):
                 inspectionsLoadingState = .failure
                 log(error)
@@ -224,7 +232,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         }
     }
     
-    func loadLicense() {
+    func getLicense() {
         cancellation = request("https://api.lisindmitriy.me/license")
             .sink { [self] (response: Result<[LicenseModel], AFError>) in
                 switch response {
@@ -238,7 +246,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
     
-    func loadChangelog() {
+    func getChangelog() {
         cancellation = request("https://api.lisindmitriy.me/changelog")
             .sink { [self] (response: Result<[ChangelogModel], AFError>) in
                 switch response {

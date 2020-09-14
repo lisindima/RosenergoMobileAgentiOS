@@ -23,7 +23,7 @@ struct License: View {
                 }
             }
         }
-        .onAppear(perform: sessionStore.loadLicense)
+        .onAppear(perform: sessionStore.getLicense)
         .navigationTitle("Лицензии")
     }
 }

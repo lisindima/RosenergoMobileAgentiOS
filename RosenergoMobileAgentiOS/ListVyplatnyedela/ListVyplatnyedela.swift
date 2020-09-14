@@ -14,47 +14,21 @@ struct ListVyplatnyedela: View {
     
     @StateObject private var searchBar = SearchBar.shared
     
-    var listVyplatnyedela: some View {
-        List {
-            Section(header: Text("Отправленные дела").fontWeight(.bold)) {
-                ForEach(sessionStore.vyplatnyedela.reversed().filter {
-                    searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
-                }, id: \.id) { vyplatnyedela in
-                    NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
-                        VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
+    var body: some View {
+        LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") {
+            List {
+                Section(header: Text("Отправленные дела").fontWeight(.bold)) {
+                    ForEach(sessionStore.vyplatnyedela.reversed().filter {
+                        searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
+                    }, id: \.id) { vyplatnyedela in
+                        NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
+                            VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
+                        }
                     }
                 }
             }
-        }.addSearchBar(searchBar)
-    }
-    
-    var body: some View {
-        Group {
-            if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .failure {
-                Text("Нет подключения к интернету!")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            } else if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .success {
-                Text("Нет выплатных дел")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                Text("Добавьте своё первое выплатное дело и оно отобразиться здесь.")
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            } else if sessionStore.vyplatnyedela.isEmpty, sessionStore.vyplatnyedelaLoadingState == .loading {
-                ProgressView("Загрузка")
-            } else {
-                #if os(watchOS)
-                listVyplatnyedela
-                #else
-                listVyplatnyedela
-                    .listStyle(InsetGroupedListStyle())
-                #endif
-            }
+            .addSearchBar(searchBar)
+            .modifier(ListStyle())
         }
         .onAppear(perform: sessionStore.getVyplatnyedela)
         .navigationTitle("Выплатные дела")

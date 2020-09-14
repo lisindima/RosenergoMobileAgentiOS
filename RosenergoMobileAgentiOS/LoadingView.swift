@@ -10,10 +10,19 @@ import SwiftUI
 
 struct LoadingView<Content: View>: View {
     var loadingState: LoadingState
+    var title: String = ""
+    var subTitle: String = ""
     let content: () -> Content
 
     init(_ loadingState: LoadingState, content: @escaping () -> Content) {
         self.loadingState = loadingState
+        self.content = content
+    }
+    
+    init(_ loadingState: LoadingState, title: String, subTitle: String, content: @escaping () -> Content) {
+        self.loadingState = loadingState
+        self.title = title
+        self.subTitle = subTitle
         self.content = content
     }
     
@@ -27,6 +36,15 @@ struct LoadingView<Content: View>: View {
             Text("Нет подключения к интернету!")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        case .empty:
+            Text(title)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+            Text(subTitle)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
         }

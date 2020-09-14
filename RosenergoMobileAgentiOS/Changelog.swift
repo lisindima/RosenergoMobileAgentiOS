@@ -63,7 +63,7 @@ struct Changelog: View {
                 }
             }
         }
-        .onAppear(perform: sessionStore.loadChangelog)
+        .onAppear(perform: sessionStore.getChangelog)
         .navigationTitle("Что нового?")
     }
 }

@@ -39,60 +39,34 @@ struct ListInspections: View {
         }
     }
     
-    var listInspections: some View {
-        List {
-            if !localInspections.isEmpty {
-                Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
-                    ForEach(localInspections.filter {
-                        searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
-                    }, id: \.id) { localInspections in
-                        NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
-                            LocalInspectionsItems(localInspections: localInspections)
-                        }
-                    }.onDelete(perform: delete)
+    var body: some View {
+        LoadingView(sessionStore.inspectionsLoadingState, title: "Нет осмотров", subTitle: "Добавьте свой первый осмотр и он отобразиться здесь.") {
+            List {
+                if !localInspections.isEmpty {
+                    Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
+                        ForEach(localInspections.filter {
+                            searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                        }, id: \.id) { localInspections in
+                            NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
+                                LocalInspectionsItems(localInspections: localInspections)
+                            }
+                        }.onDelete(perform: delete)
+                    }
                 }
-            }
-            if !sessionStore.inspections.isEmpty {
-                Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
-                    ForEach(sessionStore.inspections.reversed().filter {
-                        searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
-                    }, id: \.id) { inspection in
-                        NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
-                            InspectionsItems(inspection: inspection)
+                if !sessionStore.inspections.isEmpty {
+                    Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
+                        ForEach(sessionStore.inspections.reversed().filter {
+                            searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                        }, id: \.id) { inspection in
+                            NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
+                                InspectionsItems(inspection: inspection)
+                            }
                         }
                     }
                 }
             }
-        }.addSearchBar(searchBar)
-    }
-    
-    var body: some View {
-        Group {
-            if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .failure {
-                Text("Нет подключения к интернету!")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .success {
-                Text("Нет осмотров")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                Text("Добавьте свой первый осмотр и он отобразиться здесь.")
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            } else if sessionStore.inspections.isEmpty, localInspections.isEmpty, sessionStore.inspectionsLoadingState == .loading {
-                ProgressView("Загрузка")
-            } else {
-                #if os(watchOS)
-                listInspections
-                #else
-                listInspections
-                    .listStyle(InsetGroupedListStyle())
-                #endif
-            }
+            .addSearchBar(searchBar)
+            .modifier(ListStyle())
         }
         .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")

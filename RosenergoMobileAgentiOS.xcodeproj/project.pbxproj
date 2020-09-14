@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		CB0115C62507335400801969 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C52507335400801969 /* PinchToZoom.swift */; };
 		CB0115C72507335400801969 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C52507335400801969 /* PinchToZoom.swift */; };
-		CB0115C925073C4000801969 /* TabViewBackgroundMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */; };
-		CB0115CA25073C4000801969 /* TabViewBackgroundMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */; };
+		CB0115C925073C4000801969 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C825073C4000801969 /* ViewModifier.swift */; };
+		CB0115CA25073C4000801969 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C825073C4000801969 /* ViewModifier.swift */; };
 		CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
 		CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
@@ -176,7 +176,7 @@
 
 /* Begin PBXFileReference section */
 		CB0115C52507335400801969 /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
-		CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewBackgroundMode.swift; sourceTree = "<group>"; };
+		CB0115C825073C4000801969 /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E5602466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RosenergoMobileAgentiOS.xcdatamodel; sourceTree = "<group>"; };
 		CB17E5622466644400CDBB1A /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 				CB9AD06E24DD96BC00D220D8 /* Map.swift */,
 				CBA6118D2500998D009CD8BD /* ShareSheet.swift */,
 				CB0115C52507335400801969 /* PinchToZoom.swift */,
-				CB0115C825073C4000801969 /* TabViewBackgroundMode.swift */,
+				CB0115C825073C4000801969 /* ViewModifier.swift */,
 				CB1ECFCB2508BD9700523D9E /* Enum.swift */,
 				CBED06C72509C77600216056 /* Haptic.swift */,
 				CBED06CA250A24C300216056 /* CustomAlert.swift */,
@@ -686,7 +686,7 @@
 				CBB842ED24E3AE600008EB07 /* License.swift in Sources */,
 				CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */,
 				CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */,
-				CB0115C925073C4000801969 /* TabViewBackgroundMode.swift in Sources */,
+				CB0115C925073C4000801969 /* ViewModifier.swift in Sources */,
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
@@ -725,7 +725,7 @@
 				CBB4B0BC24C8330B00C25A59 /* PersistenceController.swift in Sources */,
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
-				CB0115CA25073C4000801969 /* TabViewBackgroundMode.swift in Sources */,
+				CB0115CA25073C4000801969 /* ViewModifier.swift in Sources */,
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
