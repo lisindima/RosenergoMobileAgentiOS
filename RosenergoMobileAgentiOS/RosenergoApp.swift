@@ -17,12 +17,16 @@ struct RosenergoApp: App {
     
     @State private var showfullScreenCover: Bool = false
     @State private var inspectionID: String = ""
+    @State private var vyplatnyedelaID: String = ""
     
     let persistenceController = PersistenceController.shared
     
     func open(_ url: URL) {
+        inspectionID = ""
+        vyplatnyedelaID = ""
         inspectionID = url["inspection"]
-        if !inspectionID.isEmpty {
+        vyplatnyedelaID = url["delo"]
+        if !inspectionID.isEmpty || !vyplatnyedelaID.isEmpty {
             showfullScreenCover = true
         }
     }
@@ -43,8 +47,13 @@ struct RosenergoApp: App {
                     }
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
-                    InspectionLink(inspectionID: $inspectionID)
-                        .environmentObject(sessionStore)
+                    if !inspectionID.isEmpty {
+                        InspectionLink(inspectionID: $inspectionID)
+                            .environmentObject(sessionStore)
+                    } else if !vyplatnyedelaID.isEmpty {
+                        VyplatnyedelaLink(vyplatnyedelaID: $vyplatnyedelaID)
+                            .environmentObject(sessionStore)
+                    }
                 }
         }
         .onChange(of: scenePhase) { phase in
