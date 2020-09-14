@@ -25,7 +25,7 @@ struct VyplatnyedelaLink: View {
                 vyplatnyedela = value
                 loadingState = .success
             case let .failure(error):
-                loadingState = .failure
+                loadingState = .failure(error)
                 log(error)
             }
         }

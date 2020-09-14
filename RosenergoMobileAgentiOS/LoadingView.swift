@@ -32,10 +32,13 @@ struct LoadingView<Content: View>: View {
             ProgressView("Загрузка")
         case .success:
             content()
-        case .failure:
+        case let .failure(error):
             Text("Нет подключения к интернету!")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+            Text(error.localizedDescription)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
         case .empty:

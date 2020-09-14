@@ -25,7 +25,7 @@ struct InspectionLink: View {
                 inspection = value
                 loadingState = .success
             case let .failure(error):
-                loadingState = .failure
+                loadingState = .failure(error)
                 log(error)
             }
         }
