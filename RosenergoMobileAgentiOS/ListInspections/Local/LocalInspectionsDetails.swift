@@ -149,38 +149,32 @@ struct LocalInspectionsDetails: View {
             Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "timer",
-                    imageColor: .rosenergo,
                     title: localInspections.dateInspections.convertDate()
                 )
             }
             Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "doc.plaintext",
-                    imageColor: .rosenergo,
                     subTitle: "Страховой полис",
                     title: localInspections.insuranceContractNumber
                 )
                 SectionItem(
                     imageName: "car",
-                    imageColor: .rosenergo,
                     subTitle: "Модель автомобиля",
                     title: localInspections.carModel
                 )
                 SectionItem(
                     imageName: "rectangle",
-                    imageColor: .rosenergo,
                     subTitle: "Регистрационный номер",
                     title: localInspections.carRegNumber
                 )
                 SectionItem(
                     imageName: "v.circle",
-                    imageColor: .rosenergo,
                     subTitle: "VIN",
                     title: localInspections.carVin
                 )
                 SectionItem(
                     imageName: "textformat.123",
-                    imageColor: .rosenergo,
                     subTitle: "Номер кузова",
                     title: localInspections.carBodyNumber
                 )
@@ -189,31 +183,26 @@ struct LocalInspectionsDetails: View {
                 Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "doc.plaintext",
-                        imageColor: .rosenergo,
                         subTitle: "Страховой полис",
                         title: localInspections.insuranceContractNumber2
                     )
                     SectionItem(
                         imageName: "car",
-                        imageColor: .rosenergo,
                         subTitle: "Модель автомобиля",
                         title: localInspections.carModel2
                     )
                     SectionItem(
                         imageName: "rectangle",
-                        imageColor: .rosenergo,
                         subTitle: "Регистрационный номер",
                         title: localInspections.carRegNumber2
                     )
                     SectionItem(
                         imageName: "v.circle",
-                        imageColor: .rosenergo,
                         subTitle: "VIN",
                         title: localInspections.carVin2
                     )
                     SectionItem(
                         imageName: "textformat.123",
-                        imageColor: .rosenergo,
                         subTitle: "Номер кузова",
                         title: localInspections.carBodyNumber2
                     )

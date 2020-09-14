@@ -25,6 +25,16 @@ struct SettingsView: View {
     @State private var showMailFeedback: Bool = false
     @State private var loading: Bool = false
     
+    #if !os(watchOS)
+    func feedback() {
+        if MFMailComposeViewController.canSendMail() {
+            showMailFeedback = true
+        } else {
+            alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
+        }
+    }
+    #endif
+    
     private var appVersionView: some View {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -56,13 +66,11 @@ struct SettingsView: View {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "person",
-                        imageColor: .rosenergo,
                         subTitle: "Агент",
                         title: agent.name
                     )
                     SectionItem(
                         imageName: "envelope",
-                        imageColor: .rosenergo,
                         subTitle: "Эл.почта",
                         title: agent.email
                     )
@@ -73,9 +81,7 @@ struct SettingsView: View {
                 if notificationStore.enabled == .authorized {
                     SectionLink(
                         imageName: "bell",
-                        imageColor: .rosenergo,
                         title: "Выключить уведомления",
-                        titleColor: .primary,
                         destination: settingsURL
                     )
                     Stepper(value: $notificationStore.notifyHour, in: 1 ... 24) {
@@ -88,19 +94,14 @@ struct SettingsView: View {
                 if notificationStore.enabled == .notDetermined {
                     SectionButton(
                         imageName: "bell",
-                        imageColor: .rosenergo,
                         title: "Включить уведомления",
-                        titleColor: .primary
-                    ) {
-                        notificationStore.requestPermission()
-                    }
+                        action: notificationStore.requestPermission
+                    )
                 }
                 if notificationStore.enabled == .denied {
                     SectionLink(
                         imageName: "bell",
-                        imageColor: .rosenergo,
                         title: "Включить уведомления",
-                        titleColor: .primary,
                         destination: settingsURL
                     )
                 }
@@ -122,24 +123,15 @@ struct SettingsView: View {
                 #if !os(watchOS)
                 SectionLink(
                     imageName: "star",
-                    imageColor: .rosenergo,
                     title: "Оценить",
-                    titleColor: .primary,
                     showLinkLabel: true,
                     destination: URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
                 )
                 SectionButton(
                     imageName: "ant",
-                    imageColor: .rosenergo,
                     title: "Сообщить об ошибке",
-                    titleColor: .primary
-                ) {
-                    if MFMailComposeViewController.canSendMail() {
-                        showMailFeedback = true
-                    } else {
-                        alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
-                    }
-                }
+                    action: feedback
+                )
                 #endif
             }
             Section(footer: appVersionView) {

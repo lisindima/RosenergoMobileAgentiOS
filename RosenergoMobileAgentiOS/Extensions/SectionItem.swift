@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SectionItem: View {
     var imageName: String
-    var imageColor: Color
+    var imageColor: Color = .rosenergo
     var subTitle: String = ""
     var title: String?
     
@@ -53,9 +53,9 @@ struct SectionItem: View {
 
 struct SectionButton: View {
     var imageName: String
-    var imageColor: Color
+    var imageColor: Color = .rosenergo
     var title: String
-    var titleColor: Color
+    var titleColor: Color = .primary
     var action: () -> Void
     
     var body: some View {
@@ -73,9 +73,9 @@ struct SectionButton: View {
 
 struct SectionLink: View {
     var imageName: String
-    var imageColor: Color
+    var imageColor: Color = .rosenergo
     var title: String?
-    var titleColor: Color
+    var titleColor: Color = .primary
     var showLinkLabel: Bool = false
     var destination: URL
     
@@ -111,7 +111,6 @@ struct SectionItem_Previews: PreviewProvider {
     static var previews: some View {
         SectionItem(
             imageName: "map",
-            imageColor: .rosenergo,
             subTitle: "Адрес места проведения осмотра",
             title: "Пролетарская, 114"
         )

@@ -131,20 +131,17 @@ struct VyplatnyedelaDetails: View {
             Section(header: Text("Дата загрузки выплатного дела").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "timer",
-                    imageColor: .rosenergo,
                     title: vyplatnyedela.createdAt.convertDate()
                 )
             }
             Section(header: Text("Информация").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "doc.plaintext",
-                    imageColor: .rosenergo,
                     subTitle: "Номер заявления",
                     title: vyplatnyedela.numberZayavlenia
                 )
                 SectionItem(
                     imageName: "car",
-                    imageColor: .rosenergo,
                     subTitle: "Номер полиса",
                     title: vyplatnyedela.insuranceContractNumber
                 )

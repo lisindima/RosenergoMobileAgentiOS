@@ -34,9 +34,7 @@ struct MapView: View {
     var body: some View {
         SectionLink(
             imageName: "map",
-            imageColor: .rosenergo,
             title: address,
-            titleColor: .primary,
             destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(longitude),\(latitude)")!
         )
         Map(coordinateRegion: $region, annotationItems: pins) { pin in

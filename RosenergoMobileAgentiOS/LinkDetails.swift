@@ -81,9 +81,9 @@ struct LinkDetails: View {
         }
     }
     
-    private func downloadVideo() {
+    private func downloadVideo(_ url: URL) {
         fileType = .video
-        sessionStore.download([inspection!.video!], fileType: .video) { [self] result in
+        sessionStore.download([url], fileType: .video) { [self] result in
             switch result {
             case let .success(response):
                 fileType = nil
@@ -141,38 +141,32 @@ struct LinkDetails: View {
                     Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
                         SectionItem(
                             imageName: "timer",
-                            imageColor: .rosenergo,
                             title: inspection?.createdAt.convertDate()
                         )
                     }
                     Section(header: Text(inspection?.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                         SectionItem(
                             imageName: "doc.plaintext",
-                            imageColor: .rosenergo,
                             subTitle: "Страховой полис",
                             title: inspection?.insuranceContractNumber
                         )
                         SectionItem(
                             imageName: "car",
-                            imageColor: .rosenergo,
                             subTitle: "Модель автомобиля",
                             title: inspection?.carModel
                         )
                         SectionItem(
                             imageName: "rectangle",
-                            imageColor: .rosenergo,
                             subTitle: "Регистрационный номер",
                             title: inspection?.carRegNumber
                         )
                         SectionItem(
                             imageName: "v.circle",
-                            imageColor: .rosenergo,
                             subTitle: "VIN",
                             title: inspection?.carVin
                         )
                         SectionItem(
                             imageName: "textformat.123",
-                            imageColor: .rosenergo,
                             subTitle: "Номер кузова",
                             title: inspection?.carBodyNumber
                         )
@@ -181,31 +175,26 @@ struct LinkDetails: View {
                         Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                             SectionItem(
                                 imageName: "doc.plaintext",
-                                imageColor: .rosenergo,
                                 subTitle: "Страховой полис",
                                 title: inspection?.insuranceContractNumber2
                             )
                             SectionItem(
                                 imageName: "car",
-                                imageColor: .rosenergo,
                                 subTitle: "Модель автомобиля",
                                 title: inspection?.carModel2
                             )
                             SectionItem(
                                 imageName: "rectangle",
-                                imageColor: .rosenergo,
                                 subTitle: "Регистрационный номер",
                                 title: inspection?.carRegNumber2
                             )
                             SectionItem(
                                 imageName: "v.circle",
-                                imageColor: .rosenergo,
                                 subTitle: "VIN",
                                 title: inspection?.carVin2
                             )
                             SectionItem(
                                 imageName: "textformat.123",
-                                imageColor: .rosenergo,
                                 subTitle: "Номер кузова",
                                 title: inspection?.carBodyNumber2
                             )
@@ -235,8 +224,8 @@ struct LinkDetails: View {
                                     Label("Загрузить фото", systemImage: "photo.on.rectangle.angled")
                                 }
                             }
-                            if inspection?.video != nil {
-                                Button(action: downloadVideo) {
+                            if let url = inspection?.video {
+                                Button(action: { downloadVideo(url) }) {
                                     Label("Загрузить видео", systemImage: "video")
                                 }
                             }
