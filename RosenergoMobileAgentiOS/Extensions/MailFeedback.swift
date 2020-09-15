@@ -20,7 +20,14 @@ struct MailFeedback: UIViewControllerRepresentable {
         let mailFeedback = MFMailComposeViewController()
         mailFeedback.setToRecipients(["lisinde@rosen.ttb.ru"])
         mailFeedback.setSubject("Сообщение об ошибке")
-        mailFeedback.setMessageBody("Добрый день!<br><br>Модель устройства: <b>\(deviceInfo.name)</b><br>Версия системы: <b>\(deviceInfo.systemName) \(deviceInfo.systemVersion)</b><br>Версия приложения: <b>\(version) (\(build))</b><br><br>Опишите, какая ошибка произошла в приложении:", isHTML: true)
+        mailFeedback.setMessageBody(
+            """
+                Добрый день!<br>
+                <br>Версия системы: <b>\(deviceInfo.systemName) \(deviceInfo.systemVersion)</b>
+                <br>Версия приложения: <b>\(version) (\(build))</b>
+                <br><br>Опишите, какая ошибка произошла в приложении:
+            """, isHTML: true
+        )
         mailFeedback.mailComposeDelegate = context.coordinator
         return mailFeedback
     }

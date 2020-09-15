@@ -12,7 +12,7 @@ struct LoadingView<Content: View>: View {
     var loadingState: LoadingState
     var title: String = ""
     var subTitle: String = ""
-    let content: () -> Content
+    var content: () -> Content
 
     init(_ loadingState: LoadingState, content: @escaping () -> Content) {
         self.loadingState = loadingState
@@ -33,20 +33,29 @@ struct LoadingView<Content: View>: View {
         case .success:
             content()
         case let .failure(error):
-            Text("Нет подключения к интернету!")
+            Spacer()
+            Text("Произошла ошибка!")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
+                .padding(.bottom)
             Text(error.localizedDescription)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            Spacer()
+            CustomButton(title: "Повторить", colorButton: .rosenergo, colorText: .white) {
+                
+            }
+            .padding()
         case .empty:
             Text(title)
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
+                .padding(.bottom)
             Text(subTitle)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
