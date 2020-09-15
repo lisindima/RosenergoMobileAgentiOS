@@ -11,6 +11,19 @@ import SwiftUI
 struct License: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
+    func getLicense() {
+        sessionStore.load("https://api.lisindmitriy.me/license") { [self] (response: Result<[LicenseModel], Error>) in
+            switch response {
+            case let .success(value):
+                sessionStore.licenseModel = value
+                sessionStore.licenseLoadingState = .success
+            case let .failure(error):
+                sessionStore.licenseLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
     var body: some View {
         LoadingView(sessionStore.licenseLoadingState) {
             Form {
@@ -23,7 +36,7 @@ struct License: View {
                 }
             }
         }
-        .onAppear(perform: sessionStore.getLicense)
+        .onAppear(perform: getLicense)
         .navigationTitle("Лицензии")
     }
 }

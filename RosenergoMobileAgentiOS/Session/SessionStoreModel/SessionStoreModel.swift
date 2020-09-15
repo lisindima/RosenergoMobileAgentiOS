@@ -109,3 +109,25 @@ struct LicenseModel: Identifiable, Codable {
     let urlFramework: URL
     let nameFramework, textLicenseFramework: String
 }
+
+struct PaginationInspection: Codable {
+    let currentPage: Int
+    let data: [Inspections]
+    let firstPageURL: String
+    let from, lastPage: Int
+    let lastPageURL, nextPageURL, path: String
+    let perPage: Int
+    let prevPageURL: Int?
+    let to, total: Int
+}
+
+struct PaginationVyplatnyedela: Codable {
+    let currentPage: Int
+    let data: [Vyplatnyedela]
+    let firstPageURL: String
+    let from, lastPage: Int
+    let lastPageURL, nextPageURL, path: String
+    let perPage: Int
+    let prevPageURL: Int?
+    let to, total: Int
+}

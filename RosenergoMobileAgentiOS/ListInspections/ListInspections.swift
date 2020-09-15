@@ -23,6 +23,23 @@ struct ListInspections: View {
     @EnvironmentObject private var notificationStore: NotificationStore
     #endif
     
+    func getInspections() {
+        sessionStore.load(sessionStore.serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
+            switch response {
+            case let .success(value):
+                if value.isEmpty {
+                    sessionStore.inspectionsLoadingState = .empty
+                } else {
+                    sessionStore.inspections = value
+                    sessionStore.inspectionsLoadingState = .success
+                }
+            case let .failure(error):
+                sessionStore.inspectionsLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
     private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
@@ -34,8 +51,7 @@ struct ListInspections: View {
         do {
             try moc.save()
         } catch {
-            let nsError = error as NSError
-            log("Unresolved error \(nsError), \(nsError.userInfo)")
+            log(error.localizedDescription)
         }
     }
     
@@ -51,6 +67,12 @@ struct ListInspections: View {
                                 LocalInspectionsItems(localInspections: localInspections)
                             }
                         }.onDelete(perform: delete)
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .onAppear { print("Загружается") }
                     }
                 }
                 if !sessionStore.inspections.isEmpty {
@@ -68,7 +90,7 @@ struct ListInspections: View {
             .addSearchBar(searchBar)
             .modifier(ListStyle())
         }
-        .onAppear(perform: sessionStore.getInspections)
+        .onAppear(perform: getInspections)
         .navigationTitle("Осмотры")
         .toolbar {
             #if !os(watchOS)

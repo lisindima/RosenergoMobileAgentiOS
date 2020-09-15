@@ -14,6 +14,23 @@ struct ListVyplatnyedela: View {
     
     @StateObject private var searchBar = SearchBar.shared
     
+    func getVyplatnyedela() {
+        sessionStore.load(sessionStore.serverURL + "vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
+            switch response {
+            case let .success(value):
+                if value.isEmpty {
+                    sessionStore.vyplatnyedelaLoadingState = .empty
+                } else {
+                    sessionStore.vyplatnyedela = value
+                    sessionStore.vyplatnyedelaLoadingState = .success
+                }
+            case let .failure(error):
+                sessionStore.vyplatnyedelaLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
     var body: some View {
         LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") {
             List {
@@ -25,12 +42,18 @@ struct ListVyplatnyedela: View {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
                         }
                     }
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    .onAppear { print("Загружается") }
                 }
             }
             .addSearchBar(searchBar)
             .modifier(ListStyle())
         }
-        .onAppear(perform: sessionStore.getVyplatnyedela)
+        .onAppear(perform: getVyplatnyedela)
         .navigationTitle("Выплатные дела")
         .toolbar {
             #if !os(watchOS)

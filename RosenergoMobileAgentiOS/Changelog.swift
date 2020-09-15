@@ -15,6 +15,19 @@ struct Changelog: View {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     }
     
+    func getChangelog() {
+        sessionStore.load("https://api.lisindmitriy.me/changelog") { [self] (response: Result<[ChangelogModel], Error>) in
+            switch response {
+            case let .success(value):
+                sessionStore.сhangelogModel = value
+                sessionStore.changelogLoadingState = .success
+            case let .failure(error):
+                sessionStore.changelogLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
     var body: some View {
         LoadingView(sessionStore.changelogLoadingState) {
             Form {
@@ -63,7 +76,7 @@ struct Changelog: View {
                 }
             }
         }
-        .onAppear(perform: sessionStore.getChangelog)
+        .onAppear(perform: getChangelog)
         .navigationTitle("Что нового?")
     }
 }

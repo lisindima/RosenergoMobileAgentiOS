@@ -42,7 +42,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     private var cancellation: AnyCancellable?
     
-    private let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     private func clearData() {
         loginModel = nil
@@ -161,7 +161,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .accept("application/json"),
         ]
         
-        cancellation = request(serverURL + url, headers: headers)
+        cancellation = request(url, headers: headers)
             .sink { (response: Result<T, AFError>) in
                 switch response {
                 case let .success(value):
@@ -170,40 +170,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
                     completion(.failure(error))
                 }
             }
-    }
-    
-    func getVyplatnyedela() {
-        load("vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
-            switch response {
-            case let .success(value):
-                if value.isEmpty {
-                    vyplatnyedelaLoadingState = .empty
-                } else {
-                    vyplatnyedela = value
-                    vyplatnyedelaLoadingState = .success
-                }
-            case let .failure(error):
-                vyplatnyedelaLoadingState = .failure(error)
-                log(error.localizedDescription)
-            }
-        }
-    }
-    
-    func getInspections() {
-        load("inspections") { [self] (response: Result<[Inspections], Error>) in
-            switch response {
-            case let .success(value):
-                if value.isEmpty {
-                    inspectionsLoadingState = .empty
-                } else {
-                    inspections = value
-                    inspectionsLoadingState = .success
-                }
-            case let .failure(error):
-                inspectionsLoadingState = .failure(error)
-                log(error.localizedDescription)
-            }
-        }
     }
     
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
@@ -230,33 +196,5 @@ class SessionStore: ObservableObject, RequestInterceptor {
                     }
                 }
         }
-    }
-    
-    func getLicense() {
-        cancellation = request("https://api.lisindmitriy.me/license")
-            .sink { [self] (response: Result<[LicenseModel], AFError>) in
-                switch response {
-                case let .success(value):
-                    licenseModel = value
-                    licenseLoadingState = .success
-                case let .failure(error):
-                    licenseLoadingState = .failure(error)
-                    log(error.localizedDescription)
-                }
-            }
-    }
-    
-    func getChangelog() {
-        cancellation = request("https://api.lisindmitriy.me/changelog")
-            .sink { [self] (response: Result<[ChangelogModel], AFError>) in
-                switch response {
-                case let .success(value):
-                    сhangelogModel = value
-                    changelogLoadingState = .success
-                case let .failure(error):
-                    changelogLoadingState = .failure(error)
-                    log(error.localizedDescription)
-                }
-            }
     }
 }
