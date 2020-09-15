@@ -20,8 +20,14 @@ struct InputModifier: ViewModifier {
 }
 
 struct CustomInput: View {
-    @Binding var text: String
     var name: String
+    
+    @Binding var text: String
+    
+    init(_ name: String, text: Binding<String>) {
+        self.name = name
+        _text = text
+    }
     
     var body: some View {
         TextField(name, text: $text)

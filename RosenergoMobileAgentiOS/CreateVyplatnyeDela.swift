@@ -66,8 +66,8 @@ struct CreateVyplatnyeDela: View {
                 .padding(.top, 8)
                 .padding([.horizontal, .bottom])
             GroupBox {
-                CustomInput(text: $numberZayavlenia, name: "Номер заявления")
-                CustomInput(text: $insuranceContractNumber, name: "Номер полиса")
+                CustomInput("Номер заявления", text: $numberZayavlenia)
+                CustomInput("Номер полиса", text: $insuranceContractNumber)
             }
             .padding(.horizontal)
             ImageButton(countPhoto: sessionStore.photosURL) {
@@ -75,7 +75,7 @@ struct CreateVyplatnyeDela: View {
             }
             .padding()
         }
-        CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+        CustomButton("Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)

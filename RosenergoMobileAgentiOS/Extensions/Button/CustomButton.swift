@@ -13,9 +13,43 @@ struct CustomButton: View {
     var subTitle: String = ""
     var loading: Bool = false
     var progress: Double = 0.0
-    var colorButton: Color
-    var colorText: Color
+    var colorButton: Color = .rosenergo
+    var colorText: Color = .white
     var action: () -> Void
+    
+    init(_ title: String, action: @escaping () -> Void) {
+        self.title = title
+        self.action = action
+    }
+    
+    init(_ title: String, loading: Bool, action: @escaping () -> Void) {
+        self.title = title
+        self.loading = loading
+        self.action = action
+    }
+    
+    init(_ title: String, loading: Bool, progress: Double, action: @escaping () -> Void) {
+        self.title = title
+        self.loading = loading
+        self.progress = progress
+        self.action = action
+    }
+    
+    init(_ title: String, subTitle: String, loading: Bool, progress: Double, action: @escaping () -> Void) {
+        self.title = title
+        self.subTitle = subTitle
+        self.loading = loading
+        self.progress = progress
+        self.action = action
+    }
+    
+    init(_ title: String, subTitle: String, colorButton: Color, colorText: Color, action: @escaping () -> Void) {
+        self.title = title
+        self.subTitle = subTitle
+        self.colorButton = colorButton
+        self.colorText = colorText
+        self.action = action
+    }
     
     var body: some View {
         Button(action: action) {
@@ -60,55 +94,5 @@ struct CustomButton: View {
         .disabled(loading)
         .background(colorButton)
         .cornerRadius(8)
-    }
-}
-
-struct ImageButton: View {
-    var countPhoto: [URL]
-    var action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack {
-                if countPhoto.isEmpty {
-                    Image(systemName: "camera")
-                        .font(.title)
-                        .foregroundColor(.rosenergo)
-                } else {
-                    Text("Фотографий добавлено: \(countPhoto.count)")
-                        .fontWeight(.bold)
-                        .foregroundColor(.rosenergo)
-                }
-            }
-            .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 60, idealHeight: 60, maxHeight: 60)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.rosenergo.opacity(0.2))
-            )
-        }
-    }
-}
-
-struct MenuButton: View {
-    var title: String
-    var image: String
-    var color: Color
-    
-    var body: some View {
-        VStack {
-            Image(systemName: image)
-                .font(.largeTitle)
-                .foregroundColor(color)
-                .padding(.bottom, 3)
-            Text(title)
-                .fontWeight(.bold)
-                .foregroundColor(color)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(color.opacity(0.2))
-        )
     }
 }

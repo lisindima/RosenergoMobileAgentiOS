@@ -44,12 +44,12 @@ struct SignIn: View {
     
     var watch: some View {
         VStack {
-            CustomInput(text: $email, name: "Эл.почта")
+            CustomInput("Эл.почта", text: $email)
                 .textContentType(.emailAddress)
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
                 .modifier(InputModifier())
-            CustomButton(title: "Войти", loading: loading, colorButton: .rosenergo, colorText: .white) {
+            CustomButton("Войти", loading: loading) {
                 signIn(email: email, password: password)
             }
             .buttonStyle(PlainButtonStyle())
@@ -70,7 +70,7 @@ struct SignIn: View {
                 .fontWeight(.bold)
             Spacer()
             Group {
-                CustomInput(text: $email, name: "Эл.почта")
+                CustomInput("Эл.почта", text: $email)
                     .textContentType(.emailAddress)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
@@ -80,7 +80,7 @@ struct SignIn: View {
                     .modifier(InputModifier())
             }
             .padding(.horizontal)
-            CustomButton(title: "Войти", loading: loading, colorButton: .rosenergo, colorText: .white) {
+            CustomButton("Войти", loading: loading) {
                 signIn(email: email, password: password)
             }
             .keyboardShortcut(.defaultAction)

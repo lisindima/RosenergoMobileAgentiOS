@@ -42,28 +42,16 @@ struct MenuView: View {
     var menu: some View {
         LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
             #if !os(watchOS)
-            NavigationLink(destination: CreateInspections()) {
-                MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo)
-            }
-            .buttonStyle(PlainButtonStyle())
+            MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo, destination: CreateInspections())
             #endif
             
-            NavigationLink(destination: ListInspections()) {
-                MenuButton(title: "Осмотры", image: "archivebox", color: .red)
-            }
-            .buttonStyle(PlainButtonStyle())
+            MenuButton(title: "Осмотры", image: "archivebox", color: .red, destination: ListInspections())
             
             #if !os(watchOS)
-            NavigationLink(destination: CreateVyplatnyeDela()) {
-                MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple)
-            }
-            .buttonStyle(PlainButtonStyle())
+            MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple, destination: CreateVyplatnyeDela())
             #endif
             
-            NavigationLink(destination: ListVyplatnyedela()) {
-                MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow)
-            }
-            .buttonStyle(PlainButtonStyle())
+            MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow, destination: ListVyplatnyedela())
         }
         .padding(.top, 8)
         .padding(.horizontal)

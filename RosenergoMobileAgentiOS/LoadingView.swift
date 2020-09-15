@@ -45,7 +45,7 @@ struct LoadingView<Content: View>: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             Spacer()
-            CustomButton(title: "Повторить", colorButton: .rosenergo, colorText: .white) {
+            CustomButton("Повторить") {
                 
             }
             .padding()

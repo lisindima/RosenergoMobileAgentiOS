@@ -190,14 +190,14 @@ struct CreateInspections: View {
                 HStack {
                     SeriesPicker(selectedSeries: $choiseSeries)
                         .modifier(InputModifier())
-                    CustomInput(text: $insuranceContractNumber, name: "Номер")
+                    CustomInput("Номер", text: $insuranceContractNumber)
                         .keyboardType(.numberPad)
                 }
             }
             .padding(.horizontal)
             GroupBox {
-                CustomInput(text: $carModel, name: "Марка автомобиля")
-                CustomInput(text: $carRegNumber, name: "Рег. номер автомобиля")
+                CustomInput("Марка автомобиля", text: $carModel)
+                CustomInput("Рег. номер автомобиля", text: $carRegNumber)
             }
             .padding(.horizontal)
             GroupBox(label:
@@ -205,8 +205,8 @@ struct CreateInspections: View {
                             Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
                         }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
             ) {
-                CustomInput(text: $carVin, name: "VIN")
-                CustomInput(text: vinAndNumber ? $carVin : $carBodyNumber, name: "Номер кузова")
+                CustomInput("VIN", text: $carVin)
+                CustomInput("Номер кузова", text: vinAndNumber ? $carVin : $carBodyNumber)
                     .disabled(vinAndNumber)
             }
             .padding(.horizontal)
@@ -223,14 +223,14 @@ struct CreateInspections: View {
                     HStack {
                         SeriesPicker(selectedSeries: $choiseSeries2)
                             .modifier(InputModifier())
-                        CustomInput(text: $insuranceContractNumber2, name: "Номер")
+                        CustomInput("Номер", text: $insuranceContractNumber2)
                             .keyboardType(.numberPad)
                     }
                 }
                 .padding(.horizontal)
                 GroupBox {
-                    CustomInput(text: $carModel2, name: "Марка автомобиля")
-                    CustomInput(text: $carRegNumber2, name: "Рег. номер автомобиля")
+                    CustomInput("Марка автомобиля", text: $carModel2)
+                    CustomInput("Рег. номер автомобиля", text: $carRegNumber2)
                 }
                 .padding(.horizontal)
                 GroupBox(label:
@@ -238,8 +238,8 @@ struct CreateInspections: View {
                                 Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
                             }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
                 ) {
-                    CustomInput(text: $carVin2, name: "VIN")
-                    CustomInput(text: vinAndNumber2 ? $carVin2 : $carBodyNumber2, name: "Номер кузова")
+                    CustomInput("VIN", text: $carVin2)
+                    CustomInput("Номер кузова", text: vinAndNumber2 ? $carVin2 : $carBodyNumber2)
                         .disabled(vinAndNumber2)
                 }
                 .padding(.horizontal)
@@ -250,11 +250,11 @@ struct CreateInspections: View {
             }
         }
         HStack {
-            CustomButton(title: "Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress, colorButton: .rosenergo, colorText: .white) {
+            CustomButton("Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress) {
                 validateInput(upload: true)
             }
             if !uploadState {
-                CustomButton(title: "Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                CustomButton("Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                     validateInput(upload: false)
                 }
             }

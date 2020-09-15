@@ -69,6 +69,10 @@
 		CB7EAEA8250F394A00B4B4F5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */; };
 		CB7EAEAA250F593400B4B4F5 /* VyplatnyedelaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */; };
 		CB7EAEAB250F593400B4B4F5 /* VyplatnyedelaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */; };
+		CB7EAEAD2510854300B4B4F5 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAC2510854300B4B4F5 /* MenuButton.swift */; };
+		CB7EAEAE2510854300B4B4F5 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAC2510854300B4B4F5 /* MenuButton.swift */; };
+		CB7EAEB02510856900B4B4F5 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */; };
+		CB7EAEB12510856900B4B4F5 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
@@ -218,6 +222,8 @@
 		CB7CEFA924AAC202009DF93A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaLink.swift; sourceTree = "<group>"; };
+		CB7EAEAC2510854300B4B4F5 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		CB9AD06E24DD96BC00D220D8 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,11 +356,11 @@
 		CB17E5902469B4FB00CDBB1A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CB7EAEB22510858900B4B4F5 /* Button */,
 				CB71A2E724C5518A0018403B /* CoreData */,
 				CB20FB782480CAD0004CB9C1 /* CameraView */,
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
-				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB9D62D124A455B1000C1C3A /* SectionItem.swift */,
 				CB758D7024AEEB67000A6B3C /* UIImage.swift */,
@@ -412,6 +418,16 @@
 				CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		CB7EAEB22510858900B4B4F5 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				CB17E584246864AE00CDBB1A /* CustomButton.swift */,
+				CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */,
+				CB7EAEAC2510854300B4B4F5 /* MenuButton.swift */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 		CB9DE92D249758B100F4E72A /* RosenergoMobileAgentwatchOS */ = {
@@ -702,7 +718,9 @@
 				CBED06C82509C77600216056 /* Haptic.swift in Sources */,
 				CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */,
+				CB7EAEB02510856900B4B4F5 /* ImageButton.swift in Sources */,
 				CB7EAEA7250F394A00B4B4F5 /* LoadingView.swift in Sources */,
+				CB7EAEAD2510854300B4B4F5 /* MenuButton.swift in Sources */,
 				CB4B826924D4079800C0C558 /* InspectionLink.swift in Sources */,
 				CBAC7F3824D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
 				CB3C916D250DE30A0099958D /* Log.swift in Sources */,
@@ -743,12 +761,14 @@
 				CBAC7F3924D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
 				CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */,
+				CB7EAEB12510856900B4B4F5 /* ImageButton.swift in Sources */,
 				CB3C916E250DE30A0099958D /* Log.swift in Sources */,
 				CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */,
 				CBAC7F3624D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
 				CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */,
 				CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */,
 				CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
+				CB7EAEAE2510854300B4B4F5 /* MenuButton.swift in Sources */,
 				CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */,
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
