@@ -26,7 +26,7 @@ struct VyplatnyedelaLink: View {
                 loadingState = .success
             case let .failure(error):
                 loadingState = .failure(error)
-                log(error)
+                log(error.localizedDescription)
             }
         }
     }

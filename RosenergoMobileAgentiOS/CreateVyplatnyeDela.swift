@@ -55,7 +55,7 @@ struct CreateVyplatnyeDela: View {
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)")
                 playHaptic(.error)
                 uploadState = false
-                log(error)
+                log(error.localizedDescription)
             }
         }
     }

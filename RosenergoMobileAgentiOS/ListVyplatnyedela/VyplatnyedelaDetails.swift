@@ -45,7 +45,7 @@ struct VyplatnyedelaDetails: View {
                 }
             case let .failure(error):
                 fileType = nil
-                log(error)
+                log(error.localizedDescription)
             }
         }
     }

@@ -23,7 +23,7 @@ struct MapView: View {
         let location = CLLocation(latitude: latitude, longitude: longitude)
         location.geocode { placemark, error in
             if let error = error {
-                log(error)
+                log(error.localizedDescription)
                 return
             } else if let placemark = placemark?.first {
                 address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"

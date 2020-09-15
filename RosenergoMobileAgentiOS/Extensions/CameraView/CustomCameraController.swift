@@ -72,7 +72,7 @@ class CustomCameraController: UIViewController {
                 photoOutput = setPhotoOutput
             }
         } catch {
-            log(error)
+            log(error.localizedDescription)
         }
     }
     

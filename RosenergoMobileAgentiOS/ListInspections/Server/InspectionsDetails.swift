@@ -48,7 +48,7 @@ struct InspectionsDetails: View {
                 }
             case let .failure(error):
                 fileType = nil
-                log(error)
+                log(error.localizedDescription)
             }
         }
     }
@@ -62,7 +62,7 @@ struct InspectionsDetails: View {
                 showShareSheet(activityItems: [response])
             case let .failure(error):
                 fileType = nil
-                log(error)
+                log(error.localizedDescription)
             }
         }
     }

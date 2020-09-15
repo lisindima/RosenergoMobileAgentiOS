@@ -6,10 +6,10 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
-
-func log(_ item: Any) {
+func log(_ item: String) {
     #if DEBUG
     print(item)
+    #else
+    //Crashlytics
     #endif
 }
