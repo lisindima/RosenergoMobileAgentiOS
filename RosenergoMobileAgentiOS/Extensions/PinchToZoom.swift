@@ -137,40 +137,6 @@ struct PinchZoom: UIViewRepresentable {
 }
 #endif
 
-#if os(watchOS)
-struct PinchToZoomWatch: ViewModifier {
-    @State private var currentPosition: CGSize = .zero
-    @State private var newPosition: CGSize = .zero
-    @State private var scale: CGFloat = 1.0
-    
-    func body(content: Content) -> some View {
-        content
-            .scaleEffect(scale)
-            .focusable(true)
-            .digitalCrownRotation($scale, from: 1.0, through: 5.0, by: 0.1, sensitivity: .low, isContinuous: false, isHapticFeedbackEnabled: true)
-            .offset(x: currentPosition.width, y: currentPosition.height)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        if self.scale != 1.0 {
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                        } else {
-                            self.currentPosition = .zero
-                        }
-                    }
-                    .onEnded { value in
-                        if self.scale != 1.0 {
-                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-                            self.newPosition = self.currentPosition
-                        } else {
-                            self.currentPosition = .zero
-                        }
-                    }
-            )
-            .animation(.interactiveSpring())
-    }
-}
-#else
 struct PinchToZoom: ViewModifier {
     @State private var scale: CGFloat = 1.0
     @State private var anchor: UnitPoint = .center
@@ -178,21 +144,20 @@ struct PinchToZoom: ViewModifier {
     @State private var isPinching: Bool = false
     
     func body(content: Content) -> some View {
-        content
+        #if os(watchOS)
+        return content
+        #else
+        return content
             .scaleEffect(scale, anchor: anchor)
             .offset(offset)
             .animation(isPinching ? .none : .spring())
             .overlay(PinchZoom(scale: $scale, anchor: $anchor, offset: $offset, isPinching: $isPinching))
+        #endif
     }
 }
-#endif
 
 extension View {
     func pinchToZoom() -> some View {
-        #if os(watchOS)
-        return modifier(PinchToZoomWatch())
-        #else
-        return modifier(PinchToZoom())
-        #endif
+        modifier(PinchToZoom())
     }
 }
