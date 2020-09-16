@@ -73,21 +73,24 @@ struct CustomCameraView: View {
                         }
                     }
                     HStack {
-                        Button(action: { didTapCapture2 = true }) {
+                        Button(action: { }) {
                             Image(systemName: "arrow.triangle.2.circlepath.camera")
                                 .frame(width: 24)
                                 .imageScale(.large)
-                                .padding(30)
+                                .padding(20)
                                 .background(Color.rosenergo.opacity(0.5))
                                 .foregroundColor(.white)
                                 .clipShape(Circle())
-                        }.padding(.horizontal)
+                        }
+                        .padding(.horizontal)
+                        .opacity(0.0)
+                        .disabled(true)
                         Spacer()
                         Button(action: { didTapCapture = true }) {
                             Image(systemName: choiceMode == 0 ? "camera" : "video")
                                 .frame(width: 24)
                                 .imageScale(.large)
-                                .padding(30)
+                                .padding(20)
                                 .background(Color.red)
                                 .foregroundColor(.white)
                                 .clipShape(Circle())
@@ -98,7 +101,7 @@ struct CustomCameraView: View {
                                 Image(systemName: setImageFlashButton)
                                     .frame(width: 24)
                                     .imageScale(.large)
-                                    .padding(30)
+                                    .padding(20)
                                     .background(Color.rosenergo.opacity(0.5))
                                     .foregroundColor(.white)
                                     .clipShape(Circle())
@@ -110,9 +113,7 @@ struct CustomCameraView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .imageScale(.large)
-                            .foregroundColor(.secondary)
+                        Text("Закрыть")
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {

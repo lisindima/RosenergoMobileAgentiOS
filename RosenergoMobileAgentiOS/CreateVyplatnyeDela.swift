@@ -75,7 +75,7 @@ struct CreateVyplatnyeDela: View {
             }
             .padding()
         }
-        CustomButton("Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress) {
+        CustomButton("Отправить", titleUpload: "Загрузка выплатного дела", loading: uploadState, progress: sessionStore.uploadProgress) {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)

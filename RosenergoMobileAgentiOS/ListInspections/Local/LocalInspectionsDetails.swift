@@ -212,7 +212,7 @@ struct LocalInspectionsDetails: View {
                 MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
             }
         }
-        CustomButton("Отправить на сервер", loading: uploadState, progress: sessionStore.uploadProgress) {
+        CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress) {
             uploadLocalInspections()
         }
         .padding(.horizontal)

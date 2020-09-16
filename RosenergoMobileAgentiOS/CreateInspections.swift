@@ -17,7 +17,7 @@ struct CreateInspections: View {
     @Environment(\.managedObjectContext) private var moc
     
     @State private var uploadState: Bool = false
-    @State private var showRecordVideo: Bool = true
+    @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
     @State private var choiceCar: Int = 0
     @State private var carModel: String = ""
@@ -250,11 +250,11 @@ struct CreateInspections: View {
             }
         }
         HStack {
-            CustomButton("Отправить", subTitle: "на сервер", loading: uploadState, progress: sessionStore.uploadProgress) {
+            CustomButton("Отправить", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress) {
                 validateInput(upload: true)
             }
             if !uploadState {
-                CustomButton("Сохранить", subTitle: "на устройство", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
+                CustomButton("Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
                     validateInput(upload: false)
                 }
             }

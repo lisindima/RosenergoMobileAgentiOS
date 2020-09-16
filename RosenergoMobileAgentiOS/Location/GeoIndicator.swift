@@ -13,18 +13,18 @@ struct GeoIndicator: View {
     @EnvironmentObject private var locationStore: LocationStore
     
     private let status = CLLocationManager().authorizationStatus
-    private let settingsURL = URL(string: UIApplication.openSettingsURLString)
+    private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
     
     var body: some View {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             HStack {
                 Spacer()
-                Text("Широта: \(locationStore.latitude)")
+                Text("\(locationStore.latitude)")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 Spacer()
-                Text("Долгота: \(locationStore.longitude)")
+                Text("\(locationStore.longitude)")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -36,7 +36,7 @@ struct GeoIndicator: View {
                     .foregroundColor(Color.rosenergo)
             )
         } else {
-            Link(destination: settingsURL!) {
+            Link(destination: settingsURL) {
                 HStack {
                     Spacer()
                     Text("Не разрешен доступ к геопозиции!")

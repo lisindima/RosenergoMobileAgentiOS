@@ -942,7 +942,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -974,7 +974,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";

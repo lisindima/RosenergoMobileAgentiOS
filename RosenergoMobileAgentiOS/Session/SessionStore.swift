@@ -26,7 +26,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     @Published var photosURL = [URL]()
-    @Published var videoURL: URL?
+    @Published var videoURL: URL? = nil
     @Published var uploadProgress: Double = 0.0
     @Published var downloadProgress: Double = 0.0
     @Published var changelogLoadingState: LoadingState = .loading
