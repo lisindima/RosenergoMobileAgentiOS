@@ -30,9 +30,9 @@ struct VyplatnyedelaItems: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            if !vyplatnyedela.photos.isEmpty {
+            if let path = vyplatnyedela.photos.first?.path {
                 URLImage(
-                    vyplatnyedela.photos.first!.path,
+                    path,
                     delay: 0.25,
                     processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
                     placeholder: { _ in

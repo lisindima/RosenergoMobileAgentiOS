@@ -30,9 +30,9 @@ struct InspectionsItems: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            if !inspection.photos.isEmpty {
+            if let path = inspection.photos.first?.path {
                 URLImage(
-                    inspection.photos.first!.path,
+                    path,
                     delay: 0.25,
                     processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
                     placeholder: { _ in

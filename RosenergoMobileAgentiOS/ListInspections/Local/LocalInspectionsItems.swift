@@ -21,8 +21,8 @@ struct LocalInspectionsItems: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            if !localInspections.arrayPhoto.isEmpty {
-                Image(uiImage: UIImage(data: localInspections.arrayPhoto.first!.photosData)!.resizedImage(width: size, height: size))
+            if let data = localInspections.arrayPhoto.first?.photosData {
+                Image(uiImage: UIImage(data: data)!.resizedImage(width: size, height: size))
                     .resizable()
                     .cornerRadius(8)
                     .frame(width: size, height: size)
