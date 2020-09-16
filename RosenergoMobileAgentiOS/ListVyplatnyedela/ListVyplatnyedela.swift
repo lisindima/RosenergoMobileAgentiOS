@@ -13,12 +13,13 @@ struct ListVyplatnyedela: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     @StateObject private var searchBar = SearchBar.shared
+    @State private var load: Bool = true
     
-    func getVyplatnyedela() {
-        sessionStore.load(sessionStore.serverURL + "vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
+    private func getVyplatnyedela() {
+        sessionStore.load(sessionStore.serverURL + "v2/vyplatnyedelas") { [self] (response: Result<PaginationVyplatnyedela, Error>) in
             switch response {
             case let .success(value):
-                if value.isEmpty {
+                if value.data.isEmpty {
                     sessionStore.vyplatnyedelaLoadingState = .empty
                 } else {
                     sessionStore.vyplatnyedela = value
@@ -26,7 +27,25 @@ struct ListVyplatnyedela: View {
                 }
             case let .failure(error):
                 sessionStore.vyplatnyedelaLoadingState = .failure(error)
-                log(error.localizedDescription)
+                debugPrint(error)
+            }
+        }
+    }
+    
+    func loadPage() {
+        if let path = sessionStore.vyplatnyedela?.nextPageUrl {
+            sessionStore.load(path) { [self] (response: Result<PaginationVyplatnyedela, Error>) in
+                switch response {
+                case let .success(value):
+                    sessionStore.vyplatnyedela!.nextPageUrl = value.nextPageUrl
+                    if value.nextPageUrl == nil {
+                        load = false
+                    }
+                    sessionStore.vyplatnyedela!.data.append(contentsOf: value.data)
+                case let .failure(error):
+                    sessionStore.vyplatnyedelaLoadingState = .failure(error)
+                    debugPrint(error)
+                }
             }
         }
     }
@@ -35,19 +54,19 @@ struct ListVyplatnyedela: View {
         LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") {
             List {
                 Section(header: Text("Отправленные дела").fontWeight(.bold)) {
-                    ForEach(sessionStore.vyplatnyedela.reversed().filter {
-                        searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
-                    }, id: \.id) { vyplatnyedela in
+                    ForEach(sessionStore.vyplatnyedela!.data, id: \.id) { vyplatnyedela in
                         NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
                         }
                     }
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
+                    if load {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .onAppear(perform: loadPage)
                     }
-                    .onAppear { print("Загружается") }
                 }
             }
             .addSearchBar(searchBar)

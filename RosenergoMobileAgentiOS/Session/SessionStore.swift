@@ -34,7 +34,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var inspections = [Inspections]()
-    @Published var vyplatnyedela = [Vyplatnyedela]()
+    @Published var vyplatnyedela: PaginationVyplatnyedela?
     @Published var сhangelogModel = [ChangelogModel]()
     @Published var licenseModel = [LicenseModel]()
     
@@ -49,7 +49,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         loginParameters = nil
         inspections.removeAll()
         inspectionsLoadingState = .loading
-        vyplatnyedela.removeAll()
+        vyplatnyedela = nil
         vyplatnyedelaLoadingState = .loading
     }
     

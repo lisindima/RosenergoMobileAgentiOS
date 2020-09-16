@@ -8,7 +8,7 @@
 
 func log(_ item: String) {
     #if DEBUG
-    print(item)
+    debugPrint(item)
     #else
     //Crashlytics
     #endif
