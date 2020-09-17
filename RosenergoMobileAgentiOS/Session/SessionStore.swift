@@ -33,8 +33,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var licenseLoadingState: LoadingState = .loading
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var inspections: PaginationInspection?
-    @Published var vyplatnyedela: PaginationVyplatnyedela?
+    @Published private(set) var inspections = PaginationInspection()
+    @Published private(set) var vyplatnyedela: PaginationVyplatnyedela?
     @Published var сhangelogModel = [ChangelogModel]()
     @Published var licenseModel = [LicenseModel]()
     
@@ -47,7 +47,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     private func clearData() {
         loginModel = nil
         loginParameters = nil
-        inspections = nil
+        //inspections = nil
         vyplatnyedela = nil
         inspectionsLoadingState = .loading
         vyplatnyedelaLoadingState = .loading
@@ -235,15 +235,15 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func loadPageInspe(completion: @escaping (Result<Bool, Error>) -> Void) {
-        if let path = vyplatnyedela?.nextPageUrl {
+        if let path = inspections.nextPageUrl {
             load(path) { [self] (response: Result<PaginationInspection, Error>) in
                 switch response {
                 case let .success(value):
-                    vyplatnyedela!.nextPageUrl = value.nextPageUrl
+                    inspections.nextPageUrl = value.nextPageUrl
                     if value.nextPageUrl == nil {
                         completion(.success(false))
                     }
-                    inspections!.data.append(contentsOf: value.data)
+                    inspections.data += value.data
                 case let .failure(error):
                     debugPrint(error)
                 }

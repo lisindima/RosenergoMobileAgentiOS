@@ -111,14 +111,17 @@ struct LicenseModel: Identifiable, Codable {
 }
 
 struct PaginationInspection: Codable {
-    var currentPage: Int
-    var data: [Inspections]
-    var from, lastPage: Int
-    var firstPageUrl, lastPageUrl, path: String
+    var currentPage: Int = 1
+    var data: [Inspections] = []
+    var from: Int = 1
+    var lastPage: Int?
+    var firstPageUrl: String = ""
+    var lastPageUrl: String = ""
+    var path: String = ""
     var nextPageUrl: String?
-    var perPage: Int
+    var perPage: Int = 10
     //var prevPageUrl: Int?
-    var to, total: Int
+    var to, total: Int?
 }
 
 struct PaginationVyplatnyedela: Codable {
