@@ -83,7 +83,7 @@ class NotificationStore: ObservableObject {
         }
     }
     
-    func cancelNotifications(id: String) {
+    func cancelNotifications(_ id: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
 }

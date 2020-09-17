@@ -16,7 +16,7 @@ struct ListVyplatnyedela: View {
     @State private var load: Bool = true
     
     func loadPage() {
-        sessionStore.loadPage { result in
+        sessionStore.loadPageVyplat { result in
             switch result {
             case .success(let bool):
                 load = bool

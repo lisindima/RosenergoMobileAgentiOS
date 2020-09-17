@@ -33,7 +33,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var licenseLoadingState: LoadingState = .loading
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var inspections = [Inspections]()
+    @Published var inspections: PaginationInspection?
     @Published var vyplatnyedela: PaginationVyplatnyedela?
     @Published var сhangelogModel = [ChangelogModel]()
     @Published var licenseModel = [LicenseModel]()
@@ -42,15 +42,17 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     private var cancellation: AnyCancellable?
     
-    let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    private let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     private func clearData() {
         loginModel = nil
         loginParameters = nil
-        inspections.removeAll()
-        inspectionsLoadingState = .loading
+        inspections = nil
         vyplatnyedela = nil
+        inspectionsLoadingState = .loading
         vyplatnyedelaLoadingState = .loading
+        changelogLoadingState = .loading
+        licenseLoadingState = .loading
     }
     
     func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
@@ -199,10 +201,10 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getInspections() {
-        load(serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
+        load(serverURL + "v2/inspections") { [self] (response: Result<PaginationInspection, Error>) in
             switch response {
             case let .success(value):
-                if value.isEmpty {
+                if value.data.isEmpty {
                     inspectionsLoadingState = .empty
                 } else {
                     inspections = value
@@ -232,7 +234,24 @@ class SessionStore: ObservableObject, RequestInterceptor {
         }
     }
     
-    func loadPage(completion: @escaping (Result<Bool, Error>) -> Void) {
+    func loadPageInspe(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if let path = vyplatnyedela?.nextPageUrl {
+            load(path) { [self] (response: Result<PaginationInspection, Error>) in
+                switch response {
+                case let .success(value):
+                    vyplatnyedela!.nextPageUrl = value.nextPageUrl
+                    if value.nextPageUrl == nil {
+                        completion(.success(false))
+                    }
+                    inspections!.data.append(contentsOf: value.data)
+                case let .failure(error):
+                    debugPrint(error)
+                }
+            }
+        }
+    }
+    
+    func loadPageVyplat(completion: @escaping (Result<Bool, Error>) -> Void) {
         if let path = vyplatnyedela?.nextPageUrl {
             load(path) { [self] (response: Result<PaginationVyplatnyedela, Error>) in
                 switch response {

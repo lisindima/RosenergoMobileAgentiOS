@@ -114,9 +114,10 @@ struct PaginationInspection: Codable {
     var currentPage: Int
     var data: [Inspections]
     var from, lastPage: Int
-    var firstPageUrl, lastPageUrl, nextPageUrl, path: String
+    var firstPageUrl, lastPageUrl, path: String
+    var nextPageUrl: String?
     var perPage: Int
-    var prevPageUrl: Int?
+    //var prevPageUrl: Int?
     var to, total: Int
 }
 
