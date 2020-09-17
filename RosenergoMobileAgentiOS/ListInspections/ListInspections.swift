@@ -11,47 +11,57 @@ import SwiftUI
 
 struct ListInspections: View {
     @Environment(\.managedObjectContext) private var moc
+    
     @StateObject private var searchBar = SearchBar.shared
+    
     @EnvironmentObject private var sessionStore: SessionStore
+    #if !os(watchOS)
+    @EnvironmentObject private var notificationStore: NotificationStore
+    #endif
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
         animation: .default
     )
     private var localInspections: FetchedResults<LocalInspections>
     
-    #if !os(watchOS)
-    @EnvironmentObject private var notificationStore: NotificationStore
-    #endif
-    
-    func getInspections() {
-        sessionStore.load(sessionStore.serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
-            switch response {
-            case let .success(value):
-                if value.isEmpty {
-                    sessionStore.inspectionsLoadingState = .empty
-                } else {
-                    sessionStore.inspections = value
-                    sessionStore.inspectionsLoadingState = .success
-                }
-            case let .failure(error):
-                sessionStore.inspectionsLoadingState = .failure(error)
-                log(error.localizedDescription)
-            }
-        }
-    }
+    @State private var load: Bool = true
+    @State private var searchInspections = [Inspections]()
     
     private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
             #if !os(watchOS)
-            notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
+            notificationStore.cancelNotifications(localInspection.id.uuidString)
             #endif
         }
         do {
             try moc.save()
         } catch {
             log(error.localizedDescription)
+        }
+    }
+    
+    private func searchRequest(_ query: String) {
+        sessionStore.load("https://rosenergo.calcn1.ru/api/v2/search/\(query)") { [self] (response: Result<[Inspections], Error>) in
+            switch response {
+            case let .success(value):
+                searchInspections = value
+            case let .failure(error):
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loadPage() {
+        sessionStore.loadPageInspe { result in
+            switch result {
+            case .success(let bool):
+                load = bool
+            case .failure:
+                print("EGC")
+            }
         }
     }
     
@@ -67,30 +77,31 @@ struct ListInspections: View {
                                 LocalInspectionsItems(localInspections: localInspections)
                             }
                         }.onDelete(perform: delete)
+                    }
+                }
+                Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
+                    ForEach(searchBar.text.isEmpty ? sessionStore.inspections!.data : searchInspections, id: \.id) { inspection in
+                        NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
+                            InspectionsItems(inspection: inspection)
+                        }
+                    }
+                    if load, searchBar.text.isEmpty {
                         HStack {
                             Spacer()
                             ProgressView()
                             Spacer()
                         }
-                        .onAppear { print("Загружается") }
-                    }
-                }
-                if !sessionStore.inspections.isEmpty {
-                    Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
-                        ForEach(sessionStore.inspections.reversed().filter {
-                            searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
-                        }, id: \.id) { inspection in
-                            NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
-                                InspectionsItems(inspection: inspection)
-                            }
-                        }
+                        .onAppear(perform: loadPage)
                     }
                 }
             }
             .addSearchBar(searchBar)
             .modifier(ListStyle())
         }
-        .onAppear(perform: getInspections)
+        .onChange(of: searchBar.text) { query in
+            searchRequest(query)
+        }
+        .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")
         .toolbar {
             #if !os(watchOS)

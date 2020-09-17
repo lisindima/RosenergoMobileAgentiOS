@@ -28,7 +28,7 @@ struct LocalInspectionsDetails: View {
     
     private func delete() {
         #if !os(watchOS)
-        notificationStore.cancelNotifications(id: localInspections.id!.uuidString)
+        notificationStore.cancelNotifications(localInspections.id.uuidString)
         #endif
         presentationMode.wrappedValue.dismiss()
         moc.delete(localInspections)

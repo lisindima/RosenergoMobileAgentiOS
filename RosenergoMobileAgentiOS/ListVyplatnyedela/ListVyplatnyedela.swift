@@ -13,20 +13,15 @@ struct ListVyplatnyedela: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     @StateObject private var searchBar = SearchBar.shared
+    @State private var load: Bool = true
     
-    func getVyplatnyedela() {
-        sessionStore.load(sessionStore.serverURL + "vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
-            switch response {
-            case let .success(value):
-                if value.isEmpty {
-                    sessionStore.vyplatnyedelaLoadingState = .empty
-                } else {
-                    sessionStore.vyplatnyedela = value
-                    sessionStore.vyplatnyedelaLoadingState = .success
-                }
-            case let .failure(error):
-                sessionStore.vyplatnyedelaLoadingState = .failure(error)
-                log(error.localizedDescription)
+    func loadPage() {
+        sessionStore.loadPageVyplat { result in
+            switch result {
+            case .success(let bool):
+                load = bool
+            case .failure:
+                print("")
             }
         }
     }
@@ -35,25 +30,25 @@ struct ListVyplatnyedela: View {
         LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") {
             List {
                 Section(header: Text("Отправленные дела").fontWeight(.bold)) {
-                    ForEach(sessionStore.vyplatnyedela.reversed().filter {
-                        searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
-                    }, id: \.id) { vyplatnyedela in
+                    ForEach(sessionStore.vyplatnyedela!.data, id: \.id) { vyplatnyedela in
                         NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
                         }
                     }
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
+                    if load {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .onAppear(perform: loadPage)
                     }
-                    .onAppear { print("Загружается") }
                 }
             }
             .addSearchBar(searchBar)
             .modifier(ListStyle())
         }
-        .onAppear(perform: getVyplatnyedela)
+        .onAppear(perform: sessionStore.getVyplatnyedela)
         .navigationTitle("Выплатные дела")
         .toolbar {
             #if !os(watchOS)

@@ -33,8 +33,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var licenseLoadingState: LoadingState = .loading
     @Published var inspectionsLoadingState: LoadingState = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var inspections = [Inspections]()
-    @Published var vyplatnyedela = [Vyplatnyedela]()
+    @Published var inspections: PaginationInspection?
+    @Published var vyplatnyedela: PaginationVyplatnyedela?
     @Published var сhangelogModel = [ChangelogModel]()
     @Published var licenseModel = [LicenseModel]()
     
@@ -42,15 +42,17 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     private var cancellation: AnyCancellable?
     
-    let serverURL: String = "https://rosenergo.calcn1.ru/api/"
+    private let serverURL: String = "https://rosenergo.calcn1.ru/api/"
     
     private func clearData() {
         loginModel = nil
         loginParameters = nil
-        inspections.removeAll()
+        inspections = nil
+        vyplatnyedela = nil
         inspectionsLoadingState = .loading
-        vyplatnyedela.removeAll()
         vyplatnyedelaLoadingState = .loading
+        changelogLoadingState = .loading
+        licenseLoadingState = .loading
     }
     
     func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
@@ -195,6 +197,100 @@ class SessionStore: ObservableObject, RequestInterceptor {
                         completion(.failure(error))
                     }
                 }
+        }
+    }
+    
+    func getInspections() {
+        load(serverURL + "v2/inspections") { [self] (response: Result<PaginationInspection, Error>) in
+            switch response {
+            case let .success(value):
+                if value.data.isEmpty {
+                    inspectionsLoadingState = .empty
+                } else {
+                    inspections = value
+                    inspectionsLoadingState = .success
+                }
+            case let .failure(error):
+                inspectionsLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getVyplatnyedela() {
+        load(serverURL + "v2/vyplatnyedelas") { [self] (response: Result<PaginationVyplatnyedela, Error>) in
+            switch response {
+            case let .success(value):
+                if value.data.isEmpty {
+                    vyplatnyedelaLoadingState = .empty
+                } else {
+                    vyplatnyedela = value
+                    vyplatnyedelaLoadingState = .success
+                }
+            case let .failure(error):
+                vyplatnyedelaLoadingState = .failure(error)
+                debugPrint(error)
+            }
+        }
+    }
+    
+    func loadPageInspe(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if let path = vyplatnyedela?.nextPageUrl {
+            load(path) { [self] (response: Result<PaginationInspection, Error>) in
+                switch response {
+                case let .success(value):
+                    vyplatnyedela!.nextPageUrl = value.nextPageUrl
+                    if value.nextPageUrl == nil {
+                        completion(.success(false))
+                    }
+                    inspections!.data.append(contentsOf: value.data)
+                case let .failure(error):
+                    debugPrint(error)
+                }
+            }
+        }
+    }
+    
+    func loadPageVyplat(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if let path = vyplatnyedela?.nextPageUrl {
+            load(path) { [self] (response: Result<PaginationVyplatnyedela, Error>) in
+                switch response {
+                case let .success(value):
+                    vyplatnyedela!.nextPageUrl = value.nextPageUrl
+                    if value.nextPageUrl == nil {
+                        completion(.success(false))
+                    }
+                    vyplatnyedela!.data.append(contentsOf: value.data)
+                case let .failure(error):
+                    debugPrint(error)
+                }
+            }
+        }
+    }
+    
+    func getChangelog() {
+        load("https://api.lisindmitriy.me/changelog") { [self] (response: Result<[ChangelogModel], Error>) in
+            switch response {
+            case let .success(value):
+                сhangelogModel = value
+                changelogLoadingState = .success
+            case let .failure(error):
+                changelogLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getLicense() {
+        load("https://api.lisindmitriy.me/license") { [self] (response: Result<[LicenseModel], Error>) in
+            switch response {
+            case let .success(value):
+                licenseModel = value
+                licenseLoadingState = .success
+            case let .failure(error):
+                licenseLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
         }
     }
 }
