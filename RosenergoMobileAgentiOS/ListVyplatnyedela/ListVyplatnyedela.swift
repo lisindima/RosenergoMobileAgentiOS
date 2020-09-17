@@ -15,37 +15,13 @@ struct ListVyplatnyedela: View {
     @StateObject private var searchBar = SearchBar.shared
     @State private var load: Bool = true
     
-    private func getVyplatnyedela() {
-        sessionStore.load(sessionStore.serverURL + "v2/vyplatnyedelas") { [self] (response: Result<PaginationVyplatnyedela, Error>) in
-            switch response {
-            case let .success(value):
-                if value.data.isEmpty {
-                    sessionStore.vyplatnyedelaLoadingState = .empty
-                } else {
-                    sessionStore.vyplatnyedela = value
-                    sessionStore.vyplatnyedelaLoadingState = .success
-                }
-            case let .failure(error):
-                sessionStore.vyplatnyedelaLoadingState = .failure(error)
-                debugPrint(error)
-            }
-        }
-    }
-    
     func loadPage() {
-        if let path = sessionStore.vyplatnyedela?.nextPageUrl {
-            sessionStore.load(path) { [self] (response: Result<PaginationVyplatnyedela, Error>) in
-                switch response {
-                case let .success(value):
-                    sessionStore.vyplatnyedela!.nextPageUrl = value.nextPageUrl
-                    if value.nextPageUrl == nil {
-                        load = false
-                    }
-                    sessionStore.vyplatnyedela!.data.append(contentsOf: value.data)
-                case let .failure(error):
-                    sessionStore.vyplatnyedelaLoadingState = .failure(error)
-                    debugPrint(error)
-                }
+        sessionStore.loadPage { result in
+            switch result {
+            case .success(let bool):
+                load = bool
+            case .failure:
+                print("")
             }
         }
     }
@@ -72,7 +48,7 @@ struct ListVyplatnyedela: View {
             .addSearchBar(searchBar)
             .modifier(ListStyle())
         }
-        .onAppear(perform: getVyplatnyedela)
+        .onAppear(perform: sessionStore.getVyplatnyedela)
         .navigationTitle("Выплатные дела")
         .toolbar {
             #if !os(watchOS)

@@ -19,7 +19,7 @@
         <relationship name="localPhotos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalPhotos" inverseName="localInspections" inverseEntity="LocalPhotos"/>
     </entity>
     <entity name="LocalPhotos" representedClassName="LocalPhotos" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="photosData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="localInspections" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalInspections" inverseName="localPhotos" inverseEntity="LocalInspections"/>
     </entity>

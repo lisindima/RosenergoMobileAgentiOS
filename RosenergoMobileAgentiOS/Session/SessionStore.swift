@@ -197,4 +197,81 @@ class SessionStore: ObservableObject, RequestInterceptor {
                 }
         }
     }
+    
+    func getInspections() {
+        load(serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
+            switch response {
+            case let .success(value):
+                if value.isEmpty {
+                    inspectionsLoadingState = .empty
+                } else {
+                    inspections = value
+                    inspectionsLoadingState = .success
+                }
+            case let .failure(error):
+                inspectionsLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getVyplatnyedela() {
+        load(serverURL + "v2/vyplatnyedelas") { [self] (response: Result<PaginationVyplatnyedela, Error>) in
+            switch response {
+            case let .success(value):
+                if value.data.isEmpty {
+                    vyplatnyedelaLoadingState = .empty
+                } else {
+                    vyplatnyedela = value
+                    vyplatnyedelaLoadingState = .success
+                }
+            case let .failure(error):
+                vyplatnyedelaLoadingState = .failure(error)
+                debugPrint(error)
+            }
+        }
+    }
+    
+    func loadPage(completion: @escaping (Result<Bool, Error>) -> Void) {
+        if let path = vyplatnyedela?.nextPageUrl {
+            load(path) { [self] (response: Result<PaginationVyplatnyedela, Error>) in
+                switch response {
+                case let .success(value):
+                    vyplatnyedela!.nextPageUrl = value.nextPageUrl
+                    if value.nextPageUrl == nil {
+                        completion(.success(false))
+                    }
+                    vyplatnyedela!.data.append(contentsOf: value.data)
+                case let .failure(error):
+                    debugPrint(error)
+                }
+            }
+        }
+    }
+    
+    func getChangelog() {
+        load("https://api.lisindmitriy.me/changelog") { [self] (response: Result<[ChangelogModel], Error>) in
+            switch response {
+            case let .success(value):
+                сhangelogModel = value
+                changelogLoadingState = .success
+            case let .failure(error):
+                changelogLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getLicense() {
+        load("https://api.lisindmitriy.me/license") { [self] (response: Result<[LicenseModel], Error>) in
+            switch response {
+            case let .success(value):
+                licenseModel = value
+                licenseLoadingState = .success
+            case let .failure(error):
+                licenseLoadingState = .failure(error)
+                log(error.localizedDescription)
+            }
+        }
+    }
 }

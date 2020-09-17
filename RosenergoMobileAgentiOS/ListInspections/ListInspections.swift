@@ -23,29 +23,12 @@ struct ListInspections: View {
     @EnvironmentObject private var notificationStore: NotificationStore
     #endif
     
-    func getInspections() {
-        sessionStore.load(sessionStore.serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
-            switch response {
-            case let .success(value):
-                if value.isEmpty {
-                    sessionStore.inspectionsLoadingState = .empty
-                } else {
-                    sessionStore.inspections = value
-                    sessionStore.inspectionsLoadingState = .success
-                }
-            case let .failure(error):
-                sessionStore.inspectionsLoadingState = .failure(error)
-                log(error.localizedDescription)
-            }
-        }
-    }
-    
     private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
             #if !os(watchOS)
-            notificationStore.cancelNotifications(id: localInspection.id!.uuidString)
+            notificationStore.cancelNotifications(id: localInspection.id.uuidString)
             #endif
         }
         do {
@@ -67,12 +50,6 @@ struct ListInspections: View {
                                 LocalInspectionsItems(localInspections: localInspections)
                             }
                         }.onDelete(perform: delete)
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .onAppear { print("Загружается") }
                     }
                 }
                 if !sessionStore.inspections.isEmpty {
@@ -84,13 +61,19 @@ struct ListInspections: View {
                                 InspectionsItems(inspection: inspection)
                             }
                         }
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .onAppear { print("Загружается") }
                     }
                 }
             }
             .addSearchBar(searchBar)
             .modifier(ListStyle())
         }
-        .onAppear(perform: getInspections)
+        .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")
         .toolbar {
             #if !os(watchOS)
