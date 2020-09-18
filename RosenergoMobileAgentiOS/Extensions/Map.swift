@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @State private var address: String?
+    @State private var address: String? = nil
     @State private var pins: [Pin] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
     
@@ -24,7 +24,6 @@ struct MapView: View {
         location.geocode { placemark, error in
             if let error = error {
                 log(error.localizedDescription)
-                return
             } else if let placemark = placemark?.first {
                 address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
             }
@@ -32,17 +31,19 @@ struct MapView: View {
     }
     
     var body: some View {
-        SectionLink(
-            imageName: "map",
-            title: address,
-            destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(longitude),\(latitude)")!
-        )
-        Map(coordinateRegion: $region, annotationItems: pins) { pin in
-            MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
+        Group {
+            SectionLink(
+                imageName: "map",
+                title: address,
+                destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(longitude),\(latitude)")!
+            )
+            Map(coordinateRegion: $region, annotationItems: pins) { pin in
+                MapMarker(coordinate: pin.coordinate, tint: .rosenergo)
+            }
+            .frame(height: 200)
+            .cornerRadius(8)
+            .padding(.vertical)
         }
-        .frame(height: 200)
-        .cornerRadius(8)
-        .padding(.vertical)
         .onAppear(perform: loadData)
     }
 }

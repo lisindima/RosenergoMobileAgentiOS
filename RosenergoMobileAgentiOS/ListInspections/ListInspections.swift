@@ -80,7 +80,7 @@ struct ListInspections: View {
                     }
                 }
                 Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
-                    ForEach(searchBar.text.isEmpty ? sessionStore.inspections.data : searchInspections, id: \.id) { inspection in
+                    ForEach(searchBar.text.isEmpty ? sessionStore.inspections!.data : searchInspections, id: \.id) { inspection in
                         NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
                             InspectionsItems(inspection: inspection)
                         }
