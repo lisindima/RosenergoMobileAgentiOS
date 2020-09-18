@@ -14,8 +14,7 @@ struct RootView: View {
     
     #if !os(watchOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @EnvironmentObject private var locationStore: LocationStore
-    @StateObject var notificationStore = NotificationStore.shared
+    @StateObject private var locationStore = LocationStore.shared
     @State private var manager = CLLocationManager()
     #endif
     
@@ -26,11 +25,9 @@ struct RootView: View {
                 if horizontalSizeClass == .compact {
                     MenuView()
                         .onAppear { manager.delegate = locationStore }
-                        .environmentObject(notificationStore)
                 } else {
                     SideBar()
                         .onAppear { manager.delegate = locationStore }
-                        .environmentObject(notificationStore)
                 }
                 #else
                 MenuView()

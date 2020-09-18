@@ -75,6 +75,7 @@
 		CB7EAEB12510856900B4B4F5 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */; };
 		CB7F88B8251461B500F5AF97 /* ServerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F88B7251461B500F5AF97 /* ServerImage.swift */; };
 		CB7F88B9251461B500F5AF97 /* ServerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F88B7251461B500F5AF97 /* ServerImage.swift */; };
+		CB7F88BD2514EB1200F5AF97 /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
@@ -765,6 +766,7 @@
 				CBB842EE24E3AE600008EB07 /* License.swift in Sources */,
 				CBAC7F3924D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
+				CB7F88BD2514EB1200F5AF97 /* NotificationStore.swift in Sources */,
 				CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */,
 				CB7EAEB12510856900B4B4F5 /* ImageButton.swift in Sources */,
 				CB3C916E250DE30A0099958D /* Log.swift in Sources */,

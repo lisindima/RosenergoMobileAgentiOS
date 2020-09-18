@@ -12,10 +12,7 @@ import AVKit
 #endif
 
 struct LocalInspectionsDetails: View {
-    #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
-    #endif
-    
     @EnvironmentObject private var sessionStore: SessionStore
     
     @Environment(\.managedObjectContext) private var moc
@@ -27,9 +24,7 @@ struct LocalInspectionsDetails: View {
     var localInspections: LocalInspections
     
     private func delete() {
-        #if !os(watchOS)
         notificationStore.cancelNotifications(localInspections.id.uuidString)
-        #endif
         presentationMode.wrappedValue.dismiss()
         moc.delete(localInspections)
         do {

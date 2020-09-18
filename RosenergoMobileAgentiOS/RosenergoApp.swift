@@ -12,6 +12,7 @@ import SwiftUI
 struct RosenergoApp: App {
     @StateObject private var sessionStore = SessionStore.shared
     @StateObject private var locationStore = LocationStore.shared
+    @StateObject private var notificationStore = NotificationStore.shared
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -37,6 +38,7 @@ struct RosenergoApp: App {
                 .accentColor(.rosenergo)
                 .environmentObject(sessionStore)
                 .environmentObject(locationStore)
+                .environmentObject(notificationStore)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     open(url)

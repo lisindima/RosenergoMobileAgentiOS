@@ -10,9 +10,6 @@ import SwiftUI
 
 struct MenuView: View {
     @EnvironmentObject private var sessionStore: SessionStore
-    #if !os(watchOS)
-    @EnvironmentObject private var notificationStore: NotificationStore
-    #endif
     
     @State private var openSettings: Bool = false
     

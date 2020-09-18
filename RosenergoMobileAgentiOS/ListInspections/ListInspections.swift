@@ -15,9 +15,7 @@ struct ListInspections: View {
     @StateObject private var searchBar = SearchBar.shared
     
     @EnvironmentObject private var sessionStore: SessionStore
-    #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
-    #endif
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
@@ -32,9 +30,7 @@ struct ListInspections: View {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
-            #if !os(watchOS)
             notificationStore.cancelNotifications(localInspection.id.uuidString)
-            #endif
         }
         do {
             try moc.save()
