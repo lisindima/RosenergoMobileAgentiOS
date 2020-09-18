@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import URLImage
 
 struct VyplatnyedelaDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
@@ -50,22 +49,6 @@ struct VyplatnyedelaDetails: View {
         }
     }
     #endif
-    
-    var scale: CGFloat {
-        #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
-        #else
-        return UIScreen.main.scale
-        #endif
-    }
-    
-    var size: CGFloat {
-        #if os(watchOS)
-        return 75.0
-        #else
-        return 100.0
-        #endif
-    }
     
     var body: some View {
         #if os(watchOS)
@@ -112,19 +95,7 @@ struct VyplatnyedelaDetails: View {
                         LazyHStack {
                             ForEach(vyplatnyedela.photos, id: \.id) { photo in
                                 NavigationLink(destination: ImageDetail(id: photo.id, photos: vyplatnyedela.photos)) {
-                                    URLImage(
-                                        photo.path,
-                                        delay: 0.25,
-                                        processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
-                                        placeholder: { _ in
-                                            ProgressView()
-                                        }
-                                    ) {
-                                        $0.image
-                                            .resizable()
-                                    }
-                                    .cornerRadius(8)
-                                    .frame(width: size, height: size)
+                                    ServerImage(photo.path, delay: 0.25)
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)

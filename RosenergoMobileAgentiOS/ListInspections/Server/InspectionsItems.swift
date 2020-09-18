@@ -7,73 +7,30 @@
 //
 
 import SwiftUI
-import URLImage
 
 struct InspectionsItems: View {
     var inspection: Inspections
     
-    var scale: CGFloat {
-        #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
-        #else
-        return UIScreen.main.scale
-        #endif
-    }
-    
-    var size: CGFloat {
-        #if os(watchOS)
-        return 75.0
-        #else
-        return 100.0
-        #endif
-    }
-    
     var body: some View {
-        HStack(alignment: .top) {
+        HStack {
             if let path = inspection.photos.first?.path {
-                URLImage(
-                    path,
-                    delay: 0.25,
-                    processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
-                    placeholder: { _ in
-                        ProgressView()
-                    }
-                ) {
-                    $0.image
-                        .resizable()
-                }
-                .cornerRadius(8)
-                .frame(width: size, height: size)
+                ServerImage(path, delay: 0.25)
             }
             VStack(alignment: .leading) {
                 Text("\(inspection.id)")
                     .fontWeight(.bold)
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(inspection.insuranceContractNumber)
-                        Text(inspection.carModel)
-                        Text(inspection.carRegNumber)
-                        Text(inspection.carVin)
-                        Text(inspection.carBodyNumber)
+                Group {
+                    Text(inspection.insuranceContractNumber)
+                    if let insuranceContractNumber2 = inspection.insuranceContractNumber2 {
+                        Text(insuranceContractNumber2)
                     }
-                    if inspection.carModel2 != nil {
-                        VStack(alignment: .leading) {
-                            Text(inspection.insuranceContractNumber2!)
-                            Text(inspection.carModel2!)
-                            Text(inspection.carRegNumber2!)
-                            Text(inspection.carVin2!)
-                            Text(inspection.carBodyNumber2!)
-                        }
-                    }
+                    Text(inspection.createdAt, style: .relative)
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             }
             Spacer()
-            Text(inspection.createdAt, style: .relative)
-                .font(.footnote)
-                .foregroundColor(.secondary)
         }.padding(.vertical, 6)
     }
 }

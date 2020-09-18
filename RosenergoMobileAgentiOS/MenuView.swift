@@ -25,18 +25,16 @@ struct MenuView: View {
     }
     
     var body: some View {
-        NavigationView {
-            #if os(watchOS)
-            ScrollView {
-                menu
-            }
-            #else
-            VStack {
-                menu
-                Spacer()
-            }
-            #endif
+        #if os(watchOS)
+        ScrollView {
+            menu
         }
+        #else
+        VStack {
+            menu
+            Spacer()
+        }
+        #endif
     }
     
     var menu: some View {

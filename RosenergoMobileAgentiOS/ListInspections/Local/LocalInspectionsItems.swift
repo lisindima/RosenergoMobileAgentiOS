@@ -20,7 +20,7 @@ struct LocalInspectionsItems: View {
     }
     
     var body: some View {
-        HStack(alignment: .top) {
+        HStack {
             if let data = localInspections.arrayPhoto.first?.photosData {
                 Image(uiImage: UIImage(data: data)!.resizedImage(width: size, height: size))
                     .resizable()
@@ -31,32 +31,18 @@ struct LocalInspectionsItems: View {
                 Text("Не отправлено")
                     .foregroundColor(.red)
                     .fontWeight(.bold)
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(localInspections.insuranceContractNumber)
-                        Text(localInspections.carModel)
-                        Text(localInspections.carRegNumber)
-                        Text(localInspections.carVin)
-                        Text(localInspections.carBodyNumber)
+                Group {
+                    Text(localInspections.insuranceContractNumber)
+                    if let insuranceContractNumber2 = localInspections.insuranceContractNumber2 {
+                        Text(insuranceContractNumber2)
                     }
-                    if localInspections.carModel2 != nil {
-                        VStack(alignment: .leading) {
-                            Text(localInspections.insuranceContractNumber2!)
-                            Text(localInspections.carModel2!)
-                            Text(localInspections.carRegNumber2!)
-                            Text(localInspections.carVin2!)
-                            Text(localInspections.carBodyNumber2!)
-                        }
-                    }
+                    Text(localInspections.dateInspections, style: .relative)
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             }
             Spacer()
-            Text(localInspections.dateInspections, style: .relative)
-                .font(.footnote)
-                .foregroundColor(.secondary)
         }.padding(.vertical, 6)
     }
 }

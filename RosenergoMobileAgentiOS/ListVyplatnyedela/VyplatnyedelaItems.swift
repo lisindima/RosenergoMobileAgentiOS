@@ -7,43 +7,14 @@
 //
 
 import SwiftUI
-import URLImage
 
 struct VyplatnyedelaItems: View {
     var vyplatnyedela: Vyplatnyedela
     
-    var scale: CGFloat {
-        #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
-        #else
-        return UIScreen.main.scale
-        #endif
-    }
-    
-    var size: CGFloat {
-        #if os(watchOS)
-        return 75.0
-        #else
-        return 100.0
-        #endif
-    }
-    
     var body: some View {
-        HStack(alignment: .top) {
+        HStack {
             if let path = vyplatnyedela.photos.first?.path {
-                URLImage(
-                    path,
-                    delay: 0.25,
-                    processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
-                    placeholder: { _ in
-                        ProgressView()
-                    }
-                ) {
-                    $0.image
-                        .resizable()
-                }
-                .cornerRadius(8)
-                .frame(width: size, height: size)
+                ServerImage(path, delay: 0.25)
             }
             VStack(alignment: .leading) {
                 Text("\(vyplatnyedela.id)")
@@ -51,15 +22,13 @@ struct VyplatnyedelaItems: View {
                 Group {
                     Text(vyplatnyedela.insuranceContractNumber)
                     Text(vyplatnyedela.numberZayavlenia)
+                    Text(vyplatnyedela.createdAt, style: .relative)
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .lineLimit(1)
             }
             Spacer()
-            Text(vyplatnyedela.createdAt, style: .relative)
-                .font(.footnote)
-                .foregroundColor(.secondary)
         }.padding(.vertical, 6)
     }
 }

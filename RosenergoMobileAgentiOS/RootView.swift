@@ -21,19 +21,21 @@ struct RootView: View {
     
     var body: some View {
         if sessionStore.loginModel != nil {
-            #if os(iOS)
-            if horizontalSizeClass == .compact {
+            NavigationView {
+                #if os(iOS)
+                if horizontalSizeClass == .compact {
+                    MenuView()
+                        .onAppear { manager.delegate = locationStore }
+                        .environmentObject(notificationStore)
+                } else {
+                    SideBar()
+                        .onAppear { manager.delegate = locationStore }
+                        .environmentObject(notificationStore)
+                }
+                #else
                 MenuView()
-                    .onAppear { manager.delegate = locationStore }
-                    .environmentObject(notificationStore)
-            } else {
-                SideBar()
-                    .onAppear { manager.delegate = locationStore }
-                    .environmentObject(notificationStore)
+                #endif
             }
-            #else
-            MenuView()
-            #endif
         } else {
             SignIn()
         }

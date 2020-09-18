@@ -73,6 +73,8 @@
 		CB7EAEAE2510854300B4B4F5 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAC2510854300B4B4F5 /* MenuButton.swift */; };
 		CB7EAEB02510856900B4B4F5 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */; };
 		CB7EAEB12510856900B4B4F5 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */; };
+		CB7F88B8251461B500F5AF97 /* ServerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F88B7251461B500F5AF97 /* ServerImage.swift */; };
+		CB7F88B9251461B500F5AF97 /* ServerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F88B7251461B500F5AF97 /* ServerImage.swift */; };
 		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
@@ -224,6 +226,7 @@
 		CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaLink.swift; sourceTree = "<group>"; };
 		CB7EAEAC2510854300B4B4F5 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
+		CB7F88B7251461B500F5AF97 /* ServerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImage.swift; sourceTree = "<group>"; };
 		CB9AD06E24DD96BC00D220D8 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgentwatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -375,6 +378,7 @@
 				CBED06CA250A24C300216056 /* CustomAlert.swift */,
 				CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */,
 				CB3C916C250DE30A0099958D /* Log.swift */,
+				CB7F88B7251461B500F5AF97 /* ServerImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -715,6 +719,7 @@
 				CBED06CB250A24C300216056 /* CustomAlert.swift in Sources */,
 				CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CB7EAEAA250F593400B4B4F5 /* VyplatnyedelaLink.swift in Sources */,
+				CB7F88B8251461B500F5AF97 /* ServerImage.swift in Sources */,
 				CBED06C82509C77600216056 /* Haptic.swift in Sources */,
 				CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */,
@@ -771,6 +776,7 @@
 				CB7EAEAE2510854300B4B4F5 /* MenuButton.swift in Sources */,
 				CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */,
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
+				CB7F88B9251461B500F5AF97 /* ServerImage.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
 				CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
@@ -936,7 +942,7 @@
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RosenergoMobileAgentiOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -949,7 +955,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -968,7 +974,7 @@
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RosenergoMobileAgentiOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -981,7 +987,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
@@ -1012,7 +1018,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.1;
 			};
 			name = Debug;
 		};
@@ -1042,7 +1048,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "RosenergoMobileAgentwatchOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.1;
 			};
 			name = Release;
 		};
@@ -1070,7 +1076,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.1;
 			};
 			name = Debug;
 		};
@@ -1098,7 +1104,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.1;
 			};
 			name = Release;
 		};

@@ -20,68 +20,66 @@ struct SideBar: View {
     }
     
     @State private var selection: Set<NavigationItem> = [.createInspections]
-    @State private var openSettings = false
+    @State private var openSettings: Bool = false
     
     var body: some View {
-        NavigationView {
-            List(selection: $selection) {
-                #if !targetEnvironment(macCatalyst)
-                NavigationLink(destination: CreateInspections()) {
-                    Label("Новый осмотр", systemImage: "car")
-                }
-                .tag(NavigationItem.createInspections)
-                #endif
-                NavigationLink(destination: ListInspections()) {
-                    Label("Осмотры", systemImage: "archivebox")
-                }
-                .tag(NavigationItem.listInspections)
-                #if !targetEnvironment(macCatalyst)
-                NavigationLink(destination: CreateVyplatnyeDela()) {
-                    Label("Новое выплатное дело", systemImage: "doc.badge.plus")
-                }
-                .tag(NavigationItem.createVyplatnye)
-                #endif
-                NavigationLink(destination: ListVyplatnyedela()) {
-                    Label("Выплатные дела", systemImage: "doc.on.doc")
-                }
-                .tag(NavigationItem.listVyplatnyedela)
+        List(selection: $selection) {
+            #if !targetEnvironment(macCatalyst)
+            NavigationLink(destination: CreateInspections()) {
+                Label("Новый осмотр", systemImage: "car")
             }
-            .listStyle(SidebarListStyle())
-            .navigationTitle("Главная")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: { openSettings = true }) {
-                        Image(systemName: "gear")
-                            .imageScale(.large)
-                    }
+            .tag(NavigationItem.createInspections)
+            #endif
+            NavigationLink(destination: ListInspections()) {
+                Label("Осмотры", systemImage: "archivebox")
+            }
+            .tag(NavigationItem.listInspections)
+            #if !targetEnvironment(macCatalyst)
+            NavigationLink(destination: CreateVyplatnyeDela()) {
+                Label("Новое выплатное дело", systemImage: "doc.badge.plus")
+            }
+            .tag(NavigationItem.createVyplatnye)
+            #endif
+            NavigationLink(destination: ListVyplatnyedela()) {
+                Label("Выплатные дела", systemImage: "doc.on.doc")
+            }
+            .tag(NavigationItem.listVyplatnyedela)
+        }
+        .listStyle(SidebarListStyle())
+        .navigationTitle("Главная")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { openSettings = true }) {
+                    Image(systemName: "gear")
+                        .imageScale(.large)
                 }
             }
-            .sheet(isPresented: $openSettings) {
-                NavigationView {
-                    SettingsView()
-                        .toolbar {
-                            ToolbarItem(placement: .primaryAction) {
-                                Button(action: { openSettings = false }) {
-                                    Text("Закрыть")
-                                }
+        }
+        .sheet(isPresented: $openSettings) {
+            NavigationView {
+                SettingsView()
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button(action: { openSettings = false }) {
+                                Text("Закрыть")
                             }
                         }
-                }
+                    }
             }
-            
-            Text("Выберите\nпункт в меню")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            Text("Выберите осмотр\nили выплатное дело\nдля просмотра")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        
+        Text("Выберите\nпункт в меню")
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+        Text("Выберите осмотр\nили выплатное дело\nдля просмотра")
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
