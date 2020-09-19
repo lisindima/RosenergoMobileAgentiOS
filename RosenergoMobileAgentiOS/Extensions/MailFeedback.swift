@@ -13,8 +13,6 @@ struct MailFeedback: UIViewControllerRepresentable {
     @Binding var alertItem: AlertItem?
     
     let deviceInfo = UIDevice.current
-    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
-    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailFeedback>) -> MFMailComposeViewController {
         let mailFeedback = MFMailComposeViewController()
@@ -24,7 +22,7 @@ struct MailFeedback: UIViewControllerRepresentable {
             """
                 Добрый день!<br>
                 <br>Версия системы: <b>\(deviceInfo.systemName) \(deviceInfo.systemVersion)</b>
-                <br>Версия приложения: <b>\(version) (\(build))</b>
+                <br>Версия приложения: <b>\(getVersion())</b>
                 <br><br>Опишите, какая ошибка произошла в приложении:
             """, isHTML: true
         )

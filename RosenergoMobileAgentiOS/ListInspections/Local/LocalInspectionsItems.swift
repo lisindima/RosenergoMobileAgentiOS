@@ -32,9 +32,11 @@ struct LocalInspectionsItems: View {
                     .foregroundColor(.red)
                     .fontWeight(.bold)
                 Group {
-                    Text(localInspections.insuranceContractNumber)
+                    Text(localInspections.insuranceContractNumber.uppercased())
+                        .fontWeight(.bold)
                     if let insuranceContractNumber2 = localInspections.insuranceContractNumber2 {
-                        Text(insuranceContractNumber2)
+                        Text(insuranceContractNumber2.uppercased())
+                            .fontWeight(.bold)
                     }
                     Text(localInspections.dateInspections, style: .relative)
                 }

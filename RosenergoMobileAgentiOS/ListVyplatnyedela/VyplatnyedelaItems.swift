@@ -17,11 +17,13 @@ struct VyplatnyedelaItems: View {
                 ServerImage(path, delay: 0.25)
             }
             VStack(alignment: .leading) {
-                Text("\(vyplatnyedela.id)")
+                Text(vyplatnyedela.id.toString())
                     .fontWeight(.bold)
                 Group {
-                    Text(vyplatnyedela.insuranceContractNumber)
-                    Text(vyplatnyedela.numberZayavlenia)
+                    Text(vyplatnyedela.insuranceContractNumber.uppercased())
+                        .fontWeight(.bold)
+                    Text(vyplatnyedela.numberZayavlenia.uppercased())
+                        .fontWeight(.bold)
                     Text(vyplatnyedela.createdAt, style: .relative)
                 }
                 .font(.footnote)

@@ -119,7 +119,7 @@ struct SectionNavigationLink<Destination: View>: View {
             Image(systemName: imageName)
                 .frame(width: 24)
                 .foregroundColor(imageColor)
-            Text("Лицензии")
+            Text(title)
                 .foregroundColor(titleColor)
         }
     }

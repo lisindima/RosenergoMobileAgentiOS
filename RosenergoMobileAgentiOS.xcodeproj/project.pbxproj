@@ -129,6 +129,10 @@
 		CBED06CB250A24C300216056 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
 		CBED06CC250A24C300216056 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
 		CBED06CE250B1F2E00216056 /* DownloadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */; };
+		CBF0E558251669E50018BF45 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E557251669E50018BF45 /* Int.swift */; };
+		CBF0E559251669E50018BF45 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E557251669E50018BF45 /* Int.swift */; };
+		CBF0E55E25166D5D0018BF45 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E55D25166D5D0018BF45 /* String.swift */; };
+		CBF0E55F25166D5D0018BF45 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E55D25166D5D0018BF45 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +264,8 @@
 		CBED06C72509C77600216056 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		CBED06CA250A24C300216056 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadIndicator.swift; sourceTree = "<group>"; };
+		CBF0E557251669E50018BF45 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		CBF0E55D25166D5D0018BF45 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,6 +368,8 @@
 				CB71A2E724C5518A0018403B /* CoreData */,
 				CB20FB782480CAD0004CB9C1 /* CameraView */,
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
+				CBF0E557251669E50018BF45 /* Int.swift */,
+				CBF0E55D25166D5D0018BF45 /* String.swift */,
 				CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */,
 				CBD9354724DA77F600E0F902 /* SeriesPicker.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
@@ -708,6 +716,7 @@
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
 				CB1ECFCC2508BD9700523D9E /* Enum.swift in Sources */,
 				CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
+				CBF0E558251669E50018BF45 /* Int.swift in Sources */,
 				CBB842ED24E3AE600008EB07 /* License.swift in Sources */,
 				CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */,
 				CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */,
@@ -721,6 +730,7 @@
 				CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CB7EAEAA250F593400B4B4F5 /* VyplatnyedelaLink.swift in Sources */,
 				CB7F88B8251461B500F5AF97 /* ServerImage.swift in Sources */,
+				CBF0E55E25166D5D0018BF45 /* String.swift in Sources */,
 				CBED06C82509C77600216056 /* Haptic.swift in Sources */,
 				CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */,
@@ -760,8 +770,10 @@
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CBED06C92509C77600216056 /* Haptic.swift in Sources */,
+				CBF0E559251669E50018BF45 /* Int.swift in Sources */,
 				CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */,
 				CB0115C72507335400801969 /* PinchToZoom.swift in Sources */,
+				CBF0E55F25166D5D0018BF45 /* String.swift in Sources */,
 				CB2B5B1024C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CBB842EE24E3AE600008EB07 /* License.swift in Sources */,
 				CBAC7F3924D270640081597D /* VyplatnyedelaDetails.swift in Sources */,

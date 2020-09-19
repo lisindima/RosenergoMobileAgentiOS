@@ -17,12 +17,14 @@ struct InspectionsItems: View {
                 ServerImage(path, delay: 0.25)
             }
             VStack(alignment: .leading) {
-                Text("\(inspection.id)")
+                Text(inspection.id.toString())
                     .fontWeight(.bold)
                 Group {
-                    Text(inspection.insuranceContractNumber)
+                    Text(inspection.insuranceContractNumber.uppercased())
+                        .fontWeight(.bold)
                     if let insuranceContractNumber2 = inspection.insuranceContractNumber2 {
-                        Text(insuranceContractNumber2)
+                        Text(insuranceContractNumber2.uppercased())
+                            .fontWeight(.bold)
                     }
                     Text(inspection.createdAt, style: .relative)
                 }

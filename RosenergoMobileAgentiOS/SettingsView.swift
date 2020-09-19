@@ -35,16 +35,6 @@ struct SettingsView: View {
     }
     #endif
     
-    private var appVersionView: some View {
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-           let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-        {
-            return Text("Версия: \(version) (\(build))")
-        } else {
-            return Text("")
-        }
-    }
-    
     var footerNotification: Text {
         switch notificationStore.enabled {
         case .denied:
@@ -141,7 +131,7 @@ struct SettingsView: View {
                 )
                 #endif
             }
-            Section(footer: appVersionView) {
+            Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
                     SectionButton(
                         imageName: "flame",
