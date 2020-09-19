@@ -325,7 +325,6 @@
 				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
 				CB4B826824D4079800C0C558 /* InspectionLink.swift */,
 				CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */,
-				CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
 				CBB842E924E3AD8C0008EB07 /* Changelog.swift */,
 				CBB842EC24E3AE600008EB07 /* License.swift */,
@@ -333,7 +332,6 @@
 				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
 				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
 				CB17E5622466644400CDBB1A /* SignIn.swift */,
-				CBD9354724DA77F600E0F902 /* SeriesPicker.swift */,
 				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CBB4B0B724C82B9C00C25A59 /* Location */,
 				CB4CD7BD24909A56007FE4AB /* Notification */,
@@ -364,6 +362,8 @@
 				CB71A2E724C5518A0018403B /* CoreData */,
 				CB20FB782480CAD0004CB9C1 /* CameraView */,
 				CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */,
+				CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */,
+				CBD9354724DA77F600E0F902 /* SeriesPicker.swift */,
 				CB17E5822468636700CDBB1A /* CustomInput.swift */,
 				CB4B9316246CF59B006B7008 /* Color.swift */,
 				CB9D62D124A455B1000C1C3A /* SectionItem.swift */,
@@ -1165,7 +1165,7 @@
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.17;
+				minimumVersion = 0.9.19;
 			};
 		};
 		CBAC7F3E24D27CF60081597D /* XCRemoteSwiftPackageReference "NativeSearchBar" */ = {

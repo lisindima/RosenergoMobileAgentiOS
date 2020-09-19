@@ -14,11 +14,7 @@ import MessageUI
 struct SettingsView: View {
     @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionStore: SessionStore
-    
-    #if !os(watchOS)
     @EnvironmentObject private var notificationStore: NotificationStore
-    private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
-    #endif
     
     @State private var alertItem: AlertItem? = nil
     @State private var showActionSheetExit: Bool = false
@@ -26,7 +22,11 @@ struct SettingsView: View {
     @State private var loading: Bool = false
     
     #if !os(watchOS)
-    func feedback() {
+    private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
+    #endif
+    
+    #if !os(watchOS)
+    private func feedback() {
         if MFMailComposeViewController.canSendMail() {
             showMailFeedback = true
         } else {
@@ -45,7 +45,6 @@ struct SettingsView: View {
         }
     }
     
-    #if !os(watchOS)
     var footerNotification: Text {
         switch notificationStore.enabled {
         case .denied:
@@ -58,9 +57,21 @@ struct SettingsView: View {
             return Text("")
         }
     }
-    #endif
     
     var body: some View {
+        #if os(watchOS)
+        settings
+        #else
+        settings
+            .sheet(isPresented: $showMailFeedback) {
+                MailFeedback(alertItem: $alertItem)
+                    .ignoresSafeArea(edges: .bottom)
+                    .accentColor(.rosenergo)
+            }
+        #endif
+    }
+    
+    var settings: some View {
         Form {
             if let agent = sessionStore.loginModel?.data {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
@@ -90,15 +101,13 @@ struct SettingsView: View {
                             .foregroundColor(.rosenergo)
                         Text("\(notificationStore.notifyHour) ч.")
                     }
-                }
-                if notificationStore.enabled == .notDetermined {
+                } else if notificationStore.enabled == .notDetermined {
                     SectionButton(
                         imageName: "bell",
                         title: "Включить уведомления",
                         action: notificationStore.requestPermission
                     )
-                }
-                if notificationStore.enabled == .denied {
+                } else if notificationStore.enabled == .denied {
                     SectionLink(
                         imageName: "bell",
                         title: "Включить уведомления",
@@ -108,18 +117,16 @@ struct SettingsView: View {
             }
             #endif
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
-                NavigationLink(destination: Changelog()) {
-                    Image(systemName: "wand.and.stars.inverse")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    Text("Что нового?")
-                }
-                NavigationLink(destination: License()) {
-                    Image(systemName: "doc.plaintext")
-                        .frame(width: 24)
-                        .foregroundColor(.rosenergo)
-                    Text("Лицензии")
-                }
+                SectionNavigationLink(
+                    imageName: "wand.and.stars.inverse",
+                    title: "Что нового?",
+                    destination: Changelog()
+                )
+                SectionNavigationLink(
+                    imageName: "doc.plaintext",
+                    title: "Лицензии",
+                    destination: License()
+                )
                 #if !os(watchOS)
                 SectionLink(
                     imageName: "star",
@@ -155,13 +162,6 @@ struct SettingsView: View {
         }
         .navigationTitle("Настройки")
         .customAlert($alertItem)
-        .sheet(isPresented: $showMailFeedback) {
-            #if !os(watchOS)
-            MailFeedback(alertItem: $alertItem)
-                .ignoresSafeArea(edges: .bottom)
-                .accentColor(.rosenergo)
-            #endif
-        }
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [
                 .destructive(Text("Выйти")) {

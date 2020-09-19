@@ -62,9 +62,9 @@ struct RosenergoApp: App {
             if phase == .active {
                 #if !os(watchOS)
                 UIApplication.shared.applicationIconBadgeNumber = 0
+                #endif
                 NotificationStore.shared.requestPermission()
                 NotificationStore.shared.refreshNotificationStatus()
-                #endif
             }
         }
     }

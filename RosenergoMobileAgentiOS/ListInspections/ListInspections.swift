@@ -62,6 +62,22 @@ struct ListInspections: View {
     }
     
     var body: some View {
+        #if os(watchOS)
+        inspections
+        #else
+        inspections
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink(destination: CreateInspections()) {
+                        Image(systemName: "plus.circle.fill")
+                            .imageScale(.large)
+                    }
+                }
+            }
+        #endif
+    }
+    
+    var inspections: some View {
         LoadingView(sessionStore.inspectionsLoadingState, title: "Нет осмотров", subTitle: "Добавьте свой первый осмотр и он отобразиться здесь.") {
             List {
                 if !localInspections.isEmpty {
@@ -99,15 +115,5 @@ struct ListInspections: View {
         }
         .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")
-        .toolbar {
-            #if !os(watchOS)
-            ToolbarItem(placement: .primaryAction) {
-                NavigationLink(destination: CreateInspections()) {
-                    Image(systemName: "plus.circle.fill")
-                        .imageScale(.large)
-                }
-            }
-            #endif
-        }
     }
 }

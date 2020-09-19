@@ -107,6 +107,24 @@ struct SectionLink: View {
     }
 }
 
+struct SectionNavigationLink<Destination: View>: View {
+    var imageName: String
+    var imageColor: Color = .rosenergo
+    var title: String
+    var titleColor: Color = .primary
+    var destination: Destination
+    
+    var body: some View {
+        NavigationLink(destination: destination) {
+            Image(systemName: imageName)
+                .frame(width: 24)
+                .foregroundColor(imageColor)
+            Text("Лицензии")
+                .foregroundColor(titleColor)
+        }
+    }
+}
+
 struct SectionItem_Previews: PreviewProvider {
     static var previews: some View {
         SectionItem(

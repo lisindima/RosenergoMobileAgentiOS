@@ -27,6 +27,22 @@ struct ListVyplatnyedela: View {
     }
     
     var body: some View {
+        #if os(watchOS)
+        vyplatnyedela
+        #else
+        vyplatnyedela
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink(destination: CreateVyplatnyeDela()) {
+                        Image(systemName: "plus.circle.fill")
+                            .imageScale(.large)
+                    }
+                }
+            }
+        #endif
+    }
+    
+    var vyplatnyedela: some View {
         LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") {
             List {
                 Section(header: Text("Отправленные дела").fontWeight(.bold)) {
@@ -50,15 +66,5 @@ struct ListVyplatnyedela: View {
         }
         .onAppear(perform: sessionStore.getVyplatnyedela)
         .navigationTitle("Выплатные дела")
-        .toolbar {
-            #if !os(watchOS)
-            ToolbarItem(placement: .primaryAction) {
-                NavigationLink(destination: CreateVyplatnyeDela()) {
-                    Image(systemName: "plus.circle.fill")
-                        .imageScale(.large)
-                }
-            }
-            #endif
-        }
     }
 }
