@@ -84,15 +84,17 @@ struct Vyplatnyedela: Codable, Identifiable {
 
 // MARK: Codable модель для загрузки данных пользователя.
 
-struct LoginModel: Codable {
-    let data: DataClass
-}
-
-struct DataClass: Codable, Identifiable {
+struct LoginModel: Codable, Identifiable {
     let id, roleId: Int
     let name, email, avatar: String
     let createdAt, updatedAt, apiToken: String
     let agentId: Int
+}
+
+extension LoginModel {
+    struct NetworkResponse: Codable {
+        let data: LoginModel
+    }
 }
 
 // MARK: Codable модель для загрузки списка изменений.

@@ -51,7 +51,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(bearerToken: loginModel!.data.apiToken))
+        urlRequest.headers.add(.authorization(bearerToken: loginModel!.apiToken))
         completion(.success(urlRequest))
     }
     
@@ -82,11 +82,11 @@ class SessionStore: ObservableObject, RequestInterceptor {
         
         AF.request(serverURL + "login", method: .post, parameters: parameters)
             .validate()
-            .responseDecodable(of: LoginModel.self, decoder: decoder) { response in
+            .responseDecodable(of: LoginModel.NetworkResponse.self, decoder: decoder) { response in
                 switch response.result {
                 case .success:
                     guard let response = response.value else { return }
-                    completion(.success(response))
+                    completion(.success(response.data))
                 case let .failure(error):
                     completion(.failure(error))
                 }
@@ -95,7 +95,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     func logout(completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .authorization(bearerToken: loginModel?.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -109,7 +109,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     func upload<Parameters: Encodable>(_ url: String, parameters: Parameters? = nil, completion: @escaping (Result<Bool, Error>) -> Void) {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .authorization(bearerToken: loginModel?.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -153,7 +153,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     func load<T: Codable>(_ url: String, completion: @escaping (Result<T, Error>) -> Void) {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
+            .authorization(bearerToken: loginModel?.apiToken ?? ""),
             .accept("application/json"),
         ]
         

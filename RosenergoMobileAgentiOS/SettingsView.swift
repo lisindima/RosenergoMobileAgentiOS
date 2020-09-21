@@ -63,7 +63,7 @@ struct SettingsView: View {
     
     var settings: some View {
         Form {
-            if let agent = sessionStore.loginModel?.data {
+            if let agent = sessionStore.loginModel {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "person",
