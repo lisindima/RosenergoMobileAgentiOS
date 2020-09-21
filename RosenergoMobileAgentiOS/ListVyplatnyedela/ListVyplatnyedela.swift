@@ -13,18 +13,6 @@ struct ListVyplatnyedela: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     @StateObject private var searchBar = SearchBar.shared
-    @State private var load: Bool = true
-    
-    func loadPage() {
-        sessionStore.loadPageVyplat { result in
-            switch result {
-            case .success(let bool):
-                load = bool
-            case .failure:
-                print("")
-            }
-        }
-    }
     
     var body: some View {
         #if os(watchOS)
@@ -43,21 +31,15 @@ struct ListVyplatnyedela: View {
     }
     
     var vyplatnyedela: some View {
-        LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") {
+        LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") { vyplatnyedelaModel in
             List {
                 Section(header: Text("Отправленные дела").fontWeight(.bold)) {
-                    ForEach(sessionStore.vyplatnyedela!.data, id: \.id) { vyplatnyedela in
+                    ForEach(vyplatnyedelaModel.filter {
+                        searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
+                    }, id: \.id) { vyplatnyedela in
                         NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
                         }
-                    }
-                    if load {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .onAppear(perform: loadPage)
                     }
                 }
             }

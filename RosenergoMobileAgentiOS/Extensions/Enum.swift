@@ -8,9 +8,11 @@
 
 import SwiftUI
 
-enum LoadingState {
-    case loading, success, empty
-    case failure(Error)
+enum LoadingState<Value> {
+    case loading
+    case empty
+    case success(_ value: Value)
+    case failure(_ error: Error)
 }
 
 enum FileType {

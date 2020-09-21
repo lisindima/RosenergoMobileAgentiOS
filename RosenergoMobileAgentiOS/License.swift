@@ -10,12 +10,12 @@ import SwiftUI
 
 struct License: View {
     @EnvironmentObject private var sessionStore: SessionStore
-    
+
     var body: some View {
-        LoadingView(sessionStore.licenseLoadingState) {
+        LoadingView(sessionStore.licenseLoadingState) { licenseModel in
             Form {
                 Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.")) {
-                    ForEach(sessionStore.licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
+                    ForEach(licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
                         NavigationLink(destination: LicenseDetail(license: license)) {
                             Text(license.nameFramework)
                         }

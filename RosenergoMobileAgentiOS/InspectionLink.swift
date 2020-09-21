@@ -15,15 +15,13 @@ struct InspectionLink: View {
     
     @Binding var inspectionID: String
     
-    @State private var inspection: Inspections? = nil
-    @State private var loadingState: LoadingState = .loading
+    @State private var loadingState: LoadingState<Inspections> = .loading
 
     private func getInspection() {
         sessionStore.load("inspection/" + "\(inspectionID)") { [self] (response: Result<Inspections, Error>) in
             switch response {
             case let .success(value):
-                inspection = value
-                loadingState = .success
+                loadingState = .success(value)
             case let .failure(error):
                 loadingState = .failure(error)
                 log(error.localizedDescription)
@@ -33,8 +31,8 @@ struct InspectionLink: View {
     
     var body: some View {
         NavigationView {
-            LoadingView(loadingState) {
-                InspectionsDetails(inspection: inspection!)
+            LoadingView(loadingState) { inspection in
+                InspectionsDetails(inspection: inspection)
             }
             .onAppear(perform: getInspection)
             .toolbar {

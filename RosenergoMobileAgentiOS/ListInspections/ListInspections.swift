@@ -23,9 +23,6 @@ struct ListInspections: View {
     )
     private var localInspections: FetchedResults<LocalInspections>
     
-    @State private var load: Bool = true
-    @State private var searchInspections = [Inspections]()
-    
     private func delete(offsets: IndexSet) {
         for offset in offsets {
             let localInspection = localInspections[offset]
@@ -36,28 +33,6 @@ struct ListInspections: View {
             try moc.save()
         } catch {
             log(error.localizedDescription)
-        }
-    }
-    
-    private func searchRequest(_ query: String) {
-        sessionStore.load("https://rosenergo.calcn1.ru/api/v2/search/\(query)") { [self] (response: Result<[Inspections], Error>) in
-            switch response {
-            case let .success(value):
-                searchInspections = value
-            case let .failure(error):
-                log(error.localizedDescription)
-            }
-        }
-    }
-    
-    func loadPage() {
-        sessionStore.loadPageInspe { result in
-            switch result {
-            case .success(let bool):
-                load = bool
-            case .failure:
-                print("EGC")
-            }
         }
     }
     
@@ -78,7 +53,7 @@ struct ListInspections: View {
     }
     
     var inspections: some View {
-        LoadingView(sessionStore.inspectionsLoadingState, title: "Нет осмотров", subTitle: "Добавьте свой первый осмотр и он отобразиться здесь.") {
+        LoadingView(sessionStore.inspectionsLoadingState, title: "Нет осмотров", subTitle: "Добавьте свой первый осмотр и он отобразиться здесь.") { inspectionsModel in
             List {
                 if !localInspections.isEmpty {
                     Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
@@ -92,26 +67,17 @@ struct ListInspections: View {
                     }
                 }
                 Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
-                    ForEach(searchBar.text.isEmpty ? sessionStore.inspections!.data : searchInspections, id: \.id) { inspection in
+                    ForEach(inspectionsModel.filter {
+                        searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                    }, id: \.id) { inspection in
                         NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
                             InspectionsItems(inspection: inspection)
                         }
-                    }
-                    if load, searchBar.text.isEmpty {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .onAppear(perform: loadPage)
                     }
                 }
             }
             .addSearchBar(searchBar)
             .modifier(ListStyle())
-        }
-        .onChange(of: searchBar.text) { query in
-            searchRequest(query)
         }
         .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")

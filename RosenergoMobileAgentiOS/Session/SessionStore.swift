@@ -29,14 +29,10 @@ class SessionStore: ObservableObject, RequestInterceptor {
     @Published var videoURL: URL? = nil
     @Published var uploadProgress: Double = 0.0
     @Published var downloadProgress: Double = 0.0
-    @Published var changelogLoadingState: LoadingState = .loading
-    @Published var licenseLoadingState: LoadingState = .loading
-    @Published var inspectionsLoadingState: LoadingState = .loading
-    @Published var vyplatnyedelaLoadingState: LoadingState = .loading
-    @Published var inspections: PaginationInspection?
-    @Published var vyplatnyedela: PaginationVyplatnyedela?
-    @Published var сhangelogModel = [ChangelogModel]()
-    @Published var licenseModel = [LicenseModel]()
+    @Published var changelogLoadingState: LoadingState<[ChangelogModel]> = .loading
+    @Published var licenseLoadingState: LoadingState<[LicenseModel]> = .loading
+    @Published var inspectionsLoadingState: LoadingState<[Inspections]> = .loading
+    @Published var vyplatnyedelaLoadingState: LoadingState<[Vyplatnyedela]> = .loading
     
     static let shared = SessionStore()
     
@@ -47,8 +43,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     private func clearData() {
         loginModel = nil
         loginParameters = nil
-        //inspections = nil
-        vyplatnyedela = nil
         inspectionsLoadingState = .loading
         vyplatnyedelaLoadingState = .loading
         changelogLoadingState = .loading
@@ -201,14 +195,13 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getInspections() {
-        load(serverURL + "v2/inspections") { [self] (response: Result<PaginationInspection, Error>) in
+        load(serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
             switch response {
             case let .success(value):
-                if value.data.isEmpty {
+                if value.isEmpty {
                     inspectionsLoadingState = .empty
                 } else {
-                    inspections = value
-                    inspectionsLoadingState = .success
+                    inspectionsLoadingState = .success(value)
                 }
             case let .failure(error):
                 inspectionsLoadingState = .failure(error)
@@ -218,14 +211,13 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getVyplatnyedela() {
-        load(serverURL + "v2/vyplatnyedelas") { [self] (response: Result<PaginationVyplatnyedela, Error>) in
+        load(serverURL + "vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
             switch response {
             case let .success(value):
-                if value.data.isEmpty {
+                if value.isEmpty {
                     vyplatnyedelaLoadingState = .empty
                 } else {
-                    vyplatnyedela = value
-                    vyplatnyedelaLoadingState = .success
+                    vyplatnyedelaLoadingState = .success(value)
                 }
             case let .failure(error):
                 vyplatnyedelaLoadingState = .failure(error)
@@ -234,46 +226,11 @@ class SessionStore: ObservableObject, RequestInterceptor {
         }
     }
     
-    func loadPageInspe(completion: @escaping (Result<Bool, Error>) -> Void) {
-        if let path = inspections?.nextPageUrl {
-            load(path) { [self] (response: Result<PaginationInspection, Error>) in
-                switch response {
-                case let .success(value):
-                    inspections?.nextPageUrl = value.nextPageUrl
-                    if value.nextPageUrl == nil {
-                        completion(.success(false))
-                    }
-                    inspections!.data += value.data
-                case let .failure(error):
-                    debugPrint(error)
-                }
-            }
-        }
-    }
-    
-    func loadPageVyplat(completion: @escaping (Result<Bool, Error>) -> Void) {
-        if let path = vyplatnyedela?.nextPageUrl {
-            load(path) { [self] (response: Result<PaginationVyplatnyedela, Error>) in
-                switch response {
-                case let .success(value):
-                    vyplatnyedela!.nextPageUrl = value.nextPageUrl
-                    if value.nextPageUrl == nil {
-                        completion(.success(false))
-                    }
-                    vyplatnyedela!.data.append(contentsOf: value.data)
-                case let .failure(error):
-                    debugPrint(error)
-                }
-            }
-        }
-    }
-    
     func getChangelog() {
         load("https://api.lisindmitriy.me/changelog") { [self] (response: Result<[ChangelogModel], Error>) in
             switch response {
             case let .success(value):
-                сhangelogModel = value
-                changelogLoadingState = .success
+                changelogLoadingState = .success(value)
             case let .failure(error):
                 changelogLoadingState = .failure(error)
                 log(error.localizedDescription)
@@ -285,8 +242,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         load("https://api.lisindmitriy.me/license") { [self] (response: Result<[LicenseModel], Error>) in
             switch response {
             case let .success(value):
-                licenseModel = value
-                licenseLoadingState = .success
+                licenseLoadingState = .success(value)
             case let .failure(error):
                 licenseLoadingState = .failure(error)
                 log(error.localizedDescription)

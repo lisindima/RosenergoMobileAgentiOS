@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-struct LoadingView<Content: View>: View {
-    var loadingState: LoadingState
+struct LoadingView<Value, Content>: View where Content: View {
+    var loadingState: LoadingState<Value>
     var title: String = ""
     var subTitle: String = ""
-    var content: () -> Content
+    var content: (_ value: Value) -> Content
 
-    init(_ loadingState: LoadingState, content: @escaping () -> Content) {
+    init(_ loadingState: LoadingState<Value>, content: @escaping (_ value: Value) -> Content) {
         self.loadingState = loadingState
         self.content = content
     }
     
-    init(_ loadingState: LoadingState, title: String, subTitle: String, content: @escaping () -> Content) {
+    init(_ loadingState: LoadingState<Value>, title: String, subTitle: String, content: @escaping (_ value: Value) -> Content) {
         self.loadingState = loadingState
         self.title = title
         self.subTitle = subTitle
@@ -30,8 +30,8 @@ struct LoadingView<Content: View>: View {
         switch loadingState {
         case .loading:
             ProgressView("Загрузка")
-        case .success:
-            content()
+        case let .success(value):
+            content(value)
         case let .failure(error):
             Spacer()
             Text("Произошла ошибка!")

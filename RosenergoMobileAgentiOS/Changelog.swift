@@ -16,9 +16,9 @@ struct Changelog: View {
     }
     
     var body: some View {
-        LoadingView(sessionStore.changelogLoadingState) {
+        LoadingView(sessionStore.changelogLoadingState) { changelogModel in
             Form {
-                ForEach(sessionStore.сhangelogModel.sorted { $0.version > $1.version }, id: \.id) { changelog in
+                ForEach(changelogModel.sorted { $0.version > $1.version }, id: \.id) { changelog in
                     Section(header:
                         HStack(alignment: .bottom) {
                             Text(changelog.version)

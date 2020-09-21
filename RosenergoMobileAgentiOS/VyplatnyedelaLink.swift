@@ -15,15 +15,13 @@ struct VyplatnyedelaLink: View {
     
     @Binding var vyplatnyedelaID: String
     
-    @State private var vyplatnyedela: Vyplatnyedela? = nil
-    @State private var loadingState: LoadingState = .loading
+    @State private var loadingState: LoadingState<Vyplatnyedela> = .loading
 
     private func getVyplatnyedela() {
         sessionStore.load("vyplatnyedelas/" + "\(vyplatnyedelaID)") { [self] (response: Result<Vyplatnyedela, Error>) in
             switch response {
             case let .success(value):
-                vyplatnyedela = value
-                loadingState = .success
+                loadingState = .success(value)
             case let .failure(error):
                 loadingState = .failure(error)
                 log(error.localizedDescription)
@@ -33,8 +31,8 @@ struct VyplatnyedelaLink: View {
     
     var body: some View {
         NavigationView {
-            LoadingView(loadingState) {
-                VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela!)
+            LoadingView(loadingState) { vyplatnyedela in
+                VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
             }
             .onAppear(perform: getVyplatnyedela)
             .toolbar {
