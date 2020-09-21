@@ -31,13 +31,6 @@ extension LocalInspections {
     @NSManaged public var longitude: Double
     @NSManaged public var localPhotos: Set<LocalPhotos>
     @NSManaged public var videoURL: URL?
-    
-    public var arrayPhoto: [LocalPhotos] {
-        let set = localPhotos
-        return set.sorted {
-            $0.id < $1.id
-        }
-    }
 }
 
 // MARK: Generated accessors for localPhotos

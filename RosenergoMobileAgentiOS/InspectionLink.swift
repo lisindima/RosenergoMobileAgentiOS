@@ -18,7 +18,7 @@ struct InspectionLink: View {
     @State private var loadingState: LoadingState<Inspections> = .loading
 
     private func getInspection() {
-        sessionStore.load("inspection/" + "\(inspectionID)") { [self] (response: Result<Inspections, Error>) in
+        sessionStore.load(Endpoint.inspections(inspectionID).url) { [self] (response: Result<Inspections, Error>) in
             switch response {
             case let .success(value):
                 loadingState = .success(value)

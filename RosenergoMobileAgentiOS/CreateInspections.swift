@@ -100,7 +100,7 @@ struct CreateInspections: View {
             }
         }
         
-        sessionStore.upload("testinspection", parameters: InspectionParameters(
+        sessionStore.upload(Endpoint.uploadInspection.url, parameters: InspectionParameters(
             carModel: carModel,
             carRegNumber: carRegNumber,
             carBodyNumber: vinAndNumber ? carVin : carBodyNumber,

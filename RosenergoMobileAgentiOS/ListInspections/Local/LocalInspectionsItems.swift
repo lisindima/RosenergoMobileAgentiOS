@@ -21,7 +21,7 @@ struct LocalInspectionsItems: View {
     
     var body: some View {
         HStack {
-            if let data = localInspections.arrayPhoto.first?.photosData {
+            if let data = localInspections.localPhotos.first?.photosData {
                 Image(uiImage: UIImage(data: data)!.resizedImage(width: size, height: size))
                     .resizable()
                     .cornerRadius(8)

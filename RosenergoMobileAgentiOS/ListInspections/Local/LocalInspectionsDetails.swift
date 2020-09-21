@@ -53,7 +53,7 @@ struct LocalInspectionsDetails: View {
             }
         }
         
-        sessionStore.upload("testinspection", parameters: InspectionParameters(
+        sessionStore.upload(Endpoint.uploadInspection.url, parameters: InspectionParameters(
             carModel: localInspections.carModel,
             carRegNumber: localInspections.carRegNumber,
             carBodyNumber: localInspections.carBodyNumber,
@@ -115,12 +115,12 @@ struct LocalInspectionsDetails: View {
     @ViewBuilder
     var formLocalInspections: some View {
         Form {
-            if !localInspections.arrayPhoto.isEmpty {
+            if !localInspections.localPhotos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(localInspections.arrayPhoto, id: \.id) { photo in
-                                NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.arrayPhoto)) {
+                            ForEach(Array(localInspections.localPhotos), id: \.id) { photo in
+                                NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.localPhotos)) {
                                     Image(uiImage: UIImage(data: photo.photosData)!.resizedImage(width: size, height: size))
                                         .resizable()
                                         .frame(width: size, height: size)

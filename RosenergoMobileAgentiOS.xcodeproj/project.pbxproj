@@ -133,6 +133,8 @@
 		CBF0E559251669E50018BF45 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E557251669E50018BF45 /* Int.swift */; };
 		CBF0E55E25166D5D0018BF45 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E55D25166D5D0018BF45 /* String.swift */; };
 		CBF0E55F25166D5D0018BF45 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E55D25166D5D0018BF45 /* String.swift */; };
+		CBF0E568251894F20018BF45 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E567251894F20018BF45 /* Endpoint.swift */; };
+		CBF0E569251894F20018BF45 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E567251894F20018BF45 /* Endpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +268,7 @@
 		CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadIndicator.swift; sourceTree = "<group>"; };
 		CBF0E557251669E50018BF45 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		CBF0E55D25166D5D0018BF45 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		CBF0E567251894F20018BF45 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,6 +386,7 @@
 				CB0115C52507335400801969 /* PinchToZoom.swift */,
 				CB0115C825073C4000801969 /* ViewModifier.swift */,
 				CB1ECFCB2508BD9700523D9E /* Enum.swift */,
+				CBF0E567251894F20018BF45 /* Endpoint.swift */,
 				CBED06C72509C77600216056 /* Haptic.swift */,
 				CBED06CA250A24C300216056 /* CustomAlert.swift */,
 				CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */,
@@ -699,6 +703,7 @@
 				CBD9354824DA77F600E0F902 /* SeriesPicker.swift in Sources */,
 				CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */,
+				CBF0E568251894F20018BF45 /* Endpoint.swift in Sources */,
 				CBED06CE250B1F2E00216056 /* DownloadIndicator.swift in Sources */,
 				CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB17E5922469B57F00CDBB1A /* CustomCameraView.swift in Sources */,
@@ -779,6 +784,7 @@
 				CBAC7F3924D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
 				CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */,
 				CB7F88BD2514EB1200F5AF97 /* NotificationStore.swift in Sources */,
+				CBF0E569251894F20018BF45 /* Endpoint.swift in Sources */,
 				CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */,
 				CB7EAEB12510856900B4B4F5 /* ImageButton.swift in Sources */,
 				CB3C916E250DE30A0099958D /* Log.swift in Sources */,

@@ -18,7 +18,7 @@ struct VyplatnyedelaLink: View {
     @State private var loadingState: LoadingState<Vyplatnyedela> = .loading
 
     private func getVyplatnyedela() {
-        sessionStore.load("vyplatnyedelas/" + "\(vyplatnyedelaID)") { [self] (response: Result<Vyplatnyedela, Error>) in
+        sessionStore.load(Endpoint.vyplatnyedela(vyplatnyedelaID).url) { [self] (response: Result<Vyplatnyedela, Error>) in
             switch response {
             case let .success(value):
                 loadingState = .success(value)

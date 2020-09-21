@@ -38,8 +38,6 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     private var cancellation: AnyCancellable?
     
-    private let serverURL: String = "https://rosenergo.calcn1.ru/api/"
-    
     private func clearData() {
         loginModel = nil
         loginParameters = nil
@@ -80,7 +78,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
-        AF.request(serverURL + "login", method: .post, parameters: parameters)
+        AF.request(Endpoint.login.url, method: .post, parameters: parameters)
             .validate()
             .responseDecodable(of: LoginModel.NetworkResponse.self, decoder: decoder) { response in
                 switch response.result {
@@ -99,7 +97,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             .accept("application/json"),
         ]
         
-        AF.request(serverURL + "logout", method: .post, headers: headers, interceptor: SessionStore.shared)
+        AF.request(Endpoint.logout.url, method: .post, headers: headers, interceptor: SessionStore.shared)
             .validate()
             .response { [self] _ in
                 completion(true)
@@ -107,7 +105,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
     
-    func upload<Parameters: Encodable>(_ url: String, parameters: Parameters? = nil, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func upload<Parameters: Encodable>(_ url: URL, parameters: Parameters? = nil, completion: @escaping (Result<Bool, Error>) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.apiToken ?? ""),
             .accept("application/json"),
@@ -116,7 +114,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         
-        AF.request(serverURL + url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: encoder), headers: headers, interceptor: SessionStore.shared)
+        AF.request(url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: encoder), headers: headers, interceptor: SessionStore.shared)
             .validate()
             .uploadProgress { [self] progress in
                 uploadProgress = progress.fractionCompleted
@@ -132,7 +130,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
             }
     }
     
-    func request<T: Codable>(_ url: String, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
+    func request<T: Codable>(_ url: URL, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
@@ -151,7 +149,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
         return publisher.result()
     }
     
-    func load<T: Codable>(_ url: String, completion: @escaping (Result<T, Error>) -> Void) {
+    func load<T: Codable>(_ url: URL, completion: @escaping (Result<T, Error>) -> Void) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.apiToken ?? ""),
             .accept("application/json"),
@@ -195,7 +193,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getInspections() {
-        load(serverURL + "inspections") { [self] (response: Result<[Inspections], Error>) in
+        load(Endpoint.inspections("").url) { [self] (response: Result<[Inspections], Error>) in
             switch response {
             case let .success(value):
                 if value.isEmpty {
@@ -211,7 +209,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getVyplatnyedela() {
-        load(serverURL + "vyplatnyedelas") { [self] (response: Result<[Vyplatnyedela], Error>) in
+        load(Endpoint.vyplatnyedela("").url) { [self] (response: Result<[Vyplatnyedela], Error>) in
             switch response {
             case let .success(value):
                 if value.isEmpty {
@@ -227,7 +225,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getChangelog() {
-        load("https://api.lisindmitriy.me/changelog") { [self] (response: Result<[ChangelogModel], Error>) in
+        load(Endpoint.changelog.url) { [self] (response: Result<[ChangelogModel], Error>) in
             switch response {
             case let .success(value):
                 changelogLoadingState = .success(value)
@@ -239,7 +237,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getLicense() {
-        load("https://api.lisindmitriy.me/license") { [self] (response: Result<[LicenseModel], Error>) in
+        load(Endpoint.license.url) { [self] (response: Result<[LicenseModel], Error>) in
             switch response {
             case let .success(value):
                 licenseLoadingState = .success(value)

@@ -12,11 +12,11 @@ struct LocalImageDetail: View {
     @State private var selectionImage: Int = 1
     
     var id: Int
-    var photos: [LocalPhotos]
+    var photos: Set<LocalPhotos>
     
     var body: some View {
         TabView(selection: $selectionImage) {
-            ForEach(photos, id: \.id) { photo in
+            ForEach(Array(photos), id: \.id) { photo in
                 Image(uiImage: UIImage(data: photo.photosData)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -25,7 +25,7 @@ struct LocalImageDetail: View {
         }
         .tabViewStyle(PageTabViewStyle())
         .modifier(TabViewBackgroundMode())
-        .navigationTitle("\(selectionImage) из \(photos.last!.id)")
+        .navigationTitle("\(selectionImage) из \(Array(photos).last!.id)")
         .onAppear { selectionImage = id }
     }
 }
