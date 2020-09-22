@@ -22,3 +22,8 @@ enum FileType {
 enum HapticType {
     case error, success, warning
 }
+
+enum UploadError: Error {
+    case uploadFailed
+    case decodeFailed
+}

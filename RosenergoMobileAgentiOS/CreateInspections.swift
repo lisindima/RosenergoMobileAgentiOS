@@ -100,7 +100,7 @@ struct CreateInspections: View {
             }
         }
         
-        sessionStore.upload(Endpoint.uploadInspection.url, parameters: InspectionParameters(
+        sessionStore.upload(Endpoint.uploadInspection, parameters: InspectionParameters(
             carModel: carModel,
             carRegNumber: carRegNumber,
             carBodyNumber: vinAndNumber ? carVin : carBodyNumber,
@@ -115,8 +115,8 @@ struct CreateInspections: View {
             longitude: locationStore.longitude,
             video: video,
             photos: photos
-        )) { response in
-            switch response {
+        )) { [self] (result: Result<Inspections, UploadError>) in
+            switch result {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.") { presentationMode.wrappedValue.dismiss() }
                 playHaptic(.success)

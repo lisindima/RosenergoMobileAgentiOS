@@ -20,9 +20,7 @@ struct SignIn: View {
         loading = true
         sessionStore.login(email: email, password: password) { [self] result in
             switch result {
-            case let .success(response):
-                sessionStore.loginModel = response
-                sessionStore.loginParameters = LoginParameters(email: email, password: password)
+            case .success:
                 playHaptic(.success)
                 loading = false
             case let .failure(error):

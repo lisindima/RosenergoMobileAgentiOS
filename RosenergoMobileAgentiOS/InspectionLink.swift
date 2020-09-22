@@ -18,8 +18,8 @@ struct InspectionLink: View {
     @State private var loadingState: LoadingState<Inspections> = .loading
 
     private func getInspection() {
-        sessionStore.load(Endpoint.inspections(inspectionID).url) { [self] (response: Result<Inspections, Error>) in
-            switch response {
+        sessionStore.fetch(Endpoint.inspections(inspectionID)) { [self] (result: Result<Inspections, UploadError>) in
+            switch result {
             case let .success(value):
                 loadingState = .success(value)
             case let .failure(error):

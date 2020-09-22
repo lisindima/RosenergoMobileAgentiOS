@@ -39,14 +39,14 @@ struct CreateVyplatnyeDela: View {
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: stringDate()))
         }
         
-        sessionStore.upload(Endpoint.uploadVyplatnyedela.url, parameters: VyplatnyeDelaParameters(
+        sessionStore.upload(Endpoint.uploadVyplatnyedela, parameters: VyplatnyeDelaParameters(
             insuranceContractNumber: insuranceContractNumber,
             numberZayavlenia: numberZayavlenia,
             latitude: locationStore.latitude,
             longitude: locationStore.longitude,
             photos: photos
-        )) { response in
-            switch response {
+        )) { [self] (result: Result<Vyplatnyedela, UploadError>) in
+            switch result {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.") { presentationMode.wrappedValue.dismiss() }
                 playHaptic(.success)
@@ -55,7 +55,7 @@ struct CreateVyplatnyeDela: View {
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)")
                 playHaptic(.error)
                 uploadState = false
-                log(error.localizedDescription)
+                debugPrint(error)
             }
         }
     }

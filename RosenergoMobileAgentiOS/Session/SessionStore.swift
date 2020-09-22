@@ -6,11 +6,10 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import Alamofire
 import Combine
 import SwiftUI
 
-class SessionStore: ObservableObject, RequestInterceptor {
+class SessionStore: ObservableObject {
     @CodableUserDefaults(key: "loginModel", default: nil)
     var loginModel: LoginModel? {
         willSet {
@@ -36,7 +35,7 @@ class SessionStore: ObservableObject, RequestInterceptor {
     
     static let shared = SessionStore()
     
-    private var cancellation: AnyCancellable?
+    private var requests = Set<AnyCancellable>()
     
     private func clearData() {
         loginModel = nil
@@ -47,90 +46,69 @@ class SessionStore: ObservableObject, RequestInterceptor {
         licenseLoadingState = .loading
     }
     
-    func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(bearerToken: loginModel!.apiToken))
-        completion(.success(urlRequest))
-    }
-    
-    func retry(_ request: Request, for _: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
-            return completion(.doNotRetryWithError(error))
-        }
-        
-        login(email: loginParameters!.email, password: loginParameters!.password) { [self] result in
-            switch result {
-            case let .success(response):
-                loginModel = response
-                completion(.retry)
-            case .failure:
-                completion(.doNotRetryWithError(error))
-            }
-        }
-    }
-    
     func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
         let parameters = LoginParameters(
             email: email,
             password: password
         )
         
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        AF.request(Endpoint.login.url, method: .post, parameters: parameters)
-            .validate()
-            .responseDecodable(of: LoginModel.NetworkResponse.self, decoder: decoder) { response in
-                switch response.result {
-                case .success:
-                    guard let response = response.value else { return }
-                    completion(.success(response.data))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
+        upload(Endpoint.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
+            switch result {
+            case .success(let value):
+                loginModel = value.data
+                loginParameters = LoginParameters(email: email, password: password)
+                completion(.success(value.data))
+            case let .failure(error):
+                completion(.failure(error))
             }
+        }
     }
     
     func logout(completion: @escaping (Bool) -> Void) {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-        
-        AF.request(Endpoint.logout.url, method: .post, headers: headers, interceptor: SessionStore.shared)
-            .validate()
-            .response { [self] _ in
-                completion(true)
-                clearData()
-            }
+        clearData()
+//        AF.request(Endpoint.logout.url, method: .post, headers: headers)
+//            .validate()
+//            .response { [self] _ in
+//                completion(true)
+//                clearData()
+//            }
     }
     
-    func upload<Parameters: Encodable>(_ url: URL, parameters: Parameters? = nil, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.apiToken ?? ""),
-            .accept("application/json"),
-        ]
+    func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
         
+    }
+    
+    func upload<Input: Encodable, Output: Decodable>(_ endpoint: Endpoint, parameters: Input, httpMethod: String = "POST", contentType: String = "application/json", completion: @escaping (Result<Output, UploadError>) -> Void) {
+        var request = URLRequest(url: endpoint.url)
+        request.httpMethod = httpMethod
+        request.setValue("Bearer \(loginModel?.apiToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+
         let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
+        request.httpBody = try? encoder.encode(parameters)
         
-        AF.request(url, method: .post, parameters: parameters, encoder: JSONParameterEncoder(encoder: encoder), headers: headers, interceptor: SessionStore.shared)
-            .validate()
-            .uploadProgress { [self] progress in
-                uploadProgress = progress.fractionCompleted
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: Output.self, decoder: decoder)
+            .map(Result.success)
+            .catch { error -> Just<Result<Output, UploadError>> in
+                error is DecodingError
+                    ? Just(.failure(.decodeFailed))
+                    : Just(.failure(.uploadFailed))
             }
-            .response { response in
-                switch response.result {
-                case .success:
-                    completion(.success(true))
-                case let .failure(error):
-                    completion(.failure(error))
-                    log(error.localizedDescription)
-                }
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: completion)
+            .store(in: &requests)
     }
     
-    func request<T: Codable>(_ url: URL, method: HTTPMethod = .get, headers: HTTPHeaders? = nil) -> AnyPublisher<Result<T, AFError>, Never> {
+    func fetch<T: Decodable>(_ endpoint: Endpoint, contentType: String = "application/json", completion: @escaping (Result<T, UploadError>) -> Void) {
+        var request = URLRequest(url: endpoint.url)
+        request.setValue("Bearer \(loginModel?.apiToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.setValue(contentType, forHTTPHeaderField: "Accept")
+        
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
@@ -140,61 +118,23 @@ class SessionStore: ObservableObject, RequestInterceptor {
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 7)
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
-        let publisher = AF.request(url, method: method, headers: headers, interceptor: SessionStore.shared)
-            .validate()
-            .uploadProgress { [self] progress in
-                uploadProgress = progress.fractionCompleted
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: T.self, decoder: decoder)
+            .map(Result.success)
+            .catch { error -> Just<Result<T, UploadError>> in
+                error is DecodingError
+                    ? Just(.failure(.decodeFailed))
+                    : Just(.failure(.uploadFailed))
             }
-            .publishDecodable(type: T.self, decoder: decoder)
-        return publisher.result()
-    }
-    
-    func load<T: Codable>(_ url: URL, completion: @escaping (Result<T, Error>) -> Void) {
-        let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel?.apiToken ?? ""),
-            .accept("application/json"),
-        ]
-        
-        cancellation = request(url, headers: headers)
-            .sink { (response: Result<T, AFError>) in
-                switch response {
-                case let .success(value):
-                    completion(.success(value))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
-    }
-    
-    func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
-        for item in items {
-            let destination: DownloadRequest.Destination = { _, _ in
-                let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let fileURL = documentsURL.appendingPathComponent(fileType == .photo ? "\((item as! Photo).id).jpeg" : "video.mp4")
-                
-                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-            }
-            
-            AF.download(fileType == .photo ? (item as! Photo).path : "\(items.first!)", to: destination)
-                .validate()
-                .downloadProgress { [self] progress in
-                    downloadProgress = progress.fractionCompleted
-                }
-                .response { response in
-                    switch response.result {
-                    case .success:
-                        guard let fileURL = response.value else { return }
-                        completion(.success(fileURL!))
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
-                }
-        }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: completion)
+            .store(in: &requests)
     }
     
     func getInspections() {
-        load(Endpoint.inspections("").url) { [self] (response: Result<[Inspections], Error>) in
-            switch response {
+        fetch(Endpoint.inspections("")) { [self] (result: Result<[Inspections], UploadError>) in
+            switch result {
             case let .success(value):
                 if value.isEmpty {
                     inspectionsLoadingState = .empty
@@ -209,8 +149,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getVyplatnyedela() {
-        load(Endpoint.vyplatnyedela("").url) { [self] (response: Result<[Vyplatnyedela], Error>) in
-            switch response {
+        fetch(Endpoint.vyplatnyedela("")) { [self] (result: Result<[Vyplatnyedela], UploadError>) in
+            switch result {
             case let .success(value):
                 if value.isEmpty {
                     vyplatnyedelaLoadingState = .empty
@@ -225,8 +165,8 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getChangelog() {
-        load(Endpoint.changelog.url) { [self] (response: Result<[ChangelogModel], Error>) in
-            switch response {
+        fetch(Endpoint.changelog) { [self] (result: Result<[ChangelogModel], UploadError>) in
+            switch result {
             case let .success(value):
                 changelogLoadingState = .success(value)
             case let .failure(error):
@@ -237,11 +177,11 @@ class SessionStore: ObservableObject, RequestInterceptor {
     }
     
     func getLicense() {
-        load(Endpoint.license.url) { [self] (response: Result<[LicenseModel], Error>) in
-            switch response {
-            case let .success(value):
+        fetch(Endpoint.license) { [self] (result: Result<[LicenseModel], UploadError>) in
+            switch result {
+            case .success(let value):
                 licenseLoadingState = .success(value)
-            case let .failure(error):
+            case .failure(let error):
                 licenseLoadingState = .failure(error)
                 log(error.localizedDescription)
             }

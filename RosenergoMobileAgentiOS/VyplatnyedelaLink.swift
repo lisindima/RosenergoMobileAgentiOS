@@ -18,8 +18,8 @@ struct VyplatnyedelaLink: View {
     @State private var loadingState: LoadingState<Vyplatnyedela> = .loading
 
     private func getVyplatnyedela() {
-        sessionStore.load(Endpoint.vyplatnyedela(vyplatnyedelaID).url) { [self] (response: Result<Vyplatnyedela, Error>) in
-            switch response {
+        sessionStore.fetch(Endpoint.vyplatnyedela(vyplatnyedelaID)) { [self] (result: Result<Vyplatnyedela, UploadError>) in
+            switch result {
             case let .success(value):
                 loadingState = .success(value)
             case let .failure(error):

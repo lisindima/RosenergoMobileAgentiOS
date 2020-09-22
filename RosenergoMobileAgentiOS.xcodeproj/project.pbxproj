@@ -18,7 +18,6 @@
 		CB17E5632466644400CDBB1A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
 		CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5672466644500CDBB1A /* Preview Assets.xcassets */; };
-		CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB17E5732466654E00CDBB1A /* Alamofire */; };
 		CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
 		CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57C2467AFC100CDBB1A /* MenuView.swift */; };
 		CB17E57F2467FFB600CDBB1A /* ListInspections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57E2467FFB600CDBB1A /* ListInspections.swift */; };
@@ -90,7 +89,6 @@
 		CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE947249758B500F4E72A /* Assets.xcassets */; };
 		CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */; };
 		CB9DE950249758B500F4E72A /* RosenergoMobileAgentwatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CB9DE95E24975A4100F4E72A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB9DE95D24975A4100F4E72A /* Alamofire */; };
 		CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CBA6118E2500998D009CD8BD /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheet.swift */; };
 		CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */; };
@@ -287,7 +285,6 @@
 				CBAC7F4024D27CF60081597D /* NativeSearchBar in Frameworks */,
 				CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
-				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +295,6 @@
 				CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */,
 				CBAC7F4224D280E30081597D /* NativeSearchBar in Frameworks */,
 				CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */,
-				CB9DE95E24975A4100F4E72A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +558,6 @@
 			);
 			name = RosenergoMobileAgentiOS;
 			packageProductDependencies = (
-				CB17E5732466654E00CDBB1A /* Alamofire */,
 				CB870229249C5FF400B5DA72 /* URLImage */,
 				CBAC7F3F24D27CF60081597D /* NativeSearchBar */,
 			);
@@ -602,7 +597,6 @@
 			);
 			name = "RosenergoMobileAgentwatchOS Extension";
 			packageProductDependencies = (
-				CB9DE95D24975A4100F4E72A /* Alamofire */,
 				CB85CDB8249B34A500AAEF04 /* URLImage */,
 				CBAC7F4124D280E30081597D /* NativeSearchBar */,
 			);
@@ -642,7 +636,6 @@
 			);
 			mainGroup = CB17E54F2466644400CDBB1A;
 			packageReferences = (
-				CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
 				CBAC7F3E24D27CF60081597D /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
 			);
@@ -956,7 +949,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
@@ -989,7 +982,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1020,7 +1013,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentwatchOS/RosenergoMobileAgentwatchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
@@ -1051,7 +1044,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentwatchOS/RosenergoMobileAgentwatchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
@@ -1079,7 +1072,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentwatchOS Extension/RosenergoMobileAgentwatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1107,7 +1100,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentwatchOS Extension/RosenergoMobileAgentwatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1170,14 +1163,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.0;
-			};
-		};
 		CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
@@ -1197,11 +1182,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB17E5732466654E00CDBB1A /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		CB85CDB8249B34A500AAEF04 /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */;
@@ -1211,11 +1191,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */;
 			productName = URLImage;
-		};
-		CB9DE95D24975A4100F4E72A /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB17E5722466654E00CDBB1A /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 		CBAC7F3F24D27CF60081597D /* NativeSearchBar */ = {
 			isa = XCSwiftPackageProductDependency;
