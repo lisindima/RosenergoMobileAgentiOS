@@ -19,13 +19,17 @@ struct MapView: View {
     
     private func loadData() {
         region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        pins.append(Pin(coordinate: .init(latitude: latitude, longitude: longitude)))
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        location.geocode { placemark, error in
-            if let error = error {
-                log(error.localizedDescription)
-            } else if let placemark = placemark?.first {
-                address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
+        if pins.isEmpty {
+            pins.append(Pin(coordinate: .init(latitude: latitude, longitude: longitude)))
+        }
+        if address == nil {
+            let location = CLLocation(latitude: latitude, longitude: longitude)
+            location.geocode { placemark, error in
+                if let error = error {
+                    log(error.localizedDescription)
+                } else if let placemark = placemark?.first {
+                    address = "\(placemark.country ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.locality ?? ""), \(placemark.name ?? "")"
+                }
             }
         }
     }

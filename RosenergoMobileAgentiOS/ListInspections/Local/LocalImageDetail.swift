@@ -16,8 +16,8 @@ struct LocalImageDetail: View {
     
     var body: some View {
         TabView(selection: $selectionImage) {
-            ForEach(Array(photos), id: \.id) { photo in
-                Image(uiImage: UIImage(data: photo.photosData)!)
+            ForEach(Array(photos.enumerated()), id: \.offset) { photo in
+                Image(uiImage: UIImage(data: photo.element.photosData)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .pinchToZoom()

@@ -153,7 +153,7 @@ struct CreateInspections: View {
         }
         
         var localPhotos: [LocalPhotos] = []
-        var setPhotoId: Int16 = 0
+        var setPhotoId: Int16 = 1
         
         for photo in sessionStore.photosURL {
             setPhotoId += 1

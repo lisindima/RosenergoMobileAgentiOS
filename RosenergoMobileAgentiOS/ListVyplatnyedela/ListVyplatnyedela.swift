@@ -12,7 +12,7 @@ import SwiftUI
 struct ListVyplatnyedela: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
-    @StateObject private var searchBar = SearchBar.shared
+    @State private var searchText: String = ""
     
     var body: some View {
         #if os(watchOS)
@@ -35,7 +35,7 @@ struct ListVyplatnyedela: View {
             List {
                 Section(header: Text("Отправленные дела").fontWeight(.bold)) {
                     ForEach(vyplatnyedelaModel.filter {
-                        searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
+                        searchText.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchText)
                     }, id: \.id) { vyplatnyedela in
                         NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
@@ -43,7 +43,7 @@ struct ListVyplatnyedela: View {
                     }
                 }
             }
-            .addSearchBar(searchBar)
+            .navigationSearchBar("Поиск выплатных дел", searchText: $searchText)
             .modifier(ListStyle())
         }
         .onAppear(perform: sessionStore.getVyplatnyedela)

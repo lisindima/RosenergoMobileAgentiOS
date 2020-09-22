@@ -12,10 +12,10 @@ import SwiftUI
 struct ListInspections: View {
     @Environment(\.managedObjectContext) private var moc
     
-    @StateObject private var searchBar = SearchBar.shared
-    
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var notificationStore: NotificationStore
+    
+    @State private var searchText: String = ""
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
@@ -58,7 +58,7 @@ struct ListInspections: View {
                 if !localInspections.isEmpty {
                     Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
                         ForEach(localInspections.filter {
-                            searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                            searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
                         }, id: \.id) { localInspections in
                             NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
                                 LocalInspectionsItems(localInspections: localInspections)
@@ -68,7 +68,7 @@ struct ListInspections: View {
                 }
                 Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
                     ForEach(inspectionsModel.filter {
-                        searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                        searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
                     }, id: \.id) { inspection in
                         NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
                             InspectionsItems(inspection: inspection)
@@ -76,7 +76,7 @@ struct ListInspections: View {
                     }
                 }
             }
-            .addSearchBar(searchBar)
+            .navigationSearchBar("Поиск осмотров", searchText: $searchText)
             .modifier(ListStyle())
         }
         .onAppear(perform: sessionStore.getInspections)
