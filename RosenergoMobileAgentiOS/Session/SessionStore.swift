@@ -57,14 +57,15 @@ class SessionStore: ObservableObject {
         licenseLoadingState = .loading
     }
     
-    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: String = "POST", contentType: String = "application/json", completion: @escaping (Result<T, UploadError>) -> Void) {
+    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, UploadError>) -> Void) {
         var request = URLRequest(url: endpoint.url)
-        request.httpMethod = httpMethod
+        request.httpMethod = httpMethod.rawValue
         if let token = loginModel?.apiToken {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
-
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("RosenergoMobileAgentiOS:\(getVersion())", forHTTPHeaderField: "User-Agent")
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -74,7 +75,7 @@ class SessionStore: ObservableObject {
         encoder.dateEncodingStrategy = .formatted(dateFormatter)
         
         request.httpBody = try? encoder.encode(parameters)
-
+        
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: T.self, decoder: decoder())
@@ -90,13 +91,14 @@ class SessionStore: ObservableObject {
             .store(in: &requests)
     }
     
-    func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: String = "GET", contentType: String = "application/json", completion: @escaping (Result<T, UploadError>) -> Void) {
+    func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: HTTPMethod = .get, completion: @escaping (Result<T, UploadError>) -> Void) {
         var request = URLRequest(url: endpoint.url)
-        request.httpMethod = httpMethod
+        request.httpMethod = httpMethod.rawValue
         if let token = loginModel?.apiToken {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-        request.setValue(contentType, forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("RosenergoMobileAgentiOS:\(getVersion())", forHTTPHeaderField: "User-Agent")
         
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
@@ -145,7 +147,7 @@ class SessionStore: ObservableObject {
     }
     
     func logout(completion: @escaping (Bool) -> Void) {
-        fetch(Endpoint.logout, httpMethod: "POST") { [self] (result: Result<LogoutModel, UploadError>) in
+        fetch(Endpoint.logout, httpMethod: .post) { [self] (result: Result<LogoutModel, UploadError>) in
             switch result {
             case .success:
                 completion(true)

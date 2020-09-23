@@ -27,3 +27,8 @@ enum UploadError: Error {
     case uploadFailed(_ error: Error)
     case decodeFailed(_ error: Error)
 }
+
+enum HTTPMethod: String {
+    case post = "POST"
+    case get = "GET" 
+}

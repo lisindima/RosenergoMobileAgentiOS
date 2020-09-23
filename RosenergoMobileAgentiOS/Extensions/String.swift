@@ -13,4 +13,3 @@ func getVersion() -> String {
     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
     return "\(version) (\(build))"
 }
-
