@@ -40,8 +40,7 @@ struct LocalInspectionsDetails: View {
         var video: String?
         
         for photo in localInspections.localPhotos {
-            let encodedPhoto = photo.photosData.base64EncodedString()
-            photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: encodedPhoto, makedPhotoAt: "\(localInspections.dateInspections)"))
+            photos.append(PhotoParameters(latitude: localInspections.latitude, longitude: localInspections.longitude, file: photo.photosData, makedPhotoAt: localInspections.dateInspections))
         }
         
         if let videoURL = localInspections.videoURL {

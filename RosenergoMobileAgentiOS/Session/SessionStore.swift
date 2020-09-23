@@ -65,8 +65,14 @@ class SessionStore: ObservableObject {
         }
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.dataEncodingStrategy = .base64
+        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        
         request.httpBody = try? encoder.encode(parameters)
 
         URLSession.shared.dataTaskPublisher(for: request)

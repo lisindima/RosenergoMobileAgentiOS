@@ -34,9 +34,8 @@ struct CreateVyplatnyeDela: View {
         var photos: [PhotoParameters] = []
         
         for photo in sessionStore.photosURL {
-            let photoData = try! Data(contentsOf: photo)
-            let file = photoData.base64EncodedString()
-            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: stringDate()))
+            let file = try! Data(contentsOf: photo)
+            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: Date()))
         }
         
         sessionStore.upload(Endpoint.uploadVyplatnyedela, parameters: VyplatnyeDelaParameters(

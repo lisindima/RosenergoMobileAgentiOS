@@ -38,8 +38,8 @@ struct InspectionParameters: Encodable {
 struct PhotoParameters: Encodable, Equatable {
     let latitude: Double
     let longitude: Double
-    let file: String
-    let makedPhotoAt: String
+    let file: Data
+    let makedPhotoAt: Date
 }
 
 // MARK: Параметры для логина в приложение.
