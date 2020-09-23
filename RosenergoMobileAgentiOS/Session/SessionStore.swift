@@ -46,14 +46,12 @@ class SessionStore: ObservableObject {
         licenseLoadingState = .loading
     }
     
-    func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
-        
-    }
-    
     func upload<Input: Encodable, Output: Decodable>(_ endpoint: Endpoint, parameters: Input, httpMethod: String = "POST", contentType: String = "application/json", completion: @escaping (Result<Output, UploadError>) -> Void) {
         var request = URLRequest(url: endpoint.url)
         request.httpMethod = httpMethod
-        request.setValue("Bearer \(loginModel?.apiToken ?? "")", forHTTPHeaderField: "Authorization")
+        if let token = loginModel?.apiToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
         let encoder = JSONEncoder()
@@ -72,13 +70,17 @@ class SessionStore: ObservableObject {
                     : Just(.failure(.uploadFailed))
             }
             .receive(on: DispatchQueue.main)
+            .print()
             .sink(receiveValue: completion)
             .store(in: &requests)
     }
     
-    func fetch<T: Decodable>(_ endpoint: Endpoint, contentType: String = "application/json", completion: @escaping (Result<T, UploadError>) -> Void) {
+    func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: String = "GET", contentType: String = "application/json", completion: @escaping (Result<T, UploadError>) -> Void) {
         var request = URLRequest(url: endpoint.url)
-        request.setValue("Bearer \(loginModel?.apiToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.httpMethod = httpMethod
+        if let token = loginModel?.apiToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         request.setValue(contentType, forHTTPHeaderField: "Accept")
         
         let decoder = JSONDecoder()
@@ -100,8 +102,13 @@ class SessionStore: ObservableObject {
                     : Just(.failure(.uploadFailed))
             }
             .receive(on: DispatchQueue.main)
+            .print()
             .sink(receiveValue: completion)
             .store(in: &requests)
+    }
+    
+    func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
+        
     }
     
     func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
@@ -123,13 +130,17 @@ class SessionStore: ObservableObject {
     }
     
     func logout(completion: @escaping (Bool) -> Void) {
-        clearData()
-//        AF.request(Endpoint.logout.url, method: .post, headers: headers)
-//            .validate()
-//            .response { [self] _ in
-//                completion(true)
-//                clearData()
-//            }
+        fetch(Endpoint.logout, httpMethod: "POST") { [self] (result: Result<LogoutModel, UploadError>) in
+            switch result {
+            case .success:
+                completion(true)
+                clearData()
+            case let .failure(error):
+                completion(true)
+                clearData()
+                log(error.localizedDescription)
+            }
+        }
     }
     
     func getInspections() {

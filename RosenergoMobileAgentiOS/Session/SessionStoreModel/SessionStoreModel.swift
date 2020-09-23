@@ -97,6 +97,12 @@ extension LoginModel {
     }
 }
 
+// MARK: Codable модель для выхода пользователя.
+
+struct LogoutModel: Codable {
+    let data: String
+}
+
 // MARK: Codable модель для загрузки списка изменений.
 
 struct ChangelogModel: Identifiable, Codable {
