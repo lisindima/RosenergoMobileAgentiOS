@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		113F04FC2505AEBC546B8CC3 /* Pods_RosenergoMobileAgentiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */; };
 		CB17E55C2466644400CDBB1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55B2466644400CDBB1A /* AppDelegate.swift */; };
 		CB17E55E2466644400CDBB1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55D2466644400CDBB1A /* SceneDelegate.swift */; };
 		CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
@@ -79,6 +78,7 @@
 		CBD07BA5248A082800A863D6 /* UploadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD07BA4248A082800A863D6 /* UploadIndicator.swift */; };
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
+		DF521E7820EDDC3848F2ECCA /* Pods_RosenergoMobileAgentiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3BB7D7AED2EB81D2221E84A /* Pods_RosenergoMobileAgentiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,9 +124,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1217DC4A82FB38333164DB84 /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosenergoMobileAgentiOS.debug.xcconfig"; path = "Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS.debug.xcconfig"; sourceTree = "<group>"; };
-		16B3DE6712221979793EC85A /* Pods-RosenergoMobileAgentiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosenergoMobileAgentiOS.release.xcconfig"; path = "Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS.release.xcconfig"; sourceTree = "<group>"; };
-		28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RosenergoMobileAgentiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		233356A186B84550C8BF50BE /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosenergoMobileAgentiOS.debug.xcconfig"; path = "Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		CB17E5582466644400CDBB1A /* Агент.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Агент.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB17E55B2466644400CDBB1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB17E55D2466644400CDBB1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +188,8 @@
 		CBD07BA4248A082800A863D6 /* UploadIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadIndicator.swift; sourceTree = "<group>"; };
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		DCC59BF69E035140B10BAE6B /* Pods-RosenergoMobileAgentiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RosenergoMobileAgentiOS.release.xcconfig"; path = "Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS.release.xcconfig"; sourceTree = "<group>"; };
+		E3BB7D7AED2EB81D2221E84A /* Pods_RosenergoMobileAgentiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RosenergoMobileAgentiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,7 +211,7 @@
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 				CB17E5742466654E00CDBB1A /* Alamofire in Frameworks */,
 				CB17E588246933B700CDBB1A /* KeyboardObserving in Frameworks */,
-				113F04FC2505AEBC546B8CC3 /* Pods_RosenergoMobileAgentiOS.framework in Frameworks */,
+				DF521E7820EDDC3848F2ECCA /* Pods_RosenergoMobileAgentiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,8 +232,8 @@
 		AD1EE32388603AC74C80AB5C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1217DC4A82FB38333164DB84 /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */,
-				16B3DE6712221979793EC85A /* Pods-RosenergoMobileAgentiOS.release.xcconfig */,
+				233356A186B84550C8BF50BE /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */,
+				DCC59BF69E035140B10BAE6B /* Pods-RosenergoMobileAgentiOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -326,7 +326,7 @@
 			children = (
 				CBDDDA602473CF1400FE5A7C /* CloudKit.framework */,
 				CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */,
-				28E60C3986E9D80415EBB304 /* Pods_RosenergoMobileAgentiOS.framework */,
+				E3BB7D7AED2EB81D2221E84A /* Pods_RosenergoMobileAgentiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -444,12 +444,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB17E56F2466644500CDBB1A /* Build configuration list for PBXNativeTarget "RosenergoMobileAgentiOS" */;
 			buildPhases = (
-				F9250341F50F29863A5DFD8E /* [CP] Check Pods Manifest.lock */,
+				31BDDC3349F398C5F0D624D1 /* [CP] Check Pods Manifest.lock */,
 				CB17E5542466644400CDBB1A /* Sources */,
 				CB17E5552466644400CDBB1A /* Frameworks */,
 				CB17E5562466644400CDBB1A /* Resources */,
-				863E494B1430E1B27E0E2262 /* [CP] Embed Pods Frameworks */,
 				CB9DE951249758B500F4E72A /* Embed Watch Content */,
+				E612F32AE00B57AC227570F5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -593,24 +593,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		863E494B1430E1B27E0E2262 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9250341F50F29863A5DFD8E /* [CP] Check Pods Manifest.lock */ = {
+		31BDDC3349F398C5F0D624D1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -630,6 +613,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E612F32AE00B57AC227570F5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RosenergoMobileAgentiOS/Pods-RosenergoMobileAgentiOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -848,12 +848,12 @@
 		};
 		CB17E5702466644500CDBB1A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1217DC4A82FB38333164DB84 /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */;
+			baseConfigurationReference = 233356A186B84550C8BF50BE /* Pods-RosenergoMobileAgentiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
@@ -864,7 +864,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				SUPPORTS_MACCATALYST = NO;
@@ -875,12 +875,12 @@
 		};
 		CB17E5712466644500CDBB1A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16B3DE6712221979793EC85A /* Pods-RosenergoMobileAgentiOS.release.xcconfig */;
+			baseConfigurationReference = DCC59BF69E035140B10BAE6B /* Pods-RosenergoMobileAgentiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentiOS/Мобильный агент.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -890,7 +890,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				SUPPORTS_MACCATALYST = NO;
@@ -905,11 +905,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -926,11 +926,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -946,7 +946,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -956,7 +956,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -972,7 +972,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -982,7 +982,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1072,7 +1072,7 @@
 			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 2.1.1;
 			};
 		};
 		CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */ = {

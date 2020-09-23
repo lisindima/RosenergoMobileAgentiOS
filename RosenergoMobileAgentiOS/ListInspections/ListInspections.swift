@@ -16,8 +16,9 @@ struct ListInspections: View {
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
-    @ObservedObject var searchBar: SearchBar = SearchBar.shared
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    
+    @State private var searchText: String = ""
     
     func delete(at offsets: IndexSet) {
         for offset in offsets {
@@ -52,7 +53,7 @@ struct ListInspections: View {
                     if !localInspections.isEmpty {
                         Section(header: Text("Не отправленные осмотры".uppercased())) {
                             ForEach(localInspections.filter {
-                                searchBar.text.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchBar.text)
+                                searchText.isEmpty || $0.insuranceContractNumber!.localizedStandardContains(searchText)
                             }, id: \.id) { localInspections in
                                 NavigationLink(destination: LocalInspectionsDetails(localInspections: localInspections)) {
                                     LocalInspectionsItems(localInspections: localInspections)
@@ -63,7 +64,7 @@ struct ListInspections: View {
                     if !sessionStore.inspections.isEmpty {
                         Section(header: Text("Отправленные осмотры".uppercased())) {
                             ForEach(sessionStore.inspections.reversed().filter {
-                                searchBar.text.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchBar.text)
+                                searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
                             }, id: \.id) { inspection in
                                 NavigationLink(destination: InspectionsDetails(inspection: inspection)) {
                                     InspectionsItems(inspection: inspection)
@@ -72,7 +73,7 @@ struct ListInspections: View {
                         }
                     }
                 }
-                .addSearchBar(searchBar)
+                .navigationSearchBar("Поиск осмотров", searchText: $searchText)
                 .listStyle(GroupedListStyle())
             }
         }

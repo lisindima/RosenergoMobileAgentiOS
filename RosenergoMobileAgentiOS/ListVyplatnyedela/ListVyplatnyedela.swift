@@ -13,7 +13,7 @@ struct ListVyplatnyedela: View {
     
     @EnvironmentObject var sessionStore: SessionStore
 
-    @ObservedObject var searchBar: SearchBar = SearchBar.shared
+    @State private var searchText: String = ""
     
     var body: some View {
         Group {
@@ -37,14 +37,14 @@ struct ListVyplatnyedela: View {
             } else {
                 List {
                     ForEach(sessionStore.vyplatnyedela.reversed().filter {
-                        searchBar.text.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchBar.text)
+                        searchText.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchText)
                     }, id: \.id) { vyplatnyedela in
                         NavigationLink(destination: VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)) {
                             VyplatnyedelaItems(vyplatnyedela: vyplatnyedela)
                         }
                     }
                 }
-                .addSearchBar(searchBar)
+                .navigationSearchBar("Поиск выплатных дел", searchText: $searchText)
                 .listStyle(GroupedListStyle())
             }
         }
