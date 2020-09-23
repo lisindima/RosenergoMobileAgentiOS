@@ -34,8 +34,19 @@ class SessionStore: ObservableObject {
     @Published var vyplatnyedelaLoadingState: LoadingState<[Vyplatnyedela]> = .loading
     
     static let shared = SessionStore()
-    
     private var requests = Set<AnyCancellable>()
+    
+    func decoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 7)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        return decoder
+    }
     
     private func clearData() {
         loginModel = nil
@@ -46,7 +57,7 @@ class SessionStore: ObservableObject {
         licenseLoadingState = .loading
     }
     
-    func upload<Input: Encodable, Output: Decodable>(_ endpoint: Endpoint, parameters: Input, httpMethod: String = "POST", contentType: String = "application/json", completion: @escaping (Result<Output, UploadError>) -> Void) {
+    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: String = "POST", contentType: String = "application/json", completion: @escaping (Result<T, UploadError>) -> Void) {
         var request = URLRequest(url: endpoint.url)
         request.httpMethod = httpMethod
         if let token = loginModel?.apiToken {
@@ -56,18 +67,15 @@ class SessionStore: ObservableObject {
 
         let encoder = JSONEncoder()
         request.httpBody = try? encoder.encode(parameters)
-        
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: Output.self, decoder: decoder)
+            .decode(type: T.self, decoder: decoder())
             .map(Result.success)
-            .catch { error -> Just<Result<Output, UploadError>> in
+            .catch { error -> Just<Result<T, UploadError>> in
                 error is DecodingError
-                    ? Just(.failure(.decodeFailed))
-                    : Just(.failure(.uploadFailed))
+                    ? Just(.failure(.decodeFailed(error)))
+                    : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
             .print()
@@ -83,23 +91,14 @@ class SessionStore: ObservableObject {
         }
         request.setValue(contentType, forHTTPHeaderField: "Accept")
         
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 7)
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: T.self, decoder: decoder)
+            .decode(type: T.self, decoder: decoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
                 error is DecodingError
-                    ? Just(.failure(.decodeFailed))
-                    : Just(.failure(.uploadFailed))
+                    ? Just(.failure(.decodeFailed(error)))
+                    : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
             .print()
@@ -108,7 +107,16 @@ class SessionStore: ObservableObject {
     }
     
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
-        
+        for item in items {
+            URLSession.shared.downloadTask(with: fileType == .photo ? (item as! Photo).path : URL(string: "\(items.first!)")!) { localURL, urlResponse, error in
+                if let localURL = localURL {
+                    completion(.success(localURL))
+                    print(localURL)
+                } else if let error = error {
+                    completion(.failure(error))
+                }
+            }.resume()
+        }
     }
     
     func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {

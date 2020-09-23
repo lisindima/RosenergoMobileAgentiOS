@@ -24,6 +24,6 @@ enum HapticType {
 }
 
 enum UploadError: Error {
-    case uploadFailed
-    case decodeFailed
+    case uploadFailed(_ error: Error)
+    case decodeFailed(_ error: Error)
 }
