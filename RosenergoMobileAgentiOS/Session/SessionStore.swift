@@ -66,6 +66,7 @@ class SessionStore: ObservableObject {
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
         let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
         request.httpBody = try? encoder.encode(parameters)
 
         URLSession.shared.dataTaskPublisher(for: request)
