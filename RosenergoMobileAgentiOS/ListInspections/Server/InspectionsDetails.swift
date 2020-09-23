@@ -54,7 +54,7 @@ struct InspectionsDetails: View {
     
     private func downloadVideo(_ url: URL) {
         fileType = .video
-        sessionStore.download([inspection.video!], fileType: .video) { [self] result in
+        sessionStore.download([url], fileType: .video) { [self] result in
             switch result {
             case let .success(response):
                 fileType = nil

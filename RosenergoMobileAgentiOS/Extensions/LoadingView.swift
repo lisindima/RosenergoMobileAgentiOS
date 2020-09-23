@@ -45,9 +45,7 @@ struct LoadingView<Value, Content>: View where Content: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             Spacer()
-            CustomButton("Повторить") {
-                
-            }
+            CustomButton("Повторить") {}
             .padding()
         case .empty:
             Text(title)

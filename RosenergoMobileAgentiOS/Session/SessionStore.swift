@@ -117,7 +117,7 @@ class SessionStore: ObservableObject {
     
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
         for item in items {
-            URLSession.shared.downloadTask(with: fileType == .photo ? (item as! Photo).path : URL(string: "\(items.first!)")!) { localURL, urlResponse, error in
+            URLSession.shared.downloadTask(with: fileType == .photo ? (item as! Photo).path : URL(string: "\(items.first!)")!) { localURL, _, error in
                 if let localURL = localURL {
                     completion(.success(localURL))
                     print(localURL)
@@ -136,7 +136,7 @@ class SessionStore: ObservableObject {
         
         upload(Endpoint.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
             switch result {
-            case .success(let value):
+            case let .success(value):
                 loginModel = value.data
                 loginParameters = LoginParameters(email: email, password: password)
                 completion(.success(value.data))
@@ -207,9 +207,9 @@ class SessionStore: ObservableObject {
     func getLicense() {
         fetch(Endpoint.license) { [self] (result: Result<[LicenseModel], UploadError>) in
             switch result {
-            case .success(let value):
+            case let .success(value):
                 licenseLoadingState = .success(value)
-            case .failure(let error):
+            case let .failure(error):
                 licenseLoadingState = .failure(error)
                 log(error.localizedDescription)
             }

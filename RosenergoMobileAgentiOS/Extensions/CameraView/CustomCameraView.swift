@@ -15,7 +15,6 @@ struct CustomCameraView: View {
     
     @Binding var showRecordVideo: Bool
     
-    @State private var didTapCapture2: Bool = false
     @State private var didTapCapture: Bool = false
     @State private var choiceMode: Int = 0
     @State private var flashMode: AVCaptureDevice.FlashMode = .auto
@@ -73,7 +72,7 @@ struct CustomCameraView: View {
                         }
                     }
                     HStack {
-                        Button(action: { }) {
+                        Button(action: {}) {
                             Image(systemName: "arrow.triangle.2.circlepath.camera")
                                 .frame(width: 24)
                                 .imageScale(.large)

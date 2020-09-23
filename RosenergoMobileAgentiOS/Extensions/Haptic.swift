@@ -30,6 +30,7 @@ func playHaptic(_ type: HapticType) {
         #endif
     }
 }
+
 #if os(watchOS)
 func playNotificationWatchHaptic(_ type: WKHapticType) {
     WKInterfaceDevice.current().play(type)
@@ -40,4 +41,3 @@ func playNotificationHaptic(_ type: UINotificationFeedbackGenerator.FeedbackType
     generator.notificationOccurred(type)
 }
 #endif
-

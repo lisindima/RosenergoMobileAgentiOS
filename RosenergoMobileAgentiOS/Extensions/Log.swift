@@ -10,6 +10,6 @@ func log(_ item: String) {
     #if DEBUG
     debugPrint(item)
     #else
-    //Crashlytics
+    // Crashlytics
     #endif
 }

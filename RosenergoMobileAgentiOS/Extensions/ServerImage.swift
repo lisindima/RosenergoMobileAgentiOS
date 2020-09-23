@@ -10,7 +10,6 @@ import SwiftUI
 import URLImage
 
 struct ServerImage: View {
-    
     var path: URL
     var delay: TimeInterval = 0.0
     
