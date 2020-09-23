@@ -46,34 +46,6 @@ class SessionStore: ObservableObject {
         licenseLoadingState = .loading
     }
     
-    func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
-        let parameters = LoginParameters(
-            email: email,
-            password: password
-        )
-        
-        upload(Endpoint.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
-            switch result {
-            case .success(let value):
-                loginModel = value.data
-                loginParameters = LoginParameters(email: email, password: password)
-                completion(.success(value.data))
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func logout(completion: @escaping (Bool) -> Void) {
-        clearData()
-//        AF.request(Endpoint.logout.url, method: .post, headers: headers)
-//            .validate()
-//            .response { [self] _ in
-//                completion(true)
-//                clearData()
-//            }
-    }
-    
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
         
     }
@@ -130,6 +102,34 @@ class SessionStore: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: completion)
             .store(in: &requests)
+    }
+    
+    func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
+        let parameters = LoginParameters(
+            email: email,
+            password: password
+        )
+        
+        upload(Endpoint.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
+            switch result {
+            case .success(let value):
+                loginModel = value.data
+                loginParameters = LoginParameters(email: email, password: password)
+                completion(.success(value.data))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func logout(completion: @escaping (Bool) -> Void) {
+        clearData()
+//        AF.request(Endpoint.logout.url, method: .post, headers: headers)
+//            .validate()
+//            .response { [self] _ in
+//                completion(true)
+//                clearData()
+//            }
     }
     
     func getInspections() {
