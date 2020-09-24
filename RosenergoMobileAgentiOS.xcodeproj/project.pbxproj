@@ -90,6 +90,12 @@
 		CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */; };
 		CB9DE950249758B500F4E72A /* RosenergoMobileAgentwatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
+		CBA401B1251C6CD6001881B5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA401B0251C6CD6001881B5 /* WidgetKit.framework */; };
+		CBA401B2251C6CD6001881B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */; };
+		CBA401B5251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA401B4251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift */; };
+		CBA401B7251C6CD8001881B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA401B6251C6CD8001881B5 /* Assets.xcassets */; };
+		CBA401BB251C6CD8001881B5 /* RosenergoMobileAgentWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CBA401AF251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CBA401DC251C89BF001881B5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CBA6118E2500998D009CD8BD /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheet.swift */; };
 		CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */; };
 		CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */; };
@@ -150,6 +156,13 @@
 			remoteGlobalIDString = CB9DE92B249758B100F4E72A;
 			remoteInfo = RosenergoMobileAgentwatchOS;
 		};
+		CBA401B9251C6CD8001881B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB17E5502466644400CDBB1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBA401AE251C6CD6001881B5;
+			remoteInfo = RosenergoMobileAgentWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -159,6 +172,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				CBA401BB251C6CD8001881B5 /* RosenergoMobileAgentWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +255,12 @@
 		CB9DE947249758B500F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CB9DE94C249758B500F4E72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBA401AF251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RosenergoMobileAgentWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBA401B0251C6CD6001881B5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CBA401B4251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoMobileAgentWidget.swift; sourceTree = "<group>"; };
+		CBA401B6251C6CD8001881B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CBA401B8251C6CD8001881B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBA401BC251C6CD9001881B5 /* RosenergoMobileAgentWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RosenergoMobileAgentWidgetExtension.entitlements; sourceTree = "<group>"; };
 		CBA6118D2500998D009CD8BD /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVyplatnyedela.swift; sourceTree = "<group>"; };
 		CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaItems.swift; sourceTree = "<group>"; };
@@ -298,6 +318,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CBA401AC251C6CD6001881B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBA401B2251C6CD6001881B5 /* SwiftUI.framework in Frameworks */,
+				CBA401B1251C6CD6001881B5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -307,6 +336,7 @@
 				CB17E55A2466644400CDBB1A /* RosenergoMobileAgentiOS */,
 				CB9DE92D249758B100F4E72A /* RosenergoMobileAgentwatchOS */,
 				CB9DE93C249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */,
+				CBA401B3251C6CD6001881B5 /* RosenergoMobileAgentWidget */,
 				CB17E5592466644400CDBB1A /* Products */,
 				CB2B5B83246BA8CE006F35AC /* Frameworks */,
 			);
@@ -318,6 +348,7 @@
 				CB17E5582466644400CDBB1A /* Агент.app */,
 				CB9DE92C249758B100F4E72A /* RosenergoMobileAgentwatchOS.app */,
 				CB9DE938249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension.appex */,
+				CBA401AF251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,6 +440,7 @@
 				CBDDDA602473CF1400FE5A7C /* CloudKit.framework */,
 				CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */,
 				CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */,
+				CBA401B0251C6CD6001881B5 /* WidgetKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -470,6 +502,17 @@
 				CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CBA401B3251C6CD6001881B5 /* RosenergoMobileAgentWidget */ = {
+			isa = PBXGroup;
+			children = (
+				CBA401B4251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift */,
+				CBA401BC251C6CD9001881B5 /* RosenergoMobileAgentWidgetExtension.entitlements */,
+				CBA401B6251C6CD8001881B5 /* Assets.xcassets */,
+				CBA401B8251C6CD8001881B5 /* Info.plist */,
+			);
+			path = RosenergoMobileAgentWidget;
 			sourceTree = "<group>";
 		};
 		CBAC7F3024D266470081597D /* ListVyplatnyedela */ = {
@@ -555,6 +598,7 @@
 			);
 			dependencies = (
 				CB9DE94F249758B500F4E72A /* PBXTargetDependency */,
+				CBA401BA251C6CD8001881B5 /* PBXTargetDependency */,
 			);
 			name = RosenergoMobileAgentiOS;
 			packageProductDependencies = (
@@ -604,13 +648,30 @@
 			productReference = CB9DE938249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
+		CBA401AE251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBA401BD251C6CD9001881B5 /* Build configuration list for PBXNativeTarget "RosenergoMobileAgentWidgetExtension" */;
+			buildPhases = (
+				CBA401AB251C6CD6001881B5 /* Sources */,
+				CBA401AC251C6CD6001881B5 /* Frameworks */,
+				CBA401AD251C6CD6001881B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RosenergoMobileAgentWidgetExtension;
+			productName = RosenergoMobileAgentWidgetExtension;
+			productReference = CBA401AF251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		CB17E5502466644400CDBB1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Дмитрий Лисин";
 				TargetAttributes = {
@@ -623,6 +684,9 @@
 					};
 					CB9DE937249758B400F4E72A = {
 						CreatedOnToolsVersion = 11.6;
+					};
+					CBA401AE251C6CD6001881B5 = {
+						CreatedOnToolsVersion = 12.2;
 					};
 				};
 			};
@@ -647,6 +711,7 @@
 				CB17E5572466644400CDBB1A /* RosenergoMobileAgentiOS */,
 				CB9DE92B249758B100F4E72A /* RosenergoMobileAgentwatchOS */,
 				CB9DE937249758B400F4E72A /* RosenergoMobileAgentwatchOS Extension */,
+				CBA401AE251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -676,6 +741,14 @@
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
 				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
 				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBA401AD251C6CD6001881B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBA401B7251C6CD8001881B5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,6 +880,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CBA401AB251C6CD6001881B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBA401B5251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift in Sources */,
+				CBA401DC251C89BF001881B5 /* Color.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -820,6 +902,11 @@
 			platformFilter = ios;
 			target = CB9DE92B249758B100F4E72A /* RosenergoMobileAgentwatchOS */;
 			targetProxy = CB9DE94E249758B500F4E72A /* PBXContainerItemProxy */;
+		};
+		CBA401BA251C6CD8001881B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBA401AE251C6CD6001881B5 /* RosenergoMobileAgentWidgetExtension */;
+			targetProxy = CBA401B9251C6CD8001881B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -876,7 +963,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -932,7 +1019,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -952,7 +1039,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
@@ -985,7 +1072,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1016,7 +1103,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentwatchOS/RosenergoMobileAgentwatchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
@@ -1047,7 +1134,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentwatchOS/RosenergoMobileAgentwatchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = RosenergoMobileAgentwatchOS/Info.plist;
@@ -1075,7 +1162,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentwatchOS Extension/RosenergoMobileAgentwatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1103,7 +1190,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "RosenergoMobileAgentwatchOS Extension/RosenergoMobileAgentwatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_ASSET_PATHS = "\"RosenergoMobileAgentwatchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1121,6 +1208,60 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 7.1;
+			};
+			name = Release;
+		};
+		CBA401BE251C6CD9001881B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentWidget/RosenergoMobileAgentWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 49;
+				DEVELOPMENT_TEAM = 48HFZR3X8K;
+				INFOPLIST_FILE = RosenergoMobileAgentWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CBA401BF251C6CD9001881B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RosenergoMobileAgentWidget/RosenergoMobileAgentWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 49;
+				DEVELOPMENT_TEAM = 48HFZR3X8K;
+				INFOPLIST_FILE = RosenergoMobileAgentWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1159,6 +1300,15 @@
 			buildConfigurations = (
 				CB9DE952249758B500F4E72A /* Debug */,
 				CB9DE953249758B500F4E72A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBA401BD251C6CD9001881B5 /* Build configuration list for PBXNativeTarget "RosenergoMobileAgentWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBA401BE251C6CD9001881B5 /* Debug */,
+				CBA401BF251C6CD9001881B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
