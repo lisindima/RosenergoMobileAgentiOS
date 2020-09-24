@@ -61,24 +61,27 @@ class SessionStore: ObservableObject {
         return decoder
     }
     
-    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, UploadError>) -> Void) {
-        var request = createRequest(endpoint, httpMethod: httpMethod)
+    func createEncoder() -> JSONEncoder {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dataEncodingStrategy = .base64
         encoder.dateEncodingStrategy = .formatted(dateFormatter)
-        request.httpBody = try? encoder.encode(parameters)
+        return encoder
+    }
+    
+    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, UploadError>) -> Void) {
+        var request = createRequest(endpoint, httpMethod: httpMethod)
+        request.httpBody = try? createEncoder().encode(parameters)
         
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
-                error is DecodingError
-                    ? Just(.failure(.decodeFailed(error)))
-                    : Just(.failure(.uploadFailed(error)))
+                error is DecodingError ? Just(.failure(.decodeFailed(error))) : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: completion)
@@ -91,9 +94,7 @@ class SessionStore: ObservableObject {
             .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
-                error is DecodingError
-                    ? Just(.failure(.decodeFailed(error)))
-                    : Just(.failure(.uploadFailed(error)))
+                error is DecodingError ? Just(.failure(.decodeFailed(error))) : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: completion)
