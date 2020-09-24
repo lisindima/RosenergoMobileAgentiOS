@@ -62,6 +62,7 @@ struct MenuView: View {
         .sheet(isPresented: $openSettings) {
             NavigationView {
                 SettingsView()
+                    .environmentObject(sessionStore)
                     .toolbar {
                         ToolbarItem(placement: .primaryAction) {
                             Button(action: { openSettings = false }) {

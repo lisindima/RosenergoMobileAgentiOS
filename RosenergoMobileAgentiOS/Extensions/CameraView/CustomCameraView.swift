@@ -16,6 +16,7 @@ struct CustomCameraView: View {
     @Binding var showRecordVideo: Bool
     
     @State private var didTapCapture: Bool = false
+    @State private var didTapCapture2: Bool = false
     @State private var choiceMode: Int = 0
     @State private var flashMode: AVCaptureDevice.FlashMode = .auto
     @State private var setImageFlashButton: String = "bolt.badge.a"
