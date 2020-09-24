@@ -83,7 +83,7 @@ struct CreateInspections: View {
     private func uploadInspections() {
         uploadState = true
         var photos: [PhotoParameters] = []
-        var video: String?
+        var video: Data?
         
         for photo in sessionStore.photosURL {
             let file = try! Data(contentsOf: photo)
@@ -92,14 +92,13 @@ struct CreateInspections: View {
         
         if let videoURL = sessionStore.videoURL {
             do {
-                let videoData = try Data(contentsOf: videoURL)
-                video = videoData.base64EncodedString()
+                video = try Data(contentsOf: videoURL)
             } catch {
                 log(error.localizedDescription)
             }
         }
         
-        sessionStore.upload(Endpoint.uploadInspection, parameters: InspectionParameters(
+        sessionStore.upload(.uploadInspection, parameters: InspectionParameters(
             carModel: carModel,
             carRegNumber: carRegNumber,
             carBodyNumber: vinAndNumber ? carVin : carBodyNumber,

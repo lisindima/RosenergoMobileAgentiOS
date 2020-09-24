@@ -31,7 +31,7 @@ struct InspectionParameters: Encodable {
     let insuranceContractNumber2: String?
     let latitude: Double
     let longitude: Double
-    let video: String?
+    let video: Data?
     let photos: [PhotoParameters]
 }
 

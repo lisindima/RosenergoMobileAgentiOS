@@ -34,9 +34,22 @@ class SessionStore: ObservableObject {
     @Published var vyplatnyedelaLoadingState: LoadingState<[Vyplatnyedela]> = .loading
     
     static let shared = SessionStore()
+    
     private var requests = Set<AnyCancellable>()
     
-    func decoder() -> JSONDecoder {
+    func createRequest(_ endpoint: Endpoint, httpMethod: HTTPMethod) -> URLRequest {
+        var request = URLRequest(url: endpoint.url)
+        request.allowsExpensiveNetworkAccess = true
+        request.httpMethod = httpMethod.rawValue
+        if let token = loginModel?.apiToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("RosenergoMobileAgentiOS:\(getVersion())", forHTTPHeaderField: "User-Agent")
+        return request
+    }
+    
+    func createDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
@@ -48,37 +61,19 @@ class SessionStore: ObservableObject {
         return decoder
     }
     
-    private func clearData() {
-        loginModel = nil
-        loginParameters = nil
-        inspectionsLoadingState = .loading
-        vyplatnyedelaLoadingState = .loading
-        changelogLoadingState = .loading
-        licenseLoadingState = .loading
-    }
-    
     func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, UploadError>) -> Void) {
-        var request = URLRequest(url: endpoint.url)
-        request.httpMethod = httpMethod.rawValue
-        if let token = loginModel?.apiToken {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("RosenergoMobileAgentiOS:\(getVersion())", forHTTPHeaderField: "User-Agent")
-        
+        var request = createRequest(endpoint, httpMethod: httpMethod)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dataEncodingStrategy = .base64
         encoder.dateEncodingStrategy = .formatted(dateFormatter)
-        
         request.httpBody = try? encoder.encode(parameters)
         
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: T.self, decoder: decoder())
+            .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
                 error is DecodingError
@@ -86,23 +81,14 @@ class SessionStore: ObservableObject {
                     : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
-            .print()
             .sink(receiveValue: completion)
             .store(in: &requests)
     }
     
     func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: HTTPMethod = .get, completion: @escaping (Result<T, UploadError>) -> Void) {
-        var request = URLRequest(url: endpoint.url)
-        request.httpMethod = httpMethod.rawValue
-        if let token = loginModel?.apiToken {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("RosenergoMobileAgentiOS:\(getVersion())", forHTTPHeaderField: "User-Agent")
-        
-        URLSession.shared.dataTaskPublisher(for: request)
+        URLSession.shared.dataTaskPublisher(for: createRequest(endpoint, httpMethod: httpMethod))
             .map(\.data)
-            .decode(type: T.self, decoder: decoder())
+            .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
                 error is DecodingError
@@ -110,7 +96,6 @@ class SessionStore: ObservableObject {
                     : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
-            .print()
             .sink(receiveValue: completion)
             .store(in: &requests)
     }
@@ -134,7 +119,7 @@ class SessionStore: ObservableObject {
             password: password
         )
         
-        upload(Endpoint.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
+        upload(.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
             switch result {
             case let .success(value):
                 loginModel = value.data
@@ -147,7 +132,7 @@ class SessionStore: ObservableObject {
     }
     
     func logout(completion: @escaping (Bool) -> Void) {
-        fetch(Endpoint.logout, httpMethod: .post) { [self] (result: Result<LogoutModel, UploadError>) in
+        fetch(.logout, httpMethod: .post) { [self] (result: Result<LogoutModel, UploadError>) in
             switch result {
             case .success:
                 completion(true)
@@ -161,7 +146,7 @@ class SessionStore: ObservableObject {
     }
     
     func getInspections() {
-        fetch(Endpoint.inspections("")) { [self] (result: Result<[Inspections], UploadError>) in
+        fetch(.inspections("")) { [self] (result: Result<[Inspections], UploadError>) in
             switch result {
             case let .success(value):
                 if value.isEmpty {
@@ -177,7 +162,7 @@ class SessionStore: ObservableObject {
     }
     
     func getVyplatnyedela() {
-        fetch(Endpoint.vyplatnyedela("")) { [self] (result: Result<[Vyplatnyedela], UploadError>) in
+        fetch(.vyplatnyedela("")) { [self] (result: Result<[Vyplatnyedela], UploadError>) in
             switch result {
             case let .success(value):
                 if value.isEmpty {
@@ -193,7 +178,7 @@ class SessionStore: ObservableObject {
     }
     
     func getChangelog() {
-        fetch(Endpoint.changelog) { [self] (result: Result<[ChangelogModel], UploadError>) in
+        fetch(.changelog) { [self] (result: Result<[ChangelogModel], UploadError>) in
             switch result {
             case let .success(value):
                 changelogLoadingState = .success(value)
@@ -205,7 +190,7 @@ class SessionStore: ObservableObject {
     }
     
     func getLicense() {
-        fetch(Endpoint.license) { [self] (result: Result<[LicenseModel], UploadError>) in
+        fetch(.license) { [self] (result: Result<[LicenseModel], UploadError>) in
             switch result {
             case let .success(value):
                 licenseLoadingState = .success(value)
@@ -214,5 +199,14 @@ class SessionStore: ObservableObject {
                 log(error.localizedDescription)
             }
         }
+    }
+    
+    private func clearData() {
+        loginModel = nil
+        loginParameters = nil
+        inspectionsLoadingState = .loading
+        vyplatnyedelaLoadingState = .loading
+        changelogLoadingState = .loading
+        licenseLoadingState = .loading
     }
 }
