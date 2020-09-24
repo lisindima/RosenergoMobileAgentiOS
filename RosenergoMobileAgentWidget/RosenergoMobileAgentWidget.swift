@@ -47,12 +47,16 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct SystemSmall: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
     var inspections: Int
     
     var body: some View {
         ZStack {
-            Color.blue
-                .edgesIgnoringSafeArea(.all)
+            Group {
+                colorScheme == .light ? Color.blue: Color(.secondarySystemBackground)
+            }
+            .edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
                 Text("Осмотры")
                     .fontWeight(.bold)
@@ -113,5 +117,9 @@ struct RosenergoMobileAgentWidget_Previews: PreviewProvider {
     static var previews: some View {
         RosenergoMobileAgentWidgetEntryView(entry: SimpleEntry(date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
+            .colorScheme(.dark)
+        RosenergoMobileAgentWidgetEntryView(entry: SimpleEntry(date: Date()))
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+            .colorScheme(.light)
     }
 }

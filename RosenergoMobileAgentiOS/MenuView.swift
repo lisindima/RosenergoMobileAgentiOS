@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MenuView: View {
     @EnvironmentObject private var sessionStore: SessionStore
+    @EnvironmentObject private var notificationStore: NotificationStore
     
     @State private var openSettings: Bool = false
     
@@ -63,6 +64,7 @@ struct MenuView: View {
             NavigationView {
                 SettingsView()
                     .environmentObject(sessionStore)
+                    .environmentObject(notificationStore)
                     .toolbar {
                         ToolbarItem(placement: .primaryAction) {
                             Button(action: { openSettings = false }) {
