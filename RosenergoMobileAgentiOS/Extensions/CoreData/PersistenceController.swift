@@ -10,7 +10,6 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
-    
     let container: NSPersistentCloudKitContainer
     
     init() {

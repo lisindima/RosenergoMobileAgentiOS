@@ -11,12 +11,6 @@ import SwiftUI
 import WidgetKit
 
 struct Provider: TimelineProvider {
-    var managedObjectContext: NSManagedObjectContext
-    
-    init(context: NSManagedObjectContext) {
-        managedObjectContext = context
-    }
-    
     func placeholder(in _: Context) -> SimpleEntry {
         SimpleEntry(date: Date())
     }
@@ -49,6 +43,9 @@ struct SimpleEntry: TimelineEntry {
 struct SystemSmall: View {
     @Environment(\.colorScheme) private var colorScheme
     
+    @FetchRequest(sortDescriptors: [], animation: .default)
+    private var localInspections: FetchedResults<LocalInspections>
+    
     var inspections: Int
     
     var body: some View {
@@ -64,14 +61,14 @@ struct SystemSmall: View {
                     .fontWeight(.semibold)
                     .font(.caption2)
                 Divider()
-                Text("Осмотры не отправлены на сервер")
+                Text("У вас есть не отправленные осмотры")
                     .font(.caption2)
                 Spacer()
                 HStack {
                     Image(systemName: "tray.circle.fill")
                         .imageScale(.large)
                     Spacer()
-                    Text("\(inspections) осмотра")
+                    Text("\(localInspections.count) осмотров")
                         .fontWeight(.bold)
                         .font(.caption)
                 }
@@ -89,10 +86,8 @@ struct RosenergoMobileAgentWidgetEntryView: View {
     
     var body: some View {
         switch widgetFamily {
-        case .systemSmall:
-            SystemSmall(inspections: 5)
-        default:
-            SystemSmall(inspections: 5)
+        case .systemSmall: SystemSmall(inspections: 5)
+        default: SystemSmall(inspections: 5)
         }
     }
 }
@@ -100,12 +95,12 @@ struct RosenergoMobileAgentWidgetEntryView: View {
 @main
 struct RosenergoMobileAgentWidget: Widget {
     let kind: String = "RosenergoMobileAgentWidget"
-    
     let persistenceController = PersistenceController.shared
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider(context: persistenceController.container.viewContext)) { entry in
+        StaticConfiguration(kind: kind, provider: Provider()) { entry in
             RosenergoMobileAgentWidgetEntryView(entry: entry)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .configurationDisplayName("Осмотры")
         .description("Виджет поможет вам не забыть отправить осмотр на сервер!")
