@@ -31,6 +31,18 @@ struct CreateVyplatnyeDela: View {
         }
     }
     
+    private func validateInput(completion: @escaping () -> Void) {
+        if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
+            alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
+            playHaptic(.error)
+        } else if photosURL.isEmpty {
+            alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
+            playHaptic(.error)
+        } else {
+            completion()
+        }
+    }
+    
     private func uploadVyplatnyeDela() {
         uploadState = true
         var photos: [PhotoParameters] = []
@@ -77,15 +89,7 @@ struct CreateVyplatnyeDela: View {
             .padding()
         }
         CustomButton("Отправить", titleUpload: "Загрузка выплатного дела", loading: uploadState, progress: sessionStore.uploadProgress) {
-            if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
-                playHaptic(.error)
-            } else if photosURL.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
-                playHaptic(.error)
-            } else {
-                uploadVyplatnyeDela()
-            }
+            validateInput { uploadVyplatnyeDela() }
         }
         .padding(.horizontal)
         .padding(.bottom, 8)

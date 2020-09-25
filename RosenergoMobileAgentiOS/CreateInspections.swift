@@ -47,36 +47,17 @@ struct CreateInspections: View {
         }
     }
     
-    private func validateInput(upload: Bool) {
-        switch car {
-        case .oneCar:
-            if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
-                playHaptic(.error)
-            } else if photosURL.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
-                playHaptic(.error)
-            } else {
-                if upload {
-                    uploadInspections()
-                } else {
-                    saveInspections()
-                }
-            }
-        case .twoCar:
-            if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
-                playHaptic(.error)
-            } else if photosURL.isEmpty {
-                alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
-                playHaptic(.error)
-            } else {
-                if upload {
-                    uploadInspections()
-                } else {
-                    saveInspections()
-                }
-            }
+    private func validateInput(completion: @escaping () -> Void) {
+        if car == .oneCar
+            ? (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty)
+            : (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty) {
+            alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
+            playHaptic(.error)
+        } else if photosURL.isEmpty {
+            alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
+            playHaptic(.error)
+        } else {
+            completion()
         }
     }
     
@@ -254,11 +235,11 @@ struct CreateInspections: View {
         }
         HStack {
             CustomButton("Отправить", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress) {
-                validateInput(upload: true)
+                validateInput { uploadInspections() }
             }
             if !uploadState {
                 CustomButton("Сохранить", colorButton: Color.rosenergo.opacity(0.2), colorText: .rosenergo) {
-                    validateInput(upload: false)
+                    validateInput { saveInspections() }
                 }
             }
         }
