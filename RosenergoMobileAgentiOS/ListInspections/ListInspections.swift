@@ -18,7 +18,7 @@ struct ListInspections: View {
     @State private var searchText: String = ""
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \LocalInspections.dateInspections, ascending: false)],
         animation: .default
     )
     private var localInspections: FetchedResults<LocalInspections>

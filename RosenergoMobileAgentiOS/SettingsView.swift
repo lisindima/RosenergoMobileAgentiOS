@@ -156,7 +156,7 @@ struct SettingsView: View {
             ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [
                 .destructive(Text("Выйти")) {
                     loading = true
-                    sessionStore.logout { _ in
+                    sessionStore.logout { 
                         loading = false
                         presentationMode.wrappedValue.dismiss()
                     }

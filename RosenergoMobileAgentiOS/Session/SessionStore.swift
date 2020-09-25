@@ -130,14 +130,14 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func logout(completion: @escaping (Bool) -> Void) {
+    func logout(completion: @escaping () -> Void) {
         fetch(.logout, httpMethod: .post) { [self] (result: Result<LogoutModel, UploadError>) in
             switch result {
             case .success:
-                completion(true)
+                completion()
                 clearData()
             case let .failure(error):
-                completion(true)
+                completion()
                 clearData()
                 log(error.localizedDescription)
             }
