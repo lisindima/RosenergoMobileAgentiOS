@@ -21,7 +21,8 @@ struct CustomAlert: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(item: $alertItem) { item in
-                alert(title: item.title, message: item.message, action: item.action)
+                playHaptic(item.title == "Ошибка" ? .error : .success)
+                return alert(title: item.title, message: item.message, action: item.action)
             }
     }
 }

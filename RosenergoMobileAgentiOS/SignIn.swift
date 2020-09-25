@@ -25,7 +25,6 @@ struct SignIn: View {
                 loading = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.")
-                playHaptic(.error)
                 loading = false
                 log(error.localizedDescription)
             }

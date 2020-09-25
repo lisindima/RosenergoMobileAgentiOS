@@ -47,13 +47,10 @@ struct MailFeedback: UIViewControllerRepresentable {
             controller.dismiss(animated: true, completion: nil)
             switch result {
             case .sent:
-                playHaptic(.success)
                 parent.alertItem = AlertItem(title: "Сообщение отправлено", message: "Я отвечу на него в ближайшее время.")
             case .saved:
-                playHaptic(.warning)
                 parent.alertItem = AlertItem(title: "Сообщение сохранено", message: "Сообщение ждет вас в черновиках.")
             case .failed:
-                playHaptic(.error)
                 parent.alertItem = AlertItem(title: "Ошибка", message: "Повторите попытку позже.\n\(error?.localizedDescription ?? "")")
             case .cancelled:
                 log("Отменено пользователем")

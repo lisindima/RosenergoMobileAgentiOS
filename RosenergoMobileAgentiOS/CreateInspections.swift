@@ -41,7 +41,6 @@ struct CreateInspections: View {
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.")
-            playHaptic(.error)
         } else {
             showCustomCameraView = true
         }
@@ -52,10 +51,8 @@ struct CreateInspections: View {
             ? (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty)
             : (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty) {
             alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
-            playHaptic(.error)
         } else if photosURL.isEmpty {
             alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
-            playHaptic(.error)
         } else {
             completion()
         }
@@ -98,11 +95,9 @@ struct CreateInspections: View {
             switch result {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.") { presentationMode.wrappedValue.dismiss() }
-                playHaptic(.success)
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
-                playHaptic(.error)
                 uploadState = false
                 log(error.localizedDescription)
             }
@@ -148,90 +143,67 @@ struct CreateInspections: View {
         do {
             try moc.save()
             alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.") { presentationMode.wrappedValue.dismiss() }
-            playHaptic(.success)
             notificationStore.setNotification(id: id.uuidString)
         } catch {
             log("Unresolved error \(error)")
             alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(error)")
-            playHaptic(.error)
         }
+    }
+    
+    private func toggle(_ isOn: Binding<Bool>, label: String = "Совпадают?", systemImage: String = "doc.text.magnifyingglass") -> some View {
+        Toggle(isOn: isOn, label: { Label(label, systemImage: systemImage) })
+            .toggleStyle(SwitchToggleStyle(tint: .rosenergo))
     }
     
     var body: some View {
         ScrollView {
-            GeoIndicator()
-                .padding(.top, 8)
-                .padding([.horizontal, .bottom])
-            GroupBox(
-                label:
-                    Label("Страховой полис", systemImage: "doc.plaintext")
-            ) {
-                HStack {
-                    SeriesPicker(selectedSeries: $choiseSeries)
-                        .modifier(InputModifier())
-                    CustomInput("Номер", text: $insuranceContractNumber)
-                        .keyboardType(.numberPad)
-                }
-            }
-            .padding(.horizontal)
-            GroupBox {
-                CustomInput("Марка автомобиля", text: $carModel)
-                CustomInput("Рег. номер автомобиля", text: $carRegNumber)
-            }
-            .padding(.horizontal)
-            GroupBox(
-                label:
-                    Toggle(isOn: $vinAndNumber, label: {
-                        Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                    })
-                    .toggleStyle(SwitchToggleStyle(tint: .rosenergo))
-            ) {
-                CustomInput("VIN", text: $carVin)
-                CustomInput("Номер кузова", text: vinAndNumber ? $carVin : $carBodyNumber)
-                    .disabled(vinAndNumber)
-            }
-            .padding(.horizontal)
-            ImageButton(countPhoto: photosURL) {
-                openCamera()
-            }
-            .padding()
-            if car == .twoCar {
-                Divider()
-                    .padding([.horizontal, .bottom])
-                GroupBox(
-                    label:
-                        Label("Страховой полис", systemImage: "doc.plaintext")
-                ) {
+            Group {
+                GeoIndicator()
+                    .padding(.top, 8)
+                    .padding(.bottom)
+                GroupBox(label: Label("Страховой полис", systemImage: "doc.plaintext")) {
                     HStack {
-                        SeriesPicker(selectedSeries: $choiseSeries2)
+                        SeriesPicker(selectedSeries: $choiseSeries)
                             .modifier(InputModifier())
-                        CustomInput("Номер", text: $insuranceContractNumber2)
+                        CustomInput("Номер", text: $insuranceContractNumber)
                             .keyboardType(.numberPad)
                     }
                 }
-                .padding(.horizontal)
                 GroupBox {
-                    CustomInput("Марка автомобиля", text: $carModel2)
-                    CustomInput("Рег. номер автомобиля", text: $carRegNumber2)
+                    CustomInput("Марка автомобиля", text: $carModel)
+                    CustomInput("Рег. номер автомобиля", text: $carRegNumber)
                 }
-                .padding(.horizontal)
-                GroupBox(
-                    label:
-                        Toggle(isOn: $vinAndNumber2, label: {
-                            Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                        })
-                        .toggleStyle(SwitchToggleStyle(tint: .rosenergo))
-                ) {
-                    CustomInput("VIN", text: $carVin2)
-                    CustomInput("Номер кузова", text: vinAndNumber2 ? $carVin2 : $carBodyNumber2)
-                        .disabled(vinAndNumber2)
+                GroupBox(label: toggle($vinAndNumber)) {
+                    CustomInput("VIN", text: $carVin)
+                    CustomInput("Номер кузова", text: vinAndNumber ? $carVin : $carBodyNumber)
+                        .disabled(vinAndNumber)
                 }
-                .padding(.horizontal)
-                ImageButton(countPhoto: photosURL) {
-                    openCamera()
+                ImageButton(countPhoto: photosURL, action: openCamera)
+                    .padding(.vertical)
+                if car == .twoCar {
+                    Divider()
+                        .padding(.bottom)
+                    GroupBox(label: Label("Страховой полис", systemImage: "doc.plaintext")) {
+                        HStack {
+                            SeriesPicker(selectedSeries: $choiseSeries2)
+                                .modifier(InputModifier())
+                            CustomInput("Номер", text: $insuranceContractNumber2)
+                                .keyboardType(.numberPad)
+                        }
+                    }
+                    GroupBox {
+                        CustomInput("Марка автомобиля", text: $carModel2)
+                        CustomInput("Рег. номер автомобиля", text: $carRegNumber2)
+                    }
+                    GroupBox(label: toggle($vinAndNumber2)) {
+                        CustomInput("VIN", text: $carVin2)
+                        CustomInput("Номер кузова", text: vinAndNumber2 ? $carVin2 : $carBodyNumber2)
+                            .disabled(vinAndNumber2)
+                    }
+                    ImageButton(countPhoto: photosURL, action: openCamera)
+                        .padding(.vertical)
                 }
-                .padding()
-            }
+            }.padding(.horizontal)
         }
         HStack {
             CustomButton("Отправить", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress) {

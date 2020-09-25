@@ -25,7 +25,6 @@ struct CreateVyplatnyeDela: View {
     private func openCamera() {
         if locationStore.latitude == 0 {
             alertItem = AlertItem(title: "Ошибка", message: "Не удалось определить геопозицию.")
-            playHaptic(.error)
         } else {
             showCustomCameraView = true
         }
@@ -34,10 +33,8 @@ struct CreateVyplatnyeDela: View {
     private func validateInput(completion: @escaping () -> Void) {
         if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
             alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
-            playHaptic(.error)
         } else if photosURL.isEmpty {
             alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
-            playHaptic(.error)
         } else {
             completion()
         }
@@ -62,11 +59,9 @@ struct CreateVyplatnyeDela: View {
             switch result {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.") { presentationMode.wrappedValue.dismiss() }
-                playHaptic(.success)
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)")
-                playHaptic(.error)
                 uploadState = false
                 debugPrint(error)
             }
@@ -83,10 +78,8 @@ struct CreateVyplatnyeDela: View {
                 CustomInput("Номер полиса", text: $insuranceContractNumber)
             }
             .padding(.horizontal)
-            ImageButton(countPhoto: photosURL) {
-                openCamera()
-            }
-            .padding()
+            ImageButton(countPhoto: photosURL, action: openCamera)
+                .padding()
         }
         CustomButton("Отправить", titleUpload: "Загрузка выплатного дела", loading: uploadState, progress: sessionStore.uploadProgress) {
             validateInput { uploadVyplatnyeDela() }
