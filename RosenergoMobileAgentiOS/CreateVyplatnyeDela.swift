@@ -13,6 +13,8 @@ struct CreateVyplatnyeDela: View {
     @EnvironmentObject private var locationStore: LocationStore
     @Environment(\.presentationMode) private var presentationMode
     
+    @State private var videoURL: URL? = nil
+    @State private var photosURL: [URL] = []
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
@@ -33,7 +35,7 @@ struct CreateVyplatnyeDela: View {
         uploadState = true
         var photos: [PhotoParameters] = []
         
-        for photo in sessionStore.photosURL {
+        for photo in photosURL {
             let file = try! Data(contentsOf: photo)
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: Date()))
         }
@@ -69,7 +71,7 @@ struct CreateVyplatnyeDela: View {
                 CustomInput("Номер полиса", text: $insuranceContractNumber)
             }
             .padding(.horizontal)
-            ImageButton(countPhoto: sessionStore.photosURL) {
+            ImageButton(countPhoto: photosURL) {
                 openCamera()
             }
             .padding()
@@ -78,7 +80,7 @@ struct CreateVyplatnyeDela: View {
             if insuranceContractNumber.isEmpty || numberZayavlenia.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)
-            } else if sessionStore.photosURL.isEmpty {
+            } else if photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
                 playHaptic(.error)
             } else {
@@ -90,9 +92,8 @@ struct CreateVyplatnyeDela: View {
         .navigationTitle("Выплатное дело")
         .customAlert($alertItem)
         .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView(showRecordVideo: $showRecordVideo)
+            CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .onDisappear { sessionStore.photosURL.removeAll() }
     }
 }

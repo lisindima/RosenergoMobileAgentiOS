@@ -51,7 +51,7 @@ struct SystemSmall: View {
     var body: some View {
         ZStack {
             Group {
-                colorScheme == .light ? Color.blue: Color(.secondarySystemBackground)
+                colorScheme == .light ? Color.blue : Color(.secondarySystemBackground)
             }
             .edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
@@ -94,11 +94,10 @@ struct RosenergoMobileAgentWidgetEntryView: View {
 
 @main
 struct RosenergoMobileAgentWidget: Widget {
-    let kind: String = "RosenergoMobileAgentWidget"
     let persistenceController = PersistenceController.shared
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: "RosenergoMobileAgentWidget", provider: Provider()) { entry in
             RosenergoMobileAgentWidgetEntryView(entry: entry)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }

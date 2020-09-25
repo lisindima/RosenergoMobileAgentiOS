@@ -16,10 +16,12 @@ struct CreateInspections: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) private var moc
     
+    @State private var photosURL: [URL] = []
+    @State private var videoURL: URL? = nil
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
-    @State private var choiceCar: Int = 0
+    @State private var car: Car = .oneCar
     @State private var carModel: String = ""
     @State private var carModel2: String = ""
     @State private var carVin: String = ""
@@ -46,12 +48,12 @@ struct CreateInspections: View {
     }
     
     private func validateInput(upload: Bool) {
-        switch choiceCar {
-        case 0:
+        switch car {
+        case .oneCar:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)
-            } else if sessionStore.photosURL.isEmpty {
+            } else if photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
                 playHaptic(.error)
             } else {
@@ -61,11 +63,11 @@ struct CreateInspections: View {
                     saveInspections()
                 }
             }
-        case 1:
+        case .twoCar:
             if carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
                 playHaptic(.error)
-            } else if sessionStore.photosURL.isEmpty {
+            } else if photosURL.isEmpty {
                 alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
                 playHaptic(.error)
             } else {
@@ -75,8 +77,6 @@ struct CreateInspections: View {
                     saveInspections()
                 }
             }
-        default:
-            log("ОЙ")
         }
     }
     
@@ -85,12 +85,12 @@ struct CreateInspections: View {
         var photos: [PhotoParameters] = []
         var video: Data?
         
-        for photo in sessionStore.photosURL {
+        for photo in photosURL {
             let file = try! Data(contentsOf: photo)
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: Date()))
         }
         
-        if let videoURL = sessionStore.videoURL {
+        if let videoURL = videoURL {
             do {
                 video = try Data(contentsOf: videoURL)
             } catch {
@@ -140,9 +140,9 @@ struct CreateInspections: View {
         localInspections.carVin = carVin
         localInspections.insuranceContractNumber = choiseSeries.rawValue + insuranceContractNumber
         localInspections.dateInspections = Date()
-        localInspections.videoURL = sessionStore.videoURL
+        localInspections.videoURL = videoURL
         
-        if choiceCar == 1 {
+        if car == .twoCar {
             localInspections.carBodyNumber2 = vinAndNumber2 ? carVin2 : carBodyNumber2
             localInspections.carModel2 = carModel2
             localInspections.carRegNumber2 = carRegNumber2
@@ -153,7 +153,7 @@ struct CreateInspections: View {
         var localPhotos: [LocalPhotos] = []
         var setPhotoId: Int16 = 1
         
-        for photo in sessionStore.photosURL {
+        for photo in photosURL {
             setPhotoId += 1
             let photos = NSEntityDescription.insertNewObject(forEntityName: "LocalPhotos", into: moc) as! LocalPhotos
             let photoData = try! Data(contentsOf: photo)
@@ -170,9 +170,8 @@ struct CreateInspections: View {
             playHaptic(.success)
             notificationStore.setNotification(id: id.uuidString)
         } catch {
-            let nsError = error as NSError
-            log("Unresolved error \(nsError), \(nsError.userInfo)")
-            alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(nsError), \(nsError.userInfo)")
+            log("Unresolved error \(error)")
+            alertItem = AlertItem(title: "Ошибка", message: "Произошла неизвестная ошибка: \(error)")
             playHaptic(.error)
         }
     }
@@ -182,8 +181,9 @@ struct CreateInspections: View {
             GeoIndicator()
                 .padding(.top, 8)
                 .padding([.horizontal, .bottom])
-            GroupBox(label:
-                        Label("Страховой полис", systemImage: "doc.plaintext")
+            GroupBox(
+                label:
+                    Label("Страховой полис", systemImage: "doc.plaintext")
             ) {
                 HStack {
                     SeriesPicker(selectedSeries: $choiseSeries)
@@ -198,25 +198,28 @@ struct CreateInspections: View {
                 CustomInput("Рег. номер автомобиля", text: $carRegNumber)
             }
             .padding(.horizontal)
-            GroupBox(label:
-                        Toggle(isOn: $vinAndNumber, label: {
-                            Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                        }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
+            GroupBox(
+                label:
+                    Toggle(isOn: $vinAndNumber, label: {
+                        Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                    })
+                    .toggleStyle(SwitchToggleStyle(tint: .rosenergo))
             ) {
                 CustomInput("VIN", text: $carVin)
                 CustomInput("Номер кузова", text: vinAndNumber ? $carVin : $carBodyNumber)
                     .disabled(vinAndNumber)
             }
             .padding(.horizontal)
-            ImageButton(countPhoto: sessionStore.photosURL) {
+            ImageButton(countPhoto: photosURL) {
                 openCamera()
             }
             .padding()
-            if choiceCar == 1 {
+            if car == .twoCar {
                 Divider()
                     .padding([.horizontal, .bottom])
-                GroupBox(label:
-                            Label("Страховой полис", systemImage: "doc.plaintext")
+                GroupBox(
+                    label:
+                        Label("Страховой полис", systemImage: "doc.plaintext")
                 ) {
                     HStack {
                         SeriesPicker(selectedSeries: $choiseSeries2)
@@ -231,17 +234,19 @@ struct CreateInspections: View {
                     CustomInput("Рег. номер автомобиля", text: $carRegNumber2)
                 }
                 .padding(.horizontal)
-                GroupBox(label:
-                            Toggle(isOn: $vinAndNumber2, label: {
-                                Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
-                            }).toggleStyle(SwitchToggleStyle(tint: .rosenergo))
+                GroupBox(
+                    label:
+                        Toggle(isOn: $vinAndNumber2, label: {
+                            Label("Совпадают?", systemImage: "doc.text.magnifyingglass")
+                        })
+                        .toggleStyle(SwitchToggleStyle(tint: .rosenergo))
                 ) {
                     CustomInput("VIN", text: $carVin2)
                     CustomInput("Номер кузова", text: vinAndNumber2 ? $carVin2 : $carBodyNumber2)
                         .disabled(vinAndNumber2)
                 }
                 .padding(.horizontal)
-                ImageButton(countPhoto: sessionStore.photosURL) {
+                ImageButton(countPhoto: photosURL) {
                     openCamera()
                 }
                 .padding()
@@ -262,11 +267,11 @@ struct CreateInspections: View {
         .navigationTitle("Новый осмотр")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Picker("", selection: $choiceCar) {
+                Picker("", selection: $car) {
                     Image(systemName: "car")
-                        .tag(0)
+                        .tag(Car.oneCar)
                     Image(systemName: "car.2")
-                        .tag(1)
+                        .tag(Car.twoCar)
                 }
                 .labelsHidden()
                 .pickerStyle(InlinePickerStyle())
@@ -274,9 +279,8 @@ struct CreateInspections: View {
         }
         .customAlert($alertItem)
         .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView(showRecordVideo: $showRecordVideo)
+            CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
                 .ignoresSafeArea(edges: .vertical)
         }
-        .onDisappear { sessionStore.photosURL.removeAll() }
     }
 }

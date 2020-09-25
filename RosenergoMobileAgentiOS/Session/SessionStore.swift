@@ -24,14 +24,12 @@ class SessionStore: ObservableObject {
         }
     }
     
-    @Published var photosURL = [URL]()
-    @Published var videoURL: URL? = nil
-    @Published var uploadProgress: Double = 0.0
-    @Published var downloadProgress: Double = 0.0
     @Published var changelogLoadingState: LoadingState<[ChangelogModel]> = .loading
     @Published var licenseLoadingState: LoadingState<[LicenseModel]> = .loading
     @Published var inspectionsLoadingState: LoadingState<[Inspections]> = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState<[Vyplatnyedela]> = .loading
+    @Published var uploadProgress: Double = 0.0
+    @Published var downloadProgress: Double = 0.0
     
     static let shared = SessionStore()
     

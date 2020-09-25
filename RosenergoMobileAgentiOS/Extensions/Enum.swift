@@ -32,3 +32,13 @@ enum HTTPMethod: String {
     case post = "POST"
     case get = "GET" 
 }
+
+enum Car {
+    case oneCar
+    case twoCar
+}
+
+enum CameraMode {
+    case photo
+    case video
+}

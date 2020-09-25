@@ -15,6 +15,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     
     @Binding var didTapCapture: Bool
     @Binding var flashMode: AVCaptureDevice.FlashMode
+    @Binding var photosURL: [URL]
     
     func makeUIViewController(context: Context) -> CustomCameraController {
         let controller = CustomCameraController()
@@ -48,7 +49,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
                 let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                 let filename = directory.appendingPathComponent("\(stringDate()).png")
                 try? inspectionsImageData?.write(to: filename)
-                parent.sessionStore.photosURL.append(filename)
+                parent.photosURL.append(filename)
             }
         }
     }
@@ -59,6 +60,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
     
     @Binding var startRecording: Bool
     @Binding var stopRecording: Bool
+    @Binding var videoURL: URL?
     
     func makeUIViewController(context: Context) -> CustomVideoController {
         let controller = CustomVideoController()
@@ -92,7 +94,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
                 let filename = directory!.appendingPathComponent("video_\(Date()).mp4")
                 let data = try Data(contentsOf: outputFileURL, options: .mappedIfSafe)
                 try data.write(to: filename)
-                parent.sessionStore.videoURL = filename.absoluteURL
+                parent.videoURL = filename.absoluteURL
             } catch {
                 log(error.localizedDescription)
             }
