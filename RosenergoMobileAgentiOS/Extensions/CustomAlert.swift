@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AlertItem: Identifiable {
-    var id: String { message }
+    var id = UUID()
     var title: String
     var message: String
     var action: (() -> Void)? = {}

@@ -40,6 +40,62 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
 }
 
+struct SystemLarge: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        ZStack {
+            Group {
+                colorScheme == .light ? Color.blue : Color(.secondarySystemBackground)
+            }
+            .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading) {
+                Text("Осмотры")
+                    .fontWeight(.bold)
+                Text("Не отправленные")
+                    .fontWeight(.semibold)
+                    .font(.caption2)
+                Divider()
+                ForEach(0..<4) {_ in
+                    HStack {
+                        Rectangle()
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                            .frame(width: 50, height: 50)
+                        VStack(alignment: .leading) {
+                            Group {
+                                Text("ННН3123123".uppercased())
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                Text("ННН3ВЫВ41В".uppercased())
+                                    .fontWeight(.bold)
+                                    .font(.caption)
+                                Text(Date(), style: .date)
+                                    .font(.caption)
+                            }
+                            .font(.footnote)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                        }
+                    }
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Image(systemName: "tray.circle.fill")
+                        .imageScale(.large)
+                    Spacer()
+                    Text("\(4) осмотра")
+                        .fontWeight(.bold)
+                        .font(.caption)
+                }
+            }
+            .foregroundColor(.white)
+            .padding()
+        }
+    }
+}
+
 struct SystemSmall: View {
     @Environment(\.colorScheme) private var colorScheme
     
@@ -87,6 +143,7 @@ struct RosenergoMobileAgentWidgetEntryView: View {
     var body: some View {
         switch widgetFamily {
         case .systemSmall: SystemSmall(inspections: 5)
+        case .systemLarge: SystemLarge()
         default: SystemSmall(inspections: 5)
         }
     }
@@ -103,17 +160,17 @@ struct RosenergoMobileAgentWidget: Widget {
         }
         .configurationDisplayName("Осмотры")
         .description("Виджет поможет вам не забыть отправить осмотр на сервер!")
-        .supportedFamilies([.systemSmall])
+        .supportedFamilies([.systemSmall, .systemLarge])
     }
 }
 
 struct RosenergoMobileAgentWidget_Previews: PreviewProvider {
     static var previews: some View {
-        RosenergoMobileAgentWidgetEntryView(entry: SimpleEntry(date: Date()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        SystemLarge()
+            .previewContext(WidgetPreviewContext(family: .systemLarge))
             .colorScheme(.dark)
-        RosenergoMobileAgentWidgetEntryView(entry: SimpleEntry(date: Date()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        SystemLarge()
+            .previewContext(WidgetPreviewContext(family: .systemLarge))
             .colorScheme(.light)
     }
 }
