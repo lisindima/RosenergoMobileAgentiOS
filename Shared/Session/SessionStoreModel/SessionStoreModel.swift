@@ -6,7 +6,7 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
 
 // MARK: Параметры для загрузки осмотров и выплатных дел.
 

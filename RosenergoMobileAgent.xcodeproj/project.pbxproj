@@ -98,7 +98,7 @@
 		CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CBA401B1251C6CD6001881B5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA401B0251C6CD6001881B5 /* WidgetKit.framework */; };
 		CBA401B2251C6CD6001881B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */; };
-		CBA401B5251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA401B4251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift */; };
+		CBA401B5251C6CD6001881B5 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA401B4251C6CD6001881B5 /* Widget.swift */; };
 		CBA401B7251C6CD8001881B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA401B6251C6CD8001881B5 /* Assets.xcassets */; };
 		CBA401BB251C6CD8001881B5 /* RosenergoMobileAgent (Widget).appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CBA401AF251C6CD6001881B5 /* RosenergoMobileAgent (Widget).appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CBA401DC251C89BF001881B5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
@@ -265,7 +265,7 @@
 		CB9DE94C249758B500F4E72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA401AF251C6CD6001881B5 /* RosenergoMobileAgent (Widget).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RosenergoMobileAgent (Widget).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA401B0251C6CD6001881B5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		CBA401B4251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoMobileAgentWidget.swift; sourceTree = "<group>"; };
+		CBA401B4251C6CD6001881B5 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		CBA401B6251C6CD8001881B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA401B8251C6CD8001881B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA401BC251C6CD9001881B5 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 		CBA401B3251C6CD6001881B5 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				CBA401B4251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift */,
+				CBA401B4251C6CD6001881B5 /* Widget.swift */,
 				CBA401B8251C6CD8001881B5 /* Info.plist */,
 				CBA401BC251C6CD9001881B5 /* Widget.entitlements */,
 				CBA401B6251C6CD8001881B5 /* Assets.xcassets */,
@@ -902,7 +902,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBA401E1251C946D001881B5 /* PersistenceController.swift in Sources */,
-				CBA401B5251C6CD6001881B5 /* RosenergoMobileAgentWidget.swift in Sources */,
+				CBA401B5251C6CD6001881B5 /* Widget.swift in Sources */,
 				CB0044D1251D004800B652EC /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CB0044C2251D003F00B652EC /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB0044C7251D004200B652EC /* LocalInspections+CoreDataProperties.swift in Sources */,
@@ -1063,7 +1063,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
@@ -1096,7 +1096,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_ASSET_PATHS = "\"iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1127,7 +1127,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = watchOS/watchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = watchOS/Info.plist;
@@ -1158,7 +1158,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = watchOS/watchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = watchOS/Info.plist;
@@ -1186,7 +1186,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "watchOS Extension/watchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_ASSET_PATHS = "\"watchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1214,7 +1214,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "watchOS Extension/watchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_ASSET_PATHS = "\"watchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1244,7 +1244,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1271,7 +1271,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 50;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

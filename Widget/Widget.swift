@@ -1,6 +1,6 @@
 //
-//  RosenergoMobileAgentWidget.swift
-//  RosenergoMobileAgentWidget
+//  Widget.swift
+//  Widget
 //
 //  Created by Дмитрий Лисин on 24.09.2020.
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
