@@ -56,7 +56,7 @@ struct SystemLarge: View {
                     .fontWeight(.semibold)
                     .font(.caption2)
                 Divider()
-                ForEach(0..<4) {_ in
+                ForEach(0 ..< 4) { _ in
                     HStack {
                         Rectangle()
                             .foregroundColor(.white)

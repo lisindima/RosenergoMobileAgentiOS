@@ -209,6 +209,6 @@ struct LocalInspectionsDetails: View {
         .padding(.horizontal)
         .padding(.bottom, 8)
         .navigationTitle("Не отправлено")
-        .customAlert($alertItem)
+        .customAlert(item: $alertItem)
     }
 }

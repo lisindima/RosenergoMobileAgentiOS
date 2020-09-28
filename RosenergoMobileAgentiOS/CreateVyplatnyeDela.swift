@@ -18,9 +18,11 @@ struct CreateVyplatnyeDela: View {
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
+    @State private var showVyplatnyedelaDetails: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
     @State private var alertItem: AlertItem? = nil
+    @State private var vyplatnyedelaItem: Vyplatnyedela? = nil
     
     private func openCamera() {
         if locationStore.latitude == 0 {
@@ -57,8 +59,9 @@ struct CreateVyplatnyeDela: View {
             photos: photos
         )) { [self] (result: Result<Vyplatnyedela, UploadError>) in
             switch result {
-            case .success:
-                alertItem = AlertItem(title: "Успешно", message: "Выплатное дело успешно загружено на сервер.") { presentationMode.wrappedValue.dismiss() }
+            case let .success(value):
+                vyplatnyedelaItem = value
+                showVyplatnyedelaDetails = true
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)")
@@ -80,6 +83,10 @@ struct CreateVyplatnyeDela: View {
             .padding(.horizontal)
             ImageButton(countPhoto: photosURL, action: openCamera)
                 .padding()
+                .fullScreenCover(isPresented: $showCustomCameraView) {
+                    CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
+                        .ignoresSafeArea(edges: .vertical)
+                }
         }
         CustomButton("Отправить", titleUpload: "Загрузка выплатного дела", loading: uploadState, progress: sessionStore.uploadProgress) {
             validateInput { uploadVyplatnyeDela() }
@@ -87,10 +94,20 @@ struct CreateVyplatnyeDela: View {
         .padding(.horizontal)
         .padding(.bottom, 8)
         .navigationTitle("Выплатное дело")
-        .customAlert($alertItem)
-        .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
-                .ignoresSafeArea(edges: .vertical)
+        .customAlert(item: $alertItem)
+        .sheet(isPresented: $showVyplatnyedelaDetails, onDismiss: { presentationMode.wrappedValue.dismiss() }) {
+            if let vyplatnyedela = vyplatnyedelaItem {
+                NavigationView {
+                    VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button(action: { showVyplatnyedelaDetails = false }) {
+                                    Text("Закрыть")
+                                }
+                            }
+                        }
+                }
+            }
         }
     }
 }

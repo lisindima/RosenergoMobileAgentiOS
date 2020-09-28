@@ -49,12 +49,14 @@ struct RosenergoApp: App {
                     }
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
-                    if !inspectionID.isEmpty {
-                        InspectionLink(inspectionID: $inspectionID)
-                            .environmentObject(sessionStore)
-                    } else if !vyplatnyedelaID.isEmpty {
-                        VyplatnyedelaLink(vyplatnyedelaID: $vyplatnyedelaID)
-                            .environmentObject(sessionStore)
+                    NavigationView {
+                        if !inspectionID.isEmpty {
+                            InspectionLink(inspectionID: $inspectionID)
+                                .environmentObject(sessionStore)
+                        } else if !vyplatnyedelaID.isEmpty {
+                            VyplatnyedelaLink(vyplatnyedelaID: $vyplatnyedelaID)
+                                .environmentObject(sessionStore)
+                        }
                     }
                 }
         }

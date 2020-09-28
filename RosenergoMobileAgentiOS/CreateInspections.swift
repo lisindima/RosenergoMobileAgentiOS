@@ -21,6 +21,7 @@ struct CreateInspections: View {
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
+    @State private var showInspectionDetails: Bool = false
     @State private var car: Car = .oneCar
     @State private var carModel: String = ""
     @State private var carModel2: String = ""
@@ -37,6 +38,7 @@ struct CreateInspections: View {
     @State private var choiseSeries: Series = .XXX
     @State private var choiseSeries2: Series = .XXX
     @State private var alertItem: AlertItem? = nil
+    @State private var inspectionItem: Inspections? = nil
     
     private func openCamera() {
         if locationStore.latitude == 0 {
@@ -49,7 +51,8 @@ struct CreateInspections: View {
     private func validateInput(completion: @escaping () -> Void) {
         if car == .oneCar
             ? (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty)
-            : (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty) {
+            : (carModel.isEmpty || carRegNumber.isEmpty || carBodyNumber.isEmpty || carVin.isEmpty || insuranceContractNumber.isEmpty || carModel2.isEmpty || carRegNumber2.isEmpty || carBodyNumber2.isEmpty || carVin2.isEmpty || insuranceContractNumber2.isEmpty)
+        {
             alertItem = AlertItem(title: "Ошибка", message: "Заполните все представленные поля.")
         } else if photosURL.isEmpty {
             alertItem = AlertItem(title: "Ошибка", message: "Прикрепите хотя бы одну фотографию.")
@@ -93,8 +96,9 @@ struct CreateInspections: View {
             photos: photos
         )) { [self] (result: Result<Inspections, UploadError>) in
             switch result {
-            case .success:
-                alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.") { presentationMode.wrappedValue.dismiss() }
+            case let .success(value):
+                inspectionItem = value
+                showInspectionDetails = true
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
@@ -178,11 +182,9 @@ struct CreateInspections: View {
                     CustomInput("Номер кузова", text: vinAndNumber ? $carVin : $carBodyNumber)
                         .disabled(vinAndNumber)
                 }
-                ImageButton(countPhoto: photosURL, action: openCamera)
-                    .padding(.vertical)
                 if car == .twoCar {
                     Divider()
-                        .padding(.bottom)
+                        .padding(.vertical)
                     GroupBox(label: Label("Страховой полис", systemImage: "doc.plaintext")) {
                         HStack {
                             SeriesPicker(selectedSeries: $choiseSeries2)
@@ -200,9 +202,13 @@ struct CreateInspections: View {
                         CustomInput("Номер кузова", text: vinAndNumber2 ? $carVin2 : $carBodyNumber2)
                             .disabled(vinAndNumber2)
                     }
-                    ImageButton(countPhoto: photosURL, action: openCamera)
-                        .padding(.vertical)
                 }
+                ImageButton(countPhoto: photosURL, action: openCamera)
+                    .padding(.vertical)
+                    .fullScreenCover(isPresented: $showCustomCameraView) {
+                        CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
+                            .ignoresSafeArea(edges: .vertical)
+                    }
             }.padding(.horizontal)
         }
         HStack {
@@ -230,10 +236,20 @@ struct CreateInspections: View {
                 .pickerStyle(InlinePickerStyle())
             }
         }
-        .customAlert($alertItem)
-        .fullScreenCover(isPresented: $showCustomCameraView) {
-            CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
-                .ignoresSafeArea(edges: .vertical)
+        .customAlert(item: $alertItem)
+        .sheet(isPresented: $showInspectionDetails, onDismiss: { presentationMode.wrappedValue.dismiss() }) {
+            if let inspection = inspectionItem {
+                NavigationView {
+                    InspectionsDetails(inspection: inspection)
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button(action: { showInspectionDetails = false }) {
+                                    Text("Закрыть")
+                                }
+                            }
+                        }
+                }
+            }
         }
     }
 }

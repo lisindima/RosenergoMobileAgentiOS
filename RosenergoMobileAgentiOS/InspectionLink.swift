@@ -30,16 +30,14 @@ struct InspectionLink: View {
     }
     
     var body: some View {
-        NavigationView {
-            LoadingView(loadingState) { inspection in
-                InspectionsDetails(inspection: inspection)
-            }
-            .onAppear(perform: getInspection)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                        Text("Закрыть")
-                    }
+        LoadingView(loadingState) { inspection in
+            InspectionsDetails(inspection: inspection)
+        }
+        .onAppear(perform: getInspection)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                    Text("Закрыть")
                 }
             }
         }

@@ -80,7 +80,7 @@ struct VyplatnyedelaDetails: View {
                     }
                 }
             }
-            .customAlert($alertItem)
+            .customAlert(item: $alertItem)
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: vyplatnyedela.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?delo=\(url)")!])
             }

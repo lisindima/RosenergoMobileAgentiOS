@@ -16,11 +16,11 @@ struct AlertItem: Identifiable {
 }
 
 struct CustomAlert: ViewModifier {
-    @Binding var alertItem: AlertItem?
+    @Binding var item: AlertItem?
     
     func body(content: Content) -> some View {
         content
-            .alert(item: $alertItem) { item in
+            .alert(item: $item) { item in
                 playHaptic(item.title == "Ошибка" ? .error : .success)
                 return alert(title: item.title, message: item.message, action: item.action)
             }
@@ -38,7 +38,7 @@ extension ViewModifier {
 }
 
 extension View {
-    func customAlert(_ alertItem: Binding<AlertItem?>) -> some View {
-        modifier(CustomAlert(alertItem: alertItem))
+    func customAlert(item: Binding<AlertItem?>) -> some View {
+        modifier(CustomAlert(item: item))
     }
 }

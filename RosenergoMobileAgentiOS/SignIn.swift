@@ -52,7 +52,7 @@ struct SignIn: View {
             .buttonStyle(PlainButtonStyle())
         }
         .navigationTitle("Мобильный агент")
-        .customAlert($alertItem)
+        .customAlert(item: $alertItem)
     }
     
     #if !os(watchOS)
@@ -98,7 +98,7 @@ struct SignIn: View {
             .padding(.bottom)
         }
         .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
-        .customAlert($alertItem)
+        .customAlert(item: $alertItem)
     }
     #endif
 }

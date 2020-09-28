@@ -151,7 +151,7 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Настройки")
-        .customAlert($alertItem)
+        .customAlert(item: $alertItem)
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [
                 .destructive(Text("Выйти")) {

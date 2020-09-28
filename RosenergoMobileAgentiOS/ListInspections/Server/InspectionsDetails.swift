@@ -102,7 +102,7 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            .customAlert($alertItem)
+            .customAlert(item: $alertItem)
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: inspection.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?inspection=\(url)")!])
             }

@@ -30,16 +30,14 @@ struct VyplatnyedelaLink: View {
     }
     
     var body: some View {
-        NavigationView {
-            LoadingView(loadingState) { vyplatnyedela in
-                VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
-            }
-            .onAppear(perform: getVyplatnyedela)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                        Text("Закрыть")
-                    }
+        LoadingView(loadingState) { vyplatnyedela in
+            VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
+        }
+        .onAppear(perform: getVyplatnyedela)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                    Text("Закрыть")
                 }
             }
         }
