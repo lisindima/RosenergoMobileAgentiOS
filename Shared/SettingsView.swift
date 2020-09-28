@@ -108,11 +108,6 @@ struct SettingsView: View {
             #endif
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                 SectionNavigationLink(
-                    imageName: "wand.and.stars.inverse",
-                    title: "Что нового?",
-                    destination: Changelog()
-                )
-                SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
                     destination: License()

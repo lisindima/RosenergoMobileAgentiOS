@@ -103,13 +103,6 @@ struct LogoutModel: Codable {
     let data: String
 }
 
-// MARK: Codable модель для загрузки списка изменений.
-
-struct ChangelogModel: Identifiable, Codable {
-    let id: Int
-    let version, dateBuild, whatsNew, bugFixes: String
-}
-
 // MARK: Codable модель для загрузки списка лицензий.
 
 struct LicenseModel: Identifiable, Codable {

@@ -24,8 +24,6 @@ class SessionStore: ObservableObject {
         }
     }
     
-    @Published var changelogLoadingState: LoadingState<[ChangelogModel]> = .loading
-    @Published var licenseLoadingState: LoadingState<[LicenseModel]> = .loading
     @Published var inspectionsLoadingState: LoadingState<[Inspections]> = .loading
     @Published var vyplatnyedelaLoadingState: LoadingState<[Vyplatnyedela]> = .loading
     @Published var uploadProgress: Double = 0.0
@@ -176,36 +174,10 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func getChangelog() {
-        fetch(.changelog) { [self] (result: Result<[ChangelogModel], UploadError>) in
-            switch result {
-            case let .success(value):
-                changelogLoadingState = .success(value)
-            case let .failure(error):
-                changelogLoadingState = .failure(error)
-                log(error.localizedDescription)
-            }
-        }
-    }
-    
-    func getLicense() {
-        fetch(.license) { [self] (result: Result<[LicenseModel], UploadError>) in
-            switch result {
-            case let .success(value):
-                licenseLoadingState = .success(value)
-            case let .failure(error):
-                licenseLoadingState = .failure(error)
-                log(error.localizedDescription)
-            }
-        }
-    }
-    
     private func clearData() {
         loginModel = nil
         loginParameters = nil
         inspectionsLoadingState = .loading
         vyplatnyedelaLoadingState = .loading
-        changelogLoadingState = .loading
-        licenseLoadingState = .loading
     }
 }

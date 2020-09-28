@@ -15,8 +15,6 @@ enum Endpoint {
     case uploadVyplatnyedela
     case inspections(_ id: String)
     case vyplatnyedela(_ id: String)
-    case license
-    case changelog
 }
 
 extension Endpoint {
@@ -34,10 +32,6 @@ extension Endpoint {
             return .makeForEndpoint(id == "" ? "v2/inspections" : "v2/inspections" + "/\(id)")
         case let .vyplatnyedela(id):
             return .makeForEndpoint(id == "" ? "v2/vyplatnyedelas" : "v2/vyplatnyedelas" + "/\(id)")
-        case .changelog:
-            return URL(string: "https://api.lisindmitriy.me/changelog")!
-        case .license:
-            return URL(string: "https://api.lisindmitriy.me/license")!
         }
     }
 }

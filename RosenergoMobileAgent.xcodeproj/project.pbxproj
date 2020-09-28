@@ -124,8 +124,6 @@
 		CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
 		CBB4B0BC24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
 		CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
-		CBB842EA24E3AD8D0008EB07 /* Changelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842E924E3AD8C0008EB07 /* Changelog.swift */; };
-		CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842E924E3AD8C0008EB07 /* Changelog.swift */; };
 		CBB842ED24E3AE600008EB07 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842EC24E3AE600008EB07 /* License.swift */; };
 		CBB842EE24E3AE600008EB07 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842EC24E3AE600008EB07 /* License.swift */; };
 		CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
@@ -135,6 +133,10 @@
 		CBD5473D246EE6C9008ED0ED /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CBD9354824DA77F600E0F902 /* SeriesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD9354724DA77F600E0F902 /* SeriesPicker.swift */; };
 		CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDDDA602473CF1400FE5A7C /* CloudKit.framework */; };
+		CBDFFB722521DCF00060249B /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = CBDFFB712521DCF00060249B /* license.json */; };
+		CBDFFB732521DCF00060249B /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = CBDFFB712521DCF00060249B /* license.json */; };
+		CBDFFB7D2521DD490060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
+		CBDFFB7E2521DD4A0060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CBED06C82509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
 		CBED06C92509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
@@ -280,7 +282,6 @@
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
 		CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		CBB842E924E3AD8C0008EB07 /* Changelog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changelog.swift; sourceTree = "<group>"; };
 		CBB842EC24E3AE600008EB07 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
 		CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUserDefaults.swift; sourceTree = "<group>"; };
 		CBC52838247A504700E337B4 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
@@ -288,6 +289,8 @@
 		CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFeedback.swift; sourceTree = "<group>"; };
 		CBD9354724DA77F600E0F902 /* SeriesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesPicker.swift; sourceTree = "<group>"; };
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		CBDFFB712521DCF00060249B /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
+		CBDFFB7C2521DD490060249B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		CBED06C72509C77600216056 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		CBED06CA250A24C300216056 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
@@ -372,7 +375,6 @@
 				CB4B826824D4079800C0C558 /* InspectionLink.swift */,
 				CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
-				CBB842E924E3AD8C0008EB07 /* Changelog.swift */,
 				CBB842EC24E3AE600008EB07 /* License.swift */,
 				CB4B9314246CF235006B7008 /* SettingsView.swift */,
 				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
@@ -385,6 +387,7 @@
 				CBB2E0952478F3380017AB00 /* ListInspections */,
 				CBC5283A247CB4AC00E337B4 /* Session */,
 				CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */,
+				CBDFFB712521DCF00060249B /* license.json */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */,
 				CB3C916C250DE30A0099958D /* Log.swift */,
 				CB7F88B7251461B500F5AF97 /* ServerImage.swift */,
+				CBDFFB7C2521DD490060249B /* Bundle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -738,6 +742,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDFFB722521DCF00060249B /* license.json in Resources */,
 				CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */,
 				CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */,
 			);
@@ -758,6 +763,7 @@
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
 				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
 				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
+				CBDFFB732521DCF00060249B /* license.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,7 +784,6 @@
 			files = (
 				CBB2E0942478E5B20017AB00 /* CreateVyplatnyeDela.swift in Sources */,
 				CB17E57D2467AFC100CDBB1A /* MenuView.swift in Sources */,
-				CBB842EA24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
 				CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */,
@@ -811,6 +816,7 @@
 				CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */,
 				CB0115C925073C4000801969 /* ViewModifier.swift in Sources */,
 				CBB2E0992478F6270017AB00 /* LocalInspectionsItems.swift in Sources */,
+				CBDFFB7D2521DD490060249B /* Bundle.swift in Sources */,
 				CB17E58F24699F8400CDBB1A /* CreateInspections.swift in Sources */,
 				CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */,
 				CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */,
@@ -857,6 +863,7 @@
 				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
+				CBDFFB7E2521DD4A0060249B /* Bundle.swift in Sources */,
 				CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CBED06C92509C77600216056 /* Haptic.swift in Sources */,
 				CBF0E559251669E50018BF45 /* Int.swift in Sources */,
@@ -882,7 +889,6 @@
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CB7F88B9251461B500F5AF97 /* ServerImage.swift in Sources */,
 				CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */,
-				CBB842EB24E3AD8D0008EB07 /* Changelog.swift in Sources */,
 				CB7267A8249879B700E138BD /* SessionStore.swift in Sources */,
 				CBB4B0BD24C85EEC00C25A59 /* LocationStore.swift in Sources */,
 				CB758D8C24B17C93000A6B3C /* Date.swift in Sources */,
