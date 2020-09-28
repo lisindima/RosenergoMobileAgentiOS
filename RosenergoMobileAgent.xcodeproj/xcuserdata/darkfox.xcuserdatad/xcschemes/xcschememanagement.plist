@@ -25,30 +25,30 @@
 			<key>orderHint</key>
 			<integer>21</integer>
 		</dict>
-		<key>RosenergoMobileAgentWidgetExtension.xcscheme_^#shared#^_</key>
+		<key>RosenergoMobileAgent (Widget).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>RosenergoMobileAgentiOS.xcscheme_^#shared#^_</key>
+		<key>RosenergoMobileAgent (iOS).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>RosenergoMobileAgent (watchOS Extension).xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>RosenergoMobileAgent (watchOS).xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>RosenergoMobileAgentwatchOS (Notification).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>15</integer>
-		</dict>
-		<key>RosenergoMobileAgentwatchOS Extension.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>RosenergoMobileAgentwatchOS.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
