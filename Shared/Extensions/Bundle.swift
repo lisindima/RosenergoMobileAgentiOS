@@ -19,6 +19,7 @@ extension Bundle {
         }
         
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         guard let loaded = try? decoder.decode([LicenseModel].self, from: data) else {
             fatalError("Failed to decode \(file) from bundle.")

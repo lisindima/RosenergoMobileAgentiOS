@@ -13,8 +13,8 @@ enum Endpoint {
     case logout
     case uploadInspection
     case uploadVyplatnyedela
-    case inspections(_ id: String)
-    case vyplatnyedela(_ id: String)
+    case inspections(_ id: String = "")
+    case vyplatnyedela(_ id: String = "")
 }
 
 extension Endpoint {

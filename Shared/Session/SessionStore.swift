@@ -143,7 +143,7 @@ class SessionStore: ObservableObject {
     }
     
     func getInspections() {
-        fetch(.inspections("")) { [self] (result: Result<[Inspections], UploadError>) in
+        fetch(.inspections()) { [self] (result: Result<[Inspections], UploadError>) in
             switch result {
             case let .success(value):
                 if value.isEmpty {
@@ -159,7 +159,7 @@ class SessionStore: ObservableObject {
     }
     
     func getVyplatnyedela() {
-        fetch(.vyplatnyedela("")) { [self] (result: Result<[Vyplatnyedela], UploadError>) in
+        fetch(.vyplatnyedela()) { [self] (result: Result<[Vyplatnyedela], UploadError>) in
             switch result {
             case let .success(value):
                 if value.isEmpty {
