@@ -30,10 +30,9 @@ struct InspectionLink: View {
     }
     
     var body: some View {
-        LoadingView(loadingState) { inspection in
+        LoadingView(loadingState, load: getInspection) { inspection in
             InspectionsDetails(inspection: inspection)
         }
-        .onAppear(perform: getInspection)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button(action: { presentationMode.wrappedValue.dismiss() }) {

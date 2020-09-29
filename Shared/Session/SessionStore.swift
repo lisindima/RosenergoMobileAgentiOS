@@ -98,11 +98,15 @@ class SessionStore: ObservableObject {
     }
     
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         for item in items {
-            URLSession.shared.downloadTask(with: fileType == .photo ? (item as! Photo).path : URL(string: "\(items.first!)")!) { localURL, _, error in
-                if let localURL = localURL {
-                    completion(.success(localURL))
-                    print(localURL)
+            let savedURL = documentsURL.appendingPathComponent(fileType == .photo ? "\((item as! Photo).id).jpeg" : "video.mp4")
+            URLSession.shared.downloadTask(with: fileType == .photo ? (item as! Photo).path : URL(string: "\(items.first!)")!) { fileURL, _, error in
+                if let fileURL = fileURL {
+                    try! FileManager.default.moveItem(at: fileURL, to: savedURL)
+                    completion(.success(savedURL))
+                    print(fileURL)
+                    print(savedURL)
                 } else if let error = error {
                     completion(.failure(error))
                 }

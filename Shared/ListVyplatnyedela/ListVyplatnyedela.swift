@@ -31,7 +31,12 @@ struct ListVyplatnyedela: View {
     }
     
     var vyplatnyedela: some View {
-        LoadingView(sessionStore.vyplatnyedelaLoadingState, title: "Нет выплатных дел", subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь.") { vyplatnyedelaModel in
+        LoadingView(
+            sessionStore.vyplatnyedelaLoadingState,
+            load: sessionStore.getVyplatnyedela,
+            title: "Нет выплатных дел",
+            subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь."
+        ) { vyplatnyedelaModel in
             List {
                 Section(header: Text("Отправленные дела").fontWeight(.bold)) {
                     ForEach(vyplatnyedelaModel.filter {
@@ -46,7 +51,6 @@ struct ListVyplatnyedela: View {
             .navigationSearchBar("Поиск выплатных дел", searchText: $searchText)
             .modifier(ListStyle())
         }
-        .onAppear(perform: sessionStore.getVyplatnyedela)
         .navigationTitle("Выплатные дела")
     }
 }

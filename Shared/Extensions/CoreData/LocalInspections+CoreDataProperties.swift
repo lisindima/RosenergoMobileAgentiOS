@@ -43,8 +43,8 @@ extension LocalInspections {
     @NSManaged public func removeFromLocalPhotos(_ value: LocalPhotos)
     
     @objc(addLocalPhotos:)
-    @NSManaged public func addToLocalPhotos(_ values: NSSet)
+    @NSManaged public func addToLocalPhotos(_ values: Set<LocalPhotos>)
     
     @objc(removeLocalPhotos:)
-    @NSManaged public func removeFromLocalPhotos(_ values: NSSet)
+    @NSManaged public func removeFromLocalPhotos(_ values: Set<LocalPhotos>)
 }

@@ -10,17 +10,20 @@ import SwiftUI
 
 struct LoadingView<Value, Content>: View where Content: View {
     var loadingState: LoadingState<Value>
+    var load: () -> Void
     var title: String = ""
     var subTitle: String = ""
     var content: (_ value: Value) -> Content
 
-    init(_ loadingState: LoadingState<Value>, content: @escaping (_ value: Value) -> Content) {
+    init(_ loadingState: LoadingState<Value>, load: @escaping () -> Void, content: @escaping (_ value: Value) -> Content) {
         self.loadingState = loadingState
+        self.load = load
         self.content = content
     }
     
-    init(_ loadingState: LoadingState<Value>, title: String, subTitle: String, content: @escaping (_ value: Value) -> Content) {
+    init(_ loadingState: LoadingState<Value>, load: @escaping () -> Void, title: String, subTitle: String, content: @escaping (_ value: Value) -> Content) {
         self.loadingState = loadingState
+        self.load = load
         self.title = title
         self.subTitle = subTitle
         self.content = content
@@ -30,33 +33,34 @@ struct LoadingView<Value, Content>: View where Content: View {
         switch loadingState {
         case .loading:
             ProgressView("Загрузка")
+                .onAppear(perform: load)
         case let .success(value):
             content(value)
+                .onAppear(perform: load)
         case let .failure(error):
             Spacer()
-            Text("Произошла ошибка!")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.secondary)
+            Text("Произошла ошибка")
+                .errorTitle()
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
             Text(error.localizedDescription)
-                .foregroundColor(.secondary)
+                .errorSubtitle()
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             Spacer()
-            CustomButton("Повторить") {}
+            CustomButton("Повторить", action: load)
             .padding()
         case .empty:
-            Text(title)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.bottom)
-            Text(subTitle)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            Group {
+                Text(title)
+                    .errorTitle()
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom)
+                Text(subTitle)
+                    .errorSubtitle()
+                    .multilineTextAlignment(.center)
+            }
+            .onAppear(perform: load)
         }
     }
 }

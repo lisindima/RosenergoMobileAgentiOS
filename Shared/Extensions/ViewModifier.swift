@@ -29,3 +29,28 @@ struct ListStyle: ViewModifier {
         #endif
     }
 }
+
+extension Text {
+    func errorTitle() -> Text {
+        #if os(watchOS)
+        return self
+            .fontWeight(.bold)
+        #else
+        return self
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.secondary)
+        #endif
+    }
+    
+    func errorSubtitle() -> Text {
+        #if os(watchOS)
+        return self
+            .font(.footnote)
+            .foregroundColor(.secondary)
+        #else
+        return self
+            .foregroundColor(.secondary)
+        #endif
+    }
+}

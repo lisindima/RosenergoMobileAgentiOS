@@ -53,7 +53,12 @@ struct ListInspections: View {
     }
     
     var inspections: some View {
-        LoadingView(sessionStore.inspectionsLoadingState, title: "Нет осмотров", subTitle: "Добавьте свой первый осмотр и он отобразиться здесь.") { inspectionsModel in
+        LoadingView(
+            sessionStore.inspectionsLoadingState,
+            load: sessionStore.getInspections,
+            title: "Нет осмотров",
+            subTitle: "Добавьте свой первый осмотр и он отобразиться здесь."
+        ) { inspectionsModel in
             List {
                 if !localInspections.isEmpty {
                     Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
@@ -79,7 +84,6 @@ struct ListInspections: View {
             .navigationSearchBar("Поиск осмотров", searchText: $searchText)
             .modifier(ListStyle())
         }
-        .onAppear(perform: sessionStore.getInspections)
         .navigationTitle("Осмотры")
     }
 }

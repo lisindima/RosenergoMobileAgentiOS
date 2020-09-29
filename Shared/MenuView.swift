@@ -30,6 +30,7 @@ struct MenuView: View {
         #else
         VStack {
             menu
+                .padding(.horizontal)
             Spacer()
         }
         #endif
@@ -50,7 +51,6 @@ struct MenuView: View {
             MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow, destination: ListVyplatnyedela())
         }
         .padding(.top, 8)
-        .padding(.horizontal)
         .navigationTitle("Мобильный агент")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

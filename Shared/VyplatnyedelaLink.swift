@@ -30,10 +30,9 @@ struct VyplatnyedelaLink: View {
     }
     
     var body: some View {
-        LoadingView(loadingState) { vyplatnyedela in
+        LoadingView(loadingState, load: getVyplatnyedela) { vyplatnyedela in
             VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
         }
-        .onAppear(perform: getVyplatnyedela)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button(action: { presentationMode.wrappedValue.dismiss() }) {
