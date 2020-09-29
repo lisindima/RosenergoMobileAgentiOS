@@ -7,21 +7,21 @@
 //
 
 import SwiftUI
-#if !os(watchOS)
+#if os(iOS)
 import AVKit
 #endif
 
 struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
-    #if !os(watchOS)
+    #if os(iOS)
     @State private var alertItem: AlertItem? = nil
     @State private var fileType: FileType? = nil
     #endif
     
     var inspection: Inspections
     
-    #if !os(watchOS)
+    #if os(iOS)
     private func showShareSheet(activityItems: [Any]) {
         DispatchQueue.main.async {
             let shareSheet = UIHostingController(
@@ -124,7 +124,7 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            #if !os(watchOS)
+            #if os(iOS)
             if let url = inspection.video {
                 Section(header: Text("Видео").fontWeight(.bold)) {
                     VideoPlayer(player: AVPlayer(url: url))

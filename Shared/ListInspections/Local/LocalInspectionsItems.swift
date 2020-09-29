@@ -11,21 +11,10 @@ import SwiftUI
 struct LocalInspectionsItems: View {
     var localInspections: LocalInspections
     
-    var size: CGFloat {
-        #if os(watchOS)
-        return 75.0
-        #else
-        return 100.0
-        #endif
-    }
-    
     var body: some View {
         HStack {
             if let data = localInspections.localPhotos.first?.photosData {
-                Image(uiImage: UIImage(data: data)!.resizedImage(width: size, height: size))
-                    .resizable()
-                    .cornerRadius(8)
-                    .frame(width: size, height: size)
+                LocalImage(data: data)
             }
             VStack(alignment: .leading) {
                 Text("Не отправлено")

@@ -50,3 +50,22 @@ struct ServerImage: View {
         .frame(width: size, height: size)
     }
 }
+
+struct LocalImage: View {
+    var data: Data
+    
+    var size: CGFloat {
+        #if os(watchOS)
+        return 75.0
+        #else
+        return 100.0
+        #endif
+    }
+    
+    var body: some View {
+        Image(uiImage: UIImage(data: data)!.resizedImage(width: size, height: size))
+            .resizable()
+            .cornerRadius(8)
+            .frame(width: size, height: size)
+    }
+}

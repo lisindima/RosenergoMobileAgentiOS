@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-#if !os(watchOS)
+#if os(iOS)
 import AVKit
 #endif
 
@@ -79,14 +79,6 @@ struct LocalInspectionsDetails: View {
         }
     }
     
-    var size: CGFloat {
-        #if os(watchOS)
-        return 75.0
-        #else
-        return 100.0
-        #endif
-    }
-    
     var body: some View {
         #if os(watchOS)
         formLocalInspections
@@ -117,17 +109,14 @@ struct LocalInspectionsDetails: View {
                         LazyHStack {
                             ForEach(Array(localInspections.localPhotos), id: \.id) { photo in
                                 NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.localPhotos)) {
-                                    Image(uiImage: UIImage(data: photo.photosData)!.resizedImage(width: size, height: size))
-                                        .resizable()
-                                        .frame(width: size, height: size)
-                                        .cornerRadius(8)
+                                    LocalImage(data: photo.photosData)
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding(.vertical, 8)
                     }
                 }
             }
-            #if !os(watchOS)
+            #if os(iOS)
             if let url = localInspections.videoURL {
                 Section(header: Text("Видео").fontWeight(.bold)) {
                     VideoPlayer(player: AVPlayer(url: url))

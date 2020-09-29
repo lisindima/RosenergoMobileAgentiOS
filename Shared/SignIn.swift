@@ -55,7 +55,7 @@ struct SignIn: View {
         .customAlert(item: $alertItem)
     }
     
-    #if !os(watchOS)
+    #if os(iOS)
     var phone: some View {
         VStack {
             Spacer()

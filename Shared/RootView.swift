@@ -12,7 +12,7 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
-    #if !os(watchOS)
+    #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject private var locationStore = LocationStore.shared
     @State private var manager = CLLocationManager()

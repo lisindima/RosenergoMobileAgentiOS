@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-#if !os(watchOS)
+#if os(iOS)
 import MessageUI
 #endif
 
@@ -21,11 +21,11 @@ struct SettingsView: View {
     @State private var showMailFeedback: Bool = false
     @State private var loading: Bool = false
     
-    #if !os(watchOS)
+    #if os(iOS)
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
     #endif
     
-    #if !os(watchOS)
+    #if os(iOS)
     private func feedback() {
         if MFMailComposeViewController.canSendMail() {
             showMailFeedback = true
@@ -77,7 +77,7 @@ struct SettingsView: View {
                     )
                 }
             }
-            #if !os(watchOS)
+            #if os(iOS)
             Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
                 if notificationStore.enabled == .authorized {
                     SectionLink(
@@ -112,7 +112,7 @@ struct SettingsView: View {
                     title: "Лицензии",
                     destination: License()
                 )
-                #if !os(watchOS)
+                #if os(iOS)
                 SectionLink(
                     imageName: "star",
                     title: "Оценить",

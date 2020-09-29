@@ -11,14 +11,14 @@ import SwiftUI
 struct VyplatnyedelaDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
-    #if !os(watchOS)
+    #if os(iOS)
     @State private var alertItem: AlertItem? = nil
     @State private var fileType: FileType? = nil
     #endif
     
     var vyplatnyedela: Vyplatnyedela
     
-    #if !os(watchOS)
+    #if os(iOS)
     private func showShareSheet(activityItems: [Any]) {
         DispatchQueue.main.async {
             let shareSheet = UIHostingController(

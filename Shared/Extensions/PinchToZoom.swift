@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-#if !os(watchOS)
+#if os(iOS)
 class PinchZoomView: UIView {
     weak var delegate: PinchZoomViewDelgate?
     

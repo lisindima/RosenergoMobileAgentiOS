@@ -56,10 +56,7 @@ struct CustomCameraView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(photosURL.reversed(), id: \.self) { photo in
-                                    Image(uiImage: UIImage(data: try! Data(contentsOf: photo))!.resizedImage(width: 100, height: 100))
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(8)
+                                    LocalImage(data: try! Data(contentsOf: photo))
                                         .animation(.interactiveSpring())
                                         .contextMenu {
                                             Button(action: {

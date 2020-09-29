@@ -37,13 +37,13 @@ struct MenuView: View {
     
     var menu: some View {
         LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
-            #if !os(watchOS)
+            #if os(iOS)
             MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo, destination: CreateInspections())
             #endif
             
             MenuButton(title: "Осмотры", image: "archivebox", color: .red, destination: ListInspections())
             
-            #if !os(watchOS)
+            #if os(iOS)
             MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple, destination: CreateVyplatnyeDela())
             #endif
             
