@@ -60,13 +60,11 @@
 		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB7267C52498B79A00E138BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
-		CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E57A2467AEE400CDBB1A /* RootView.swift */; };
 		CB758D7124AEEB67000A6B3C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7024AEEB67000A6B3C /* UIImage.swift */; };
 		CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7024AEEB67000A6B3C /* UIImage.swift */; };
 		CB758D8B24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
 		CB758D8C24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
 		CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
-		CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
 		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7CEFA924AAC202009DF93A /* CloudKit.framework */; };
@@ -137,6 +135,8 @@
 		CBDFFB732521DCF00060249B /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = CBDFFB712521DCF00060249B /* license.json */; };
 		CBDFFB7D2521DD490060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
 		CBDFFB7E2521DD4A0060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
+		CBDFFD892522F06D0060249B /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFD882522F06D0060249B /* SignIn.swift */; };
+		CBDFFD9F2522F1980060249B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFD9E2522F1980060249B /* RootView.swift */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CBED06C82509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
 		CBED06C92509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
@@ -291,6 +291,8 @@
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CBDFFB712521DCF00060249B /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
 		CBDFFB7C2521DD490060249B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		CBDFFD882522F06D0060249B /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		CBDFFD9E2522F1980060249B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		CBED06C72509C77600216056 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		CBED06CA250A24C300216056 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
@@ -509,6 +511,8 @@
 		CB9DE93C249758B400F4E72A /* watchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CBDFFD882522F06D0060249B /* SignIn.swift */,
+				CBDFFD9E2522F1980060249B /* RootView.swift */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
 				CB7CEFA824AAC1F9009DF93A /* watchOS Extension.entitlements */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
@@ -588,18 +592,10 @@
 		CBC5283A247CB4AC00E337B4 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				CBC5283B247CB4D300E337B4 /* SessionStoreModel */,
+				CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */,
 				CB17E5752467A43700CDBB1A /* SessionStore.swift */,
 			);
 			path = Session;
-			sourceTree = "<group>";
-		};
-		CBC5283B247CB4D300E337B4 /* SessionStoreModel */ = {
-			isa = PBXGroup;
-			children = (
-				CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */,
-			);
-			path = SessionStoreModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -850,7 +846,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB7CEF9D24A9CB50009DF93A /* SignIn.swift in Sources */,
 				CB9AD07024DD96BC00D220D8 /* Map.swift in Sources */,
 				CBAC7F4424D28BF90081597D /* MenuView.swift in Sources */,
 				CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
@@ -860,7 +855,6 @@
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB0115CA25073C4000801969 /* ViewModifier.swift in Sources */,
-				CB758D6F24AECC43000A6B3C /* RootView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CBDFFB7E2521DD4A0060249B /* Bundle.swift in Sources */,
@@ -869,7 +863,9 @@
 				CBF0E559251669E50018BF45 /* Int.swift in Sources */,
 				CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */,
 				CB0115C72507335400801969 /* PinchToZoom.swift in Sources */,
+				CBDFFD892522F06D0060249B /* SignIn.swift in Sources */,
 				CBF0E55F25166D5D0018BF45 /* String.swift in Sources */,
+				CBDFFD9F2522F1980060249B /* RootView.swift in Sources */,
 				CB2B5B1024C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CBB842EE24E3AE600008EB07 /* License.swift in Sources */,
 				CBAC7F3924D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
@@ -1359,7 +1355,7 @@
 			repositoryURL = "https://github.com/lisindima/NativeSearchBar";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.0;
+				minimumVersion = 2.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
