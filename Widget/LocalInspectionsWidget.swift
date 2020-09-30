@@ -1,5 +1,5 @@
 //
-//  Widget.swift
+//  LocalInspectionsWidget.swift
 //  Widget
 //
 //  Created by Дмитрий Лисин on 24.09.2020.
@@ -10,37 +10,54 @@ import CoreData
 import SwiftUI
 import WidgetKit
 
-struct Provider: TimelineProvider {
-    func placeholder(in _: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
-    }
-
-    func getSnapshot(in _: Context, completion: @escaping (SimpleEntry) -> Void) {
-        let entry = SimpleEntry(date: Date())
-        completion(entry)
-    }
-
-    func getTimeline(in _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate)
-            entries.append(entry)
+struct LocalInspectionsWidget: Widget {
+    let persistenceController = PersistenceController.shared
+    
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "RosenergoMobileAgentWidget", provider: Provider()) { entry in
+            LocalInspectionsWidgetEntryView(entry: entry)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        .configurationDisplayName("Осмотры")
+        .description("Виджет поможет вам не забыть отправить осмотр на сервер!")
+        .supportedFamilies([.systemSmall, .systemLarge])
     }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
+extension LocalInspectionsWidget {
+    struct Provider: TimelineProvider {
+        func placeholder(in _: Context) -> Entry {
+            Entry(date: Date())
+        }
+        
+        func getSnapshot(in _: Context, completion: @escaping (Entry) -> Void) {
+            let entry = Entry(date: Date())
+            completion(entry)
+        }
+        
+        func getTimeline(in _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+            var entries: [Entry] = []
+            
+            let currentDate = Date()
+            for hourOffset in 0 ..< 5 {
+                let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+                let entry = Entry(date: entryDate)
+                entries.append(entry)
+            }
+            
+            let timeline = Timeline(entries: entries, policy: .atEnd)
+            completion(timeline)
+        }
+    }
 }
 
-struct SystemLarge: View {
+extension LocalInspectionsWidget {
+    struct Entry: TimelineEntry {
+        let date: Date
+    }
+}
+
+struct LocalInspectionsSystemLarge: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
@@ -96,7 +113,7 @@ struct SystemLarge: View {
     }
 }
 
-struct SystemSmall: View {
+struct LocalInspectionsSystemSmall: View {
     @Environment(\.colorScheme) private var colorScheme
     
     @FetchRequest(sortDescriptors: [], animation: .default)
@@ -135,42 +152,27 @@ struct SystemSmall: View {
     }
 }
 
-struct RosenergoMobileAgentWidgetEntryView: View {
+struct LocalInspectionsWidgetEntryView: View {
     @Environment(\.widgetFamily) private var widgetFamily
     
-    var entry: Provider.Entry
+    var entry: LocalInspectionsWidget.Entry
     
     var body: some View {
         switch widgetFamily {
-        case .systemSmall: SystemSmall(inspections: 5)
-        case .systemLarge: SystemLarge()
-        default: SystemSmall(inspections: 5)
+        case .systemSmall: LocalInspectionsSystemSmall(inspections: 5)
+        case .systemLarge: LocalInspectionsSystemLarge()
+        default: LocalInspectionsSystemSmall(inspections: 5)
         }
     }
 }
 
-@main
-struct RosenergoMobileAgentWidget: Widget {
-    let persistenceController = PersistenceController.shared
-    
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "RosenergoMobileAgentWidget", provider: Provider()) { entry in
-            RosenergoMobileAgentWidgetEntryView(entry: entry)
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
-        .configurationDisplayName("Осмотры")
-        .description("Виджет поможет вам не забыть отправить осмотр на сервер!")
-        .supportedFamilies([.systemSmall, .systemLarge])
-    }
-}
-
-struct RosenergoMobileAgentWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        SystemLarge()
-            .previewContext(WidgetPreviewContext(family: .systemLarge))
-            .colorScheme(.dark)
-        SystemLarge()
-            .previewContext(WidgetPreviewContext(family: .systemLarge))
-            .colorScheme(.light)
-    }
-}
+//struct RosenergoMobileAgentWidget_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SystemLarge()
+//            .previewContext(WidgetPreviewContext(family: .systemLarge))
+//            .colorScheme(.dark)
+//        SystemLarge()
+//            .previewContext(WidgetPreviewContext(family: .systemLarge))
+//            .colorScheme(.light)
+//    }
+//}

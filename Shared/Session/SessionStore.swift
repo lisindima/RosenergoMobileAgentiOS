@@ -77,7 +77,9 @@ class SessionStore: ObservableObject {
             .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
-                error is DecodingError ? Just(.failure(.decodeFailed(error))) : Just(.failure(.uploadFailed(error)))
+                error is DecodingError
+                    ? Just(.failure(.decodeFailed(error)))
+                    : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: completion)
@@ -90,7 +92,9 @@ class SessionStore: ObservableObject {
             .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
             .catch { error -> Just<Result<T, UploadError>> in
-                error is DecodingError ? Just(.failure(.decodeFailed(error))) : Just(.failure(.uploadFailed(error)))
+                error is DecodingError
+                    ? Just(.failure(.decodeFailed(error)))
+                    : Just(.failure(.uploadFailed(error)))
             }
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: completion)

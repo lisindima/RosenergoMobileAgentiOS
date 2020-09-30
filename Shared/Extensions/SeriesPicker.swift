@@ -12,10 +12,10 @@ struct SeriesPicker: View {
     @Binding var selectedSeries: Series
     
     var body: some View {
-        Picker(selection: $selectedSeries, label:
-                Text("\(selectedSeries.rawValue)")
-                .frame(width: 70)
-                .foregroundColor(.primary)) {
+        Picker(
+            selection: $selectedSeries,
+            label: Text("\(selectedSeries.rawValue)").foregroundColor(.primary)
+        ) {
             Text("ХХХ").tag(Series.XXX)
             Text("ССС").tag(Series.CCC)
             Text("РРР").tag(Series.PPP)
@@ -26,18 +26,19 @@ struct SeriesPicker: View {
             Text("ВВВ").tag(Series.BBB)
         }
         .pickerStyle(MenuPickerStyle())
+        .frame(width: 70)
     }
 }
 
 enum Series: String, CaseIterable, Identifiable {
-    case XXX
-    case CCC
-    case PPP
-    case HHH
-    case MMM
-    case KKK
-    case EEE
-    case BBB
+    case XXX = "ХХХ"
+    case CCC = "ССС"
+    case PPP = "РРР"
+    case HHH = "ННН"
+    case MMM = "МММ"
+    case KKK = "ККК"
+    case EEE = "ЕЕЕ"
+    case BBB = "ВВВ"
     
     var id: String { rawValue }
 }
