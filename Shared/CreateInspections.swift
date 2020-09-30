@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import WidgetKit
 import SwiftUI
 
 struct CreateInspections: View {
@@ -147,6 +148,7 @@ struct CreateInspections: View {
         do {
             try moc.save()
             alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно сохранен на устройстве.") { presentationMode.wrappedValue.dismiss() }
+            WidgetCenter.shared.reloadAllTimelines()
             notificationStore.setNotification(id: id.uuidString)
         } catch {
             log("Unresolved error \(error)")

@@ -54,24 +54,10 @@ struct MenuView: View {
         .navigationTitle("Мобильный агент")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: { openSettings = true }) {
+                NavigationLink(destination: SettingsView()) {
                     Image(systemName: "gear")
                         .imageScale(.large)
                 }
-            }
-        }
-        .sheet(isPresented: $openSettings) {
-            NavigationView {
-                SettingsView()
-                    .environmentObject(sessionStore)
-                    .environmentObject(notificationStore)
-                    .toolbar {
-                        ToolbarItem(placement: .primaryAction) {
-                            Button(action: { openSettings = false }) {
-                                Text("Закрыть")
-                            }
-                        }
-                    }
             }
         }
     }

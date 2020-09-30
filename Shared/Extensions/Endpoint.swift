@@ -29,9 +29,9 @@ extension Endpoint {
         case .uploadVyplatnyedela:
             return .makeForEndpoint("vyplatnyedela")
         case let .inspections(id):
-            return .makeForEndpoint(id == "" ? "v2/inspections" : "v2/inspections" + "/\(id)")
+            return .makeForEndpoint(id.isEmpty ? "v2/inspections" : "v2/inspections" + "/\(id)")
         case let .vyplatnyedela(id):
-            return .makeForEndpoint(id == "" ? "v2/vyplatnyedelas" : "v2/vyplatnyedelas" + "/\(id)")
+            return .makeForEndpoint(id.isEmpty ? "v2/vyplatnyedelas" : "v2/vyplatnyedelas" + "/\(id)")
         }
     }
 }

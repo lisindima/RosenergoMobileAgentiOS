@@ -8,6 +8,7 @@
 
 import SwiftUI
 #if os(iOS)
+import WidgetKit
 import AVKit
 #endif
 
@@ -26,6 +27,9 @@ struct LocalInspectionsDetails: View {
     private func delete() {
         notificationStore.cancelNotifications(localInspections.id.uuidString)
         presentationMode.wrappedValue.dismiss()
+        #if os(iOS)
+        WidgetCenter.shared.reloadAllTimelines()
+        #endif
         moc.delete(localInspections)
         do {
             try moc.save()

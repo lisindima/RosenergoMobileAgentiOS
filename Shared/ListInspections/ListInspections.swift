@@ -8,6 +8,9 @@
 
 import NativeSearchBar
 import SwiftUI
+#if os(iOS)
+import WidgetKit
+#endif
 
 struct ListInspections: View {
     @Environment(\.managedObjectContext) private var moc
@@ -27,6 +30,9 @@ struct ListInspections: View {
         for offset in offsets {
             let localInspection = localInspections[offset]
             moc.delete(localInspection)
+            #if os(iOS)
+            WidgetCenter.shared.reloadAllTimelines()
+            #endif
             notificationStore.cancelNotifications(localInspection.id.uuidString)
         }
         do {

@@ -60,6 +60,9 @@ extension LocalInspectionsWidget {
 struct LocalInspectionsSystemLarge: View {
     @Environment(\.colorScheme) private var colorScheme
     
+    @FetchRequest(sortDescriptors: [], animation: .default)
+    private var localInspections: FetchedResults<LocalInspections>
+    
     var body: some View {
         ZStack {
             Group {
@@ -73,7 +76,7 @@ struct LocalInspectionsSystemLarge: View {
                     .fontWeight(.semibold)
                     .font(.caption2)
                 Divider()
-                ForEach(0 ..< 4) { _ in
+                ForEach(localInspections, id: \.id) { item in
                     HStack {
                         Rectangle()
                             .foregroundColor(.white)
@@ -81,12 +84,14 @@ struct LocalInspectionsSystemLarge: View {
                             .frame(width: 50, height: 50)
                         VStack(alignment: .leading) {
                             Group {
-                                Text("ННН3123123".uppercased())
+                                Text(item.insuranceContractNumber.uppercased())
                                     .font(.caption)
                                     .fontWeight(.bold)
-                                Text("ННН3ВЫВ41В".uppercased())
-                                    .fontWeight(.bold)
-                                    .font(.caption)
+                                if let insuranceContractNumber2 = item.insuranceContractNumber2 {
+                                    Text(insuranceContractNumber2.uppercased())
+                                        .fontWeight(.bold)
+                                        .font(.caption)
+                                }
                                 Text(Date(), style: .date)
                                     .font(.caption)
                             }
@@ -102,9 +107,8 @@ struct LocalInspectionsSystemLarge: View {
                     Image(systemName: "tray.circle.fill")
                         .imageScale(.large)
                     Spacer()
-                    Text("\(4) осмотра")
-                        .fontWeight(.bold)
-                        .font(.caption)
+                    Image(systemName: "\(localInspections.count).circle.fill")
+                        .imageScale(.large)
                 }
             }
             .foregroundColor(.white)
@@ -118,8 +122,6 @@ struct LocalInspectionsSystemSmall: View {
     
     @FetchRequest(sortDescriptors: [], animation: .default)
     private var localInspections: FetchedResults<LocalInspections>
-    
-    var inspections: Int
     
     var body: some View {
         ZStack {
@@ -159,20 +161,22 @@ struct LocalInspectionsWidgetEntryView: View {
     
     var body: some View {
         switch widgetFamily {
-        case .systemSmall: LocalInspectionsSystemSmall(inspections: 5)
+        case .systemSmall: LocalInspectionsSystemSmall()
         case .systemLarge: LocalInspectionsSystemLarge()
-        default: LocalInspectionsSystemSmall(inspections: 5)
+        default: LocalInspectionsSystemSmall()
         }
     }
 }
 
-//struct RosenergoMobileAgentWidget_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SystemLarge()
-//            .previewContext(WidgetPreviewContext(family: .systemLarge))
-//            .colorScheme(.dark)
-//        SystemLarge()
-//            .previewContext(WidgetPreviewContext(family: .systemLarge))
-//            .colorScheme(.light)
-//    }
-//}
+struct LocalInspectionsWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        LocalInspectionsSystemSmall()
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+            .colorScheme(.dark)
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        LocalInspectionsSystemLarge()
+            .previewContext(WidgetPreviewContext(family: .systemLarge))
+            .colorScheme(.light)
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+    }
+}

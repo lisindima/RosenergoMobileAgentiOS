@@ -13,6 +13,6 @@ import SwiftUI
 struct RootView: WidgetBundle {
     var body: some Widget {
         LocalInspectionsWidget()
-        ButtonWidget()
+        //ButtonWidget()
     }
 }
