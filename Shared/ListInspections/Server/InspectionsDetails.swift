@@ -16,24 +16,13 @@ struct InspectionsDetails: View {
     
     #if os(iOS)
     @State private var alertItem: AlertItem? = nil
+    @State private var shareSheetItem: ShareSheetItem? = nil
     @State private var fileType: FileType? = nil
     #endif
     
     var inspection: Inspections
     
     #if os(iOS)
-    private func showShareSheet(activityItems: [Any]) {
-        DispatchQueue.main.async {
-            let shareSheet = UIHostingController(
-                rootView: ShareSheet(activityItems: activityItems)
-                    .ignoresSafeArea(edges: .bottom)
-            )
-            UIApplication.shared.windows.first?.rootViewController?.present(
-                shareSheet, animated: true, completion: nil
-            )
-        }
-    }
-    
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
@@ -42,7 +31,7 @@ struct InspectionsDetails: View {
             case let .success(response):
                 photoURL.append(response)
                 if photoURL.count == inspection.photos.count {
-                    showShareSheet(activityItems: photoURL)
+                    shareSheetItem = ShareSheetItem(activityItems: photoURL)
                     fileType = nil
                 }
             case let .failure(error):
@@ -58,7 +47,7 @@ struct InspectionsDetails: View {
             switch result {
             case let .success(response):
                 fileType = nil
-                showShareSheet(activityItems: [response])
+                shareSheetItem = ShareSheetItem(activityItems: [response])
             case let .failure(error):
                 fileType = nil
                 log(error.localizedDescription)
@@ -103,6 +92,7 @@ struct InspectionsDetails: View {
                 }
             }
             .customAlert(item: $alertItem)
+            .shareSheet(item: $shareSheetItem)
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: inspection.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?inspection=\(url)")!])
             }

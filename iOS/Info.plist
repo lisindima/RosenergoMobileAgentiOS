@@ -55,7 +55,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Приложение "Мобильный агент" использует доступ к микрофону вашего устройства, для записи видео в осмотре.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Приложение "Мобильный агент" использует доступ к вашей галереи только для сохранений фотографий и видео осмотров.</string>
+	<string>Приложение "Мобильный агент" использует доступ к вашей галереи только для сохранения фотографий и видео осмотров.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.rosenergomobileagent</key>

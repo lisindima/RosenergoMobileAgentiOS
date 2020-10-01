@@ -107,7 +107,7 @@
 		CBA401DC251C89BF001881B5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CBA401E1251C946D001881B5 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
 		CBA401E6251C9553001881B5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
-		CBA6118E2500998D009CD8BD /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheet.swift */; };
+		CBA6118E2500998D009CD8BD /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheetView.swift */; };
 		CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */; };
 		CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */; };
 		CBAC7F3624D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */; };
@@ -278,7 +278,7 @@
 		CBA401B6251C6CD8001881B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBA401B8251C6CD8001881B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA401BC251C6CD9001881B5 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
-		CBA6118D2500998D009CD8BD /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		CBA6118D2500998D009CD8BD /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
 		CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVyplatnyedela.swift; sourceTree = "<group>"; };
 		CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaItems.swift; sourceTree = "<group>"; };
 		CBAC7F3724D270640081597D /* VyplatnyedelaDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VyplatnyedelaDetails.swift; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 				CB758D8A24B17C93000A6B3C /* Date.swift */,
 				CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */,
 				CB9AD06E24DD96BC00D220D8 /* Map.swift */,
-				CBA6118D2500998D009CD8BD /* ShareSheet.swift */,
+				CBA6118D2500998D009CD8BD /* ShareSheetView.swift */,
 				CB0115C52507335400801969 /* PinchToZoom.swift */,
 				CB0115C825073C4000801969 /* ViewModifier.swift */,
 				CB1ECFCB2508BD9700523D9E /* Enum.swift */,
@@ -846,7 +846,7 @@
 				CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */,
 				CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB0115C62507335400801969 /* PinchToZoom.swift in Sources */,
-				CBA6118E2500998D009CD8BD /* ShareSheet.swift in Sources */,
+				CBA6118E2500998D009CD8BD /* ShareSheetView.swift in Sources */,
 				CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);

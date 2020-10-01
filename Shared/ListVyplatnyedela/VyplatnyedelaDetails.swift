@@ -13,24 +13,13 @@ struct VyplatnyedelaDetails: View {
     
     #if os(iOS)
     @State private var alertItem: AlertItem? = nil
+    @State private var shareSheetItem: ShareSheetItem? = nil
     @State private var fileType: FileType? = nil
     #endif
     
     var vyplatnyedela: Vyplatnyedela
     
     #if os(iOS)
-    private func showShareSheet(activityItems: [Any]) {
-        DispatchQueue.main.async {
-            let shareSheet = UIHostingController(
-                rootView: ShareSheet(activityItems: activityItems)
-                    .ignoresSafeArea(edges: .bottom)
-            )
-            UIApplication.shared.windows.first?.rootViewController?.present(
-                shareSheet, animated: true, completion: nil
-            )
-        }
-    }
-    
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
@@ -39,7 +28,7 @@ struct VyplatnyedelaDetails: View {
             case let .success(response):
                 photoURL.append(response)
                 if photoURL.count == vyplatnyedela.photos.count {
-                    showShareSheet(activityItems: photoURL)
+                    shareSheetItem = ShareSheetItem(activityItems: photoURL)
                     fileType = nil
                 }
             case let .failure(error):
@@ -81,6 +70,7 @@ struct VyplatnyedelaDetails: View {
                 }
             }
             .customAlert(item: $alertItem)
+            .shareSheet(item: $shareSheetItem)
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: vyplatnyedela.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?delo=\(url)")!])
             }
