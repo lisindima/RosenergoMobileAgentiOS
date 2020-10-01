@@ -48,6 +48,14 @@ struct SettingsView: View {
         }
     }
     
+    var footerFeedback: some View {
+        #if os(watchOS)
+        return EmptyView()
+        #else
+        return Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")
+        #endif
+    }
+    
     var body: some View {
         #if os(watchOS)
         settings
@@ -106,7 +114,7 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+            Section(header: Text("Другое").fontWeight(.bold), footer: footerFeedback) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
@@ -137,26 +145,39 @@ struct SettingsView: View {
                         showActionSheetExit = true
                     }
                 } else {
+                    #if os(watchOS)
+                    Label {
+                        Text("Подождите")
+                    } icon: {
+                        ProgressView()
+                    }
+                    #else
                     HStack {
                         ProgressView()
                         Text("Подождите")
                             .padding(.leading, 12)
                     }
+                    #endif
                 }
             }
         }
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
         .actionSheet(isPresented: $showActionSheetExit) {
-            ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [
-                .destructive(Text("Выйти")) {
-                    loading = true
-                    sessionStore.logout { 
-                        loading = false
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }, .cancel(),
-            ])
+            ActionSheet(
+                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
+                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
+                buttons: [
+                    .destructive(Text("Выйти")) {
+                        loading = true
+                        sessionStore.logout {
+                            loading = false
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    },
+                    .cancel(),
+                ]
+            )
         }
     }
 }
