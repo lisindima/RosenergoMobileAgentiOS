@@ -14,16 +14,8 @@ struct DownloadIndicator: View {
     var body: some View {
         HStack {
             ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .white))
             Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
-                .foregroundColor(.white)
                 .padding(.leading, 8)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-        .background(
-            Capsule(style: .circular)
-                .fill(Color.rosenergo)
-        )
     }
 }

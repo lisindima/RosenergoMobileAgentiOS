@@ -45,7 +45,7 @@ struct VyplatnyedelaDetails: View {
         #else
         form
             .toolbar {
-                ToolbarItem(placement: .principal) {
+                ToolbarItem(placement: .bottomBar) {
                     if let fileType = fileType {
                         DownloadIndicator(fileType: fileType)
                     }

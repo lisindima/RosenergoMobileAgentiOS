@@ -62,7 +62,7 @@ struct InspectionsDetails: View {
         #else
         formInspections
             .toolbar {
-                ToolbarItem(placement: .principal) {
+                ToolbarItem(placement: .bottomBar) {
                     if let fileType = fileType {
                         DownloadIndicator(fileType: fileType)
                     }
