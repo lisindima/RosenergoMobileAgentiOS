@@ -10,6 +10,7 @@ import CoreData
 import SwiftUI
 import WidgetKit
 
+@main
 struct LocalInspectionsWidget: Widget {
     let persistenceController = PersistenceController.shared
     
@@ -76,31 +77,8 @@ struct LocalInspectionsSystemLarge: View {
                     .fontWeight(.semibold)
                     .font(.caption2)
                 Divider()
-                ForEach(localInspections, id: \.id) { item in
-                    HStack {
-                        Rectangle()
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                            .frame(width: 50, height: 50)
-                        VStack(alignment: .leading) {
-                            Group {
-                                Text(item.insuranceContractNumber.uppercased())
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                if let insuranceContractNumber2 = item.insuranceContractNumber2 {
-                                    Text(insuranceContractNumber2.uppercased())
-                                        .fontWeight(.bold)
-                                        .font(.caption)
-                                }
-                                Text(Date(), style: .date)
-                                    .font(.caption)
-                            }
-                            .font(.footnote)
-                            .foregroundColor(.white)
-                            .lineLimit(1)
-                        }
-                    }
-                    Spacer()
+                ForEach(localInspections, id: \.id) { localInspections in
+                    WidgetItems(localInspections: localInspections)
                 }
                 Spacer()
                 HStack {

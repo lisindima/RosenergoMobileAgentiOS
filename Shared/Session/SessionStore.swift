@@ -101,6 +101,8 @@ class SessionStore: ObservableObject {
             .store(in: &requests)
     }
     
+    #warning("Добавить возможность перезаписи файлов при загрузке!")
+    
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         for item in items {
@@ -137,16 +139,9 @@ class SessionStore: ObservableObject {
     }
     
     func logout(completion: @escaping () -> Void) {
-        fetch(.logout, httpMethod: .post) { [self] (result: Result<LogoutModel, UploadError>) in
-            switch result {
-            case .success:
-                completion()
-                clearData()
-            case let .failure(error):
-                completion()
-                clearData()
-                log(error.localizedDescription)
-            }
+        fetch(.logout, httpMethod: .post) { [self] (_: Result<LogoutModel, UploadError>) in
+            completion()
+            clearData()
         }
     }
     
