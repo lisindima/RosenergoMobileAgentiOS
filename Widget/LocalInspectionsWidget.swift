@@ -77,16 +77,22 @@ struct LocalInspectionsSystemLarge: View {
                     .fontWeight(.semibold)
                     .font(.caption2)
                 Divider()
-                ForEach(localInspections, id: \.id) { localInspections in
-                    WidgetItems(localInspections: localInspections)
+                if localInspections.isEmpty {
+                    Text("Вы отправили все осмотры!")
+                        .fontWeight(.bold)
+                } else {
+                    ForEach(localInspections, id: \.id) { localInspections in
+                        WidgetItems(localInspections: localInspections)
+                    }
                 }
                 Spacer()
                 HStack {
                     Image(systemName: "tray.circle.fill")
                         .imageScale(.large)
                     Spacer()
-                    Image(systemName: "\(localInspections.count).circle.fill")
-                        .imageScale(.large)
+                    Text("\(localInspections.count) осмотров")
+                        .fontWeight(.bold)
+                        .font(.caption)
                 }
             }
             .foregroundColor(.white)
@@ -114,8 +120,13 @@ struct LocalInspectionsSystemSmall: View {
                     .fontWeight(.semibold)
                     .font(.caption2)
                 Divider()
-                Text("У вас есть не отправленные осмотры")
-                    .font(.caption2)
+                if localInspections.isEmpty {
+                    Text("Вы отправили все осмотры!")
+                        .font(.caption2)
+                } else {
+                    Text("У вас есть не отправленные осмотры")
+                        .font(.caption2)
+                }
                 Spacer()
                 HStack {
                     Image(systemName: "tray.circle.fill")

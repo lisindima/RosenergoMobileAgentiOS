@@ -32,7 +32,7 @@ struct ListVyplatnyedela: View {
     
     var vyplatnyedela: some View {
         LoadingView(
-            sessionStore.vyplatnyedelaLoadingState,
+            $sessionStore.vyplatnyedelaLoadingState,
             load: sessionStore.getVyplatnyedela,
             title: "Нет выплатных дел",
             subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь."

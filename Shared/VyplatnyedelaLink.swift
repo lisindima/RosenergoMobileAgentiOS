@@ -30,7 +30,7 @@ struct VyplatnyedelaLink: View {
     }
     
     var body: some View {
-        LoadingView(loadingState, load: getVyplatnyedela) { vyplatnyedela in
+        LoadingView($loadingState, load: getVyplatnyedela) { vyplatnyedela in
             VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
         }
         .toolbar {

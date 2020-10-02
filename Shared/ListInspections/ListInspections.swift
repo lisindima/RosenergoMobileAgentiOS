@@ -60,7 +60,7 @@ struct ListInspections: View {
     
     var inspections: some View {
         LoadingView(
-            sessionStore.inspectionsLoadingState,
+            $sessionStore.inspectionsLoadingState,
             load: sessionStore.getInspections,
             title: "Нет осмотров",
             subTitle: "Добавьте свой первый осмотр и он отобразиться здесь."

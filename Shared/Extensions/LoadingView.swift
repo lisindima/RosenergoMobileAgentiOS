@@ -9,20 +9,21 @@
 import SwiftUI
 
 struct LoadingView<Value, Content>: View where Content: View {
-    var loadingState: LoadingState<Value>
+    @Binding var loadingState: LoadingState<Value>
+    
     var load: () -> Void
     var title: String = ""
     var subTitle: String = ""
     var content: (_ value: Value) -> Content
 
-    init(_ loadingState: LoadingState<Value>, load: @escaping () -> Void, content: @escaping (_ value: Value) -> Content) {
-        self.loadingState = loadingState
+    init(_ loadingState: Binding<LoadingState<Value>>, load: @escaping () -> Void, content: @escaping (_ value: Value) -> Content) {
+        _loadingState = loadingState
         self.load = load
         self.content = content
     }
     
-    init(_ loadingState: LoadingState<Value>, load: @escaping () -> Void, title: String, subTitle: String, content: @escaping (_ value: Value) -> Content) {
-        self.loadingState = loadingState
+    init(_ loadingState: Binding<LoadingState<Value>>, load: @escaping () -> Void, title: String, subTitle: String, content: @escaping (_ value: Value) -> Content) {
+        _loadingState = loadingState
         self.load = load
         self.title = title
         self.subTitle = subTitle
@@ -48,7 +49,10 @@ struct LoadingView<Value, Content>: View where Content: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             Spacer()
-            CustomButton("Повторить", action: load)
+            CustomButton("Повторить") {
+                load()
+                loadingState = .loading
+            }
             .padding()
         case .empty:
             Group {
