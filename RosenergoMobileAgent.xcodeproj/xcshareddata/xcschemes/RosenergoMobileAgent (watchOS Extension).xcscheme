@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB9DE937249758B400F4E72A"
-               BuildableName = "RosenergoMobileAgent (watchOS Extension).appex"
+               BuildableName = "RosenergoMobileAgent.appex"
                BlueprintName = "RosenergoMobileAgent (watchOS Extension)"
                ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-               BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
+               BuildableName = "RosenergoMobileAgent.app"
                BlueprintName = "RosenergoMobileAgent (iOS)"
                ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
-               BuildableName = "RosenergoMobileAgent (watchOS).app"
+               BuildableName = "RosenergoMobileAgent.app"
                BlueprintName = "RosenergoMobileAgent (watchOS)"
                ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
             </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE937249758B400F4E72A"
-            BuildableName = "RosenergoMobileAgent (watchOS Extension).appex"
+            BuildableName = "RosenergoMobileAgent.appex"
             BlueprintName = "RosenergoMobileAgent (watchOS Extension)"
             ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
          </BuildableReference>
@@ -90,7 +90,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE937249758B400F4E72A"
-            BuildableName = "RosenergoMobileAgent (watchOS Extension).appex"
+            BuildableName = "RosenergoMobileAgent.appex"
             BlueprintName = "RosenergoMobileAgent (watchOS Extension)"
             ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
          </BuildableReference>
