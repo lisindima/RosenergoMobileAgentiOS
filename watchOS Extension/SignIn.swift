@@ -13,15 +13,19 @@ struct SignIn: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var loading: Bool = false
     @State private var alertItem: AlertItem? = nil
     
     private func signIn(email: String, password: String) {
+        loading = true
         sessionStore.login(email: email, password: password) { [self] result in
             switch result {
             case .success:
                 playHaptic(.success)
+                loading = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Логин или пароль неверны, либо отсутствует соединение с интернетом.")
+                loading = false
                 log(error.localizedDescription)
             }
         }
@@ -37,7 +41,7 @@ struct SignIn: View {
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
                 .padding(.bottom)
-            Button("Войти") {
+            CustomButton("Войти", loading: loading) {
                 signIn(email: email, password: password)
             }
         }

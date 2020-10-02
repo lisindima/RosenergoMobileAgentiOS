@@ -44,6 +44,24 @@ struct CustomButton: View {
     }
     
     var body: some View {
+        #if os(iOS)
+        phone
+        #else
+        watch
+        #endif
+    }
+    
+    var watch: some View {
+        Button(action: action) {
+            if loading {
+                ProgressView()
+            } else {
+                Text(title)
+            }
+        }
+    }
+    
+    var phone: some View {
         Button(action: action) {
             if loading, progress != 0.0 {
                 ProgressView(
