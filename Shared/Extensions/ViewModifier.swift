@@ -31,7 +31,7 @@ struct ListStyle: ViewModifier {
 }
 
 extension Text {
-    func errorTitle() -> Text {
+    func messageTitle() -> Text {
         #if os(watchOS)
         return self
             .fontWeight(.bold)
@@ -43,7 +43,7 @@ extension Text {
         #endif
     }
     
-    func errorSubtitle() -> Text {
+    func messageSubtitle() -> Text {
         #if os(watchOS)
         return self
             .font(.footnote)

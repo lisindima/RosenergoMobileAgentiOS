@@ -41,11 +41,11 @@ struct LoadingView<Value, Content>: View where Content: View {
         case let .failure(error):
             Spacer()
             Text("Произошла ошибка")
-                .errorTitle()
+                .messageTitle()
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
             Text(error.localizedDescription)
-                .errorSubtitle()
+                .messageSubtitle()
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             Spacer()
@@ -57,11 +57,11 @@ struct LoadingView<Value, Content>: View where Content: View {
         case .empty:
             Group {
                 Text(title)
-                    .errorTitle()
+                    .messageTitle()
                     .multilineTextAlignment(.center)
                     .padding(.bottom)
                 Text(subTitle)
-                    .errorSubtitle()
+                    .messageSubtitle()
                     .multilineTextAlignment(.center)
             }
             .onAppear(perform: load)

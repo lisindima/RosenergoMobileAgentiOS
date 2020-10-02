@@ -69,16 +69,12 @@ struct SideBar: View {
         }
         
         Text("Выберите\nпункт в меню")
-            .font(.title)
-            .fontWeight(.bold)
-            .foregroundColor(.secondary)
+            .messageTitle()
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         
         Text("Выберите осмотр\nили выплатное дело\nдля просмотра")
-            .font(.title)
-            .fontWeight(.bold)
-            .foregroundColor(.secondary)
+            .messageTitle()
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
