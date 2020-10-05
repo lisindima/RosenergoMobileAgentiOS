@@ -12,6 +12,7 @@ import KeyboardObserving
 
 struct CreateVyplatnyeDela: View {
     
+    @ObservedObject private var locationStore = LocationStore.shared
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
@@ -23,7 +24,7 @@ struct CreateVyplatnyeDela: View {
         #if targetEnvironment(simulator)
             showCustomCameraView = true
         #else
-        if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
+        if locationStore.latitude == 0 || locationStore.longitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
@@ -61,8 +62,8 @@ struct CreateVyplatnyeDela: View {
                             self.sessionStore.uploadVyplatnyeDela(
                                 insuranceContractNumber: self.insuranceContractNumber,
                                 numberZayavlenia: self.numberZayavlenia,
-                                latitude: self.sessionStore.latitude,
-                                longitude: self.sessionStore.longitude,
+                                latitude: self.locationStore.latitude,
+                                longitude: self.locationStore.longitude,
                                 photos: self.sessionStore.photoParameters
                             )
                         }
@@ -77,7 +78,6 @@ struct CreateVyplatnyeDela: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: sessionStore.getLocation)
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
         }

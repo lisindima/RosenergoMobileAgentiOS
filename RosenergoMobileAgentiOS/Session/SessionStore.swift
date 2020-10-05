@@ -11,7 +11,6 @@ import Combine
 import Alamofire
 import Defaults
 #if !os(watchOS)
-import CoreLocation
 import FirebaseCrashlytics
 #endif
 
@@ -38,8 +37,6 @@ class SessionStore: ObservableObject {
     @Published var vyplatnyedelaLoadingState: LoadingState = .loading
     @Published var alertType: AlertType = .success
     @Published var uploadProgress: Double = 0.0
-    @Published var latitude: Double = 0.0
-    @Published var longitude: Double = 0.0
     @Published var showAlert: Bool = false
     @Published var showServerAlert: Bool = false
     @Published var openListInspections: Bool = false
@@ -61,23 +58,30 @@ class SessionStore: ObservableObject {
         return createStringDate
     }
     
-    var locationManager = CLLocationManager()
-    
-    #if !os(watchOS)
-    func getLocation() {
-        locationManager.requestWhenInUseAuthorization()
-        var currentLoc: CLLocation!
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways {
-            currentLoc = locationManager.location ?? CLLocation(latitude: 0.0, longitude: 0.0)
-            latitude = currentLoc.coordinate.latitude
-            longitude = currentLoc.coordinate.longitude
-        } else {
-            latitude = 0.0
-            longitude = 0.0
+    func updateLocation(latitude: Double, longitude: Double) {
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: loginModel!.data.apiToken),
+            .accept("application/json")
+        ]
+        
+        let parameters = LocationAgentUpdate(
+            latitude: latitude,
+            longitude: longitude
+        )
+        
+        if let agent = loginModel?.data.agentID {
+            AF.request(serverURL + "updateLocation/\(agent)", method: .post, parameters: parameters, headers: headers)
+                .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .success(let value):
+                        print("Геолокация обновлена\n\(value)")
+                    case .failure(let error):
+                        print("Геолокация НЕОБНОВЛЕНА\n\(error)")
+                    }
+                }
         }
     }
-    #endif
     
     func login(email: String, password: String) {
         

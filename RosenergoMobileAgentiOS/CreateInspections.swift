@@ -16,6 +16,7 @@ struct CreateInspections: View {
     @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject private var locationStore = LocationStore.shared
     
     @State private var showCustomCameraView: Bool = false
     @State private var choiseCar: Int = 0
@@ -34,7 +35,7 @@ struct CreateInspections: View {
         #if targetEnvironment(simulator)
             showCustomCameraView = true
         #else
-        if sessionStore.latitude == 0 || sessionStore.longitude == 0 {
+        if locationStore.latitude == 0 || locationStore.longitude == 0 {
             sessionStore.alertType = .emptyLocation
             sessionStore.showAlert = true
         } else {
@@ -55,8 +56,8 @@ struct CreateInspections: View {
             carBodyNumber2: self.carBodyNumber2 == "" ? nil : self.carBodyNumber2,
             carVin2: self.carVin2 == "" ? nil : self.carVin2,
             insuranceContractNumber2: self.insuranceContractNumber2 == "" ? nil : self.insuranceContractNumber2,
-            latitude: self.sessionStore.latitude,
-            longitude: self.sessionStore.longitude,
+            latitude: self.locationStore.latitude,
+            longitude: self.locationStore.longitude,
             photoParameters: self.sessionStore.photoParameters
         )
     }
@@ -70,8 +71,8 @@ struct CreateInspections: View {
         
         let id = UUID()
         let localInspections = LocalInspections(context: self.moc)
-        localInspections.latitude = self.sessionStore.latitude
-        localInspections.longitude = self.sessionStore.longitude
+        localInspections.latitude = self.locationStore.latitude
+        localInspections.longitude = self.locationStore.longitude
         localInspections.carBodyNumber = self.carBodyNumber
         localInspections.carModel = self.carModel
         localInspections.carRegNumber = self.carRegNumber
@@ -195,7 +196,6 @@ struct CreateInspections: View {
             }
         }
         .keyboardObserving()
-        .onAppear(perform: sessionStore.getLocation)
         .onDisappear {
             self.sessionStore.photoParameters.removeAll()
         }

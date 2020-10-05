@@ -10,6 +10,7 @@ import SwiftUI
 
 struct GeoIndicator: View {
     
+    @ObservedObject private var locationStore = LocationStore.shared
     @EnvironmentObject var sessionStore: SessionStore
     
     var body: some View {
@@ -19,12 +20,12 @@ struct GeoIndicator: View {
                 .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 30, idealHeight: 30, maxHeight: 30)
             HStack {
                 Spacer()
-                Text("Широта: \(sessionStore.latitude)")
+                Text("Широта: \(locationStore.latitude)")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.red)
                 Spacer()
-                Text("Долгота: \(sessionStore.longitude)")
+                Text("Долгота: \(locationStore.longitude)")
                     .font(.footnote)
                     .fontWeight(.bold)
                     .foregroundColor(.red)

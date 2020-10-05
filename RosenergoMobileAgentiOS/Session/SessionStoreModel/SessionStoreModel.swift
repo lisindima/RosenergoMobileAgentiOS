@@ -58,6 +58,11 @@ struct LoginParameters: Codable {
     let password: String
 }
 
+struct LocationAgentUpdate: Codable {
+    let latitude: Double
+    let longitude: Double
+}
+
 // MARK: Codable модель для разбора списка осмотров.
 
 struct Inspections: Codable, Identifiable {

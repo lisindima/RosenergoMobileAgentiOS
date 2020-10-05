@@ -9,14 +9,18 @@
 import UIKit
 import CoreData
 import Firebase
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let locationStore = LocationStore.shared
+    let manager = CLLocationManager()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         NotificationStore.shared.requestPermission()
-        SessionStore.shared.getLocation()
+        manager.delegate = locationStore
         return true
     }
 
