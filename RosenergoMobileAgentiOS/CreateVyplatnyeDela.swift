@@ -52,19 +52,19 @@ struct CreateVyplatnyeDela: View {
                 if sessionStore.uploadState == .none {
                     CustomButton(label: "Отправить", colorButton: .rosenergo, colorText: .white) {
                         UIApplication.shared.hideKeyboard()
-                        if self.insuranceContractNumber == "" || self.numberZayavlenia == "" {
-                            self.sessionStore.alertType = .emptyTextField
-                            self.sessionStore.showAlert = true
-                        } else if self.sessionStore.photoParameters.isEmpty {
-                            self.sessionStore.alertType = .emptyPhoto
-                            self.sessionStore.showAlert = true
+                        if insuranceContractNumber == "" || numberZayavlenia == "" {
+                            sessionStore.alertType = .emptyTextField
+                            sessionStore.showAlert = true
+                        } else if sessionStore.photoParameters.isEmpty {
+                            sessionStore.alertType = .emptyPhoto
+                            sessionStore.showAlert = true
                         } else {
-                            self.sessionStore.uploadVyplatnyeDela(
-                                insuranceContractNumber: self.insuranceContractNumber,
-                                numberZayavlenia: self.numberZayavlenia,
-                                latitude: self.locationStore.latitude,
-                                longitude: self.locationStore.longitude,
-                                photos: self.sessionStore.photoParameters
+                            sessionStore.uploadVyplatnyeDela(
+                                insuranceContractNumber: insuranceContractNumber,
+                                numberZayavlenia: numberZayavlenia,
+                                latitude: locationStore.latitude,
+                                longitude: locationStore.longitude,
+                                photos: sessionStore.photoParameters
                             )
                         }
                     }
@@ -79,11 +79,11 @@ struct CreateVyplatnyeDela: View {
         }
         .keyboardObserving()
         .onDisappear {
-            self.sessionStore.photoParameters.removeAll()
+            sessionStore.photoParameters.removeAll()
         }
         .sheet(isPresented: $showCustomCameraView) {
             CustomCameraView()
-                .environmentObject(self.sessionStore)
+                .environmentObject(sessionStore)
                 .edgesIgnoringSafeArea(.bottom)
         }
         .navigationBarTitle("Выплатное дело")
@@ -91,7 +91,7 @@ struct CreateVyplatnyeDela: View {
             switch sessionStore.alertType {
             case .success:
                 return Alert(title: Text("Успешно"), message: Text("Выплатное дело успешно загружено на сервер."), dismissButton: .default(Text("Закрыть"), action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }))
             case .error:
                 return Alert(title: Text("Ошибка"), message: Text("Попробуйте загрузить выплатное дело позже.\n\(sessionStore.errorAlert ?? "")"), dismissButton: .default(Text("Закрыть")))

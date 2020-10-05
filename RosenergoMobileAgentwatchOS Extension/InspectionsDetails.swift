@@ -35,12 +35,12 @@ struct InspectionsDetails: View {
             .responseDecodable(of: YandexGeo.self) { response in
                 switch response.result {
                 case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    self.yandexGeoState = .success
+                    guard let yandexGeoResponse = response.value else { return }
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = .success
                 case .failure(let error):
                     print(error)
-                    self.yandexGeoState = .failure
+                    yandexGeoState = .failure
                 }
         }
     }
@@ -252,8 +252,8 @@ struct InspectionsDetails: View {
         }
         .navigationBarTitle("\(inspection.id)")
         .onAppear {
-            if self.yandexGeo == nil {
-                self.loadYandexGeoResponse(latitude: self.inspection.latitude, longitude: self.inspection.longitude)
+            if yandexGeo == nil {
+                loadYandexGeoResponse(latitude: inspection.latitude, longitude: inspection.longitude)
             }
         }
     }

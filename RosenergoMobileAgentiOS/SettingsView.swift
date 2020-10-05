@@ -23,7 +23,7 @@ struct SettingsView: View {
     private func showMailView() {
         DispatchQueue.main.async {
             let mailFeedback = UIHostingController(rootView:
-                MailFeedback(showAlert: self.$showAlert, alertMailType: self.$alertMailType)
+                MailFeedback(showAlert: $showAlert, alertMailType: $alertMailType)
                     .edgesIgnoringSafeArea(.bottom)
                     .accentColor(.rosenergo)
             )
@@ -86,9 +86,8 @@ struct SettingsView: View {
                         Image(systemName: "bell")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
-                        Button("Выключить уведомления") {
-                            self.openSettings()
-                        }.foregroundColor(.primary)
+                        Button("Выключить уведомления", action: openSettings)
+                            .foregroundColor(.primary)
                     }
                     Stepper(value: $notificationStore.notifyHour, in: 1...24) {
                         Image(systemName: "timer")
@@ -102,9 +101,8 @@ struct SettingsView: View {
                         Image(systemName: "bell")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
-                        Button("Включить уведомления") {
-                            self.notificationStore.requestPermission()
-                        }.foregroundColor(.primary)
+                        Button("Включить уведомления", action: notificationStore.requestPermission)
+                            .foregroundColor(.primary)
                     }
                 }
                 if notificationStore.enabled == .denied {
@@ -112,9 +110,8 @@ struct SettingsView: View {
                         Image(systemName: "bell")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
-                        Button("Включить уведомления") {
-                            self.openSettings()
-                        }.foregroundColor(.primary)
+                        Button("Включить уведомления", action: openSettings)
+                            .foregroundColor(.primary)
                     }
                 }
             }
@@ -125,17 +122,17 @@ struct SettingsView: View {
                         .foregroundColor(.rosenergo)
                     Button("Сообщить об ошибке") {
                         if MFMailComposeViewController.canSendMail() {
-                            self.showMailView()
+                            showMailView()
                         } else {
-                            self.alertMailType = .error
-                            self.showAlert = true
+                            alertMailType = .error
+                            showAlert = true
                         }
                     }.foregroundColor(.primary)
                 }
             }
             Section {
                 Button(action:  {
-                    self.showActionSheetExit = true
+                    showActionSheetExit = true
                 }) {
                     HStack {
                         Image(systemName: "flame")
@@ -145,8 +142,8 @@ struct SettingsView: View {
                 }
             }.actionSheet(isPresented: $showActionSheetExit) {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                    self.presentationMode.wrappedValue.dismiss()
-                    self.sessionStore.logout()
+                    presentationMode.wrappedValue.dismiss()
+                    sessionStore.logout()
                     }, .cancel()
                 ])
             }

@@ -35,12 +35,12 @@ struct InspectionsDetails: View {
             .responseDecodable(of: YandexGeo.self) { response in
                 switch response.result {
                 case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    self.yandexGeoState = .success
+                    guard let yandexGeoResponse = response.value else { return }
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = .success
                 case .failure(let error):
                     print(error)
-                    self.yandexGeoState = .failure
+                    yandexGeoState = .failure
                 }
         }
     }
@@ -196,7 +196,7 @@ struct InspectionsDetails: View {
             }
             Section(header: Text("Место проведения осмотра".uppercased())) {
                 Button(action: {
-                    self.presentMapActionSheet = true
+                    presentMapActionSheet = true
                 }) {
                     if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                         HStack {
@@ -235,15 +235,15 @@ struct InspectionsDetails: View {
         .navigationBarTitle("Осмотр: \(inspection.id)")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
-                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.inspection.latitude),\(self.inspection.longitude)")!)
+                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection.latitude),\(inspection.longitude)")!)
                 }, .default(Text("Яндекс.Карты")) {
-                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.inspection.longitude),\(self.inspection.latitude)")!)
+                    UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection.longitude),\(inspection.latitude)")!)
                 }, .cancel()
             ])
         }
         .onAppear {
-            if self.yandexGeo == nil {
-                self.loadYandexGeoResponse()
+            if yandexGeo == nil {
+                loadYandexGeoResponse()
             }
         }
     }

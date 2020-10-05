@@ -48,14 +48,14 @@ class CustomCameraController: UIViewController {
         for device in deviceDiscoverySession.devices {
             switch device.position {
             case AVCaptureDevice.Position.front:
-                self.frontCamera = device
+                frontCamera = device
             case AVCaptureDevice.Position.back:
-                self.backCamera = device
+                backCamera = device
             default:
                 break
             }
         }
-        self.currentCamera = self.backCamera
+        currentCamera = backCamera
     }
 
     func setupInputOutput() {
@@ -71,11 +71,11 @@ class CustomCameraController: UIViewController {
     }
     
     func setupPreviewLayer() {
-        self.cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        self.cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        self.cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        self.cameraPreviewLayer?.frame = self.view.frame
-        self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+        cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+        cameraPreviewLayer?.frame = view.frame
+        view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
     }
     
     func startRunningCaptureSession() {

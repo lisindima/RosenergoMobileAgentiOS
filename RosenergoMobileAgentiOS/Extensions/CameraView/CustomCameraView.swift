@@ -41,7 +41,7 @@ struct CustomCameraView: View {
                 .edgesIgnoringSafeArea(.all)
             #endif
             VStack(alignment: .trailing) {
-                Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                Button(action: { presentationMode.wrappedValue.dismiss() }) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.largeTitle)
                         .foregroundColor(.secondary)
@@ -57,8 +57,8 @@ struct CustomCameraView: View {
                                     .frame(width: 100, height: 100)
                                     .cornerRadius(10)
                                 Button(action: {
-                                    if let index = self.sessionStore.photoParameters.firstIndex(of: photo) {
-                                        self.sessionStore.photoParameters.remove(at: index)
+                                    if let index = sessionStore.photoParameters.firstIndex(of: photo) {
+                                        sessionStore.photoParameters.remove(at: index)
                                     }
                                 }) {
                                     Image(systemName: "xmark.circle.fill")
@@ -79,7 +79,7 @@ struct CustomCameraView: View {
                         .clipShape(Circle())
                         .padding(.horizontal)
                     Spacer()
-                    Button(action: { self.didTapCapture = true }) {
+                    Button(action: { didTapCapture = true }) {
                         Image(systemName: "camera")
                             .frame(width: 24)
                             .imageScale(.large)

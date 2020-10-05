@@ -27,26 +27,26 @@ class NotificationStore: ObservableObject {
     var center: UNUserNotificationCenter = .current()
     
     init() {
-        center.getNotificationSettings {
-            self.enabled = $0.authorizationStatus
+        center.getNotificationSettings { [self] in
+            enabled = $0.authorizationStatus
         }
     }
     
     func refreshNotificationStatus() {
         center.getNotificationSettings { setting in
-            DispatchQueue.main.async {
-                self.enabled = setting.authorizationStatus
+            DispatchQueue.main.async { [self] in
+                enabled = setting.authorizationStatus
             }
         }
     }
     
     func requestPermission() {
         center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 if granted {
-                    self.enabled = .authorized
+                    enabled = .authorized
                 } else {
-                    self.enabled = .denied
+                    enabled = .denied
                 }
             }
         }
@@ -79,12 +79,12 @@ class NotificationStore: ObservableObject {
     }
     
     func schedule() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
+        UNUserNotificationCenter.current().getNotificationSettings { [self] settings in
             switch settings.authorizationStatus {
             case .notDetermined:
-                self.requestPermission()
+                requestPermission()
             case .authorized, .provisional:
-                self.scheduleNotifications()
+                scheduleNotifications()
             default:
                 break
             }

@@ -45,7 +45,7 @@ struct SettingsView: View {
             }
             Section {
                 Button(action:  {
-                    self.showActionSheetExit = true
+                    showActionSheetExit = true
                 }) {
                     HStack {
                         Image(systemName: "flame")
@@ -55,8 +55,8 @@ struct SettingsView: View {
                 }
             }.actionSheet(isPresented: $showActionSheetExit) {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
-                    self.presentationMode.wrappedValue.dismiss()
-                    self.sessionStore.logout()
+                    presentationMode.wrappedValue.dismiss()
+                    sessionStore.logout()
                     }, .cancel()
                 ])
             }

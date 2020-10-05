@@ -49,12 +49,12 @@ struct LocalInspectionsDetails: View {
             .responseDecodable(of: YandexGeo.self) { response in
                 switch response.result {
                 case .success:
-                    guard let yandexGeo = response.value else { return }
-                    self.yandexGeo = yandexGeo
-                    self.yandexGeoState = .success
+                    guard let yandexGeoResponse = response.value else { return }
+                    yandexGeo = yandexGeoResponse
+                    yandexGeoState = .success
                 case .failure(let error):
                     print(error)
-                    self.yandexGeoState = .failure
+                    yandexGeoState = .failure
                 }
         }
     }
@@ -93,19 +93,19 @@ struct LocalInspectionsDetails: View {
         AF.request(sessionStore.serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .uploadProgress { progress in
-                self.sessionStore.uploadProgress = progress.fractionCompleted
+                sessionStore.uploadProgress = progress.fractionCompleted
             }
             .response { response in
                 switch response.result {
                 case .success:
-                    self.sessionStore.uploadState = .none
-                    self.sessionStore.alertType = .success
-                    self.sessionStore.showAlert = true
+                    sessionStore.uploadState = .none
+                    sessionStore.alertType = .success
+                    sessionStore.showAlert = true
                 case .failure(let error):
-                    self.sessionStore.errorAlert = error.errorDescription
-                    self.sessionStore.uploadState = .none
-                    self.sessionStore.alertType = .error
-                    self.sessionStore.showAlert = true
+                    sessionStore.errorAlert = error.errorDescription
+                    sessionStore.uploadState = .none
+                    sessionStore.alertType = .error
+                    sessionStore.showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -263,7 +263,7 @@ struct LocalInspectionsDetails: View {
                 }
                 Section(header: Text("Место проведения осмотра".uppercased())) {
                     Button(action: {
-                        self.presentMapActionSheet = true
+                        presentMapActionSheet = true
                     }) {
                         if yandexGeoState == .success && yandexGeo?.response.geoObjectCollection.featureMember.first?.geoObject.metaDataProperty.geocoderMetaData.text != nil {
                             HStack {
@@ -301,7 +301,7 @@ struct LocalInspectionsDetails: View {
             if sessionStore.uploadState == .none {
                 CustomButton(label: "Отправить на сервер", colorButton: .rosenergo, colorText: .white) {
                     UIApplication.shared.hideKeyboard()
-                    self.uploadLocalInspections()
+                    uploadLocalInspections()
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
@@ -312,17 +312,17 @@ struct LocalInspectionsDetails: View {
             }
         }
         .onAppear {
-            if self.yandexGeo == nil {
-                self.loadYandexGeoResponse()
+            if yandexGeo == nil {
+                loadYandexGeoResponse()
             }
         }
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Не отправлено")
         .actionSheet(isPresented: $presentMapActionSheet) {
             ActionSheet(title: Text("Выберите приложение"), message: Text("В каком приложение вы хотите открыть это местоположение?"), buttons: [.default(Text("Apple Maps")) {
-                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(self.localInspections.latitude),\(self.localInspections.longitude)")!)
+                UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
                 }, .default(Text("Яндекс.Карты")) {
-                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(self.localInspections.longitude),\(self.localInspections.latitude)")!)
+                UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
                 }, .cancel()
             ])
         }

@@ -43,7 +43,7 @@ struct ListInspections: View {
                 }
                 .contextMenu(menuItems: {
                     Button(action: {
-                        self.sessionStore.getInspections()
+                        sessionStore.getInspections()
                     }, label: {
                         VStack{
                             Image(systemName: "arrow.clockwise")

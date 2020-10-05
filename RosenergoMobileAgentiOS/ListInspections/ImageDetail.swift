@@ -27,28 +27,6 @@ struct ImageDetail: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-//            .offset(x: self.currentPosition.width, y: self.currentPosition.height)
-//            .scaleEffect(finalAmount + currentAmount)
-//            .gesture(
-//                DragGesture()
-//                    .onChanged { value in
-//                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-//                    }
-//                    .onEnded { value in
-//                        self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-//                        self.newPosition = self.currentPosition
-//                    }
-//            )
-//            .gesture(
-//                MagnificationGesture()
-//                    .onChanged { amount in
-//                        self.currentAmount = amount - 1
-//                    }
-//                    .onEnded { amount in
-//                        self.finalAmount += self.currentAmount
-//                        self.currentAmount = 0
-//                    }
-//            )
         }.navigationBarTitle("Фотография", displayMode: .inline)
     }
 }
@@ -67,28 +45,6 @@ struct LocalImageDetail: View {
             Image(uiImage: UIImage(data: Data(base64Encoded: photo, options: .ignoreUnknownCharacters)!)!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-//                .offset(x: self.currentPosition.width, y: self.currentPosition.height)
-//                .scaleEffect(finalAmount + currentAmount)
-//                .gesture(
-//                    DragGesture()
-//                        .onChanged { value in
-//                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-//                        }
-//                        .onEnded { value in
-//                            self.currentPosition = CGSize(width: value.translation.width + self.newPosition.width, height: value.translation.height + self.newPosition.height)
-//                            self.newPosition = self.currentPosition
-//                        }
-//                )
-//                .gesture(
-//                    MagnificationGesture()
-//                        .onChanged { amount in
-//                            self.currentAmount = amount - 1
-//                        }
-//                        .onEnded { amount in
-//                            self.finalAmount += self.currentAmount
-//                            self.currentAmount = 0
-//                        }
-//                )
         }.navigationBarTitle("Фотография", displayMode: .inline)
     }
 }

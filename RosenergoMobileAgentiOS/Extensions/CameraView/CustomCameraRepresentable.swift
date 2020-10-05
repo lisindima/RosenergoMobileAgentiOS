@@ -24,7 +24,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
-        if self.didTapCapture {
+        if didTapCapture {
             cameraViewController.didTapRecord(flashMode: flashMode)
         }
     }

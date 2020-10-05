@@ -22,7 +22,7 @@ struct SignIn: View {
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
             Button(action: {
-                self.sessionStore.login(email: self.email, password: self.password)
+                sessionStore.login(email: email, password: password)
             }) {
                 Text("Вход")
             }

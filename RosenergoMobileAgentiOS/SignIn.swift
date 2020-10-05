@@ -40,7 +40,7 @@ struct SignIn: View {
                     .padding(.horizontal)
                 CustomButton(label: sessionStore.loadingLogin ? "Загрузка" : "Войти", loading: sessionStore.loadingLogin, colorButton: .rosenergo, colorText: .white) {
                     UIApplication.shared.hideKeyboard()
-                    self.sessionStore.login(email: self.email, password: self.password)
+                    sessionStore.login(email: email, password: password)
                 }.padding()
             }
             .keyboardObserving()

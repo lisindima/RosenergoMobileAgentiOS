@@ -94,19 +94,19 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "login", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .validate()
-            .responseDecodable(of: LoginModel.self) { response in
+            .responseDecodable(of: LoginModel.self) { [self] response in
                 switch response.result {
                 case .success:
-                    guard let loginModel = response.value else { return }
-                    self.loginModel = loginModel
-                    self.loginParameters = parameters
-                    self.loadingLogin = false
+                    guard let loginModelResponse = response.value else { return }
+                    loginModel = loginModelResponse
+                    loginParameters = parameters
+                    loadingLogin = false
                     #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID(self.loginModel!.data.email)
+                    Crashlytics.crashlytics().setUserID(loginModel!.data.email)
                     #endif
                 case .failure(let error):
-                    self.showAlert = true
-                    self.loadingLogin = false
+                    showAlert = true
+                    loadingLogin = false
                     print(error)
                 }
         }
@@ -121,21 +121,21 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "logout", method: .post, headers: headers)
             .validate()
-            .responseJSON { response in
+            .responseJSON { [self] response in
                 switch response.result {
                 case .success:
-                    self.loginModel = nil
-                    self.loginParameters = nil
-                    self.inspections.removeAll()
-                    self.inspectionsLoadingState = .loading
+                    loginModel = nil
+                    loginParameters = nil
+                    inspections.removeAll()
+                    inspectionsLoadingState = .loading
                     #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID("")
                     #endif
                 case .failure(let error):
-                    self.loginModel = nil
-                    self.loginParameters = nil
-                    self.inspections.removeAll()
-                    self.inspectionsLoadingState = .loading
+                    loginModel = nil
+                    loginParameters = nil
+                    inspections.removeAll()
+                    inspectionsLoadingState = .loading
                     #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID("")
                     #endif
@@ -153,18 +153,18 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "token", method: .post, headers: headers)
             .validate()
-            .responseJSON { response in
+            .responseJSON { [self] response in
                 let code = response.response?.statusCode
                 switch response.result {
                 case .success:
                     break
                 case .failure:
-                    if code == 401 && self.loginParameters != nil {
-                        self.login(email: self.loginParameters!.email, password: self.loginParameters!.password)
-                    } else if code == 401 && self.loginParameters == nil {
-                        self.loginModel = nil
+                    if code == 401 && loginParameters != nil {
+                        login(email: loginParameters!.email, password: loginParameters!.password)
+                    } else if code == 401 && loginParameters == nil {
+                        loginModel = nil
                     } else if code == nil {
-                        self.showServerAlert = true
+                        showServerAlert = true
                     } else {
                         break
                     }
@@ -181,14 +181,14 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "inspections", method: .get, headers: headers)
             .validate()
-            .responseDecodable(of: [Inspections].self) { response in
+            .responseDecodable(of: [Inspections].self) { [self] response in
                 switch response.result {
                 case .success:
-                    guard let inspections = response.value else { return }
-                    self.inspections = inspections
-                    self.inspectionsLoadingState = .success
+                    guard let inspectionsResponse = response.value else { return }
+                    inspections = inspectionsResponse
+                    inspectionsLoadingState = .success
                 case .failure(let error):
-                    self.inspectionsLoadingState = .failure
+                    inspectionsLoadingState = .failure
                     print(error.errorDescription!)
                 }
         }
@@ -203,14 +203,14 @@ class SessionStore: ObservableObject {
 
         AF.request(serverURL + "vyplatnyedelas", method: .get, headers: headers)
             .validate()
-            .responseDecodable(of: [Vyplatnyedela].self) { response in
+            .responseDecodable(of: [Vyplatnyedela].self) { [self] response in
                 switch response.result {
                 case .success:
                     guard let vyplatnyedelaResponse = response.value else { return }
-                    self.vyplatnyedela = vyplatnyedelaResponse
-                    self.vyplatnyedelaLoadingState = .success
+                    vyplatnyedela = vyplatnyedelaResponse
+                    vyplatnyedelaLoadingState = .success
                 case .failure(let error):
-                    self.vyplatnyedelaLoadingState = .failure
+                    vyplatnyedelaLoadingState = .failure
                     print(error.errorDescription!)
                 }
         }
@@ -243,20 +243,20 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "inspection", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
-            .uploadProgress { progress in
-                self.uploadProgress = progress.fractionCompleted
+            .uploadProgress { [self] progress in
+                uploadProgress = progress.fractionCompleted
             }
-            .response { response in
+            .response { [self] response in
                 switch response.result {
                 case .success:
-                    self.alertType = .success
-                    self.uploadState = .none
-                    self.showAlert = true
+                    alertType = .success
+                    uploadState = .none
+                    showAlert = true
                 case .failure(let error):
-                    self.errorAlert = error.errorDescription
-                    self.alertType = .error
-                    self.uploadState = .none
-                    self.showAlert = true
+                    errorAlert = error.errorDescription
+                    alertType = .error
+                    uploadState = .none
+                    showAlert = true
                     print(error.errorDescription!)
             }
         }
@@ -281,20 +281,20 @@ class SessionStore: ObservableObject {
         
         AF.request(serverURL + "vyplatnyedela", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
-            .uploadProgress { progress in
-                self.uploadProgress = progress.fractionCompleted
+            .uploadProgress { [self] progress in
+                uploadProgress = progress.fractionCompleted
             }
-            .response { response in
+            .response { [self] response in
                 switch response.result {
                 case .success:
-                    self.alertType = .success
-                    self.uploadState = .none
-                    self.showAlert = true
+                    alertType = .success
+                    uploadState = .none
+                    showAlert = true
                 case .failure(let error):
-                    self.errorAlert = error.errorDescription
-                    self.alertType = .error
-                    self.uploadState = .none
-                    self.showAlert = true
+                    errorAlert = error.errorDescription
+                    alertType = .error
+                    uploadState = .none
+                    showAlert = true
                     print(error.errorDescription!)
                 }
         }
