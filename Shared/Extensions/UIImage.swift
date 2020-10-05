@@ -16,7 +16,7 @@ extension UIImage {
         format.opaque = true
         let renderer = UIGraphicsImageRenderer(size: size, format: format)
         return renderer.image { _ in
-            self.draw(in: CGRect(origin: .zero, size: size))
+            draw(in: CGRect(origin: .zero, size: size))
         }
         #else
         return self
