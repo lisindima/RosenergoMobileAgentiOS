@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct UploadIndicator: View {
-    
     @Binding var progress: Double
     var color: Color
     

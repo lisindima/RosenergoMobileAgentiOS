@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct CustomButton: View {
-    
     var label: String
     var loading: Bool?
     var colorButton: Color
@@ -38,7 +37,6 @@ struct CustomButton: View {
 }
 
 struct ImageButton: View {
-    
     var action: () -> Void
     var photoParameters: [PhotoParameters]
     
@@ -49,7 +47,7 @@ struct ImageButton: View {
                     .fill(Color.rosenergo.opacity(0.2))
                     .frame(minWidth: nil, idealWidth: nil, maxWidth: .infinity, minHeight: 72, idealHeight: 72, maxHeight: 72)
                 VStack {
-                    if photoParameters.count == 0 {
+                    if photoParameters.isEmpty {
                         Image(systemName: "camera")
                             .font(.title)
                             .foregroundColor(.rosenergo)
@@ -65,15 +63,12 @@ struct ImageButton: View {
 }
 
 struct ActivityIndicatorButton: UIViewRepresentable {
-    
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicatorButton>) -> UIActivityIndicatorView {
+    func makeUIView(context _: UIViewRepresentableContext<ActivityIndicatorButton>) -> UIActivityIndicatorView {
         let indicator = UIActivityIndicatorView()
         indicator.startAnimating()
         indicator.color = .white
         return indicator
     }
     
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicatorButton>) {
-        
-    }
+    func updateUIView(_: UIActivityIndicatorView, context _: UIViewRepresentableContext<ActivityIndicatorButton>) {}
 }

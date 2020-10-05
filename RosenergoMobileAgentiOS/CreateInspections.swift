@@ -6,16 +6,15 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import KeyboardObserving
+import SwiftUI
 
 struct CreateInspections: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject var notificationStore = NotificationStore.shared
     @ObservedObject private var locationStore = LocationStore.shared
     
     @State private var showCustomCameraView: Bool = false

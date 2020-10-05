@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct LocalInspectionsItems: View {
-    
     var localInspections: LocalInspections
     
     var body: some View {

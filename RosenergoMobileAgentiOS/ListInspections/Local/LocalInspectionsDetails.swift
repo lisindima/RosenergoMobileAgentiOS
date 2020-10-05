@@ -6,16 +6,15 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Alamofire
+import SwiftUI
 
 struct LocalInspectionsDetails: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject var notificationStore = NotificationStore.shared
     
     @State private var presentMapActionSheet: Bool = false
     @State private var yandexGeoState: YandexGeoState = .loading
@@ -35,7 +34,6 @@ struct LocalInspectionsDetails: View {
     }
     
     private func loadYandexGeoResponse() {
-        
         let parameters = YandexGeoParameters(
             apikey: sessionStore.apiKeyForYandexGeo,
             format: "json",
@@ -52,7 +50,7 @@ struct LocalInspectionsDetails: View {
                     guard let yandexGeoResponse = response.value else { return }
                     yandexGeo = yandexGeoResponse
                     yandexGeoState = .success
-                case .failure(let error):
+                case let .failure(error):
                     print(error)
                     yandexGeoState = .failure
                 }
@@ -60,7 +58,6 @@ struct LocalInspectionsDetails: View {
     }
     
     private func uploadLocalInspections() {
-        
         sessionStore.uploadState = .upload
         
         var localPhotoParameters: [PhotoParameters] = []
@@ -71,7 +68,7 @@ struct LocalInspectionsDetails: View {
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: sessionStore.loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         let parameters = InspectionParameters(
@@ -101,7 +98,7 @@ struct LocalInspectionsDetails: View {
                     sessionStore.uploadState = .none
                     sessionStore.alertType = .success
                     sessionStore.showAlert = true
-                case .failure(let error):
+                case let .failure(error):
                     sessionStore.errorAlert = error.errorDescription
                     sessionStore.uploadState = .none
                     sessionStore.alertType = .error
@@ -323,8 +320,7 @@ struct LocalInspectionsDetails: View {
                 UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(localInspections.latitude),\(localInspections.longitude)")!)
                 }, .default(Text("Яндекс.Карты")) {
                 UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(localInspections.longitude),\(localInspections.latitude)")!)
-                }, .cancel()
-            ])
+                }, .cancel()])
         }
         .alert(isPresented: $sessionStore.showAlert) {
             switch sessionStore.alertType {

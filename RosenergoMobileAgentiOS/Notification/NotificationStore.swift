@@ -6,13 +6,12 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Combine
 import Defaults
+import SwiftUI
 import UserNotifications
 
 class NotificationStore: ObservableObject {
-    
     @Default(.notifyHour) var notifyHour {
         willSet {
             objectWillChange.send()

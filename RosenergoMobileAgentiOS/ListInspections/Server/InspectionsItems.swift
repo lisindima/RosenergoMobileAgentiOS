@@ -10,7 +10,6 @@ import SwiftUI
 import URLImage
 
 struct InspectionsItems: View {
-    
     var inspection: Inspections
     
     var body: some View {

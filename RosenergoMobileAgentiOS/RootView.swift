@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct RootView: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     
     var body: some View {

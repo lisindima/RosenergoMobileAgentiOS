@@ -6,12 +6,11 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Espera
+import SwiftUI
 import URLImage
 
 struct InspectionsItems: View {
-    
     var inspection: Inspections
     
     var body: some View {

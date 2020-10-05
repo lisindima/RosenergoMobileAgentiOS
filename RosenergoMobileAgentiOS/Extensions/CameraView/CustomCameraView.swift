@@ -6,11 +6,10 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 struct CustomCameraView: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     

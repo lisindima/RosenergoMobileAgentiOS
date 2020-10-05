@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct MenuButton: View {
-    
     var title: String
     var image: String
     var color: Color

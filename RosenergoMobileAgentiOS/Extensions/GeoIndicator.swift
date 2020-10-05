@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct GeoIndicator: View {
-    
     @ObservedObject private var locationStore = LocationStore.shared
     @EnvironmentObject var sessionStore: SessionStore
     

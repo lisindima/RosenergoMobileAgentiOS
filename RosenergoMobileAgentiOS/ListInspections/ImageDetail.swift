@@ -10,7 +10,6 @@ import SwiftUI
 import URLImage
 
 struct ImageDetail: View {
-    
     @State private var currentPosition: CGSize = .zero
     @State private var newPosition: CGSize = .zero
     @State private var currentAmount: CGFloat = 0
@@ -32,7 +31,6 @@ struct ImageDetail: View {
 }
 
 struct LocalImageDetail: View {
-    
     @State private var currentPosition: CGSize = .zero
     @State private var newPosition: CGSize = .zero
     @State private var currentAmount: CGFloat = 0

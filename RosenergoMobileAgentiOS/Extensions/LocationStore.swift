@@ -29,7 +29,7 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations.last
         latitude = currentLocation!.coordinate.latitude
         longitude = currentLocation!.coordinate.longitude

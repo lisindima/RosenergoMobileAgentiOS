@@ -6,17 +6,16 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import NativeSearchBar
+import SwiftUI
 
 struct ListInspections: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest(entity: LocalInspections.entity(), sortDescriptors: []) var localInspections: FetchedResults<LocalInspections>
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject var notificationStore = NotificationStore.shared
     
     @State private var searchText: String = ""
     

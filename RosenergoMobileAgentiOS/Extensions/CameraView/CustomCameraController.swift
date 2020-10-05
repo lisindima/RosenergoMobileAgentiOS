@@ -6,11 +6,10 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 class CustomCameraController: UIViewController {
-
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?

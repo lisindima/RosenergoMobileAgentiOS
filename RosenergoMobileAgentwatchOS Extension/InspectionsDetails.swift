@@ -6,14 +6,13 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
+import Alamofire
+import Espera
 import SwiftUI
 import URLImage
-import Espera
-import Alamofire
 
 struct InspectionsDetails: View {
-    
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @ObservedObject var sessionStore = SessionStore.shared
     
     @State private var yandexGeoState: YandexGeoState = .loading
     @State private var yandexGeo: YandexGeo?
@@ -21,7 +20,6 @@ struct InspectionsDetails: View {
     var inspection: Inspections
     
     private func loadYandexGeoResponse(latitude: Double, longitude: Double) {
-        
         let parameters = YandexGeoParameters(
             apikey: sessionStore.apiKeyForYandexGeo,
             format: "json",
@@ -38,7 +36,7 @@ struct InspectionsDetails: View {
                     guard let yandexGeoResponse = response.value else { return }
                     yandexGeo = yandexGeoResponse
                     yandexGeoState = .success
-                case .failure(let error):
+                case let .failure(error):
                     print(error)
                     yandexGeoState = .failure
                 }

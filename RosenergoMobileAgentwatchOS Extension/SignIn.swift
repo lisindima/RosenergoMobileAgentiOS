@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct SignIn: View {
-    
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @ObservedObject var sessionStore = SessionStore.shared
     
     @State private var email: String = ""
     @State private var password: String = ""

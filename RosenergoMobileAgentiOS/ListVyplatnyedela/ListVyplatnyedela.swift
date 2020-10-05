@@ -6,11 +6,10 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import NativeSearchBar
+import SwiftUI
 
 struct ListVyplatnyedela: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
 
     @State private var searchText: String = ""

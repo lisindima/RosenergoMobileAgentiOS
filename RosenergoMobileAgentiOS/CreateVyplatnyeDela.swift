@@ -6,12 +6,11 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import CoreLocation
 import KeyboardObserving
+import SwiftUI
 
 struct CreateVyplatnyeDela: View {
-    
     @ObservedObject private var locationStore = LocationStore.shared
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode

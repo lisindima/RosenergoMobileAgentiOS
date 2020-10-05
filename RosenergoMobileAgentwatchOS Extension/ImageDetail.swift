@@ -6,12 +6,11 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Espera
+import SwiftUI
 import URLImage
 
 struct ImageDetail: View {
-    
     @State private var currentPosition: CGSize = .zero
     @State private var newPosition: CGSize = .zero
     @State private var scale: CGFloat = 1.0

@@ -6,11 +6,10 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 struct CustomCameraRepresentable: UIViewControllerRepresentable {
-    
     @ObservedObject private var locationStore = LocationStore.shared
     @EnvironmentObject var sessionStore: SessionStore
     
@@ -23,7 +22,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
         return controller
     }
 
-    func updateUIViewController(_ cameraViewController: CustomCameraController, context: Context) {
+    func updateUIViewController(_ cameraViewController: CustomCameraController, context _: Context) {
         if didTapCapture {
             cameraViewController.didTapRecord(flashMode: flashMode)
         }
@@ -40,7 +39,7 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        func photoOutput(_: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error _: Error?) {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
@@ -57,15 +56,15 @@ extension UIImage {
     func addText(text: String, point: CGPoint) -> UIImage {
         let textColor = UIColor(named: "textColor")
         let textFont = UIFont(name: "Helvetica Bold", size: 40)!
-        UIGraphicsBeginImageContextWithOptions(self.size, false, 1)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
         
         let textFontAttributes = [
             NSAttributedString.Key.font: textFont,
             NSAttributedString.Key.foregroundColor: textColor!,
-            ] as [NSAttributedString.Key : Any]
+        ] as [NSAttributedString.Key: Any]
         
-        self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
-        let rect = CGRect(origin: point, size: self.size)
+        draw(in: CGRect(origin: CGPoint.zero, size: size))
+        let rect = CGRect(origin: point, size: size)
         text.draw(in: rect, withAttributes: textFontAttributes)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -76,7 +75,7 @@ extension UIImage {
     func resize(size: CGSize, scale: CGFloat) -> UIImage {
         let targetSize = CGSize(width: size.width * scale, height: size.height * scale)
         let renderer = UIGraphicsImageRenderer(size: targetSize)
-        return renderer.image { context in
+        return renderer.image { _ in
             self.draw(in: CGRect(origin: .zero, size: targetSize))
         }
     }

@@ -6,15 +6,14 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import MessageUI
+import SwiftUI
 
 struct SettingsView: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var notificationStore: NotificationStore = NotificationStore.shared
+    @ObservedObject var notificationStore = NotificationStore.shared
     
     @State private var showActionSheetExit: Bool = false
     @State private var showAlert: Bool = false
@@ -89,7 +88,7 @@ struct SettingsView: View {
                         Button("Выключить уведомления", action: openSettings)
                             .foregroundColor(.primary)
                     }
-                    Stepper(value: $notificationStore.notifyHour, in: 1...24) {
+                    Stepper(value: $notificationStore.notifyHour, in: 1 ... 24) {
                         Image(systemName: "timer")
                             .frame(width: 24)
                             .foregroundColor(.rosenergo)
@@ -131,7 +130,7 @@ struct SettingsView: View {
                 }
             }
             Section {
-                Button(action:  {
+                Button(action: {
                     showActionSheetExit = true
                 }) {
                     HStack {
@@ -144,8 +143,7 @@ struct SettingsView: View {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
                     presentationMode.wrappedValue.dismiss()
                     sessionStore.logout()
-                    }, .cancel()
-                ])
+                    }, .cancel()])
             }
         }
         .environment(\.horizontalSizeClass, .regular)

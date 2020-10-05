@@ -9,16 +9,13 @@
 import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {
-    
     var styleSpinner: UIActivityIndicatorView.Style
     
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+    func makeUIView(context _: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
         let indicator = UIActivityIndicatorView(style: styleSpinner)
         indicator.startAnimating()
         return indicator
     }
     
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        
-    }
+    func updateUIView(_: UIActivityIndicatorView, context _: UIViewRepresentableContext<ActivityIndicator>) {}
 }

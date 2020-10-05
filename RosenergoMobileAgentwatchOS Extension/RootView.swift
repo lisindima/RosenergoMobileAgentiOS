@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct RootView: View {
-    
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @ObservedObject var sessionStore = SessionStore.shared
     
     var body: some View {
         Group {

@@ -6,16 +6,14 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import KeyboardObserving
+import SwiftUI
 
 struct SignIn: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var email: String = ""
     @State private var password: String = ""
-    
     
     var body: some View {
         NavigationView {

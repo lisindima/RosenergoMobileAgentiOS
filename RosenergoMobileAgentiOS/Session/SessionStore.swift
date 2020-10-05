@@ -6,16 +6,15 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
-import Combine
 import Alamofire
+import Combine
 import Defaults
+import SwiftUI
 #if !os(watchOS)
 import FirebaseCrashlytics
 #endif
 
 class SessionStore: ObservableObject {
-    
     @Default(.loginModel) var loginModel {
         willSet {
             objectWillChange.send()
@@ -28,9 +27,9 @@ class SessionStore: ObservableObject {
         }
     }
     
-    @Published var inspections: [Inspections] = [Inspections]()
-    @Published var vyplatnyedela: [Vyplatnyedela] = [Vyplatnyedela]()
-    @Published var photoParameters: [PhotoParameters] = [PhotoParameters]()
+    @Published var inspections = [Inspections]()
+    @Published var vyplatnyedela = [Vyplatnyedela]()
+    @Published var photoParameters = [PhotoParameters]()
     @Published var loadingLogin: Bool = false
     @Published var uploadState: UploadState = .none
     @Published var inspectionsLoadingState: LoadingState = .loading
@@ -51,7 +50,7 @@ class SessionStore: ObservableObject {
     let apiKeyForYandexGeo: String = "deccec14-fb7f-40da-8be0-be3f7e6f2d8c"
     
     func stringDate() -> String {
-        let currentDate: Date = Date()
+        let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let createStringDate = dateFormatter.string(from: currentDate)
@@ -61,7 +60,7 @@ class SessionStore: ObservableObject {
     func updateLocation(latitude: Double, longitude: Double) {
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         let parameters = LocationAgentUpdate(
@@ -74,9 +73,9 @@ class SessionStore: ObservableObject {
                 .validate()
                 .responseJSON { response in
                     switch response.result {
-                    case .success(let value):
+                    case let .success(value):
                         print("Геолокация обновлена\n\(value)")
-                    case .failure(let error):
+                    case let .failure(error):
                         print("Геолокация НЕОБНОВЛЕНА\n\(error)")
                     }
                 }
@@ -84,7 +83,6 @@ class SessionStore: ObservableObject {
     }
     
     func login(email: String, password: String) {
-        
         loadingLogin = true
         
         let parameters = LoginParameters(
@@ -104,7 +102,7 @@ class SessionStore: ObservableObject {
                     #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID(loginModel!.data.email)
                     #endif
-                case .failure(let error):
+                case let .failure(error):
                     showAlert = true
                     loadingLogin = false
                     print(error)
@@ -113,10 +111,9 @@ class SessionStore: ObservableObject {
     }
     
     func logout() {
-        
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         AF.request(serverURL + "logout", method: .post, headers: headers)
@@ -131,7 +128,7 @@ class SessionStore: ObservableObject {
                     #if !os(watchOS)
                     Crashlytics.crashlytics().setUserID("")
                     #endif
-                case .failure(let error):
+                case let .failure(error):
                     loginModel = nil
                     loginParameters = nil
                     inspections.removeAll()
@@ -145,10 +142,9 @@ class SessionStore: ObservableObject {
     }
     
     func validateToken() {
-        
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         AF.request(serverURL + "token", method: .post, headers: headers)
@@ -159,9 +155,9 @@ class SessionStore: ObservableObject {
                 case .success:
                     break
                 case .failure:
-                    if code == 401 && loginParameters != nil {
+                    if code == 401, loginParameters != nil {
                         login(email: loginParameters!.email, password: loginParameters!.password)
-                    } else if code == 401 && loginParameters == nil {
+                    } else if code == 401, loginParameters == nil {
                         loginModel = nil
                     } else if code == nil {
                         showServerAlert = true
@@ -173,10 +169,9 @@ class SessionStore: ObservableObject {
     }
     
     func getInspections() {
-        
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         AF.request(serverURL + "inspections", method: .get, headers: headers)
@@ -187,7 +182,7 @@ class SessionStore: ObservableObject {
                     guard let inspectionsResponse = response.value else { return }
                     inspections = inspectionsResponse
                     inspectionsLoadingState = .success
-                case .failure(let error):
+                case let .failure(error):
                     inspectionsLoadingState = .failure
                     print(error.errorDescription!)
                 }
@@ -195,10 +190,9 @@ class SessionStore: ObservableObject {
     }
     
     func getVyplatnyedela() {
-
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
-            .accept("application/json")
+            .accept("application/json"),
         ]
 
         AF.request(serverURL + "vyplatnyedelas", method: .get, headers: headers)
@@ -209,7 +203,7 @@ class SessionStore: ObservableObject {
                     guard let vyplatnyedelaResponse = response.value else { return }
                     vyplatnyedela = vyplatnyedelaResponse
                     vyplatnyedelaLoadingState = .success
-                case .failure(let error):
+                case let .failure(error):
                     vyplatnyedelaLoadingState = .failure
                     print(error.errorDescription!)
                 }
@@ -217,12 +211,11 @@ class SessionStore: ObservableObject {
     }
     
     func uploadInspections(carModel: String, carRegNumber: String, carBodyNumber: String, carVin: String, insuranceContractNumber: String, carModel2: String?, carRegNumber2: String?, carBodyNumber2: String?, carVin2: String?, insuranceContractNumber2: String?, latitude: Double, longitude: Double, photoParameters: [PhotoParameters]) {
-        
         uploadState = .upload
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         let parameters = InspectionParameters(
@@ -252,7 +245,7 @@ class SessionStore: ObservableObject {
                     alertType = .success
                     uploadState = .none
                     showAlert = true
-                case .failure(let error):
+                case let .failure(error):
                     errorAlert = error.errorDescription
                     alertType = .error
                     uploadState = .none
@@ -263,12 +256,11 @@ class SessionStore: ObservableObject {
     }
     
     func uploadVyplatnyeDela(insuranceContractNumber: String, numberZayavlenia: String, latitude: Double, longitude: Double, photos: [PhotoParameters]) {
-        
         uploadState = .upload
         
         let headers: HTTPHeaders = [
             .authorization(bearerToken: loginModel!.data.apiToken),
-            .accept("application/json")
+            .accept("application/json"),
         ]
         
         let parameters = VyplatnyeDelaParameters(
@@ -290,7 +282,7 @@ class SessionStore: ObservableObject {
                     alertType = .success
                     uploadState = .none
                     showAlert = true
-                case .failure(let error):
+                case let .failure(error):
                     errorAlert = error.errorDescription
                     alertType = .error
                     uploadState = .none

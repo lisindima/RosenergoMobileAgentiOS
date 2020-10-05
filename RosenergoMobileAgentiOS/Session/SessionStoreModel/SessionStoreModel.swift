@@ -161,7 +161,7 @@ struct YandexGeo: Codable, Hashable {
     let response: Response
     
     enum CodingKeys: String, CodingKey {
-        case response = "response"
+        case response
     }
 }
 
@@ -177,7 +177,7 @@ struct GeoObjectCollection: Codable, Hashable {
     let featureMember: [FeatureMember]
     
     enum CodingKeys: String, CodingKey {
-        case featureMember = "featureMember"
+        case featureMember
     }
 }
 
@@ -194,9 +194,9 @@ struct GeoObject: Codable, Hashable {
     let name, description: String?
 
     enum CodingKeys: String, CodingKey {
-        case metaDataProperty = "metaDataProperty"
-        case name = "name"
-        case description = "description"
+        case metaDataProperty
+        case name
+        case description
     }
 }
 
@@ -223,7 +223,7 @@ struct Address: Codable, Hashable {
 
     enum CodingKeys: String, CodingKey {
         case countryCode = "country_code"
-        case formatted = "formatted"
+        case formatted
         case postalCode = "postal_code"
     }
 }

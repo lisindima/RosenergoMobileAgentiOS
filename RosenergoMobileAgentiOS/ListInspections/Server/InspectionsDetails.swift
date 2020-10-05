@@ -6,12 +6,11 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
+import Alamofire
 import SwiftUI
 import URLImage
-import Alamofire
 
 struct InspectionsDetails: View {
-    
     @EnvironmentObject var sessionStore: SessionStore
     
     @State private var presentMapActionSheet: Bool = false
@@ -21,7 +20,6 @@ struct InspectionsDetails: View {
     var inspection: Inspections
     
     private func loadYandexGeoResponse() {
-        
         let parameters = YandexGeoParameters(
             apikey: sessionStore.apiKeyForYandexGeo,
             format: "json",
@@ -38,7 +36,7 @@ struct InspectionsDetails: View {
                     guard let yandexGeoResponse = response.value else { return }
                     yandexGeo = yandexGeoResponse
                     yandexGeoState = .success
-                case .failure(let error):
+                case let .failure(error):
                     print(error)
                     yandexGeoState = .failure
                 }
@@ -238,8 +236,7 @@ struct InspectionsDetails: View {
                 UIApplication.shared.open(URL(string: "https://maps.apple.com/?daddr=\(inspection.latitude),\(inspection.longitude)")!)
                 }, .default(Text("Яндекс.Карты")) {
                     UIApplication.shared.open(URL(string: "yandexmaps://maps.yandex.ru/?pt=\(inspection.longitude),\(inspection.latitude)")!)
-                }, .cancel()
-            ])
+                }, .cancel()])
         }
         .onAppear {
             if yandexGeo == nil {

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @ObservedObject var sessionStore = SessionStore.shared
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showActionSheetExit: Bool = false
@@ -44,7 +43,7 @@ struct SettingsView: View {
                 }
             }
             Section {
-                Button(action:  {
+                Button(action: {
                     showActionSheetExit = true
                 }) {
                     HStack {
@@ -57,8 +56,7 @@ struct SettingsView: View {
                 ActionSheet(title: Text("Вы уверены, что хотите выйти из этого аккаунта?"), message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"), buttons: [.destructive(Text("Выйти")) {
                     presentationMode.wrappedValue.dismiss()
                     sessionStore.logout()
-                    }, .cancel()
-                ])
+                    }, .cancel()])
             }
         }.navigationBarTitle("Настройки")
     }

@@ -6,12 +6,11 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Espera
+import SwiftUI
 
 struct ListInspections: View {
-    
-    @ObservedObject var sessionStore: SessionStore = SessionStore.shared
+    @ObservedObject var sessionStore = SessionStore.shared
     
     var body: some View {
         Group {
@@ -45,7 +44,7 @@ struct ListInspections: View {
                     Button(action: {
                         sessionStore.getInspections()
                     }, label: {
-                        VStack{
+                        VStack {
                             Image(systemName: "arrow.clockwise")
                                 .font(.title)
                             Text("Обновить список")

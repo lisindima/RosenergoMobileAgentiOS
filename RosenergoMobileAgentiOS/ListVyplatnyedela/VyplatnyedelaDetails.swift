@@ -10,7 +10,6 @@ import SwiftUI
 import URLImage
 
 struct VyplatnyedelaDetails: View {
-    
     var vyplatnyedela: Vyplatnyedela
     
     var body: some View {
