@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-               BuildableName = "RosenergoMobileAgent.app"
+               BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
                BlueprintName = "RosenergoMobileAgent (iOS)"
                ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-            BuildableName = "RosenergoMobileAgent.app"
+            BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
             BlueprintName = "RosenergoMobileAgent (iOS)"
             ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-            BuildableName = "RosenergoMobileAgent.app"
+            BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
             BlueprintName = "RosenergoMobileAgent (iOS)"
             ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
          </BuildableReference>

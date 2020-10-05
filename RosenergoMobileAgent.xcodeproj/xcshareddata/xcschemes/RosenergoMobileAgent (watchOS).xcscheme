@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB17E5572466644400CDBB1A"
-               BuildableName = "RosenergoMobileAgent.app"
+               BuildableName = "&#x410;&#x433;&#x435;&#x43d;&#x442;.app"
                BlueprintName = "RosenergoMobileAgent (iOS)"
                ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
             </BuildableReference>
@@ -54,10 +54,8 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
@@ -65,7 +63,7 @@
             BlueprintName = "RosenergoMobileAgent (watchOS)"
             ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,10 +71,8 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/&#x41c;&#x43e;&#x431;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x438;&#x306; &#x430;&#x433;&#x435;&#x43d;&#x442;">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
@@ -84,16 +80,7 @@
             BlueprintName = "RosenergoMobileAgent (watchOS)"
             ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
-            BuildableName = "RosenergoMobileAgent.app"
-            BlueprintName = "RosenergoMobileAgent (watchOS)"
-            ReferencedContainer = "container:RosenergoMobileAgent.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

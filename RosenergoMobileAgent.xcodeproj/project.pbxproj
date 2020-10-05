@@ -35,6 +35,7 @@
 		CB1ECFCD2508BD9700523D9E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1ECFCB2508BD9700523D9E /* Enum.swift */; };
 		CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB792480CB92004CB9C1 /* CustomCameraController.swift */; };
 		CB20FB7C2480CBC1004CB9C1 /* CustomCameraRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20FB7B2480CBC1004CB9C1 /* CustomCameraRepresentable.swift */; };
+		CB284C0C252AC2170066C6D1 /* MailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD5473C246EE6C9008ED0ED /* MailFeedback.swift */; };
 		CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */; };
 		CB2B5B0A24C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0524C55B4800D024D8 /* LocalInspections+CoreDataClass.swift */; };
 		CB2B5B0C24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0624C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift */; };
@@ -893,6 +894,7 @@
 				CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CB7EAEAE2510854300B4B4F5 /* MenuButton.swift in Sources */,
 				CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */,
+				CB284C0C252AC2170066C6D1 /* MailFeedback.swift in Sources */,
 				CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */,
 				CBF26F312526DF2A001C8B1A /* LocationStore.swift in Sources */,
 				CB7F88B9251461B500F5AF97 /* ServerImage.swift in Sources */,

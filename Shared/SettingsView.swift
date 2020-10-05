@@ -12,9 +12,10 @@ import MessageUI
 #endif
 
 struct SettingsView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var notificationStore: NotificationStore
+    
+    @Environment(\.presentationMode) private var presentationMode
     
     @State private var alertItem: AlertItem? = nil
     @State private var showActionSheetExit: Bool = false
@@ -57,19 +58,6 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        #if os(watchOS)
-        settings
-        #else
-        settings
-            .sheet(isPresented: $showMailFeedback) {
-                MailFeedback(alertItem: $alertItem)
-                    .ignoresSafeArea(edges: .bottom)
-                    .accentColor(.rosenergo)
-            }
-        #endif
-    }
-    
-    var settings: some View {
         Form {
             if let agent = sessionStore.loginModel {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
@@ -163,6 +151,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
+        .mailFeedback(isPresented: $showMailFeedback, alertItem: $alertItem)
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(
                 title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
