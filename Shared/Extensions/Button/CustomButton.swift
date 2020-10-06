@@ -75,8 +75,8 @@ struct CustomButton: View {
                     Spacer()
                     if loading, progress == 0.0 {
                         ProgressView()
-                            .padding(.trailing, 3)
                             .progressViewStyle(CircularProgressViewStyle(tint: colorText))
+                            .padding(.trailing, 3)
                     }
                     Text(loading ? "Загрузка" : title)
                         .fontWeight(.bold)

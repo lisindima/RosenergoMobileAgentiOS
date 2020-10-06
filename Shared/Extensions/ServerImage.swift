@@ -39,8 +39,11 @@ struct ServerImage: View {
             path,
             delay: delay,
             processors: [Resize(size: CGSize(width: size, height: size), scale: scale)],
-            placeholder: { _ in
-                ProgressView()
+            placeholder: {
+                ProgressView($0) { progress in
+                    ProgressView(value: progress)
+                        .progressViewStyle(CircularProgressViewStyle())
+                }
             }
         ) {
             $0.image

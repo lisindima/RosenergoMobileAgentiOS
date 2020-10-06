@@ -20,8 +20,11 @@ struct ImageDetail: View {
             ForEach(photos, id: \.id) { photo in
                 URLImage(
                     photo.path,
-                    placeholder: { _ in
-                        ProgressView()
+                    placeholder: {
+                        ProgressView($0) { progress in
+                            ProgressView(value: progress)
+                                .progressViewStyle(CircularProgressViewStyle())
+                        }
                     }
                 ) {
                     $0.image
