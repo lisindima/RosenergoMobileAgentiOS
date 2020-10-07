@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         NotificationStore.shared.requestPermission()
         manager.delegate = locationStore
+        LocationStore.shared.updateAgentLocationOnServer()
         return true
     }
 

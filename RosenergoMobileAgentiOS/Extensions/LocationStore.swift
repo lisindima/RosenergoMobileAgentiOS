@@ -29,12 +29,16 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    func updateAgentLocationOnServer() {
+        Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { [self] timer in
+            SessionStore.shared.updateLocation(latitude: latitude, longitude: longitude)
+        }
+    }
+    
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let currentLocation = locations.last
         latitude = currentLocation!.coordinate.latitude
         longitude = currentLocation!.coordinate.longitude
-        SessionStore.shared.updateLocation(latitude: latitude, longitude: longitude)
-        print(latitude, longitude)
     }
     
     func locationManager(_: CLLocationManager, didFailWithError error: Error) {
