@@ -54,8 +54,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/&#x410;&#x433;&#x435;&#x43d;&#x442;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
@@ -63,7 +65,7 @@
             BlueprintName = "RosenergoMobileAgentwatchOS"
             ReferencedContainer = "container:RosenergoMobileAgentiOS.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,8 +73,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/&#x410;&#x433;&#x435;&#x43d;&#x442;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
@@ -80,7 +84,16 @@
             BlueprintName = "RosenergoMobileAgentwatchOS"
             ReferencedContainer = "container:RosenergoMobileAgentiOS.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CB9DE92B249758B100F4E72A"
+            BuildableName = "RosenergoMobileAgentwatchOS.app"
+            BlueprintName = "RosenergoMobileAgentwatchOS"
+            ReferencedContainer = "container:RosenergoMobileAgentiOS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

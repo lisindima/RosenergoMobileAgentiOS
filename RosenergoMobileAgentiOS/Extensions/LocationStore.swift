@@ -23,14 +23,14 @@ class LocationStore: NSObject, ObservableObject, CLLocationManagerDelegate {
             manager.startUpdatingLocation()
             manager.allowsBackgroundLocationUpdates = true
         case .notDetermined, .restricted, .denied:
-            manager.requestWhenInUseAuthorization()
+            manager.requestAlwaysAuthorization()
         @unknown default:
-            manager.requestWhenInUseAuthorization()
+            manager.requestAlwaysAuthorization()
         }
     }
     
     func updateAgentLocationOnServer() {
-        Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { [self] timer in
+        Timer.scheduledTimer(withTimeInterval: 600, repeats: true) { [self] _ in
             SessionStore.shared.updateLocation(latitude: latitude, longitude: longitude)
         }
     }
