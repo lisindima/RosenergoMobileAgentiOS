@@ -59,7 +59,7 @@ class SessionStore: ObservableObject {
     
     func updateLocation(latitude: Double, longitude: Double) {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel!.data.apiToken),
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -79,6 +79,8 @@ class SessionStore: ObservableObject {
                         print("Геолокация НЕОБНОВЛЕНА\n\(error)")
                     }
                 }
+        } else {
+            print("Нет токена")
         }
     }
     
@@ -112,7 +114,7 @@ class SessionStore: ObservableObject {
     
     func logout() {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel!.data.apiToken),
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -143,7 +145,7 @@ class SessionStore: ObservableObject {
     
     func validateToken() {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel!.data.apiToken),
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -170,7 +172,7 @@ class SessionStore: ObservableObject {
     
     func getInspections() {
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel!.data.apiToken),
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -214,7 +216,7 @@ class SessionStore: ObservableObject {
         uploadState = .upload
         
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel!.data.apiToken),
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
         
@@ -259,7 +261,7 @@ class SessionStore: ObservableObject {
         uploadState = .upload
         
         let headers: HTTPHeaders = [
-            .authorization(bearerToken: loginModel!.data.apiToken),
+            .authorization(bearerToken: loginModel?.data.apiToken ?? ""),
             .accept("application/json"),
         ]
         
