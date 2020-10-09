@@ -70,7 +70,7 @@ struct LocalInspectionsDetails: View {
             longitude: localInspections.longitude,
             video: video,
             photos: photos
-        )) { [self] (result: Result<Inspections, UploadError>) in
+        )) { [self] (result: Result<Inspections, ApiError>) in
             switch result {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: delete)
@@ -196,12 +196,10 @@ struct LocalInspectionsDetails: View {
                 MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
             }
         }
-        CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress) {
-            uploadLocalInspections()
-        }
-        .padding(.horizontal)
-        .padding(.bottom, 8)
-        .navigationTitle("Не отправлено")
-        .customAlert(item: $alertItem)
+        CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress, action: uploadLocalInspections)
+            .padding(.horizontal)
+            .padding(.bottom, 8)
+            .navigationTitle("Не отправлено")
+            .customAlert(item: $alertItem)
     }
 }

@@ -57,7 +57,7 @@ struct CreateVyplatnyeDela: View {
             latitude: locationStore.latitude,
             longitude: locationStore.longitude,
             photos: photos
-        )) { [self] (result: Result<Vyplatnyedela, UploadError>) in
+        )) { [self] (result: Result<Vyplatnyedela, ApiError>) in
             switch result {
             case let .success(value):
                 vyplatnyedelaItem = value

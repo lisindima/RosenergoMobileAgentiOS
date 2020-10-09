@@ -95,7 +95,7 @@ struct CreateInspections: View {
             longitude: locationStore.longitude,
             video: video,
             photos: photos
-        )) { [self] (result: Result<Inspections, UploadError>) in
+        )) { [self] (result: Result<Inspections, ApiError>) in
             switch result {
             case let .success(value):
                 inspectionItem = value

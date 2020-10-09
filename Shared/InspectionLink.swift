@@ -18,7 +18,7 @@ struct InspectionLink: View {
     @State private var loadingState: LoadingState<Inspections> = .loading
 
     private func getInspection() {
-        sessionStore.fetch(.inspections(inspectionID)) { [self] (result: Result<Inspections, UploadError>) in
+        sessionStore.fetch(.inspections(inspectionID)) { [self] (result: Result<Inspections, ApiError>) in
             switch result {
             case let .success(value):
                 loadingState = .success(value)

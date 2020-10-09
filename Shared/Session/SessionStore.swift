@@ -68,7 +68,7 @@ class SessionStore: ObservableObject {
         return encoder
     }
     
-    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, UploadError>) -> Void) {
+    func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, ApiError>) -> Void) {
         var request = createRequest(endpoint, httpMethod: httpMethod)
         request.httpBody = try? createEncoder().encode(parameters)
         
@@ -76,7 +76,7 @@ class SessionStore: ObservableObject {
             .map(\.data)
             .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
-            .catch { error -> Just<Result<T, UploadError>> in
+            .catch { error -> Just<Result<T, ApiError>> in
                 error is DecodingError
                     ? Just(.failure(.decodeFailed(error)))
                     : Just(.failure(.uploadFailed(error)))
@@ -86,12 +86,12 @@ class SessionStore: ObservableObject {
             .store(in: &requests)
     }
     
-    func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: HTTPMethod = .get, completion: @escaping (Result<T, UploadError>) -> Void) {
+    func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: HTTPMethod = .get, completion: @escaping (Result<T, ApiError>) -> Void) {
         URLSession.shared.dataTaskPublisher(for: createRequest(endpoint, httpMethod: httpMethod))
             .map(\.data)
             .decode(type: T.self, decoder: createDecoder())
             .map(Result.success)
-            .catch { error -> Just<Result<T, UploadError>> in
+            .catch { error -> Just<Result<T, ApiError>> in
                 error is DecodingError
                     ? Just(.failure(.decodeFailed(error)))
                     : Just(.failure(.uploadFailed(error)))
@@ -126,7 +126,7 @@ class SessionStore: ObservableObject {
             password: password
         )
         
-        upload(.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, UploadError>) in
+        upload(.login, parameters: parameters) { [self] (result: Result<LoginModel.NetworkResponse, ApiError>) in
             switch result {
             case let .success(value):
                 loginModel = value.data
@@ -139,14 +139,14 @@ class SessionStore: ObservableObject {
     }
     
     func logout(completion: @escaping () -> Void) {
-        fetch(.logout, httpMethod: .post) { [self] (_: Result<LogoutModel, UploadError>) in
+        fetch(.logout, httpMethod: .post) { [self] (_: Result<LogoutModel, ApiError>) in
             completion()
             clearData()
         }
     }
     
     func getInspections() {
-        fetch(.inspections()) { [self] (result: Result<[Inspections], UploadError>) in
+        fetch(.inspections()) { [self] (result: Result<[Inspections], ApiError>) in
             switch result {
             case let .success(value):
                 if value.isEmpty {
@@ -162,7 +162,7 @@ class SessionStore: ObservableObject {
     }
     
     func getVyplatnyedela() {
-        fetch(.vyplatnyedela()) { [self] (result: Result<[Vyplatnyedela], UploadError>) in
+        fetch(.vyplatnyedela()) { [self] (result: Result<[Vyplatnyedela], ApiError>) in
             switch result {
             case let .success(value):
                 if value.isEmpty {

@@ -23,7 +23,7 @@ enum HapticType {
     case error, success, warning
 }
 
-enum UploadError: Error {
+enum ApiError: Error {
     case uploadFailed(_ error: Error)
     case decodeFailed(_ error: Error)
 }
