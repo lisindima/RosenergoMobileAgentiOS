@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationStore.shared.requestPermission()
         manager.delegate = locationStore
         LocationStore.shared.updateAgentLocationOnServer()
+        Crashlytics.crashlytics().setUserID(SessionStore.shared.loginModel?.data.email ?? "")
         return true
     }
 

@@ -10,9 +10,6 @@ import Alamofire
 import Combine
 import Defaults
 import SwiftUI
-#if !os(watchOS)
-import FirebaseCrashlytics
-#endif
 
 class SessionStore: ObservableObject {
     @Default(.loginModel) var loginModel {
@@ -101,9 +98,6 @@ class SessionStore: ObservableObject {
                     loginModel = loginModelResponse
                     loginParameters = parameters
                     loadingLogin = false
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID(loginModel!.data.email)
-                    #endif
                 case let .failure(error):
                     showAlert = true
                     loadingLogin = false
@@ -127,17 +121,11 @@ class SessionStore: ObservableObject {
                     loginParameters = nil
                     inspections.removeAll()
                     inspectionsLoadingState = .loading
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID("")
-                    #endif
                 case let .failure(error):
                     loginModel = nil
                     loginParameters = nil
                     inspections.removeAll()
                     inspectionsLoadingState = .loading
-                    #if !os(watchOS)
-                    Crashlytics.crashlytics().setUserID("")
-                    #endif
                     print(error.errorDescription!)
                 }
         }
