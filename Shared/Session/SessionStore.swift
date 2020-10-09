@@ -33,7 +33,7 @@ class SessionStore: ObservableObject {
     
     private var requests = Set<AnyCancellable>()
     
-    func createRequest(_ endpoint: Endpoint, httpMethod: HTTPMethod) -> URLRequest {
+    private func createRequest(_ endpoint: Endpoint, httpMethod: HTTPMethod) -> URLRequest {
         var request = URLRequest(url: endpoint.url)
         request.allowsExpensiveNetworkAccess = true
         request.httpMethod = httpMethod.rawValue
@@ -45,7 +45,7 @@ class SessionStore: ObservableObject {
         return request
     }
     
-    func createDecoder() -> JSONDecoder {
+    private func createDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
@@ -57,7 +57,7 @@ class SessionStore: ObservableObject {
         return decoder
     }
     
-    func createEncoder() -> JSONEncoder {
+    private func createEncoder() -> JSONEncoder {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         

@@ -6,7 +6,8 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
+import Combine
 
 enum Endpoint {
     case login
