@@ -15,7 +15,7 @@ struct LoadingView<Value, Content>: View where Content: View {
     var title: String = ""
     var subTitle: String = ""
     var content: (_ value: Value) -> Content
-
+    
     init(_ loadingState: Binding<LoadingState<Value>>, load: @escaping () -> Void, content: @escaping (_ value: Value) -> Content) {
         _loadingState = loadingState
         self.load = load
@@ -30,6 +30,11 @@ struct LoadingView<Value, Content>: View where Content: View {
         self.content = content
     }
     
+    private func retryHandler() {
+        loadingState = .loading
+        load()
+    }
+    
     var body: some View {
         switch loadingState {
         case .loading:
@@ -39,32 +44,10 @@ struct LoadingView<Value, Content>: View where Content: View {
             content(value)
                 .onAppear(perform: load)
         case let .failure(error):
-            Spacer()
-            Text("Произошла ошибка")
-                .messageTitle()
-                .multilineTextAlignment(.center)
-                .padding(.bottom)
-            Text(error.localizedDescription)
-                .messageSubtitle()
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            Spacer()
-            CustomButton("Повторить") {
-                load()
-                loadingState = .loading
-            }
-            .padding()
+            ErrorView(error: error, retryHandler: retryHandler)
         case .empty:
-            Group {
-                Text(title)
-                    .messageTitle()
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom)
-                Text(subTitle)
-                    .messageSubtitle()
-                    .multilineTextAlignment(.center)
-            }
-            .onAppear(perform: load)
+            EmptyView(title: title, subTitle: subTitle)
+                .onAppear(perform: load)
         }
     }
 }

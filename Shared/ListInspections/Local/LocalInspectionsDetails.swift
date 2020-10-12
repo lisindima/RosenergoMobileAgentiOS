@@ -193,7 +193,10 @@ struct LocalInspectionsDetails: View {
                 }
             }
             Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
-                MapView(latitude: localInspections.latitude, longitude: localInspections.longitude)
+                MapView(
+                    latitude: localInspections.latitude,
+                    longitude: localInspections.longitude
+                )
             }
         }
         CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress, action: uploadLocalInspections)

@@ -187,7 +187,10 @@ struct InspectionsDetails: View {
                 }
             }
             Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
-                MapView(latitude: inspection.latitude, longitude: inspection.longitude)
+                MapView(
+                    latitude: inspection.latitude,
+                    longitude: inspection.longitude
+                )
             }
         }
         .navigationTitle("Осмотр: \(inspection.id)")
