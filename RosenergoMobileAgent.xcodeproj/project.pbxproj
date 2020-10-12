@@ -45,10 +45,11 @@
 		CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
 		CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
-		CB373FBF25344D6C00FEDE4B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FBE25344D6C00FEDE4B /* ErrorView.swift */; };
-		CB373FC025344D6C00FEDE4B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FBE25344D6C00FEDE4B /* ErrorView.swift */; };
-		CB373FCA25344D8C00FEDE4B /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FC925344D8C00FEDE4B /* EmptyView.swift */; };
-		CB373FCB25344D8C00FEDE4B /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FC925344D8C00FEDE4B /* EmptyView.swift */; };
+		CB373FBF25344D6C00FEDE4B /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */; };
+		CB373FC025344D6C00FEDE4B /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */; };
+		CB373FCA25344D8C00FEDE4B /* LoadingEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */; };
+		CB373FCB25344D8C00FEDE4B /* LoadingEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */; };
+		CB373FE52534580D00FEDE4B /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB373FE42534580D00FEDE4B /* URLImage */; };
 		CB3805D424EB8F4500925D44 /* InspectionLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B826824D4079800C0C558 /* InspectionLink.swift */; };
 		CB3C916D250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3C916E250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
@@ -89,7 +90,6 @@
 		CB7F88B8251461B500F5AF97 /* ServerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F88B7251461B500F5AF97 /* ServerImage.swift */; };
 		CB7F88B9251461B500F5AF97 /* ServerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F88B7251461B500F5AF97 /* ServerImage.swift */; };
 		CB7F88BD2514EB1200F5AF97 /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
-		CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB85CDB8249B34A500AAEF04 /* URLImage */; };
 		CB866C4924CECB4900447E7F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E584246864AE00CDBB1A /* CustomButton.swift */; };
 		CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CB870229249C5FF400B5DA72 /* URLImage */; };
 		CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
@@ -248,8 +248,8 @@
 		CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalPhotos+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CB2B5B82246BA8CE006F35AC /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
-		CB373FBE25344D6C00FEDE4B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		CB373FC925344D8C00FEDE4B /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
+		CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingEmptyView.swift; sourceTree = "<group>"; };
 		CB3C916C250DE30A0099958D /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		CB4B826824D4079800C0C558 /* InspectionLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionLink.swift; sourceTree = "<group>"; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -340,8 +340,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */,
+				CB373FE52534580D00FEDE4B /* URLImage in Frameworks */,
 				CBAC7F4224D280E30081597D /* NativeSearchBar in Frameworks */,
-				CB85CDB9249B34A500AAEF04 /* URLImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,8 +476,8 @@
 			isa = PBXGroup;
 			children = (
 				CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */,
-				CB373FBE25344D6C00FEDE4B /* ErrorView.swift */,
-				CB373FC925344D8C00FEDE4B /* EmptyView.swift */,
+				CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */,
+				CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -684,8 +684,8 @@
 			);
 			name = "RosenergoMobileAgent (watchOS Extension)";
 			packageProductDependencies = (
-				CB85CDB8249B34A500AAEF04 /* URLImage */,
 				CBAC7F4124D280E30081597D /* NativeSearchBar */,
+				CB373FE42534580D00FEDE4B /* URLImage */,
 			);
 			productName = "RosenergoMobileAgentwatchOS Extension";
 			productReference = CB9DE938249758B400F4E72A /* RosenergoMobileAgent.appex */;
@@ -824,13 +824,13 @@
 				CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */,
 				CBB2E09C2478F73B0017AB00 /* LocalInspectionsDetails.swift in Sources */,
 				CB9AD06F24DD96BC00D220D8 /* Map.swift in Sources */,
-				CB373FCA25344D8C00FEDE4B /* EmptyView.swift in Sources */,
+				CB373FCA25344D8C00FEDE4B /* LoadingEmptyView.swift in Sources */,
 				CB758D8B24B17C93000A6B3C /* Date.swift in Sources */,
 				CB17E5762467A43700CDBB1A /* SessionStore.swift in Sources */,
 				CB17E5632466644400CDBB1A /* SignIn.swift in Sources */,
 				CB733DFD25259FC400651C0F /* LocalImage.swift in Sources */,
 				CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */,
-				CB373FBF25344D6C00FEDE4B /* ErrorView.swift in Sources */,
+				CB373FBF25344D6C00FEDE4B /* LoadingErrorView.swift in Sources */,
 				CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */,
 				CB17E585246864AE00CDBB1A /* CustomButton.swift in Sources */,
 				CB1ECFCC2508BD9700523D9E /* Enum.swift in Sources */,
@@ -884,8 +884,8 @@
 				CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */,
 				CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */,
 				CB0115CA25073C4000801969 /* ViewModifier.swift in Sources */,
-				CB373FC025344D6C00FEDE4B /* ErrorView.swift in Sources */,
-				CB373FCB25344D8C00FEDE4B /* EmptyView.swift in Sources */,
+				CB373FC025344D6C00FEDE4B /* LoadingErrorView.swift in Sources */,
+				CB373FCB25344D8C00FEDE4B /* LoadingEmptyView.swift in Sources */,
 				CB7267C52498B79A00E138BD /* Color.swift in Sources */,
 				CB733DFE25259FC500651C0F /* LocalImage.swift in Sources */,
 				CB2B5B0D24C55B4800D024D8 /* LocalInspections+CoreDataProperties.swift in Sources */,
@@ -1397,7 +1397,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB85CDB8249B34A500AAEF04 /* URLImage */ = {
+		CB373FE42534580D00FEDE4B /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */;
 			productName = URLImage;

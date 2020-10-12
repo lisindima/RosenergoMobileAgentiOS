@@ -44,9 +44,9 @@ struct LoadingView<Value, Content>: View where Content: View {
             content(value)
                 .onAppear(perform: load)
         case let .failure(error):
-            ErrorView(error: error, retryHandler: retryHandler)
+            LoadingErrorView(error: error, retryHandler: retryHandler)
         case .empty:
-            EmptyView(title: title, subTitle: subTitle)
+            LoadingEmptyView(title: title, subTitle: subTitle)
                 .onAppear(perform: load)
         }
     }

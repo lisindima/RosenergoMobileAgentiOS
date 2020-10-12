@@ -1,5 +1,5 @@
 //
-//  EmptyView.swift
+//  LoadingErrorView.swift
 //  RosenergoMobileAgent
 //
 //  Created by Дмитрий Лисин on 12.10.2020.
@@ -8,17 +8,22 @@
 
 import SwiftUI
 
-struct EmptyView: View {
-    var title: String
-    var subTitle: String
+struct LoadingErrorView: View {
+    var error: Error
+    var retryHandler: () -> Void
     
     var body: some View {
-        Text(title)
+        Spacer()
+        Text("Произошла ошибка")
             .messageTitle()
             .multilineTextAlignment(.center)
             .padding(.bottom)
-        Text(subTitle)
+        Text(error.localizedDescription)
             .messageSubtitle()
             .multilineTextAlignment(.center)
+            .padding(.horizontal)
+        Spacer()
+        CustomButton("Повторить", action: retryHandler)
+            .padding()
     }
 }

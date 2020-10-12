@@ -120,7 +120,7 @@ class SessionStore: ObservableObject {
         }
     }
     
-    func login(email: String, password: String, completion: @escaping (Result<LoginModel, Error>) -> Void) {
+    func login(email: String, password: String, completion: @escaping (Result<LoginModel, ApiError>) -> Void) {
         let parameters = LoginParameters(
             email: email,
             password: password
@@ -172,7 +172,7 @@ class SessionStore: ObservableObject {
                 }
             case let .failure(error):
                 vyplatnyedelaLoadingState = .failure(error)
-                debugPrint(error)
+                log(error.localizedDescription)
             }
         }
     }
