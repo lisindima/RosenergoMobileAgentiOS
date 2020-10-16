@@ -101,12 +101,10 @@ class SessionStore: ObservableObject {
             .store(in: &requests)
     }
     
-    #warning("Добавить возможность перезаписи файлов при загрузке!")
-    
     func download(_ items: [Any], fileType: FileType, completion: @escaping (Result<URL, Error>) -> Void) {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         for item in items {
-            let savedURL = documentsURL.appendingPathComponent(fileType == .photo ? "\((item as! Photo).id).jpeg" : "video.mp4")
+            let savedURL = documentsURL.appendingPathComponent(fileType == .photo ? "\(UUID().uuidString).jpeg" : "\(UUID().uuidString).mp4")
             URLSession.shared.downloadTask(with: fileType == .photo ? (item as! Photo).path : URL(string: "\(items.first!)")!) { fileURL, _, error in
                 if let fileURL = fileURL {
                     try! FileManager.default.moveItem(at: fileURL, to: savedURL)
