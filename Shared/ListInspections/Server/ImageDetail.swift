@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import URLImage
 
 struct ImageDetail: View {
     @State private var selectionImage: Int = 1
@@ -18,20 +17,9 @@ struct ImageDetail: View {
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in
-                URLImage(
-                    photo.path,
-                    placeholder: {
-                        ProgressView($0) { progress in
-                            ProgressView(value: progress)
-                                .progressViewStyle(CircularProgressViewStyle())
-                        }
-                    }
-                ) {
-                    $0.image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .pinchToZoom()
-                }
+                ServerImage(photo.path, isFullScreen: true)
+                    .aspectRatio(contentMode: .fit)
+                    .pinchToZoom()
             }
         }
         .tabViewStyle(PageTabViewStyle())
