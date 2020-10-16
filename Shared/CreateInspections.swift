@@ -14,6 +14,7 @@ struct CreateInspections: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var locationStore: LocationStore
     @EnvironmentObject private var notificationStore: NotificationStore
+    
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) private var moc
     

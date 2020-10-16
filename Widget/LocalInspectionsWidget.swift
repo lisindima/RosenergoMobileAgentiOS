@@ -59,17 +59,13 @@ extension LocalInspectionsWidget {
 }
 
 struct LocalInspectionsSystemLarge: View {
-    @Environment(\.colorScheme) private var colorScheme
-    
     @FetchRequest(sortDescriptors: [], animation: .default)
     private var localInspections: FetchedResults<LocalInspections>
     
     var body: some View {
         ZStack {
-            Group {
-                colorScheme == .light ? Color.blue : Color(.secondarySystemBackground)
-            }
-            .edgesIgnoringSafeArea(.all)
+            Color.rosenergo
+                .edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
                 Text("Осмотры")
                     .fontWeight(.bold)
@@ -102,17 +98,13 @@ struct LocalInspectionsSystemLarge: View {
 }
 
 struct LocalInspectionsSystemSmall: View {
-    @Environment(\.colorScheme) private var colorScheme
-    
     @FetchRequest(sortDescriptors: [], animation: .default)
     private var localInspections: FetchedResults<LocalInspections>
     
     var body: some View {
         ZStack {
-            Group {
-                colorScheme == .light ? Color.blue : Color(.secondarySystemBackground)
-            }
-            .edgesIgnoringSafeArea(.all)
+            Color.rosenergo
+                .edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
                 Text("Осмотры")
                     .fontWeight(.bold)
