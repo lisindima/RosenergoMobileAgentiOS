@@ -13,13 +13,7 @@ import URLImage
 
 struct ServerImage: View {
     var path: URL
-    var isFullScreen: Bool = false
     var delay: TimeInterval = 0.0
-    
-    init(_ path: URL, isFullScreen: Bool) {
-        self.path = path
-        self.isFullScreen = isFullScreen
-    }
     
     init(_ path: URL, delay: TimeInterval) {
         self.path = path
@@ -42,8 +36,8 @@ struct ServerImage: View {
         #endif
     }
     
-    #if os(iOS)
-    var image: some View {
+    var body: some View {
+        #if os(iOS)
         URLImage(
             url: path,
             options: URLImageOptions(cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: delay)),
@@ -61,17 +55,38 @@ struct ServerImage: View {
             image
                 .resizable()
         }
+        .cornerRadius(8)
+        .frame(width: size, height: size)
+        #endif
     }
-    #endif
+}
+
+struct FullScreenServerImage: View {
+    var path: URL
+    
+    init(_ path: URL) {
+        self.path = path
+    }
     
     var body: some View {
         #if os(iOS)
-        if isFullScreen {
+        URLImage(
+            url: path,
+            inProgress: { progress in
+                ProgressView(value: progress)
+                    .progressViewStyle(CircularProgressViewStyle())
+            },
+            failure: { error, retry in
+                Button(action: retry) {
+                    Image(systemName: "arrow.clockwise.circle")
+                        .imageScale(.large)
+                }
+            }
+        ) { image in
             image
-        } else {
-            image
-                .cornerRadius(8)
-                .frame(width: size, height: size)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .pinchToZoom()
         }
         #endif
     }

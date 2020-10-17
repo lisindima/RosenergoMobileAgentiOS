@@ -17,9 +17,7 @@ struct ImageDetail: View {
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(photos, id: \.id) { photo in
-                ServerImage(photo.path, isFullScreen: true)
-                    .aspectRatio(contentMode: .fit)
-                    .pinchToZoom()
+                FullScreenServerImage(photo.path)
             }
         }
         .tabViewStyle(PageTabViewStyle())
