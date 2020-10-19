@@ -8,6 +8,7 @@
 
 import SwiftUI
 #if os(iOS)
+import URLImage
 import MessageUI
 #endif
 
@@ -33,6 +34,11 @@ struct SettingsView: View {
         } else {
             alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
         }
+    }
+    
+    private func removeCache() {
+        URLImageService.shared.removeAllCachedImages()
+        alertItem = AlertItem(title: "Кэш очищен", message: "Кэш изображений успешно очищен.")
     }
     #endif
     
@@ -114,6 +120,11 @@ struct SettingsView: View {
                     title: "Оценить",
                     showLinkLabel: true,
                     destination: URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
+                )
+                SectionButton(
+                    imageName: "trash",
+                    title: "Очистить кэш изображений",
+                    action: removeCache
                 )
                 SectionButton(
                     imageName: "ant",
