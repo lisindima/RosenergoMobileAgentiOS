@@ -10,12 +10,12 @@
 import CoreData
 import Foundation
 
-extension LocalPhotos {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<LocalPhotos> {
+public extension LocalPhotos {
+    @nonobjc class func fetchRequest() -> NSFetchRequest<LocalPhotos> {
         NSFetchRequest<LocalPhotos>(entityName: "LocalPhotos")
     }
     
-    @NSManaged public var id: Int16
-    @NSManaged public var photosData: Data
-    @NSManaged public var localInspections: LocalInspections
+    @NSManaged var id: Int16
+    @NSManaged var photosData: Data
+    @NSManaged var localInspections: LocalInspections
 }

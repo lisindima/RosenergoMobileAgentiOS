@@ -10,41 +10,41 @@
 import CoreData
 import Foundation
 
-extension LocalInspections {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<LocalInspections> {
+public extension LocalInspections {
+    @nonobjc class func fetchRequest() -> NSFetchRequest<LocalInspections> {
         NSFetchRequest<LocalInspections>(entityName: "LocalInspections")
     }
     
-    @NSManaged public var carBodyNumber: String
-    @NSManaged public var carBodyNumber2: String?
-    @NSManaged public var carModel: String
-    @NSManaged public var carModel2: String?
-    @NSManaged public var carRegNumber: String
-    @NSManaged public var carRegNumber2: String?
-    @NSManaged public var carVin: String
-    @NSManaged public var carVin2: String?
-    @NSManaged public var dateInspections: Date
-    @NSManaged public var id: UUID
-    @NSManaged public var insuranceContractNumber: String
-    @NSManaged public var insuranceContractNumber2: String?
-    @NSManaged public var latitude: Double
-    @NSManaged public var longitude: Double
-    @NSManaged public var localPhotos: Set<LocalPhotos>
-    @NSManaged public var videoURL: URL?
+    @NSManaged var carBodyNumber: String
+    @NSManaged var carBodyNumber2: String?
+    @NSManaged var carModel: String
+    @NSManaged var carModel2: String?
+    @NSManaged var carRegNumber: String
+    @NSManaged var carRegNumber2: String?
+    @NSManaged var carVin: String
+    @NSManaged var carVin2: String?
+    @NSManaged var dateInspections: Date
+    @NSManaged var id: UUID
+    @NSManaged var insuranceContractNumber: String
+    @NSManaged var insuranceContractNumber2: String?
+    @NSManaged var latitude: Double
+    @NSManaged var longitude: Double
+    @NSManaged var localPhotos: Set<LocalPhotos>
+    @NSManaged var videoURL: URL?
 }
 
 // MARK: Generated accessors for localPhotos
 
-extension LocalInspections {
+public extension LocalInspections {
     @objc(addLocalPhotosObject:)
-    @NSManaged public func addToLocalPhotos(_ value: LocalPhotos)
+    @NSManaged func addToLocalPhotos(_ value: LocalPhotos)
     
     @objc(removeLocalPhotosObject:)
-    @NSManaged public func removeFromLocalPhotos(_ value: LocalPhotos)
+    @NSManaged func removeFromLocalPhotos(_ value: LocalPhotos)
     
     @objc(addLocalPhotos:)
-    @NSManaged public func addToLocalPhotos(_ values: Set<LocalPhotos>)
+    @NSManaged func addToLocalPhotos(_ values: Set<LocalPhotos>)
     
     @objc(removeLocalPhotos:)
-    @NSManaged public func removeFromLocalPhotos(_ values: Set<LocalPhotos>)
+    @NSManaged func removeFromLocalPhotos(_ values: Set<LocalPhotos>)
 }
