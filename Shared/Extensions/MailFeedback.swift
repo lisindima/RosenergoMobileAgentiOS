@@ -70,15 +70,16 @@ struct MailFeedbackModifier: ViewModifier {
     @Binding var isPresented: Bool
     @Binding var alertItem: AlertItem?
     
+    @ViewBuilder
     func body(content: Content) -> some View {
         #if os(iOS)
-        return content
+        content
             .sheet(isPresented: $isPresented) {
                 MailFeedback(alertItem: $alertItem)
                     .ignoresSafeArea(edges: .bottom)
             }
         #else
-        return content
+        content
         #endif
     }
 }

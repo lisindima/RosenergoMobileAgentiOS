@@ -26,6 +26,7 @@ struct SettingsView: View {
     #if os(iOS)
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
     #endif
+    private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
     
     #if os(iOS)
     private func feedback() {
@@ -35,12 +36,22 @@ struct SettingsView: View {
             alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
         }
     }
+    #endif
     
     private func removeCache() {
+        #if os(iOS)
         URLImageService.shared.removeAllCachedImages()
-        alertItem = AlertItem(title: "Кэш очищен", message: "Кэш изображений успешно очищен.")
+        #endif
+        alertItem = AlertItem(title: "Успешно", message: "Кэш изображений успешно очищен.")
     }
-    #endif
+    
+    private func logout() {
+        loading = true
+        sessionStore.logout {
+            loading = false
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
     
     var footerNotification: Text {
         switch notificationStore.enabled {
@@ -119,13 +130,15 @@ struct SettingsView: View {
                     imageName: "star",
                     title: "Оценить",
                     showLinkLabel: true,
-                    destination: URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
+                    destination: appstoreURL
                 )
+                #endif
                 SectionButton(
                     imageName: "trash",
                     title: "Очистить кэш изображений",
                     action: removeCache
                 )
+                #if os(iOS)
                 SectionButton(
                     imageName: "ant",
                     title: "Сообщить об ошибке",
@@ -168,13 +181,7 @@ struct SettingsView: View {
                 title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
                 message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
                 buttons: [
-                    .destructive(Text("Выйти")) {
-                        loading = true
-                        sessionStore.logout {
-                            loading = false
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    },
+                    .destructive(Text("Выйти"), action: logout),
                     .cancel(),
                 ]
             )

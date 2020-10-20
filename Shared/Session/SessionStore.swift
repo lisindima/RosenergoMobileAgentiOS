@@ -7,7 +7,7 @@
 //
 
 import Combine
-import SwiftUI
+import Foundation
 
 class SessionStore: ObservableObject {
     @CodableUserDefaults(key: "loginModel", default: nil)
@@ -139,7 +139,10 @@ class SessionStore: ObservableObject {
     func logout(completion: @escaping () -> Void) {
         fetch(.logout, httpMethod: .post) { [self] (_: Result<LogoutModel, ApiError>) in
             completion()
-            clearData()
+            loginModel = nil
+            loginParameters = nil
+            inspectionsLoadingState = .loading
+            vyplatnyedelaLoadingState = .loading
         }
     }
     
@@ -173,12 +176,5 @@ class SessionStore: ObservableObject {
                 log(error.localizedDescription)
             }
         }
-    }
-    
-    private func clearData() {
-        loginModel = nil
-        loginParameters = nil
-        inspectionsLoadingState = .loading
-        vyplatnyedelaLoadingState = .loading
     }
 }

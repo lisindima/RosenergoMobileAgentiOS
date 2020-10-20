@@ -11,7 +11,8 @@ import SwiftUI
 extension Date {
     func convertDate() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy, HH:mm"
+        dateFormatter.locale = .autoupdatingCurrent
+        dateFormatter.setLocalizedDateFormatFromTemplate("dd MMMM yyyy HH:mm")
         dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: self)
     }
