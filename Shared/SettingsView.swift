@@ -8,8 +8,8 @@
 
 import SwiftUI
 #if os(iOS)
-import URLImage
 import MessageUI
+import URLImage
 #endif
 
 struct SettingsView: View {
@@ -24,9 +24,9 @@ struct SettingsView: View {
     @State private var loading: Bool = false
     
     #if os(iOS)
-    private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
+    private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     #endif
-    private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")!
+    private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")
     
     #if os(iOS)
     private func feedback() {
@@ -53,24 +53,26 @@ struct SettingsView: View {
         }
     }
     
-    var footerNotification: Text {
+    @ViewBuilder
+    var footerNotification: some View {
         switch notificationStore.enabled {
         case .denied:
-            return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
+            Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
         case .notDetermined:
-            return Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
+            Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
         case .authorized:
-            return Text("Укажите, через какое время вам придет уведомление после сохранённого осмотра.")
+            Text("Укажите, через какое время вам придет уведомление после сохранённого осмотра.")
         default:
-            return Text("")
+            Text("")
         }
     }
     
+    @ViewBuilder
     var footerFeedback: some View {
         #if os(watchOS)
-        return EmptyView()
+        EmptyView()
         #else
-        return Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")
+        Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")
         #endif
     }
     
@@ -96,7 +98,7 @@ struct SettingsView: View {
                     SectionLink(
                         imageName: "bell",
                         title: "Выключить уведомления",
-                        destination: settingsURL
+                        url: settingsURL
                     )
                     Stepper(value: $notificationStore.notifyHour, in: 1 ... 24) {
                         Image(systemName: "timer")
@@ -114,7 +116,7 @@ struct SettingsView: View {
                     SectionLink(
                         imageName: "bell",
                         title: "Включить уведомления",
-                        destination: settingsURL
+                        url: settingsURL
                     )
                 }
             }
@@ -130,7 +132,7 @@ struct SettingsView: View {
                     imageName: "star",
                     title: "Оценить",
                     showLinkLabel: true,
-                    destination: appstoreURL
+                    url: appstoreURL
                 )
                 #endif
                 SectionButton(

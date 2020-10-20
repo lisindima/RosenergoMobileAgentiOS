@@ -9,48 +9,48 @@
 import SwiftUI
 
 struct TabViewBackgroundMode: ViewModifier {
+    @ViewBuilder
     func body(content: Content) -> some View {
         #if os(watchOS)
-        return content
+        content
         #else
-        return content
+        content
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         #endif
     }
 }
 
 struct ListStyle: ViewModifier {
+    @ViewBuilder
     func body(content: Content) -> some View {
         #if os(watchOS)
-        return content
+        content
         #else
-        return content
+        content
             .listStyle(InsetGroupedListStyle())
         #endif
     }
 }
 
 extension Text {
+    @ViewBuilder
     func messageTitle() -> Text {
         #if os(watchOS)
-        return self
-            .fontWeight(.bold)
+        fontWeight(.bold)
         #else
-        return self
-            .font(.title)
+        font(.title)
             .fontWeight(.bold)
             .foregroundColor(.secondary)
         #endif
     }
     
+    @ViewBuilder
     func messageSubtitle() -> Text {
         #if os(watchOS)
-        return self
-            .font(.footnote)
+        font(.footnote)
             .foregroundColor(.secondary)
         #else
-        return self
-            .foregroundColor(.secondary)
+        foregroundColor(.secondary)
         #endif
     }
 }

@@ -14,22 +14,24 @@ struct SectionItem: View {
     var subTitle: String = ""
     var title: String?
     
+    @ViewBuilder
     var secondaryTitle: Text {
         #if os(watchOS)
-        return Text(subTitle)
+        Text(subTitle)
             .font(.system(size: 11))
         #else
-        return Text(subTitle)
+        Text(subTitle)
             .font(.caption)
         #endif
     }
     
+    @ViewBuilder
     var primaryTitle: Text {
         #if os(watchOS)
-        return Text(title ?? "Пролетарская, 114")
+        Text(title ?? "Пролетарская, 114")
             .font(.footnote)
         #else
-        return Text(title ?? "Пролетарская, 114")
+        Text(title ?? "Пролетарская, 114")
         #endif
     }
     
@@ -77,30 +79,33 @@ struct SectionLink: View {
     var title: String?
     var titleColor: Color = .primary
     var showLinkLabel: Bool = false
-    var destination: URL
+    var url: URL?
     
+    @ViewBuilder
     var primaryTitle: Text {
         #if os(watchOS)
-        return Text(title ?? "Пролетарская, 114")
+        Text(title ?? "Пролетарская, 114")
             .font(.footnote)
         #else
-        return Text(title ?? "Пролетарская, 114")
+        Text(title ?? "Пролетарская, 114")
         #endif
     }
     
     var body: some View {
-        Link(destination: destination) {
-            HStack {
-                Image(systemName: imageName)
-                    .frame(width: 24)
-                    .foregroundColor(imageColor)
-                primaryTitle
-                    .foregroundColor(titleColor)
-                    .redacted(reason: title == nil ? .placeholder : [])
-                if showLinkLabel {
-                    Spacer()
-                    Image(systemName: "arrow.up.right.square")
-                        .foregroundColor(.secondary)
+        if let destination = url {
+            Link(destination: destination) {
+                HStack {
+                    Image(systemName: imageName)
+                        .frame(width: 24)
+                        .foregroundColor(imageColor)
+                    primaryTitle
+                        .foregroundColor(titleColor)
+                        .redacted(reason: title == nil ? .placeholder : [])
+                    if showLinkLabel {
+                        Spacer()
+                        Image(systemName: "arrow.up.right.square")
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
         }

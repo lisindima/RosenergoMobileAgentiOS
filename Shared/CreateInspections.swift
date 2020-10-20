@@ -7,8 +7,8 @@
 //
 
 import CoreData
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct CreateInspections: View {
     @EnvironmentObject private var sessionStore: SessionStore

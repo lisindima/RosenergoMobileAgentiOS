@@ -6,8 +6,8 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 enum Endpoint {
     case login

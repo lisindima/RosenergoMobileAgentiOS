@@ -39,7 +39,7 @@ struct MapView: View {
             SectionLink(
                 imageName: "map",
                 title: address,
-                destination: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(longitude),\(latitude)")!
+                url: URL(string: "yandexmaps://maps.yandex.ru/?pt=\(longitude),\(latitude)")
             )
             Map(coordinateRegion: $region, annotationItems: pins) { pin in
                 MapMarker(coordinate: pin.coordinate, tint: .rosenergo)

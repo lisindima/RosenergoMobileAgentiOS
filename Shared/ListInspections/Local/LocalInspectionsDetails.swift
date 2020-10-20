@@ -8,8 +8,8 @@
 
 import SwiftUI
 #if os(iOS)
-import WidgetKit
 import AVKit
+import WidgetKit
 #endif
 
 struct LocalInspectionsDetails: View {

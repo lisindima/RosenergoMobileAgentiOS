@@ -143,11 +143,12 @@ struct PinchToZoom: ViewModifier {
     @State private var offset: CGSize = .zero
     @State private var isPinching: Bool = false
     
+    @ViewBuilder
     func body(content: Content) -> some View {
         #if os(watchOS)
-        return content
+        content
         #else
-        return content
+        content
             .scaleEffect(scale, anchor: anchor)
             .offset(offset)
             .animation(isPinching ? .none : .spring())

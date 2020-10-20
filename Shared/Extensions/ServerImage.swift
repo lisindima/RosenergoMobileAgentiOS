@@ -45,7 +45,7 @@ struct ServerImage: View {
                 ProgressView(value: progress)
                     .progressViewStyle(CircularProgressViewStyle())
             },
-            failure: { error, retry in
+            failure: { _, retry in
                 Button(action: retry) {
                     Image(systemName: "arrow.clockwise.circle")
                         .imageScale(.large)
@@ -76,7 +76,7 @@ struct FullScreenServerImage: View {
                 ProgressView(value: progress)
                     .progressViewStyle(CircularProgressViewStyle())
             },
-            failure: { error, retry in
+            failure: { _, retry in
                 Button(action: retry) {
                     Image(systemName: "arrow.clockwise.circle")
                         .imageScale(.large)
