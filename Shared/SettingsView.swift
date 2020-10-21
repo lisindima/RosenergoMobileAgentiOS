@@ -69,9 +69,7 @@ struct SettingsView: View {
     
     @ViewBuilder
     var footerFeedback: some View {
-        #if os(watchOS)
-        EmptyView()
-        #else
+        #if os(iOS)
         Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")
         #endif
     }

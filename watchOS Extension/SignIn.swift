@@ -16,7 +16,7 @@ struct SignIn: View {
     @State private var loading: Bool = false
     @State private var alertItem: AlertItem? = nil
     
-    private func signIn(email: String, password: String) {
+    private func signIn() {
         loading = true
         sessionStore.login(email: email, password: password) { [self] result in
             switch result {
@@ -41,9 +41,7 @@ struct SignIn: View {
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
                 .padding(.bottom)
-            CustomButton("Войти", loading: loading) {
-                signIn(email: email, password: password)
-            }
+            CustomButton("Войти", loading: loading, action: signIn)
         }
         .navigationTitle("Мобильный агент")
         .customAlert(item: $alertItem)

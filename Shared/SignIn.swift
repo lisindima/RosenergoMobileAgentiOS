@@ -16,7 +16,7 @@ struct SignIn: View {
     @State private var loading: Bool = false
     @State private var alertItem: AlertItem? = nil
     
-    private func signIn(email: String, password: String) {
+    private func signIn() {
         loading = true
         sessionStore.login(email: email, password: password) { [self] result in
             switch result {
@@ -52,11 +52,9 @@ struct SignIn: View {
                     .modifier(InputModifier())
             }
             .padding(.horizontal)
-            CustomButton("Войти", loading: loading) {
-                signIn(email: email, password: password)
-            }
-            .keyboardShortcut(.defaultAction)
-            .padding()
+            CustomButton("Войти", loading: loading, action: signIn)
+                .keyboardShortcut(.defaultAction)
+                .padding()
             Divider()
             HStack {
                 Text("У вас еще нет аккаунта?")
