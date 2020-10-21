@@ -8,7 +8,6 @@
 
 import SwiftUI
 #if os(iOS)
-import MessageUI
 import URLImage
 #endif
 
@@ -27,16 +26,6 @@ struct SettingsView: View {
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)
     #endif
     private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")
-    
-    #if os(iOS)
-    private func feedback() {
-        if MFMailComposeViewController.canSendMail() {
-            showMailFeedback = true
-        } else {
-            alertItem = AlertItem(title: "Не установлено приложение \"Почта\"", message: "Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store.")
-        }
-    }
-    #endif
     
     private func removeCache() {
         #if os(iOS)
@@ -141,9 +130,10 @@ struct SettingsView: View {
                 #if os(iOS)
                 SectionButton(
                     imageName: "ant",
-                    title: "Сообщить об ошибке",
-                    action: feedback
-                )
+                    title: "Сообщить об ошибке"
+                ) {
+                    showMailFeedback = true
+                }
                 #endif
             }
             Section(footer: Text("Версия: \(getVersion())")) {

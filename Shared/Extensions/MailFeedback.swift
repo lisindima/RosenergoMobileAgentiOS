@@ -6,12 +6,9 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-#if os(iOS)
 import MessageUI
-#endif
 import SwiftUI
 
-#if os(iOS)
 struct MailFeedback: UIViewControllerRepresentable {
     @Binding var alertItem: AlertItem?
     
@@ -62,30 +59,5 @@ struct MailFeedback: UIViewControllerRepresentable {
                 log("Отправка почты: ошибка")
             }
         }
-    }
-}
-#endif
-
-struct MailFeedbackModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    @Binding var alertItem: AlertItem?
-    
-    @ViewBuilder
-    func body(content: Content) -> some View {
-        #if os(iOS)
-        content
-            .sheet(isPresented: $isPresented) {
-                MailFeedback(alertItem: $alertItem)
-                    .ignoresSafeArea(edges: .bottom)
-            }
-        #else
-        content
-        #endif
-    }
-}
-
-extension View {
-    func mailFeedback(isPresented: Binding<Bool>, alertItem: Binding<AlertItem?>) -> some View {
-        modifier(MailFeedbackModifier(isPresented: isPresented, alertItem: alertItem))
     }
 }

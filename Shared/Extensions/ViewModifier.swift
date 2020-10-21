@@ -7,6 +7,9 @@
 //
 
 import SwiftUI
+#if os(iOS)
+import MessageUI
+#endif
 
 struct TabViewBackgroundMode: ViewModifier {
     @ViewBuilder
@@ -29,6 +32,37 @@ struct ListStyle: ViewModifier {
         content
             .listStyle(InsetGroupedListStyle())
         #endif
+    }
+}
+
+struct MailFeedbackModifier: ViewModifier {
+    @Binding var isPresented: Bool
+    @Binding var alertItem: AlertItem?
+    
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        #if os(iOS)
+        if MFMailComposeViewController.canSendMail() {
+            content
+                .sheet(isPresented: $isPresented) {
+                    MailFeedback(alertItem: $alertItem)
+                        .ignoresSafeArea(edges: .bottom)
+                }
+        } else {
+            content
+                .alert(isPresented: $isPresented) {
+                    Alert(title: Text("Не установлено приложение \"Почта\""), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .default(Text("Закрыть")))
+                }
+        }
+        #else
+        content
+        #endif
+    }
+}
+
+extension View {
+    func mailFeedback(isPresented: Binding<Bool>, alertItem: Binding<AlertItem?>) -> some View {
+        modifier(MailFeedbackModifier(isPresented: isPresented, alertItem: alertItem))
     }
 }
 
