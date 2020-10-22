@@ -51,7 +51,7 @@ struct MailFeedbackModifier: ViewModifier {
         } else {
             content
                 .alert(isPresented: $isPresented) {
-                    Alert(title: Text("Не установлено приложение \"Почта\""), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .default(Text("Закрыть")))
+                    Alert(title: Text("Не установлено приложение \"Почта\""), message: Text("Для отправки сообщений об ошибках вам понадобится официальное приложение \"Почта\", установите его из App Store."), dismissButton: .cancel(Text("Закрыть")))
                 }
         }
         #else

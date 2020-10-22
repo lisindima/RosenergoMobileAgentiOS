@@ -32,6 +32,15 @@ struct SignIn: View {
     }
     
     var body: some View {
+        #if os(watchOS)
+        watch
+        #else
+        phone
+        #endif
+    }
+    
+    #if os(iOS)
+    var phone: some View {
         VStack {
             Spacer()
             Image("rosenergo")
@@ -71,6 +80,23 @@ struct SignIn: View {
             .padding(.bottom)
         }
         .frame(minWidth: nil, idealWidth: 600, maxWidth: 700, minHeight: nil, idealHeight: nil, maxHeight: nil)
+        .customAlert(item: $alertItem)
+    }
+    #endif
+    
+    var watch: some View {
+        VStack {
+            Text("Мобильный агент")
+                .fontWeight(.bold)
+                .padding(.vertical)
+            TextField("Эл.почта", text: $email)
+                .textContentType(.emailAddress)
+            SecureField("Пароль", text: $password)
+                .textContentType(.password)
+                .padding(.bottom)
+            CustomButton("Войти", loading: loading, action: signIn)
+        }
+        .navigationTitle("Мобильный агент")
         .customAlert(item: $alertItem)
     }
 }

@@ -142,8 +142,8 @@
 		CBDFFB732521DCF00060249B /* license.json in Resources */ = {isa = PBXBuildFile; fileRef = CBDFFB712521DCF00060249B /* license.json */; };
 		CBDFFB7D2521DD490060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
 		CBDFFB7E2521DD4A0060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
-		CBDFFD892522F06D0060249B /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFD882522F06D0060249B /* SignIn.swift */; };
 		CBDFFD9F2522F1980060249B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFD9E2522F1980060249B /* RootView.swift */; };
+		CBE6AD8D2541BB26003781F4 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CBED06C82509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
 		CBED06C92509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
@@ -303,7 +303,6 @@
 		CBDDDA602473CF1400FE5A7C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CBDFFB712521DCF00060249B /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
 		CBDFFB7C2521DD490060249B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		CBDFFD882522F06D0060249B /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		CBDFFD9E2522F1980060249B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		CBED06C72509C77600216056 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
@@ -533,7 +532,6 @@
 		CB9DE93C249758B400F4E72A /* watchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
-				CBDFFD882522F06D0060249B /* SignIn.swift */,
 				CBDFFD9E2522F1980060249B /* RootView.swift */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
 				CB7CEFA824AAC1F9009DF93A /* watchOS Extension.entitlements */,
@@ -891,7 +889,6 @@
 				CBF0E559251669E50018BF45 /* Int.swift in Sources */,
 				CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */,
 				CB0115C72507335400801969 /* PinchToZoom.swift in Sources */,
-				CBDFFD892522F06D0060249B /* SignIn.swift in Sources */,
 				CBF0E55F25166D5D0018BF45 /* String.swift in Sources */,
 				CBDFFD9F2522F1980060249B /* RootView.swift in Sources */,
 				CB2B5B1024C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
@@ -918,6 +915,7 @@
 				CB758D8C24B17C93000A6B3C /* Date.swift in Sources */,
 				CB3805D424EB8F4500925D44 /* InspectionLink.swift in Sources */,
 				CB7EAEA8250F394A00B4B4F5 /* LoadingView.swift in Sources */,
+				CBE6AD8D2541BB26003781F4 /* SignIn.swift in Sources */,
 				CB7EAEAB250F593400B4B4F5 /* VyplatnyedelaLink.swift in Sources */,
 				CBAC7F3A24D27A5E0081597D /* ListVyplatnyedela.swift in Sources */,
 				CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */,

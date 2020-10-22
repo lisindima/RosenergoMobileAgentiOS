@@ -20,9 +20,8 @@ struct InputModifier: ViewModifier {
 }
 
 struct CustomInput: View {
-    var name: String
-    
     @Binding var text: String
+    var name: String
     
     init(_ name: String, text: Binding<String>) {
         self.name = name

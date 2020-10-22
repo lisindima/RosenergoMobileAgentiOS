@@ -32,7 +32,7 @@ extension ViewModifier {
         Alert(
             title: Text(title),
             message: Text(message),
-            dismissButton: .default(Text("Закрыть"), action: action)
+            dismissButton: .cancel(Text("Закрыть"), action: action)
         )
     }
 }
