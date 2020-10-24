@@ -17,6 +17,16 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
     @Binding var flashMode: AVCaptureDevice.FlashMode
     @Binding var photosURL: [URL]
     
+    private func stringDate() -> String {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .autoupdatingCurrent
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd HH:mm:ss")
+        dateFormatter.timeZone = .autoupdatingCurrent
+        let createStringDate = dateFormatter.string(from: currentDate)
+        return createStringDate
+    }
+    
     func makeUIViewController(context: Context) -> CustomCameraController {
         let controller = CustomCameraController()
         controller.delegate = context.coordinator
@@ -44,10 +54,10 @@ struct CustomCameraRepresentable: UIViewControllerRepresentable {
             parent.didTapCapture = false
             if let imageData = photo.fileDataRepresentation() {
                 let uiimage = UIImage(data: imageData)
-                let imageWithText = uiimage!.addText("Широта: \(parent.locationStore.latitude)\nДолгота: \(parent.locationStore.longitude)\nДата: \(stringDate())", point: CGPoint(x: 20, y: 20))
+                let imageWithText = uiimage!.addText("Широта: \(parent.locationStore.latitude)\nДолгота: \(parent.locationStore.longitude)\nДата: \(parent.stringDate())", point: CGPoint(x: 20, y: 20))
                 let inspectionsImageData = imageWithText.jpegData(compressionQuality: 0)
                 let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let filename = directory.appendingPathComponent("\(stringDate()).png")
+                let filename = directory.appendingPathComponent("\(UUID().uuidString).png")
                 try? inspectionsImageData?.write(to: filename)
                 parent.photosURL.append(filename)
             }
@@ -91,7 +101,7 @@ struct CustomVideoRepresentable: UIViewControllerRepresentable {
         func fileOutput(_: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from _: [AVCaptureConnection], error: Error?) {
             do {
                 let directory = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents")
-                let filename = directory!.appendingPathComponent("video_\(Date()).mp4")
+                let filename = directory!.appendingPathComponent("\(UUID().uuidString).mp4")
                 let data = try Data(contentsOf: outputFileURL, options: .mappedIfSafe)
                 try data.write(to: filename)
                 parent.videoURL = filename.absoluteURL
