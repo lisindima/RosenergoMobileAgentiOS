@@ -144,6 +144,7 @@
 		CBDFFB7E2521DD4A0060249B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFB7C2521DD490060249B /* Bundle.swift */; };
 		CBDFFD9F2522F1980060249B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDFFD9E2522F1980060249B /* RootView.swift */; };
 		CBE6AD8D2541BB26003781F4 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
+		CBE6AD9725451BAD003781F4 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = CBE6AD9625451BAD003781F4 /* URLImage */; };
 		CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CBED06C82509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
 		CBED06C92509C77600216056 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06C72509C77600216056 /* Haptic.swift */; };
@@ -337,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */,
+				CBE6AD9725451BAD003781F4 /* URLImage in Frameworks */,
 				CBAC7F4224D280E30081597D /* NativeSearchBar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -680,6 +682,7 @@
 			name = "RosenergoMobileAgent (watchOS Extension)";
 			packageProductDependencies = (
 				CBAC7F4124D280E30081597D /* NativeSearchBar */,
+				CBE6AD9625451BAD003781F4 /* URLImage */,
 			);
 			productName = "RosenergoMobileAgentwatchOS Extension";
 			productReference = CB9DE938249758B400F4E72A /* RosenergoMobileAgent.appex */;
@@ -1404,6 +1407,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CBAC7F3E24D27CF60081597D /* XCRemoteSwiftPackageReference "NativeSearchBar" */;
 			productName = NativeSearchBar;
+		};
+		CBE6AD9625451BAD003781F4 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

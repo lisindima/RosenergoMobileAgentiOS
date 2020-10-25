@@ -7,9 +7,7 @@
 //
 
 import SwiftUI
-#if os(iOS)
 import URLImage
-#endif
 
 struct SettingsView: View {
     @EnvironmentObject private var sessionStore: SessionStore
@@ -28,9 +26,7 @@ struct SettingsView: View {
     private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")
     
     private func removeCache() {
-        #if os(iOS)
         URLImageService.shared.removeAllCachedImages()
-        #endif
         alertItem = AlertItem(title: "Успешно", message: "Кэш изображений успешно очищен.")
     }
     

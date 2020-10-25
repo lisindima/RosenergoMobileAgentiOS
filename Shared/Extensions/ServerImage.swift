@@ -7,9 +7,7 @@
 //
 
 import SwiftUI
-#if os(iOS)
 import URLImage
-#endif
 
 struct ServerImage: View {
     var path: URL
@@ -37,7 +35,6 @@ struct ServerImage: View {
     }
     
     var body: some View {
-        #if os(iOS)
         URLImage(
             url: path,
             options: URLImageOptions(cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: delay)),
@@ -57,7 +54,6 @@ struct ServerImage: View {
         }
         .cornerRadius(8)
         .frame(width: size, height: size)
-        #endif
     }
 }
 
@@ -69,7 +65,6 @@ struct FullScreenServerImage: View {
     }
     
     var body: some View {
-        #if os(iOS)
         URLImage(
             url: path,
             inProgress: { progress in
@@ -88,6 +83,5 @@ struct FullScreenServerImage: View {
                 .aspectRatio(contentMode: .fit)
                 .pinchToZoom()
         }
-        #endif
     }
 }
