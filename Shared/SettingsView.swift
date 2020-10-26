@@ -8,6 +8,7 @@
 
 import SwiftUI
 import URLImage
+import UserFeedback
 
 struct SettingsView: View {
     @EnvironmentObject private var sessionStore: SessionStore
@@ -17,7 +18,7 @@ struct SettingsView: View {
     
     @State private var alertItem: AlertItem? = nil
     @State private var showActionSheetExit: Bool = false
-    @State private var showMailFeedback: Bool = false
+    @State private var showFeedback: Bool = false
     @State private var loading: Bool = false
     
     #if os(iOS)
@@ -50,13 +51,6 @@ struct SettingsView: View {
         default:
             Text("")
         }
-    }
-    
-    @ViewBuilder
-    var footerFeedback: some View {
-        #if os(iOS)
-        Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")
-        #endif
     }
     
     var body: some View {
@@ -104,7 +98,7 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section(header: Text("Другое").fontWeight(.bold), footer: footerFeedback) {
+            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
@@ -123,14 +117,12 @@ struct SettingsView: View {
                     title: "Очистить кэш изображений",
                     action: removeCache
                 )
-                #if os(iOS)
                 SectionButton(
                     imageName: "ant",
-                    title: "Сообщить об ошибке"
+                    title: "Обратная связь"
                 ) {
-                    showMailFeedback = true
+                    showFeedback = true
                 }
-                #endif
             }
             Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
@@ -161,7 +153,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
-        .mailFeedback(isPresented: $showMailFeedback, alertItem: $alertItem)
+        .userFeedback(isPresented: $showFeedback)
         .actionSheet(isPresented: $showActionSheetExit) {
             ActionSheet(
                 title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
