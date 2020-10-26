@@ -39,8 +39,7 @@ struct SettingsView: View {
         }
     }
     
-    @ViewBuilder
-    var footerNotification: some View {
+    @ViewBuilder var footerNotification: some View {
         switch notificationStore.enabled {
         case .denied:
             Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
@@ -98,7 +97,7 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Сообщить об ошибке\".")) {
+            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".")) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",

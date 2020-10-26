@@ -104,8 +104,7 @@ struct LocalInspectionsDetails: View {
         #endif
     }
     
-    @ViewBuilder
-    var formLocalInspections: some View {
+    @ViewBuilder var formLocalInspections: some View {
         Form {
             if !localInspections.localPhotos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold)) {

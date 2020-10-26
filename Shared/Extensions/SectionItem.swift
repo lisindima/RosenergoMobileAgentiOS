@@ -14,8 +14,7 @@ struct SectionItem: View {
     var subTitle: String = ""
     var title: String?
     
-    @ViewBuilder
-    var secondaryTitle: Text {
+    @ViewBuilder var secondaryTitle: Text {
         #if os(watchOS)
         Text(subTitle)
             .font(.system(size: 11))
@@ -25,8 +24,7 @@ struct SectionItem: View {
         #endif
     }
     
-    @ViewBuilder
-    var primaryTitle: Text {
+    @ViewBuilder var primaryTitle: Text {
         #if os(watchOS)
         Text(title ?? "Пролетарская, 114")
             .font(.footnote)
@@ -81,8 +79,7 @@ struct SectionLink: View {
     var showLinkLabel: Bool = false
     var url: URL?
     
-    @ViewBuilder
-    var primaryTitle: Text {
+    @ViewBuilder var primaryTitle: Text {
         #if os(watchOS)
         Text(title ?? "Пролетарская, 114")
             .font(.footnote)
