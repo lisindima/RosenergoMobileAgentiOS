@@ -6,8 +6,8 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import WatchKit
 import Firebase
+import WatchKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
     func applicationDidFinishLaunching() {
