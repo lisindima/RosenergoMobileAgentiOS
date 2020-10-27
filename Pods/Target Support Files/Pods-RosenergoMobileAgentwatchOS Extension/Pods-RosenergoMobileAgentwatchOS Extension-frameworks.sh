@@ -175,11 +175,21 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore-watchOS/FirebaseCore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics-watchOS/FirebaseCoreDiagnostics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics-watchOS/FirebaseCrashlytics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseInstallations-watchOS/FirebaseInstallations.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleDataTransport-watchOS/GoogleDataTransport.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-Environment-Logger-UserDefaults/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC-watchOS/FBLPromises.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-watchOS/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore-watchOS/FirebaseCore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics-watchOS/FirebaseCoreDiagnostics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics-watchOS/FirebaseCrashlytics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseInstallations-watchOS/FirebaseInstallations.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleDataTransport-watchOS/GoogleDataTransport.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-Environment-Logger-UserDefaults/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC-watchOS/FBLPromises.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-watchOS/nanopb.framework"

@@ -175,11 +175,21 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore-iOS/FirebaseCore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics-iOS/FirebaseCoreDiagnostics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics-iOS/FirebaseCrashlytics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseInstallations-iOS/FirebaseInstallations.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleDataTransport-iOS/GoogleDataTransport.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-00567490/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS/FBLPromises.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore-iOS/FirebaseCore.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics-iOS/FirebaseCoreDiagnostics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics-iOS/FirebaseCrashlytics.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FirebaseInstallations-iOS/FirebaseInstallations.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleDataTransport-iOS/GoogleDataTransport.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-00567490/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS/FBLPromises.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS/nanopb.framework"
