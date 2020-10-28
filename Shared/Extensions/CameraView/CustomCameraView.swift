@@ -46,9 +46,6 @@ struct CustomCameraView: View {
                 if choiceMode == .photo {
                     CustomCameraRepresentable(didTapCapture: $didTapCapture, flashMode: $flashMode, photosURL: $photosURL)
                         .ignoresSafeArea(edges: .all)
-                } else {
-                    CustomVideoRepresentable(startRecording: $didTapCapture, stopRecording: $didTapCapture2, videoURL: $videoURL)
-                        .ignoresSafeArea(edges: .all)
                 }
                 #endif
                 VStack {
