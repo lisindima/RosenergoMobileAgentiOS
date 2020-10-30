@@ -73,6 +73,11 @@
 		CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7024AEEB67000A6B3C /* UIImage.swift */; };
 		CB758D8B24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
 		CB758D8C24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
+		CB7791C9254C01C60072B232 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB7791C8254C01C60072B232 /* FirebaseAnalytics */; };
+		CB7791CB254C01C60072B232 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB7791CA254C01C60072B232 /* FirebaseCrashlytics */; };
+		CB7791D5254C02630072B232 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB7791D4254C02630072B232 /* FirebaseCrashlytics */; };
+		CB7791DF254C03E20072B232 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB7791DE254C03E20072B232 /* GoogleService-Info.plist */; };
+		CB7791E9254C040D0072B232 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB7791E8254C040D0072B232 /* GoogleService-Info.plist */; };
 		CB7B93B624ADA12800712384 /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
 		CB7CEFA324A9D8D0009DF93A /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
 		CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
@@ -109,7 +114,6 @@
 		CBA401BB251C6CD8001881B5 /* RosenergoMobileAgent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CBA401AF251C6CD6001881B5 /* RosenergoMobileAgent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CBA401DC251C89BF001881B5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CBA401E1251C946D001881B5 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
-		CBA401E6251C9553001881B5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CBA6118E2500998D009CD8BD /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheetView.swift */; };
 		CBAC7F3224D266870081597D /* ListVyplatnyedela.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3124D266870081597D /* ListVyplatnyedela.swift */; };
 		CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC7F3424D26E2B0081597D /* VyplatnyedelaItems.swift */; };
@@ -263,6 +267,8 @@
 		CB758D7024AEEB67000A6B3C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		CB758D7A24AEFA45000A6B3C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		CB758D8A24B17C93000A6B3C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		CB7791DE254C03E20072B232 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB7791E8254C040D0072B232 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB7CEFA824AAC1F9009DF93A /* watchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "watchOS Extension.entitlements"; sourceTree = "<group>"; };
 		CB7CEFA924AAC202009DF93A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CB7EAEA6250F394A00B4B4F5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -329,6 +335,8 @@
 			files = (
 				CBE6ADBD2546BB01003781F4 /* UserFeedback in Frameworks */,
 				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
+				CB7791C9254C01C60072B232 /* FirebaseAnalytics in Frameworks */,
+				CB7791CB254C01C60072B232 /* FirebaseCrashlytics in Frameworks */,
 				CBAC7F4024D27CF60081597D /* NativeSearchBar in Frameworks */,
 				CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
@@ -341,6 +349,7 @@
 			files = (
 				CBE6ADBB2546BAFA003781F4 /* UserFeedback in Frameworks */,
 				CB7CEFAA24AAC202009DF93A /* CloudKit.framework in Frameworks */,
+				CB7791D5254C02630072B232 /* FirebaseCrashlytics in Frameworks */,
 				CBE6AD9725451BAD003781F4 /* URLImage in Frameworks */,
 				CBAC7F4224D280E30081597D /* NativeSearchBar in Frameworks */,
 			);
@@ -517,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				CB17E56C2466644500CDBB1A /* Info.plist */,
+				CB7791DE254C03E20072B232 /* GoogleService-Info.plist */,
 				CB2B5B82246BA8CE006F35AC /* iOS.entitlements */,
 				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E5662466644500CDBB1A /* Preview Content */,
@@ -539,6 +549,7 @@
 			children = (
 				CBDFFD9E2522F1980060249B /* RootView.swift */,
 				CB9DE94C249758B500F4E72A /* Info.plist */,
+				CB7791E8254C040D0072B232 /* GoogleService-Info.plist */,
 				CB7CEFA824AAC1F9009DF93A /* watchOS Extension.entitlements */,
 				CB9DE947249758B500F4E72A /* Assets.xcassets */,
 				CB9DE949249758B500F4E72A /* Preview Content */,
@@ -648,6 +659,8 @@
 				CB870229249C5FF400B5DA72 /* URLImage */,
 				CBAC7F3F24D27CF60081597D /* NativeSearchBar */,
 				CBE6ADBC2546BB01003781F4 /* UserFeedback */,
+				CB7791C8254C01C60072B232 /* FirebaseAnalytics */,
+				CB7791CA254C01C60072B232 /* FirebaseCrashlytics */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
@@ -688,6 +701,7 @@
 				CBAC7F4124D280E30081597D /* NativeSearchBar */,
 				CBE6AD9625451BAD003781F4 /* URLImage */,
 				CBE6ADBA2546BAFA003781F4 /* UserFeedback */,
+				CB7791D4254C02630072B232 /* FirebaseCrashlytics */,
 			);
 			productName = "RosenergoMobileAgentwatchOS Extension";
 			productReference = CB9DE938249758B400F4E72A /* RosenergoMobileAgent.appex */;
@@ -748,6 +762,7 @@
 			packageReferences = (
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
 				CBAC7F3E24D27CF60081597D /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
+				CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -768,6 +783,7 @@
 			files = (
 				CBDFFB722521DCF00060249B /* license.json in Resources */,
 				CB17E5682466644500CDBB1A /* Preview Assets.xcassets in Resources */,
+				CB7791DF254C03E20072B232 /* GoogleService-Info.plist in Resources */,
 				CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,6 +800,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB7791E9254C040D0072B232 /* GoogleService-Info.plist in Resources */,
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
 				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
 				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
@@ -946,7 +963,6 @@
 				CB733DFF25259FC500651C0F /* LocalImage.swift in Sources */,
 				CB0044CC251D004600B652EC /* LocalPhotos+CoreDataClass.swift in Sources */,
 				CB0044D6251D005000B652EC /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
-				CBA401E6251C9553001881B5 /* Log.swift in Sources */,
 				CBA401DC251C89BF001881B5 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1101,7 +1117,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
@@ -1113,7 +1129,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1134,7 +1150,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "\"iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1145,7 +1161,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1165,7 +1181,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = watchOS/watchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = watchOS/Info.plist;
@@ -1196,7 +1212,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = watchOS/watchOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				IBSC_MODULE = RosenergoMobileAgentwatchOS_Extension;
 				INFOPLIST_FILE = watchOS/Info.plist;
@@ -1224,7 +1240,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "watchOS Extension/watchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "\"watchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1252,7 +1268,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = rosenergo;
 				CODE_SIGN_ENTITLEMENTS = "watchOS Extension/watchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "\"watchOS Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				ENABLE_PREVIEWS = YES;
@@ -1282,7 +1298,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1309,7 +1325,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 48HFZR3X8K;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1378,6 +1394,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = "7.0-spm-beta";
+				kind = branch;
+			};
+		};
 		CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
@@ -1397,6 +1421,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CB7791C8254C01C60072B232 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		CB7791CA254C01C60072B232 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		CB7791D4254C02630072B232 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		CB870229249C5FF400B5DA72 /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */;

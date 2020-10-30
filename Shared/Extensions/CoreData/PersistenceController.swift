@@ -20,7 +20,7 @@ struct PersistenceController {
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
-                log("Unresolved error \(error), \(error.userInfo)")
+                print("Unresolved error \(error), \(error.userInfo)")
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true

@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import Firebase
 
 class SessionStore: ObservableObject {
     @CodableUserDefaults(key: "loginModel", default: nil)
@@ -129,6 +130,7 @@ class SessionStore: ObservableObject {
             case let .success(value):
                 loginModel = value.data
                 loginParameters = LoginParameters(email: email, password: password)
+                Crashlytics.crashlytics().setUserID(value.data.email)
                 completion(.success(value.data))
             case let .failure(error):
                 completion(.failure(error))

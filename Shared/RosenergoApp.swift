@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct RosenergoApp: App {
@@ -21,6 +22,11 @@ struct RosenergoApp: App {
     @State private var vyplatnyedelaID: String = ""
     
     let persistenceController = PersistenceController.shared
+    
+    init() {
+        FirebaseApp.configure()
+        Crashlytics.crashlytics().setUserID(SessionStore.shared.loginModel?.email ?? "")
+    }
     
     func open(_ url: URL) {
         inspectionID = ""
