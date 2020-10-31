@@ -12,10 +12,7 @@ struct SeriesPicker: View {
     @Binding var selectedSeries: Series
     
     var body: some View {
-        Picker(
-            selection: $selectedSeries,
-            label: Text("\(selectedSeries.rawValue)").foregroundColor(.primary)
-        ) {
+        Picker(selection: $selectedSeries, label: Text("\(selectedSeries.rawValue)").foregroundColor(.primary)) {
             Text("ХХХ").tag(Series.XXX)
             Text("ССС").tag(Series.CCC)
             Text("РРР").tag(Series.PPP)

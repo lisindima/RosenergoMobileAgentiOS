@@ -32,6 +32,18 @@ struct ListStyle: ViewModifier {
     }
 }
 
+struct InlineTitleDisplayMode: ViewModifier {
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        #if os(watchOS)
+        content
+        #else
+        content
+            .navigationBarTitleDisplayMode(.inline)
+        #endif
+    }
+}
+
 extension Text {
     @ViewBuilder
     func messageTitle() -> Text {

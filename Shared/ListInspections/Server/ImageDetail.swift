@@ -23,6 +23,7 @@ struct ImageDetail: View {
         .tabViewStyle(PageTabViewStyle())
         .modifier(TabViewBackgroundMode())
         .navigationTitle("\(selectionImage) из \(photos.last!.id)")
+        .modifier(InlineTitleDisplayMode())
         .onAppear { selectionImage = id }
     }
 }

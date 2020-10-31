@@ -67,7 +67,7 @@ struct ListInspections: View {
         ) { inspectionsModel in
             List {
                 if !localInspections.isEmpty {
-                    Section(header: Text("Не отправленные осмотры").fontWeight(.bold)) {
+                    Section(header: Text("Не отправленные осмотры").fontWeight(.bold).padding(.horizontal)) {
                         ForEach(localInspections.filter {
                             searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
                         }, id: \.id) { localInspections in
@@ -77,7 +77,7 @@ struct ListInspections: View {
                         }.onDelete(perform: delete)
                     }
                 }
-                Section(header: Text("Отправленные осмотры").fontWeight(.bold)) {
+                Section(header: Text("Отправленные осмотры").fontWeight(.bold).padding(.horizontal)) {
                     ForEach(inspectionsModel.filter {
                         searchText.isEmpty || $0.insuranceContractNumber.localizedStandardContains(searchText)
                     }, id: \.id) { inspection in

@@ -55,7 +55,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             if let agent = sessionStore.loginModel {
-                Section(header: Text("Личные данные").fontWeight(.bold)) {
+                Section(header: Text("Личные данные").fontWeight(.bold).padding(.horizontal)) {
                     SectionItem(
                         imageName: "person",
                         subTitle: "Агент",
@@ -69,7 +69,7 @@ struct SettingsView: View {
                 }
             }
             #if os(iOS)
-            Section(header: Text("Уведомления").fontWeight(.bold), footer: footerNotification) {
+            Section(header: Text("Уведомления").fontWeight(.bold).padding(.horizontal), footer: footerNotification.padding(.horizontal)) {
                 if notificationStore.enabled == .authorized {
                     SectionLink(
                         imageName: "bell",
@@ -97,7 +97,7 @@ struct SettingsView: View {
                 }
             }
             #endif
-            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".")) {
+            Section(header: Text("Другое").fontWeight(.bold).padding(.horizontal), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".").padding(.horizontal)) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
@@ -123,7 +123,7 @@ struct SettingsView: View {
                     showFeedback = true
                 }
             }
-            Section(footer: Text("Версия: \(getVersion())")) {
+            Section(footer: Text("Версия: \(getVersion())").padding(.horizontal)) {
                 if !loading {
                     SectionButton(
                         imageName: "flame",
