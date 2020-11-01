@@ -15,9 +15,9 @@ struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     #if os(iOS)
-    @State private var alertItem: AlertItem? = nil
-    @State private var shareSheetItem: ShareSheetItem? = nil
-    @State private var fileType: FileType? = nil
+    @State private var alertItem: AlertItem?
+    @State private var shareSheetItem: ShareSheetItem?
+    @State private var fileType: FileType?
     #endif
     
     var inspection: Inspections

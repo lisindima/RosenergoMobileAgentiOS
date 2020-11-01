@@ -14,7 +14,7 @@ struct SignIn: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var loading: Bool = false
-    @State private var alertItem: AlertItem? = nil
+    @State private var alertItem: AlertItem?
     
     private func signIn() {
         loading = true
