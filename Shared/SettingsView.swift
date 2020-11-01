@@ -16,7 +16,7 @@ struct SettingsView: View {
     
     @Environment(\.presentationMode) private var presentationMode
     
-    @State private var alertItem: AlertItem? = nil
+    @State private var alertItem: AlertItem?
     @State private var showActionSheetExit: Bool = false
     @State private var showFeedback: Bool = false
     @State private var loading: Bool = false

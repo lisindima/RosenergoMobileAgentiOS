@@ -13,7 +13,7 @@ struct CreateVyplatnyeDela: View {
     @EnvironmentObject private var locationStore: LocationStore
     @Environment(\.presentationMode) private var presentationMode
     
-    @State private var videoURL: URL? = nil
+    @State private var videoURL: URL?
     @State private var photosURL: [URL] = []
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
@@ -21,8 +21,8 @@ struct CreateVyplatnyeDela: View {
     @State private var showVyplatnyedelaDetails: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
-    @State private var alertItem: AlertItem? = nil
-    @State private var vyplatnyedelaItem: Vyplatnyedela? = nil
+    @State private var alertItem: AlertItem?
+    @State private var vyplatnyedelaItem: Vyplatnyedela?
     
     private func openCamera() {
         if locationStore.latitude == 0 {

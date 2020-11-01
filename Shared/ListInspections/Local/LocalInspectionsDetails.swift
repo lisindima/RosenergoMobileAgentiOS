@@ -20,7 +20,7 @@ struct LocalInspectionsDetails: View {
     @Environment(\.presentationMode) private var presentationMode
     
     @State private var uploadState: Bool = false
-    @State private var alertItem: AlertItem? = nil
+    @State private var alertItem: AlertItem?
     
     var localInspections: LocalInspections
     

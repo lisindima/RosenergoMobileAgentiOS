@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ShareSheetView: UIViewControllerRepresentable {
     var activityItems: [Any]
-    var applicationActivities: [UIActivity]? = nil
+    var applicationActivities: [UIActivity]?
     
     func makeUIViewController(context _: UIViewControllerRepresentableContext<ShareSheetView>) -> UIActivityViewController {
         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
