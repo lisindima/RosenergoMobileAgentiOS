@@ -19,7 +19,7 @@ struct CreateInspections: View {
     @Environment(\.managedObjectContext) private var moc
     
     @State private var photosURL: [URL] = []
-    @State private var videoURL: URL? = nil
+    @State private var videoURL: URL?
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
@@ -39,8 +39,8 @@ struct CreateInspections: View {
     @State private var vinAndNumber2: Bool = false
     @State private var choiseSeries: Series = .XXX
     @State private var choiseSeries2: Series = .XXX
-    @State private var alertItem: AlertItem? = nil
-    @State private var inspectionItem: Inspections? = nil
+    @State private var alertItem: AlertItem?
+    @State private var inspectionItem: Inspections?
     
     private func openCamera() {
         if locationStore.latitude == 0 {
