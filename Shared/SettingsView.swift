@@ -12,7 +12,6 @@ import UserFeedback
 
 struct SettingsView: View {
     @EnvironmentObject private var sessionStore: SessionStore
-    @EnvironmentObject private var notificationStore: NotificationStore
     
     @Environment(\.presentationMode) private var presentationMode
     
@@ -21,9 +20,6 @@ struct SettingsView: View {
     @State private var showFeedback: Bool = false
     @State private var loading: Bool = false
     
-    #if os(iOS)
-    private let settingsURL = URL(string: UIApplication.openSettingsURLString)
-    #endif
     private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")
     
     private func removeCache() {
@@ -36,19 +32,6 @@ struct SettingsView: View {
         sessionStore.logout {
             loading = false
             presentationMode.wrappedValue.dismiss()
-        }
-    }
-    
-    @ViewBuilder var footerNotification: some View {
-        switch notificationStore.enabled {
-        case .denied:
-            Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\", после чего активируйте уведомления в настройках.")
-        case .notDetermined:
-            Text("Чтобы активировать уведомления нажмите на кнопку \"Включить уведомления\".")
-        case .authorized:
-            Text("Укажите, через какое время вам придет уведомление после сохранённого осмотра.")
-        default:
-            Text("")
         }
     }
     
@@ -68,35 +51,12 @@ struct SettingsView: View {
                     )
                 }
             }
-            #if os(iOS)
-            Section(header: Text("Уведомления").fontWeight(.bold).padding(.horizontal), footer: footerNotification.padding(.horizontal)) {
-                if notificationStore.enabled == .authorized {
-                    SectionLink(
-                        imageName: "bell",
-                        title: "Выключить уведомления",
-                        url: settingsURL
-                    )
-                    Stepper(value: $notificationStore.notifyHour, in: 1 ... 24) {
-                        Image(systemName: "timer")
-                            .frame(width: 24)
-                            .foregroundColor(.rosenergo)
-                        Text("\(notificationStore.notifyHour) ч.")
-                    }
-                } else if notificationStore.enabled == .notDetermined {
-                    SectionButton(
-                        imageName: "bell",
-                        title: "Включить уведомления",
-                        action: notificationStore.requestPermission
-                    )
-                } else if notificationStore.enabled == .denied {
-                    SectionLink(
-                        imageName: "bell",
-                        title: "Включить уведомления",
-                        url: settingsURL
-                    )
-                }
+            Section {
+                SectionNavigationLink(
+                    imageName: "bell",
+                    title: "Уведомления",
+                    destination: NotificationView())
             }
-            #endif
             Section(header: Text("Другое").fontWeight(.bold).padding(.horizontal), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".").padding(.horizontal)) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",

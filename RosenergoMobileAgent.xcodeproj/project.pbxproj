@@ -130,6 +130,8 @@
 		CBB2E09C2478F73B0017AB00 /* LocalInspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */; };
 		CBB2E09F2478F7E10017AB00 /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CBB2E0A12478F8110017AB00 /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
+		CBB43854254FBA1B00614E34 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB43853254FBA1B00614E34 /* NotificationView.swift */; };
+		CBB43855254FBA1B00614E34 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB43853254FBA1B00614E34 /* NotificationView.swift */; };
 		CBB4B0B924C82BCA00C25A59 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */; };
 		CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
 		CBB4B0BC24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
@@ -300,6 +302,7 @@
 		CBB2E09B2478F73B0017AB00 /* LocalInspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalInspectionsDetails.swift; sourceTree = "<group>"; };
 		CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsItems.swift; sourceTree = "<group>"; };
 		CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionsDetails.swift; sourceTree = "<group>"; };
+		CBB43853254FBA1B00614E34 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		CBB4B0B824C82BCA00C25A59 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		CBB842EC24E3AE600008EB07 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
@@ -397,15 +400,12 @@
 			isa = PBXGroup;
 			children = (
 				CB66D74A24A5D989005C616A /* RosenergoApp.swift */,
-				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
-				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
 				CB4B826824D4079800C0C558 /* InspectionLink.swift */,
 				CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */,
 				CB17E57C2467AFC100CDBB1A /* MenuView.swift */,
 				CBB842EC24E3AE600008EB07 /* License.swift */,
 				CB4B9314246CF235006B7008 /* SettingsView.swift */,
-				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
-				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
+				CBB43853254FBA1B00614E34 /* NotificationView.swift */,
 				CB17E5622466644400CDBB1A /* SignIn.swift */,
 				CB17E5902469B4FB00CDBB1A /* Extensions */,
 				CBB4B0B724C82B9C00C25A59 /* Location */,
@@ -525,6 +525,10 @@
 		CB8E99A22521C6C700F59A5E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
+				CBE9BE9524A7628B00D8CA2A /* SideBar.swift */,
+				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
+				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
 				CB17E56C2466644500CDBB1A /* Info.plist */,
 				CB7791DE254C03E20072B232 /* GoogleService-Info.plist */,
 				CB2B5B82246BA8CE006F35AC /* iOS.entitlements */,
@@ -874,6 +878,7 @@
 				CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */,
 				CB7EAEB02510856900B4B4F5 /* ImageButton.swift in Sources */,
 				CB7EAEA7250F394A00B4B4F5 /* LoadingView.swift in Sources */,
+				CBB43854254FBA1B00614E34 /* NotificationView.swift in Sources */,
 				CB7EAEAD2510854300B4B4F5 /* MenuButton.swift in Sources */,
 				CB4B826924D4079800C0C558 /* InspectionLink.swift in Sources */,
 				CBAC7F3824D270640081597D /* VyplatnyedelaDetails.swift in Sources */,
@@ -928,6 +933,7 @@
 				CBAC7F3624D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
 				CB7CEFA624A9DA1D009DF93A /* LocalImageDetail.swift in Sources */,
 				CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */,
+				CBB43855254FBA1B00614E34 /* NotificationView.swift in Sources */,
 				CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CB7EAEAE2510854300B4B4F5 /* MenuButton.swift in Sources */,
 				CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */,
