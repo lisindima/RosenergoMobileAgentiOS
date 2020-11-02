@@ -37,7 +37,10 @@ struct ServerImage: View {
     var body: some View {
         URLImage(
             url: path,
-            options: URLImageOptions(cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: delay)),
+            options: URLImageOptions(
+                cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: delay),
+                maxPixelSize: CGSize(width: size, height: size)
+            ),
             inProgress: { progress in
                 ProgressView(value: progress)
                     .progressViewStyle(CircularProgressViewStyle())
