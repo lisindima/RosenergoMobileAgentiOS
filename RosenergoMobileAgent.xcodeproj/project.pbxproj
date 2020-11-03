@@ -73,7 +73,6 @@
 		CB758D7224AEEB67000A6B3C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D7024AEEB67000A6B3C /* UIImage.swift */; };
 		CB758D8B24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
 		CB758D8C24B17C93000A6B3C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB758D8A24B17C93000A6B3C /* Date.swift */; };
-		CB7791C9254C01C60072B232 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB7791C8254C01C60072B232 /* FirebaseAnalytics */; };
 		CB7791CB254C01C60072B232 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB7791CA254C01C60072B232 /* FirebaseCrashlytics */; };
 		CB7791D5254C02630072B232 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CB7791D4254C02630072B232 /* FirebaseCrashlytics */; };
 		CB7791DF254C03E20072B232 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB7791DE254C03E20072B232 /* GoogleService-Info.plist */; };
@@ -338,7 +337,6 @@
 			files = (
 				CBE6ADBD2546BB01003781F4 /* UserFeedback in Frameworks */,
 				CBDDDA612473CF1400FE5A7C /* CloudKit.framework in Frameworks */,
-				CB7791C9254C01C60072B232 /* FirebaseAnalytics in Frameworks */,
 				CB7791CB254C01C60072B232 /* FirebaseCrashlytics in Frameworks */,
 				CBAC7F4024D27CF60081597D /* NativeSearchBar in Frameworks */,
 				CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */,
@@ -663,7 +661,6 @@
 				CB870229249C5FF400B5DA72 /* URLImage */,
 				CBAC7F3F24D27CF60081597D /* NativeSearchBar */,
 				CBE6ADBC2546BB01003781F4 /* UserFeedback */,
-				CB7791C8254C01C60072B232 /* FirebaseAnalytics */,
 				CB7791CA254C01C60072B232 /* FirebaseCrashlytics */,
 			);
 			productName = RosenergoMobileAgentiOS;
@@ -1135,7 +1132,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1167,7 +1164,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent;
 				PRODUCT_NAME = "Агент";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1427,11 +1424,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB7791C8254C01C60072B232 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
 		CB7791CA254C01C60072B232 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

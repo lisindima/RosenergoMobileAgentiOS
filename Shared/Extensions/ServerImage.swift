@@ -39,7 +39,7 @@ struct ServerImage: View {
             url: path,
             options: URLImageOptions(
                 cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: delay),
-                maxPixelSize: CGSize(width: size, height: size)
+                maxPixelSize: CGSize(width: 300, height: 300)
             ),
             inProgress: { progress in
                 ProgressView(value: progress)
@@ -70,6 +70,9 @@ struct FullScreenServerImage: View {
     var body: some View {
         URLImage(
             url: path,
+            options: URLImageOptions(
+                maxPixelSize: CGSize(width: 3000, height: 3000)
+            ),
             inProgress: { progress in
                 ProgressView(value: progress)
                     .progressViewStyle(CircularProgressViewStyle())

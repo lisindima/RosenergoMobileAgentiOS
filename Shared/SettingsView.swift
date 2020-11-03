@@ -51,7 +51,7 @@ struct SettingsView: View {
                     )
                 }
             }
-            Section {
+            Section(footer: Text("Здесь вы можете управлять уведомлениями приложения.").padding(.horizontal)) {
                 SectionNavigationLink(
                     imageName: "bell",
                     title: "Уведомления",
