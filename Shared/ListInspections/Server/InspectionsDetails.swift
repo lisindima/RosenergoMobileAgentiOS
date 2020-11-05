@@ -14,15 +14,13 @@ import AVKit
 struct InspectionsDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
+    var inspection: Inspections
+    
     #if os(iOS)
     @State private var alertItem: AlertItem?
     @State private var shareSheetItem: ShareSheetItem?
     @State private var fileType: FileType?
-    #endif
     
-    var inspection: Inspections
-    
-    #if os(iOS)
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
@@ -35,8 +33,8 @@ struct InspectionsDetails: View {
                     fileType = nil
                 }
             case let .failure(error):
-                fileType = nil
                 log(error.localizedDescription)
+                fileType = nil
             }
         }
     }
@@ -46,13 +44,18 @@ struct InspectionsDetails: View {
         sessionStore.download([url], fileType: .video) { [self] result in
             switch result {
             case let .success(response):
-                fileType = nil
                 shareSheetItem = ShareSheetItem(activityItems: [response])
+                fileType = nil
             case let .failure(error):
                 fileType = nil
                 log(error.localizedDescription)
             }
         }
+    }
+    
+    private func copyLink() {
+        UIPasteboard.general.url = URL(string: "rosenergo://share?inspection=\(inspection.id)")
+        alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
     }
     #endif
     
@@ -62,17 +65,9 @@ struct InspectionsDetails: View {
         #else
         formInspections
             .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    if let fileType = fileType {
-                        DownloadIndicator(fileType: fileType)
-                    }
-                }
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
-                        Button(action: {
-                            UIPasteboard.general.url = URL(string: "rosenergo://share?inspection=\(inspection.id)")
-                            alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
-                        }) {
+                        Button(action: copyLink) {
                             Label("Скопировать", systemImage: "link")
                         }
                         if !inspection.photos.isEmpty {
@@ -93,6 +88,7 @@ struct InspectionsDetails: View {
             }
             .customAlert(item: $alertItem)
             .shareSheet(item: $shareSheetItem)
+            .downloadIndicator(fileType: $fileType)
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: inspection.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?inspection=\(url)")!])
             }

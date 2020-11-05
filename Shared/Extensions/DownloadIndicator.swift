@@ -8,14 +8,47 @@
 
 import SwiftUI
 
-struct DownloadIndicator: View {
-    var fileType: FileType
+struct DownloadIndicator: ViewModifier {
+    @Binding var fileType: FileType?
     
-    var body: some View {
-        HStack {
-            ProgressView()
-            Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
-                .padding(.leading, 8)
+    func body(content: Content) -> some View {
+        ZStack {
+            if fileType != nil {
+                VStack {
+                    Spacer()
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
+                                .fontWeight(.bold)
+                            Text("Нажмите, чтобы отменить.")
+                                .font(.caption)
+                        }
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    }
+                    .foregroundColor(.white)
+                    .padding(16)
+                    .background(Color.red)
+                    .cornerRadius(8)
+                }
+                .zIndex(1)
+                .padding(.horizontal)
+                .animation(.easeInOut)
+                .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
+                .onTapGesture {
+                    withAnimation {
+                        fileType = nil
+                    }
+                }
+            }
+            content
         }
+    }
+}
+
+extension View {
+    func downloadIndicator(fileType: Binding<FileType?>) -> some View {
+        modifier(DownloadIndicator(fileType: fileType))
     }
 }

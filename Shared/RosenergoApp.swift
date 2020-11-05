@@ -6,8 +6,8 @@
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
-import SwiftUI
 import Firebase
+import SwiftUI
 
 @main
 struct RosenergoApp: App {
@@ -75,12 +75,5 @@ struct RosenergoApp: App {
                 NotificationStore.shared.refreshNotificationStatus()
             }
         }
-    }
-}
-
-extension URL {
-    subscript(queryParam: String) -> String {
-        guard let url = URLComponents(string: absoluteString) else { return "" }
-        return url.queryItems?.first(where: { $0.name == queryParam })?.value ?? ""
     }
 }

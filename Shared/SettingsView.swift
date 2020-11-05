@@ -55,7 +55,8 @@ struct SettingsView: View {
                 SectionNavigationLink(
                     imageName: "bell",
                     title: "Уведомления",
-                    destination: NotificationView())
+                    destination: NotificationView()
+                )
             }
             Section(header: Text("Другое").fontWeight(.bold).padding(.horizontal), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".").padding(.horizontal)) {
                 SectionNavigationLink(

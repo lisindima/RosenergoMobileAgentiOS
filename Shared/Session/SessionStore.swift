@@ -7,8 +7,8 @@
 //
 
 import Combine
-import Foundation
 import Firebase
+import Foundation
 
 class SessionStore: ObservableObject {
     @CodableUserDefaults(key: "loginModel", default: nil)

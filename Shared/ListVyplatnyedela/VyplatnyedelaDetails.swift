@@ -11,15 +11,13 @@ import SwiftUI
 struct VyplatnyedelaDetails: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
+    var vyplatnyedela: Vyplatnyedela
+    
     #if os(iOS)
     @State private var alertItem: AlertItem?
     @State private var shareSheetItem: ShareSheetItem?
     @State private var fileType: FileType?
-    #endif
     
-    var vyplatnyedela: Vyplatnyedela
-    
-    #if os(iOS)
     private func downloadPhoto() {
         var photoURL: [URL] = []
         fileType = .photo
@@ -37,25 +35,22 @@ struct VyplatnyedelaDetails: View {
             }
         }
     }
+    
+    private func copyLink() {
+        UIPasteboard.general.url = URL(string: "rosenergo://share?delo=\(vyplatnyedela.id)")
+        alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
+    }
     #endif
     
     var body: some View {
         #if os(watchOS)
-        form
+        formVyplatnyedela
         #else
-        form
+        formVyplatnyedela
             .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    if let fileType = fileType {
-                        DownloadIndicator(fileType: fileType)
-                    }
-                }
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
-                        Button(action: {
-                            UIPasteboard.general.url = URL(string: "rosenergo://share?delo=\(vyplatnyedela.id)")
-                            alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
-                        }) {
+                        Button(action: copyLink) {
                             Label("Скопировать", systemImage: "link")
                         }
                         if !vyplatnyedela.photos.isEmpty {
@@ -71,13 +66,14 @@ struct VyplatnyedelaDetails: View {
             }
             .customAlert(item: $alertItem)
             .shareSheet(item: $shareSheetItem)
+            .downloadIndicator(fileType: $fileType)
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: vyplatnyedela.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?delo=\(url)")!])
             }
         #endif
     }
     
-    var form: some View {
+    var formVyplatnyedela: some View {
         Form {
             if !vyplatnyedela.photos.isEmpty {
                 Section(header: Text("Фотографии").fontWeight(.bold).padding(.horizontal)) {
