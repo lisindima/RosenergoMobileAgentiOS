@@ -12,35 +12,33 @@ struct DownloadIndicator: ViewModifier {
     @Binding var fileType: FileType?
     
     func body(content: Content) -> some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             if fileType != nil {
-                VStack {
-                    Spacer()
-                    HStack {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
-                                .fontWeight(.bold)
-                            Text("Нажмите, чтобы отменить.")
-                                .font(.caption)
-                        }
-                        Spacer()
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
+                            .fontWeight(.bold)
+                        Text("Нажмите, чтобы отменить.")
+                            .font(.caption)
                     }
                     .foregroundColor(.white)
-                    .padding(16)
-                    .background(Color.red)
-                    .cornerRadius(8)
+                    Spacer()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
                 }
+                .padding(16)
+                .background(Color.red)
+                .cornerRadius(8)
                 .zIndex(1)
                 .padding(.horizontal)
                 .animation(.easeInOut)
-                .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
+                .transition(.move(edge: .bottom))
                 .onTapGesture {
                     withAnimation {
                         fileType = nil
                     }
                 }
+                
             }
             content
         }
