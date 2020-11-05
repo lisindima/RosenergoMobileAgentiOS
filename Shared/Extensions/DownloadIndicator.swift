@@ -45,6 +45,13 @@ struct DownloadIndicator: ViewModifier {
     }
 }
 
+struct DownloadIndicator_Previews: PreviewProvider {
+    static var previews: some View {
+        Text("DownloadIndicator")
+            .downloadIndicator(fileType: .constant(.video))
+    }
+}
+
 extension View {
     func downloadIndicator(fileType: Binding<FileType?>) -> some View {
         modifier(DownloadIndicator(fileType: fileType))
