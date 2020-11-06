@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct VyplatnyedelaLink: View {
-    @EnvironmentObject private var sessionStore: SessionStore
-    
     @Environment(\.presentationMode) private var presentationMode
     
     @Binding var vyplatnyedelaID: String
@@ -18,7 +16,7 @@ struct VyplatnyedelaLink: View {
     @State private var loadingState: LoadingState<Vyplatnyedela> = .loading
 
     private func getVyplatnyedela() {
-        sessionStore.fetch(.vyplatnyedela(vyplatnyedelaID)) { [self] (result: Result<Vyplatnyedela, ApiError>) in
+        Endpoint.api.fetch(.vyplatnyedela(vyplatnyedelaID)) { [self] (result: Result<Vyplatnyedela, ApiError>) in
             switch result {
             case let .success(value):
                 loadingState = .success(value)

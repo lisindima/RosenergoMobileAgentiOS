@@ -51,7 +51,7 @@ struct CreateVyplatnyeDela: View {
             photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: Date()))
         }
         
-        sessionStore.upload(.uploadVyplatnyedela, parameters: VyplatnyeDelaParameters(
+        Endpoint.api.upload(.uploadVyplatnyedela, parameters: VyplatnyeDelaParameters(
             insuranceContractNumber: insuranceContractNumber,
             numberZayavlenia: numberZayavlenia,
             latitude: locationStore.latitude,

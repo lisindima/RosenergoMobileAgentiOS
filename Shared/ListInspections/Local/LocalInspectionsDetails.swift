@@ -55,7 +55,7 @@ struct LocalInspectionsDetails: View {
             }
         }
         
-        sessionStore.upload(.uploadInspection, parameters: InspectionParameters(
+        Endpoint.api.upload(.uploadInspection, parameters: InspectionParameters(
             carModel: localInspections.carModel,
             carRegNumber: localInspections.carRegNumber,
             carBodyNumber: localInspections.carBodyNumber,

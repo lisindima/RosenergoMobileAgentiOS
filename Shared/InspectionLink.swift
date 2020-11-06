@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct InspectionLink: View {
-    @EnvironmentObject private var sessionStore: SessionStore
-    
     @Environment(\.presentationMode) private var presentationMode
     
     @Binding var inspectionID: String
@@ -18,7 +16,7 @@ struct InspectionLink: View {
     @State private var loadingState: LoadingState<Inspections> = .loading
 
     private func getInspection() {
-        sessionStore.fetch(.inspections(inspectionID)) { [self] (result: Result<Inspections, ApiError>) in
+        Endpoint.api.fetch(.inspections(inspectionID)) { [self] (result: Result<Inspections, ApiError>) in
             switch result {
             case let .success(value):
                 loadingState = .success(value)
