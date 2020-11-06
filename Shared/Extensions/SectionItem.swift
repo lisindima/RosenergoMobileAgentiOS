@@ -13,6 +13,7 @@ struct SectionItem: View {
     var imageColor: Color = .rosenergo
     var subTitle: String = ""
     var title: String?
+    var titleColor: Color = .primary
     
     @ViewBuilder var secondaryTitle: Text {
         #if os(watchOS)
@@ -44,7 +45,7 @@ struct SectionItem: View {
                         .foregroundColor(.secondary)
                 }
                 primaryTitle
-                    .foregroundColor(.primary)
+                    .foregroundColor(titleColor)
                     .redacted(reason: title == nil ? .placeholder : [])
             }
         }
@@ -60,13 +61,12 @@ struct SectionButton: View {
     
     var body: some View {
         Button(action: action) {
-            HStack {
-                Image(systemName: imageName)
-                    .frame(width: 24)
-                    .foregroundColor(imageColor)
-                Text(title)
-                    .foregroundColor(titleColor)
-            }
+            SectionItem(
+                imageName: imageName,
+                imageColor: imageColor,
+                title: title,
+                titleColor: titleColor
+            )
         }
     }
 }
@@ -79,25 +79,16 @@ struct SectionLink: View {
     var showLinkLabel: Bool = false
     var url: URL?
     
-    @ViewBuilder var primaryTitle: Text {
-        #if os(watchOS)
-        Text(title ?? "Пролетарская, 114")
-            .font(.footnote)
-        #else
-        Text(title ?? "Пролетарская, 114")
-        #endif
-    }
-    
     var body: some View {
         if let destination = url {
             Link(destination: destination) {
                 HStack {
-                    Image(systemName: imageName)
-                        .frame(width: 24)
-                        .foregroundColor(imageColor)
-                    primaryTitle
-                        .foregroundColor(titleColor)
-                        .redacted(reason: title == nil ? .placeholder : [])
+                    SectionItem(
+                        imageName: imageName,
+                        imageColor: imageColor,
+                        title: title,
+                        titleColor: titleColor
+                    )
                     if showLinkLabel {
                         Spacer()
                         Image(systemName: "arrow.up.right.square")
@@ -118,11 +109,12 @@ struct SectionNavigationLink<Destination: View>: View {
     
     var body: some View {
         NavigationLink(destination: destination) {
-            Image(systemName: imageName)
-                .frame(width: 24)
-                .foregroundColor(imageColor)
-            Text(title)
-                .foregroundColor(titleColor)
+            SectionItem(
+                imageName: imageName,
+                imageColor: imageColor,
+                title: title,
+                titleColor: titleColor
+            )
         }
     }
 }

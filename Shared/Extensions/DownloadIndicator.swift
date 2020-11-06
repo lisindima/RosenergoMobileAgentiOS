@@ -13,10 +13,10 @@ struct DownloadIndicator: ViewModifier {
     
     func body(content: Content) -> some View {
         ZStack(alignment: .bottom) {
-            if fileType != nil {
+            if let type = fileType {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Загрузка \(fileType == .photo ? "фотографий" : "видео")")
+                        Text("Загрузка \(type == .photo ? "фотографий" : "видео")")
                             .fontWeight(.bold)
                         Text("Нажмите, чтобы отменить.")
                             .font(.caption)
@@ -27,18 +27,21 @@ struct DownloadIndicator: ViewModifier {
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                 }
                 .padding(16)
-                .background(Color.red)
+                .background(Color.rosenergo)
                 .cornerRadius(8)
                 .zIndex(1)
                 .padding(.horizontal)
                 .animation(.easeInOut)
-                .transition(.move(edge: .bottom))
+                .transition(
+                    AnyTransition
+                        .move(edge: .bottom)
+                        .combined(with: .opacity)
+                )
                 .onTapGesture {
                     withAnimation {
                         fileType = nil
                     }
                 }
-                
             }
             content
         }
@@ -48,7 +51,7 @@ struct DownloadIndicator: ViewModifier {
 struct DownloadIndicator_Previews: PreviewProvider {
     static var previews: some View {
         Text("DownloadIndicator")
-            .downloadIndicator(fileType: .constant(.video))
+            .downloadIndicator(fileType: .constant(.photo))
     }
 }
 
