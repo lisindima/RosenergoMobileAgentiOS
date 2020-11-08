@@ -25,16 +25,17 @@ struct LocalInspectionsDetails: View {
     var localInspections: LocalInspections
     
     private func delete() {
-        notificationStore.cancelNotifications(localInspections.id.uuidString)
-        presentationMode.wrappedValue.dismiss()
-        #if os(iOS)
-        WidgetCenter.shared.reloadAllTimelines()
-        UIApplication.shared.applicationIconBadgeNumber = 0
-        #endif
         moc.delete(localInspections)
         do {
             try moc.save()
+            notificationStore.cancelNotifications(localInspections.id.uuidString)
+            presentationMode.wrappedValue.dismiss()
+            #if os(iOS)
+            WidgetCenter.shared.reloadAllTimelines()
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            #endif
         } catch {
+            alertItem = AlertItem(title: "Ошибка", message: error.localizedDescription)
             log(error.localizedDescription)
         }
     }
