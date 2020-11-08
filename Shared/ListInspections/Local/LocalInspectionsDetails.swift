@@ -29,6 +29,7 @@ struct LocalInspectionsDetails: View {
         presentationMode.wrappedValue.dismiss()
         #if os(iOS)
         WidgetCenter.shared.reloadAllTimelines()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         #endif
         moc.delete(localInspections)
         do {
@@ -75,6 +76,9 @@ struct LocalInspectionsDetails: View {
             case .success:
                 alertItem = AlertItem(title: "Успешно", message: "Осмотр успешно загружен на сервер.", action: delete)
                 uploadState = false
+                #if os(iOS)
+                UIApplication.shared.applicationIconBadgeNumber = 0
+                #endif
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
                 uploadState = false
