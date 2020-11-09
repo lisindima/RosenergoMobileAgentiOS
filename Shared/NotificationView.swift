@@ -34,7 +34,7 @@ struct NotificationView: View {
     
     var body: some View {
         Form {
-            Section(footer: footerNotification.padding(.horizontal)) {
+            Section(footer: footerNotification) {
                 if notificationStore.enabled == .authorized {
                     SectionLink(
                         imageName: "bell",

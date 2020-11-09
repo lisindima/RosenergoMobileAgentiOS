@@ -38,7 +38,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             if let agent = sessionStore.loginModel {
-                Section(header: Text("Личные данные").fontWeight(.bold).padding(.horizontal)) {
+                Section(header: Text("Личные данные").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "person",
                         subTitle: "Агент",
@@ -51,14 +51,14 @@ struct SettingsView: View {
                     )
                 }
             }
-            Section(footer: Text("Здесь вы можете управлять уведомлениями приложения.").padding(.horizontal)) {
+            Section(footer: Text("Здесь вы можете управлять уведомлениями приложения.")) {
                 SectionNavigationLink(
                     imageName: "bell",
                     title: "Уведомления",
                     destination: NotificationView()
                 )
             }
-            Section(header: Text("Другое").fontWeight(.bold).padding(.horizontal), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".").padding(.horizontal)) {
+            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".")) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
@@ -84,7 +84,7 @@ struct SettingsView: View {
                     showFeedback = true
                 }
             }
-            Section(footer: Text("Версия: \(getVersion())").padding(.horizontal)) {
+            Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
                     SectionButton(
                         imageName: "flame",

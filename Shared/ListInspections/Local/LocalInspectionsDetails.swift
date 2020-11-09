@@ -112,7 +112,7 @@ struct LocalInspectionsDetails: View {
     @ViewBuilder var formLocalInspections: some View {
         Form {
             if !localInspections.localPhotos.isEmpty {
-                Section(header: Text("Фотографии").fontWeight(.bold).padding(.horizontal)) {
+                Section(header: Text("Фотографии").fontWeight(.bold)) {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(Array(localInspections.localPhotos), id: \.id) { photo in
@@ -126,7 +126,7 @@ struct LocalInspectionsDetails: View {
             }
             #if os(iOS)
             if let url = localInspections.videoURL {
-                Section(header: Text("Видео").fontWeight(.bold).padding(.horizontal)) {
+                Section(header: Text("Видео").fontWeight(.bold)) {
                     VideoPlayer(player: AVPlayer(url: url))
                         .frame(height: 200)
                         .cornerRadius(8)
@@ -134,13 +134,13 @@ struct LocalInspectionsDetails: View {
                 }
             }
             #endif
-            Section(header: Text("Дата создания осмотра").fontWeight(.bold).padding(.horizontal)) {
+            Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "timer",
                     title: localInspections.dateInspections.convertDate()
                 )
             }
-            Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold).padding(.horizontal)) {
+            Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "doc.plaintext",
                     subTitle: "Страховой полис",
@@ -168,7 +168,7 @@ struct LocalInspectionsDetails: View {
                 )
             }
             if localInspections.carModel2 != nil {
-                Section(header: Text("Второй автомобиль").fontWeight(.bold).padding(.horizontal)) {
+                Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "doc.plaintext",
                         subTitle: "Страховой полис",
@@ -196,7 +196,7 @@ struct LocalInspectionsDetails: View {
                     )
                 }
             }
-            Section(header: Text("Место проведения осмотра").fontWeight(.bold).padding(.horizontal), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.").padding(.horizontal)) {
+            Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
                 MapView(
                     latitude: localInspections.latitude,
                     longitude: localInspections.longitude

@@ -38,7 +38,7 @@ struct ListVyplatnyedela: View {
             subTitle: "Добавьте своё первое выплатное дело и оно отобразиться здесь."
         ) { vyplatnyedelaModel in
             List {
-                Section(header: Text("Отправленные дела").fontWeight(.bold).padding(.horizontal)) {
+                Section(header: Text("Отправленные дела").fontWeight(.bold)) {
                     ForEach(vyplatnyedelaModel.filter {
                         searchText.isEmpty || $0.numberZayavlenia.localizedStandardContains(searchText)
                     }, id: \.id) { vyplatnyedela in

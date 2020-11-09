@@ -13,7 +13,7 @@ struct License: View {
 
     var body: some View {
         Form {
-            Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.").padding(.horizontal)) {
+            Section(footer: Text("Здесь перечислены проекты с открытым исходным кодом, которые используются в этом приложении.")) {
                 ForEach(licenseModel.sorted { $0.nameFramework < $1.nameFramework }, id: \.id) { license in
                     NavigationLink(destination: LicenseDetail(license: license)) {
                         Text(license.nameFramework)

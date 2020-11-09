@@ -76,7 +76,7 @@ struct VyplatnyedelaDetails: View {
     var formVyplatnyedela: some View {
         Form {
             if !vyplatnyedela.photos.isEmpty {
-                Section(header: Text("Фотографии").fontWeight(.bold).padding(.horizontal)) {
+                Section(header: Text("Фотографии").fontWeight(.bold)) {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             ForEach(vyplatnyedela.photos, id: \.id) { photo in
@@ -88,13 +88,13 @@ struct VyplatnyedelaDetails: View {
                     }
                 }
             }
-            Section(header: Text("Дата загрузки выплатного дела").fontWeight(.bold).padding(.horizontal)) {
+            Section(header: Text("Дата загрузки выплатного дела").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "timer",
                     title: vyplatnyedela.createdAt.convertDate()
                 )
             }
-            Section(header: Text("Информация").fontWeight(.bold).padding(.horizontal)) {
+            Section(header: Text("Информация").fontWeight(.bold)) {
                 SectionItem(
                     imageName: "doc.plaintext",
                     subTitle: "Номер заявления",
