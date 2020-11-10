@@ -48,7 +48,7 @@ struct ServerImage: View {
             failure: { _, retry in
                 Button(action: retry) {
                     Image(systemName: "arrow.clockwise.circle.fill")
-                        .imageScale(.large)
+                        .font(.largeTitle)
                 }
             }
         ) { image in
@@ -80,7 +80,7 @@ struct FullScreenServerImage: View {
             failure: { _, retry in
                 Button(action: retry) {
                     Image(systemName: "arrow.clockwise.circle.fill")
-                        .imageScale(.large)
+                        .font(.largeTitle)
                 }
             }
         ) { image in

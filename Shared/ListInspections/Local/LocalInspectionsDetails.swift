@@ -94,119 +94,109 @@ struct LocalInspectionsDetails: View {
             .ignoresSafeArea(edges: .bottom)
         #else
         formLocalInspections
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Menu {
-                        Button(action: delete) {
-                            Label("Удалить", systemImage: "trash")
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .imageScale(.large)
-                    }
-                }
-            }
         #endif
     }
     
-    @ViewBuilder var formLocalInspections: some View {
-        Form {
-            if !localInspections.localPhotos.isEmpty {
-                Section(header: Text("Фотографии").fontWeight(.bold)) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(Array(localInspections.localPhotos), id: \.id) { photo in
-                                NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.localPhotos)) {
-                                    LocalImage(data: photo.photosData)
-                                }.buttonStyle(PlainButtonStyle())
-                            }
-                        }.padding(.vertical, 8)
+    var formLocalInspections: some View {
+        VStack {
+            Form {
+                if !localInspections.localPhotos.isEmpty {
+                    Section(header: Text("Фотографии").fontWeight(.bold)) {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack {
+                                ForEach(Array(localInspections.localPhotos), id: \.id) { photo in
+                                    NavigationLink(destination: LocalImageDetail(id: Int(photo.id), photos: localInspections.localPhotos)) {
+                                        LocalImage(data: photo.photosData)
+                                    }.buttonStyle(PlainButtonStyle())
+                                }
+                            }.padding(.vertical, 8)
+                        }
                     }
                 }
-            }
-            #if os(iOS)
-            if let url = localInspections.videoURL {
-                Section(header: Text("Видео").fontWeight(.bold)) {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: 200)
-                        .cornerRadius(8)
-                        .padding(.vertical, 8)
+                #if os(iOS)
+                if let url = localInspections.videoURL {
+                    Section(header: Text("Видео").fontWeight(.bold)) {
+                        VideoPlayer(player: AVPlayer(url: url))
+                            .frame(height: 200)
+                            .cornerRadius(8)
+                            .padding(.vertical, 8)
+                    }
                 }
-            }
-            #endif
-            Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
-                SectionItem(
-                    imageName: "timer",
-                    title: localInspections.dateInspections.convertDate()
-                )
-            }
-            Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
-                SectionItem(
-                    imageName: "doc.plaintext",
-                    subTitle: "Страховой полис",
-                    title: localInspections.insuranceContractNumber
-                )
-                SectionItem(
-                    imageName: "car",
-                    subTitle: "Модель автомобиля",
-                    title: localInspections.carModel
-                )
-                SectionItem(
-                    imageName: "rectangle",
-                    subTitle: "Регистрационный номер",
-                    title: localInspections.carRegNumber
-                )
-                SectionItem(
-                    imageName: "v.circle",
-                    subTitle: "VIN",
-                    title: localInspections.carVin
-                )
-                SectionItem(
-                    imageName: "textformat.123",
-                    subTitle: "Номер кузова",
-                    title: localInspections.carBodyNumber
-                )
-            }
-            if localInspections.carModel2 != nil {
-                Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
+                #endif
+                Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
+                    SectionItem(
+                        imageName: "timer",
+                        title: localInspections.dateInspections.convertDate()
+                    )
+                }
+                Section(header: Text(localInspections.carModel2 != nil ? "Первый автомобиль" : "Информация").fontWeight(.bold)) {
                     SectionItem(
                         imageName: "doc.plaintext",
                         subTitle: "Страховой полис",
-                        title: localInspections.insuranceContractNumber2
+                        title: localInspections.insuranceContractNumber
                     )
                     SectionItem(
                         imageName: "car",
                         subTitle: "Модель автомобиля",
-                        title: localInspections.carModel2
+                        title: localInspections.carModel
                     )
                     SectionItem(
                         imageName: "rectangle",
                         subTitle: "Регистрационный номер",
-                        title: localInspections.carRegNumber2
+                        title: localInspections.carRegNumber
                     )
                     SectionItem(
                         imageName: "v.circle",
                         subTitle: "VIN",
-                        title: localInspections.carVin2
+                        title: localInspections.carVin
                     )
                     SectionItem(
                         imageName: "textformat.123",
                         subTitle: "Номер кузова",
-                        title: localInspections.carBodyNumber2
+                        title: localInspections.carBodyNumber
+                    )
+                }
+                if localInspections.carModel2 != nil {
+                    Section(header: Text("Второй автомобиль").fontWeight(.bold)) {
+                        SectionItem(
+                            imageName: "doc.plaintext",
+                            subTitle: "Страховой полис",
+                            title: localInspections.insuranceContractNumber2
+                        )
+                        SectionItem(
+                            imageName: "car",
+                            subTitle: "Модель автомобиля",
+                            title: localInspections.carModel2
+                        )
+                        SectionItem(
+                            imageName: "rectangle",
+                            subTitle: "Регистрационный номер",
+                            title: localInspections.carRegNumber2
+                        )
+                        SectionItem(
+                            imageName: "v.circle",
+                            subTitle: "VIN",
+                            title: localInspections.carVin2
+                        )
+                        SectionItem(
+                            imageName: "textformat.123",
+                            subTitle: "Номер кузова",
+                            title: localInspections.carBodyNumber2
+                        )
+                    }
+                }
+                Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
+                    MapView(
+                        latitude: localInspections.latitude,
+                        longitude: localInspections.longitude
                     )
                 }
             }
-            Section(header: Text("Место проведения осмотра").fontWeight(.bold), footer: Text("Для того, чтобы открыть это местоположение в приложение карт, нажмите на адрес.")) {
-                MapView(
-                    latitude: localInspections.latitude,
-                    longitude: localInspections.longitude
-                )
-            }
+            CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress, action: uploadLocalInspections)
+                .padding(.horizontal)
+                .padding(.bottom, 8)
         }
-        CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress, action: uploadLocalInspections)
-            .padding(.horizontal)
-            .padding(.bottom, 8)
-            .navigationTitle("Не отправлено")
-            .customAlert(item: $alertItem)
+        .navigationTitle("Не отправлено")
+        .customAlert(item: $alertItem)
     }
 }
