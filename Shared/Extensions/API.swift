@@ -1,5 +1,5 @@
 //
-//  Endpoint.swift
+//  API.swift
 //  RosenergoMobileAgentiOS
 //
 //  Created by Дмитрий Лисин on 21.09.2020.
@@ -8,15 +8,6 @@
 
 import Combine
 import Foundation
-
-enum Endpoint {
-    case login
-    case logout
-    case uploadInspection
-    case uploadVyplatnyedela
-    case inspections(_ id: String = "")
-    case vyplatnyedela(_ id: String = "")
-}
 
 final class API {
     private var requests = Set<AnyCancellable>()

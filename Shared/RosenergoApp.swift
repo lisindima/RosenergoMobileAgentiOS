@@ -17,8 +17,7 @@ struct RosenergoApp: App {
     
     @Environment(\.scenePhase) private var scenePhase
     
-    @State private var showfullScreenCover: Bool = false
-    @State private var urlType: URLType = .inspection()
+    @State private var urlType: URLType?
     
     let persistenceController = PersistenceController.shared
     
@@ -30,10 +29,8 @@ struct RosenergoApp: App {
     func open(_ url: URL) {
         if !url["inspection"].isEmpty {
             urlType = .inspection(url["inspection"])
-            showfullScreenCover = true
         } else if !url["delo"].isEmpty {
             urlType = .vyplatnyedela(url["delo"])
-            showfullScreenCover = true
         }
     }
     
@@ -53,7 +50,7 @@ struct RosenergoApp: App {
                         open(url)
                     }
                 }
-                .fullScreenCover(isPresented: $showfullScreenCover) {
+                .fullScreenCover(item: $urlType) { urlType in
                     NavigationView {
                         switch urlType {
                         case let .inspection(id):
