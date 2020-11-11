@@ -15,6 +15,11 @@ enum LoadingState<Value> {
     case failure(_ error: Error)
 }
 
+enum URLType {
+    case inspection(_ id: String = "")
+    case vyplatnyedela(_ id: String = "")
+}
+
 enum FileType {
     case photo, video
 }

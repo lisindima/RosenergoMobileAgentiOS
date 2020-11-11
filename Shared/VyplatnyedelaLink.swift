@@ -11,9 +11,9 @@ import SwiftUI
 struct VyplatnyedelaLink: View {
     @Environment(\.presentationMode) private var presentationMode
     
-    @Binding var vyplatnyedelaID: String
-    
     @State private var loadingState: LoadingState<Vyplatnyedela> = .loading
+    
+    var vyplatnyedelaID: String
 
     private func getVyplatnyedela() {
         Endpoint.api.fetch(.vyplatnyedela(vyplatnyedelaID)) { [self] (result: Result<Vyplatnyedela, ApiError>) in

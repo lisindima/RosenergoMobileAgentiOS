@@ -13,8 +13,7 @@ struct ShareSheetView: UIViewControllerRepresentable {
     var applicationActivities: [UIActivity]?
     
     func makeUIViewController(context _: UIViewControllerRepresentableContext<ShareSheetView>) -> UIActivityViewController {
-        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
-        return controller
+        UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
     }
     
     func updateUIViewController(_: UIActivityViewController, context _: UIViewControllerRepresentableContext<ShareSheetView>) {}

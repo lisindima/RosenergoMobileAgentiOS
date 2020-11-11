@@ -10,10 +10,10 @@ import SwiftUI
 
 struct InspectionLink: View {
     @Environment(\.presentationMode) private var presentationMode
-    
-    @Binding var inspectionID: String
-    
+
     @State private var loadingState: LoadingState<Inspections> = .loading
+    
+    var inspectionID: String
 
     private func getInspection() {
         Endpoint.api.fetch(.inspections(inspectionID)) { [self] (result: Result<Inspections, ApiError>) in

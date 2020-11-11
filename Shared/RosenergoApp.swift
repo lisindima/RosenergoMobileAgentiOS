@@ -18,8 +18,7 @@ struct RosenergoApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
     @State private var showfullScreenCover: Bool = false
-    @State private var inspectionID: String = ""
-    @State private var vyplatnyedelaID: String = ""
+    @State private var urlType: URLType = .inspection()
     
     let persistenceController = PersistenceController.shared
     
@@ -29,11 +28,11 @@ struct RosenergoApp: App {
     }
     
     func open(_ url: URL) {
-        inspectionID = ""
-        vyplatnyedelaID = ""
-        inspectionID = url["inspection"]
-        vyplatnyedelaID = url["delo"]
-        if !inspectionID.isEmpty || !vyplatnyedelaID.isEmpty {
+        if !url["inspection"].isEmpty {
+            urlType = .inspection(url["inspection"])
+            showfullScreenCover = true
+        } else if !url["delo"].isEmpty {
+            urlType = .vyplatnyedela(url["delo"])
             showfullScreenCover = true
         }
     }
@@ -56,11 +55,12 @@ struct RosenergoApp: App {
                 }
                 .fullScreenCover(isPresented: $showfullScreenCover) {
                     NavigationView {
-                        if !inspectionID.isEmpty {
-                            InspectionLink(inspectionID: $inspectionID)
+                        switch urlType {
+                        case let .inspection(id):
+                            InspectionLink(inspectionID: id)
                                 .environmentObject(sessionStore)
-                        } else if !vyplatnyedelaID.isEmpty {
-                            VyplatnyedelaLink(vyplatnyedelaID: $vyplatnyedelaID)
+                        case let .vyplatnyedela(id):
+                            VyplatnyedelaLink(vyplatnyedelaID: id)
                                 .environmentObject(sessionStore)
                         }
                     }
