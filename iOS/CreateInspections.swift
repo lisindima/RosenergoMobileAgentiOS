@@ -23,7 +23,6 @@ struct CreateInspections: View {
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
-    @State private var showInspectionDetails: Bool = false
     @State private var car: Car = .oneCar
     @State private var carModel: String = ""
     @State private var carModel2: String = ""
@@ -100,7 +99,6 @@ struct CreateInspections: View {
             switch result {
             case let .success(value):
                 inspectionItem = value
-                showInspectionDetails = true
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить осмотр позже.\n\(error.localizedDescription)")
@@ -240,18 +238,16 @@ struct CreateInspections: View {
             }
         }
         .customAlert(item: $alertItem)
-        .sheet(isPresented: $showInspectionDetails, onDismiss: { presentationMode.wrappedValue.dismiss() }) {
-            if let inspection = inspectionItem {
-                NavigationView {
-                    InspectionsDetails(inspection: inspection)
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button(action: { showInspectionDetails = false }) {
-                                    Text("Закрыть")
-                                }
+        .sheet(item: $inspectionItem, onDismiss: { presentationMode.wrappedValue.dismiss() }) { inspection in
+            NavigationView {
+                InspectionsDetails(inspection: inspection)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(action: { inspectionItem = nil }) {
+                                Text("Закрыть")
                             }
                         }
-                }
+                    }
             }
         }
     }

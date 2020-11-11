@@ -18,7 +18,6 @@ struct CreateVyplatnyeDela: View {
     @State private var uploadState: Bool = false
     @State private var showRecordVideo: Bool = false
     @State private var showCustomCameraView: Bool = false
-    @State private var showVyplatnyedelaDetails: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
     @State private var alertItem: AlertItem?
@@ -61,7 +60,6 @@ struct CreateVyplatnyeDela: View {
             switch result {
             case let .success(value):
                 vyplatnyedelaItem = value
-                showVyplatnyedelaDetails = true
                 uploadState = false
             case let .failure(error):
                 alertItem = AlertItem(title: "Ошибка", message: "Попробуйте загрузить выплатное дело позже.\n\(error.localizedDescription)")
@@ -95,18 +93,16 @@ struct CreateVyplatnyeDela: View {
         .padding(.bottom, 8)
         .navigationTitle("Выплатное дело")
         .customAlert(item: $alertItem)
-        .sheet(isPresented: $showVyplatnyedelaDetails, onDismiss: { presentationMode.wrappedValue.dismiss() }) {
-            if let vyplatnyedela = vyplatnyedelaItem {
-                NavigationView {
-                    VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button(action: { showVyplatnyedelaDetails = false }) {
-                                    Text("Закрыть")
-                                }
+        .sheet(item: $vyplatnyedelaItem, onDismiss: { presentationMode.wrappedValue.dismiss() }) { vyplatnyedela in
+            NavigationView {
+                VyplatnyedelaDetails(vyplatnyedela: vyplatnyedela)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button(action: { vyplatnyedelaItem = nil }) {
+                                Text("Закрыть")
                             }
                         }
-                }
+                    }
             }
         }
     }
