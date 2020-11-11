@@ -15,7 +15,7 @@ struct ListVyplatnyedela: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        #if os(watchOS)
+        #if os(watchOS) || targetEnvironment(macCatalyst)
         vyplatnyedela
         #else
         vyplatnyedela
