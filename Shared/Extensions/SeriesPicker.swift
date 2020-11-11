@@ -26,16 +26,3 @@ struct SeriesPicker: View {
         .frame(width: 70)
     }
 }
-
-enum Series: String, CaseIterable, Identifiable {
-    case XXX = "ХХХ"
-    case CCC = "ССС"
-    case PPP = "РРР"
-    case HHH = "ННН"
-    case MMM = "МММ"
-    case KKK = "ККК"
-    case EEE = "ЕЕЕ"
-    case BBB = "ВВВ"
-    
-    var id: String { rawValue }
-}
