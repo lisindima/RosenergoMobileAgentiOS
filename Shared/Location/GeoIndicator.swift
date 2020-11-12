@@ -19,15 +19,25 @@ struct GeoIndicator: View {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
             HStack {
                 Spacer()
-                Text("\(locationStore.latitude)")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+                VStack {
+                    Text("Широта")
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                    Text("\(locationStore.latitude)")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
                 Spacer()
-                Text("\(locationStore.longitude)")
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+                VStack {
+                    Text("Долгота")
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                    Text("\(locationStore.longitude)")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
                 Spacer()
             }
             .padding(8)
