@@ -49,10 +49,15 @@ struct GeoIndicator: View {
             Link(destination: settingsURL) {
                 HStack {
                     Spacer()
-                    Text("Не разрешен доступ к геопозиции!")
-                        .font(.footnote)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
+                    VStack {
+                        Text("Не разрешен доступ к геопозиции!")
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                        Text("Нажмите, чтобы перейти в настройки")
+                            .font(.caption2)
+                            .foregroundColor(.red)
+                    }
                     Spacer()
                 }
                 .padding(8)
