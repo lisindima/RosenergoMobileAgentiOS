@@ -25,7 +25,7 @@ struct CustomInput: View {
     
     init(_ name: String, text: Binding<String>) {
         self.name = name
-        self._text = text
+        _text = text
     }
     
     var body: some View {

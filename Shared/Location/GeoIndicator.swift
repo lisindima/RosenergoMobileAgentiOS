@@ -10,10 +10,11 @@ import CoreLocation
 import SwiftUI
 
 struct GeoIndicator: View {
-    @EnvironmentObject private var locationStore: LocationStore
-    
     private let status = CLLocationManager().authorizationStatus
     private let settingsURL = URL(string: UIApplication.openSettingsURLString)!
+    
+    var latitude: Double
+    var longitude: Double
     
     var body: some View {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
@@ -23,7 +24,7 @@ struct GeoIndicator: View {
                     Text("Широта")
                         .font(.caption2)
                         .foregroundColor(.white)
-                    Text("\(locationStore.latitude)")
+                    Text("\(latitude)")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -33,7 +34,7 @@ struct GeoIndicator: View {
                     Text("Долгота")
                         .font(.caption2)
                         .foregroundColor(.white)
-                    Text("\(locationStore.longitude)")
+                    Text("\(longitude)")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(.white)

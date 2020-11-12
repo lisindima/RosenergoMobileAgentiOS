@@ -163,9 +163,12 @@ struct CreateInspections: View {
     var body: some View {
         ScrollView {
             Group {
-                GeoIndicator()
-                    .padding(.top, 8)
-                    .padding(.bottom)
+                GeoIndicator(
+                    latitude: locationStore.latitude,
+                    longitude: locationStore.longitude
+                )
+                .padding(.top, 8)
+                .padding(.bottom)
                 GroupBox(label: Label("Страховой полис", systemImage: "doc.plaintext")) {
                     HStack {
                         SeriesPicker(selectedSeries: $choiseSeries)

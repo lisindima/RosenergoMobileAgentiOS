@@ -17,13 +17,13 @@ struct LoadingView<Value, Content>: View where Content: View {
     var content: (_ value: Value) -> Content
     
     init(_ loadingState: Binding<LoadingState<Value>>, load: @escaping () -> Void, content: @escaping (_ value: Value) -> Content) {
-        self._loadingState = loadingState
+        _loadingState = loadingState
         self.load = load
         self.content = content
     }
     
     init(_ loadingState: Binding<LoadingState<Value>>, load: @escaping () -> Void, title: String, subTitle: String, content: @escaping (_ value: Value) -> Content) {
-        self._loadingState = loadingState
+        _loadingState = loadingState
         self.load = load
         self.title = title
         self.subTitle = subTitle

@@ -20,15 +20,13 @@ enum URLType: Identifiable {
     case vyplatnyedela(_ id: String = "")
     
     var id: Int {
-        get {
             switch self {
-            case .inspection(_):
+            case .inspection:
                 return 0
-            case .vyplatnyedela(_):
+            case .vyplatnyedela:
                 return 1
             }
         }
-    }
 }
 
 enum Endpoint {
