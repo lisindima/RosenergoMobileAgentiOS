@@ -205,7 +205,7 @@ struct CreateInspections: View {
                     }
                 }
                 ImageButton(countPhoto: photosURL, action: openCamera)
-                    .padding(.vertical)
+                    .padding(.top)
                     .fullScreenCover(isPresented: $showCustomCameraView) {
                         CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
                             .ignoresSafeArea(edges: .vertical)

@@ -20,6 +20,7 @@ struct CreateVyplatnyeDela: View {
     @State private var showCustomCameraView: Bool = false
     @State private var insuranceContractNumber: String = ""
     @State private var numberZayavlenia: String = ""
+    @State private var choiseSeries: Series = .XXX
     @State private var alertItem: AlertItem?
     @State private var vyplatnyedelaItem: Vyplatnyedela?
     
@@ -51,7 +52,7 @@ struct CreateVyplatnyeDela: View {
         }
         
         Endpoint.api.upload(.uploadVyplatnyedela, parameters: VyplatnyeDelaParameters(
-            insuranceContractNumber: insuranceContractNumber,
+            insuranceContractNumber: choiseSeries.rawValue + insuranceContractNumber,
             numberZayavlenia: numberZayavlenia,
             latitude: locationStore.latitude,
             longitude: locationStore.longitude,
@@ -71,20 +72,28 @@ struct CreateVyplatnyeDela: View {
     
     var body: some View {
         ScrollView {
-            GeoIndicator()
-                .padding(.top, 8)
-                .padding([.horizontal, .bottom])
-            GroupBox {
-                CustomInput("Номер заявления", text: $numberZayavlenia)
-                CustomInput("Номер полиса", text: $insuranceContractNumber)
-            }
-            .padding(.horizontal)
-            ImageButton(countPhoto: photosURL, action: openCamera)
-                .padding()
-                .fullScreenCover(isPresented: $showCustomCameraView) {
-                    CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
-                        .ignoresSafeArea(edges: .vertical)
+            Group {
+                GeoIndicator()
+                    .padding(.top, 8)
+                    .padding(.bottom)
+                GroupBox(label: Label("Страховой полис", systemImage: "doc.plaintext")) {
+                    HStack {
+                        SeriesPicker(selectedSeries: $choiseSeries)
+                            .modifier(InputModifier())
+                        CustomInput("Номер", text: $insuranceContractNumber)
+                            .keyboardType(.numberPad)
+                    }
                 }
+                GroupBox {
+                    CustomInput("Номер заявления", text: $numberZayavlenia)
+                }
+                ImageButton(countPhoto: photosURL, action: openCamera)
+                    .padding(.top)
+                    .fullScreenCover(isPresented: $showCustomCameraView) {
+                        CustomCameraView(showRecordVideo: $showRecordVideo, photosURL: $photosURL, videoURL: $videoURL)
+                            .ignoresSafeArea(edges: .vertical)
+                    }
+            }.padding(.horizontal)
         }
         CustomButton("Отправить", titleUpload: "Загрузка выплатного дела", loading: uploadState, progress: sessionStore.uploadProgress) {
             validateInput { uploadVyplatnyeDela() }
