@@ -15,18 +15,20 @@ enum LoadingState<Value> {
     case failure(_ error: Error)
 }
 
-enum URLType: Identifiable {
+enum URLType {
     case inspection(_ id: String = "")
     case vyplatnyedela(_ id: String = "")
-    
+}
+
+extension URLType: Identifiable {
     var id: Int {
-            switch self {
-            case .inspection:
-                return 0
-            case .vyplatnyedela:
-                return 1
-            }
+        switch self {
+        case .inspection:
+            return 0
+        case .vyplatnyedela:
+            return 1
         }
+    }
 }
 
 enum Endpoint {
