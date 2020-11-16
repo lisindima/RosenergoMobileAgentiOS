@@ -216,7 +216,7 @@ struct CreateInspections: View {
             }.padding(.horizontal)
         }
         HStack {
-            CustomButton("Отправить", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress) {
+            CustomButton("Отправить", loading: uploadState) {
                 validateInput { uploadInspections() }
             }
             if !uploadState {

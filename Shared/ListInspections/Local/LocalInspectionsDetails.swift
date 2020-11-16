@@ -192,7 +192,7 @@ struct LocalInspectionsDetails: View {
                     )
                 }
             }
-            CustomButton("Отправить на сервер", titleUpload: "Загрузка осмотра", loading: uploadState, progress: sessionStore.uploadProgress, action: uploadLocalInspections)
+            CustomButton("Отправить на сервер", loading: uploadState, action: uploadLocalInspections)
                 .padding(.horizontal)
                 .padding(.bottom, 8)
         }

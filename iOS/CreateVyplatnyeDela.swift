@@ -98,7 +98,7 @@ struct CreateVyplatnyeDela: View {
                     }
             }.padding(.horizontal)
         }
-        CustomButton("Отправить", titleUpload: "Загрузка выплатного дела", loading: uploadState, progress: sessionStore.uploadProgress) {
+        CustomButton("Отправить", loading: uploadState) {
             validateInput { uploadVyplatnyeDela() }
         }
         .padding(.horizontal)
