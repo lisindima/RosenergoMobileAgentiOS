@@ -17,6 +17,49 @@ struct MenuView: View {
         #endif
     }
     
+    var menu: some View {
+        LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
+            #if os(iOS)
+            MenuButton(
+                title: "Новый\nосмотр",
+                image: "car",
+                color: .rosenergo,
+                destination: CreateInspections()
+            )
+            #endif
+            MenuButton(
+                title: "Осмотры",
+                image: "archivebox",
+                color: .red,
+                destination: ListInspections()
+            )
+            #if os(iOS)
+            MenuButton(
+                title: "Новое\nвыплатное дело",
+                image: "doc.badge.plus",
+                color: .purple,
+                destination: CreateVyplatnyeDela()
+            )
+            #endif
+            MenuButton(
+                title: "Выплатные\nдела",
+                image: "doc.on.doc",
+                color: .yellow,
+                destination: ListVyplatnyedela()
+            )
+        }
+        .padding(.top, 8)
+        .navigationTitle("Мобильный агент")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gear")
+                        .imageScale(.large)
+                }
+            }
+        }
+    }
+    
     var body: some View {
         #if os(watchOS)
         ScrollView {
@@ -29,31 +72,5 @@ struct MenuView: View {
             Spacer()
         }
         #endif
-    }
-    
-    var menu: some View {
-        LazyVGrid(columns: Array(repeating: .init(.flexible()), count: countColumns), spacing: 8) {
-            #if os(iOS)
-            MenuButton(title: "Новый\nосмотр", image: "car", color: .rosenergo, destination: CreateInspections())
-            #endif
-            
-            MenuButton(title: "Осмотры", image: "archivebox", color: .red, destination: ListInspections())
-            
-            #if os(iOS)
-            MenuButton(title: "Новое\nвыплатное дело", image: "doc.badge.plus", color: .purple, destination: CreateVyplatnyeDela())
-            #endif
-            
-            MenuButton(title: "Выплатные\nдела", image: "doc.on.doc", color: .yellow, destination: ListVyplatnyedela())
-        }
-        .padding(.top, 8)
-        .navigationTitle("Мобильный агент")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                NavigationLink(destination: SettingsView()) {
-                    Image(systemName: "gear")
-                        .imageScale(.large)
-                }
-            }
-        }
     }
 }
