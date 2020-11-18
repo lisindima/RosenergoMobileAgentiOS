@@ -18,7 +18,7 @@ struct DownloadIndicator: ViewModifier {
                     VStack(alignment: .leading) {
                         Text("Загрузка \(type == .photo ? "фотографий" : "видео")")
                             .fontWeight(.bold)
-                        Text("Нажмите, чтобы отменить.")
+                        Text("Пожалуйста, подождите")
                             .font(.caption)
                     }
                     .foregroundColor(.white)
@@ -26,7 +26,7 @@ struct DownloadIndicator: ViewModifier {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                 }
-                .padding(16)
+                .padding()
                 .background(Color.rosenergo)
                 .cornerRadius(8)
                 .zIndex(1)
@@ -37,11 +37,6 @@ struct DownloadIndicator: ViewModifier {
                         .move(edge: .bottom)
                         .combined(with: .opacity)
                 )
-                .onTapGesture {
-                    withAnimation {
-                        fileType = nil
-                    }
-                }
             }
             content
         }

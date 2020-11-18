@@ -10,9 +10,8 @@ import CoreLocation
 import SwiftUI
 
 struct RootView: View {
-    @EnvironmentObject private var sessionStore: SessionStore
-    
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @EnvironmentObject private var sessionStore: SessionStore
     @StateObject private var locationStore = LocationStore.shared
     @State private var manager = CLLocationManager()
     
@@ -24,9 +23,11 @@ struct RootView: View {
                 } else {
                     SideBar()
                 }
-            }.onAppear { manager.delegate = locationStore }
+            }
+            .onAppear { manager.delegate = locationStore }
         } else {
             SignIn()
+                .onAppear { manager.delegate = locationStore }
         }
     }
 }
