@@ -30,6 +30,7 @@ struct CustomInput: View {
     
     var body: some View {
         TextField(name, text: $text)
+            .disableAutocorrection(true)
             .modifier(InputModifier())
     }
 }
