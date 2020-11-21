@@ -19,7 +19,6 @@
 		CB0115CA25073C4000801969 /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0115C825073C4000801969 /* ViewModifier.swift */; };
 		CB03D6BC24A851AF00C515C6 /* LocalInspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0982478F6270017AB00 /* LocalInspectionsItems.swift */; };
 		CB03D6BD24A8521D00C515C6 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
-		CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5822468636700CDBB1A /* CustomInput.swift */; };
 		CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */; };
 		CB17E5632466644400CDBB1A /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5622466644400CDBB1A /* SignIn.swift */; };
 		CB17E5652466644500CDBB1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
@@ -918,7 +917,6 @@
 				CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */,
 				CBED06C92509C77600216056 /* Haptic.swift in Sources */,
 				CBF0E559251669E50018BF45 /* Int.swift in Sources */,
-				CB0590EB24EA24720056C858 /* CustomInput.swift in Sources */,
 				CB0115C72507335400801969 /* PinchToZoom.swift in Sources */,
 				CBF0E55F25166D5D0018BF45 /* String.swift in Sources */,
 				CBDFFD9F2522F1980060249B /* RootView.swift in Sources */,

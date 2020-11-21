@@ -90,7 +90,6 @@ struct SignIn: View {
                 .fontWeight(.bold)
                 .padding(.vertical)
             TextField("Эл.почта", text: $email)
-                .disableAutocorrection(true)
                 .textContentType(.emailAddress)
             SecureField("Пароль", text: $password)
                 .textContentType(.password)
