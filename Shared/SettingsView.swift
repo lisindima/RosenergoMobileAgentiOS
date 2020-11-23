@@ -51,6 +51,7 @@ struct SettingsView: View {
                     )
                 }
             }
+            #if !targetEnvironment(macCatalyst) || os(watchOS)
             Section(footer: Text("Здесь вы можете управлять уведомлениями приложения.")) {
                 SectionNavigationLink(
                     imageName: "bell",
@@ -58,6 +59,7 @@ struct SettingsView: View {
                     destination: NotificationView()
                 )
             }
+            #endif
             Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".")) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",

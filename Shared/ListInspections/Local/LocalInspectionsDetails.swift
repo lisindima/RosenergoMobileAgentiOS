@@ -125,7 +125,7 @@ struct LocalInspectionsDetails: View {
                 #endif
                 Section(header: Text("Дата создания осмотра").fontWeight(.bold)) {
                     SectionItem(
-                        imageName: "timer",
+                        imageName: "calendar",
                         title: localInspections.dateInspections.convertDate()
                     )
                 }

@@ -90,7 +90,7 @@ struct VyplatnyedelaDetails: View {
             }
             Section(header: Text("Дата загрузки выплатного дела").fontWeight(.bold)) {
                 SectionItem(
-                    imageName: "timer",
+                    imageName: "calendar",
                     title: vyplatnyedela.createdAt.convertDate()
                 )
             }

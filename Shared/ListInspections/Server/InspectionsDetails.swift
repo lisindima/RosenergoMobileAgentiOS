@@ -122,7 +122,7 @@ struct InspectionsDetails: View {
             #endif
             Section(header: Text("Дата загрузки осмотра").fontWeight(.bold)) {
                 SectionItem(
-                    imageName: "timer",
+                    imageName: "calendar",
                     title: inspection.createdAt.convertDate()
                 )
             }
