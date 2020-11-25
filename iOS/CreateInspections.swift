@@ -65,20 +65,27 @@ struct CreateInspections: View {
     private func uploadInspections() {
         uploadState = true
         var photos: [PhotoParameters] = []
-        var video: Data?
+//        var video: Data?
         
         for photo in photosURL {
             let file = try! Data(contentsOf: photo)
-            photos.append(PhotoParameters(latitude: locationStore.latitude, longitude: locationStore.longitude, file: file, makedPhotoAt: Date()))
+            photos.append(
+                PhotoParameters(
+                    latitude: locationStore.latitude,
+                    longitude: locationStore.longitude,
+                    file: file,
+                    makedPhotoAt: Date()
+                )
+            )
         }
         
-        if let videoURL = videoURL {
-            do {
-                video = try Data(contentsOf: videoURL)
-            } catch {
-                log(error.localizedDescription)
-            }
-        }
+//        if let videoURL = videoURL {
+//            do {
+//                video = try Data(contentsOf: videoURL)
+//            } catch {
+//                log(error.localizedDescription)
+//            }
+//        }
         
         Endpoint.api.upload(.uploadInspection, parameters: InspectionParameters(
             carModel: carModel,
@@ -93,7 +100,7 @@ struct CreateInspections: View {
             insuranceContractNumber2: insuranceContractNumber2.isEmpty ? nil : choiseSeries2.rawValue + insuranceContractNumber2,
             latitude: locationStore.latitude,
             longitude: locationStore.longitude,
-            video: video,
+//            video: video,
             photos: photos
         )) { [self] (result: Result<Inspections, ApiError>) in
             switch result {

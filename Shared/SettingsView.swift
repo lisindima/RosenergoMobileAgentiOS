@@ -60,7 +60,7 @@ struct SettingsView: View {
                 )
             }
             #endif
-            Section(header: Text("Другое").fontWeight(.bold), footer: Text("Если в приложение возникают ошибки, нажмите на кнопку \"Обратная связь\".")) {
+            Section(header: Text("Другое").fontWeight(.bold)) {
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
@@ -79,12 +79,12 @@ struct SettingsView: View {
                     title: "Очистить кэш изображений",
                     action: removeCache
                 )
-                SectionButton(
-                    imageName: "ant",
-                    title: "Обратная связь"
-                ) {
-                    showFeedback = true
-                }
+//                SectionButton(
+//                    imageName: "ant",
+//                    title: "Обратная связь"
+//                ) {
+//                    showFeedback = true
+//                }
             }
             Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
