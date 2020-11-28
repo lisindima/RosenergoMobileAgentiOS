@@ -15,13 +15,13 @@ struct LocalInspectionsWidget: Widget {
     let persistenceController = PersistenceController.shared
     
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "RosenergoMobileAgentWidget", provider: Provider()) { entry in
-            LocalInspectionsWidgetEntryView(entry: entry)
+        StaticConfiguration(kind: "RosenergoMobileAgentWidget", provider: Provider()) { _ in
+            LocalInspectionsWidgetEntryView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .configurationDisplayName("Осмотры")
         .description("Виджет поможет вам не забыть отправить осмотр на сервер!")
-        .supportedFamilies([.systemSmall, .systemLarge])
+        .supportedFamilies([.systemSmall])
     }
 }
 
@@ -58,46 +58,7 @@ extension LocalInspectionsWidget {
     }
 }
 
-struct LocalInspectionsSystemLarge: View {
-    @FetchRequest(sortDescriptors: [], animation: .default)
-    private var localInspections: FetchedResults<LocalInspections>
-    
-    var body: some View {
-        ZStack {
-            Color.rosenergo
-                .edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading) {
-                Text("Осмотры")
-                    .fontWeight(.bold)
-                Text("Не отправленные")
-                    .fontWeight(.semibold)
-                    .font(.caption2)
-                Divider()
-                if localInspections.isEmpty {
-                    Text("Вы отправили все осмотры!")
-                        .fontWeight(.bold)
-                } else {
-                    ForEach(localInspections, id: \.id) { localInspections in
-                        WidgetItems(localInspections: localInspections)
-                    }
-                }
-                Spacer()
-                HStack {
-                    Image(systemName: "tray.circle.fill")
-                        .imageScale(.large)
-                    Spacer()
-                    Text("\(localInspections.count) осмотров")
-                        .fontWeight(.bold)
-                        .font(.caption)
-                }
-            }
-            .foregroundColor(.white)
-            .padding()
-        }
-    }
-}
-
-struct LocalInspectionsSystemSmall: View {
+struct LocalInspectionsWidgetEntryView: View {
     @FetchRequest(sortDescriptors: [], animation: .default)
     private var localInspections: FetchedResults<LocalInspections>
     
@@ -124,9 +85,11 @@ struct LocalInspectionsSystemSmall: View {
                     Image(systemName: "tray.circle.fill")
                         .imageScale(.large)
                     Spacer()
-                    Text("\(localInspections.count) осмотров")
-                        .fontWeight(.bold)
-                        .font(.caption)
+                    if !localInspections.isEmpty {
+                        Text("\(localInspections.count) осмотров")
+                            .fontWeight(.bold)
+                            .font(.caption)
+                    }
                 }
             }
             .foregroundColor(.white)
@@ -135,29 +98,11 @@ struct LocalInspectionsSystemSmall: View {
     }
 }
 
-struct LocalInspectionsWidgetEntryView: View {
-    @Environment(\.widgetFamily) private var widgetFamily
-    
-    var entry: LocalInspectionsWidget.Entry
-    
-    var body: some View {
-        switch widgetFamily {
-        case .systemSmall: LocalInspectionsSystemSmall()
-        case .systemLarge: LocalInspectionsSystemLarge()
-        default: LocalInspectionsSystemSmall()
-        }
-    }
-}
-
 struct LocalInspectionsWidget_Previews: PreviewProvider {
     static var previews: some View {
-        LocalInspectionsSystemSmall()
+        LocalInspectionsWidgetEntryView()
             .previewContext(WidgetPreviewContext(family: .systemSmall))
             .colorScheme(.dark)
-            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-        LocalInspectionsSystemLarge()
-            .previewContext(WidgetPreviewContext(family: .systemLarge))
-            .colorScheme(.light)
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
