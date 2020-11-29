@@ -71,6 +71,13 @@ enum HTTPMethod: String {
     case get = "GET" 
 }
 
+enum NavigationItem {
+    case createInspections
+    case createVyplatnye
+    case listInspections
+    case listVyplatnyedela
+}
+
 enum Car {
     case oneCar
     case twoCar

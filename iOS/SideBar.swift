@@ -12,13 +12,6 @@ struct SideBar: View {
     @EnvironmentObject private var sessionStore: SessionStore
     @EnvironmentObject private var notificationStore: NotificationStore
     
-    enum NavigationItem {
-        case createInspections
-        case createVyplatnye
-        case listInspections
-        case listVyplatnyedela
-    }
-    
     @State private var selection: Set<NavigationItem> = [.createInspections]
     @State private var openSettings: Bool = false
     
