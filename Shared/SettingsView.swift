@@ -79,12 +79,12 @@ struct SettingsView: View {
                     title: "Очистить кэш изображений",
                     action: removeCache
                 )
-//                SectionButton(
-//                    imageName: "ant",
-//                    title: "Обратная связь"
-//                ) {
-//                    showFeedback = true
-//                }
+                SectionButton(
+                    imageName: "ant",
+                    title: "Обратная связь"
+                ) {
+                    showFeedback = true
+                }
             }
             Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
