@@ -116,15 +116,15 @@ struct SettingsView: View {
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
         .userFeedback(isPresented: $showFeedback)
-        .actionSheet(isPresented: $showActionSheetExit) {
-            ActionSheet(
-                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
-                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
-                buttons: [
-                    .destructive(Text("Выйти"), action: logout),
-                    .cancel(),
-                ]
-            )
-        }
+//        .actionSheet(isPresented: $showActionSheetExit) {
+//            ActionSheet(
+//                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
+//                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
+//                buttons: [
+//                    .destructive(Text("Выйти"), action: logout),
+//                    .cancel(),
+//                ]
+//            )
+//        }
     }
 }

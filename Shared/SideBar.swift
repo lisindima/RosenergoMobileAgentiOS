@@ -17,7 +17,7 @@ struct SideBar: View {
     
     var body: some View {
         List(selection: $selection) {
-            #if !targetEnvironment(macCatalyst)
+            #if !os(macOS)
             NavigationLink(destination: CreateInspections()) {
                 Label("Новый осмотр", systemImage: "car")
             }
@@ -27,7 +27,7 @@ struct SideBar: View {
                 Label("Осмотры", systemImage: "archivebox")
             }
             .tag(NavigationItem.listInspections)
-            #if !targetEnvironment(macCatalyst)
+            #if !os(macOS)
             NavigationLink(destination: CreateVyplatnyeDela()) {
                 Label("Новое выплатное дело", systemImage: "doc.badge.plus")
             }

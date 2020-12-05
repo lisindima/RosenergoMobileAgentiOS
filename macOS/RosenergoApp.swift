@@ -1,5 +1,5 @@
 //
-//  RosenergoMobileAgent__macOS_App.swift
+//  RosenergoApp.swift
 //  RosenergoMobileAgent (macOS)
 //
 //  Created by Дмитрий Лисин on 04.12.2020.
@@ -9,10 +9,10 @@
 import SwiftUI
 
 @main
-struct RosenergoMobileAgent__macOS_App: App {
+struct RosenergoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }

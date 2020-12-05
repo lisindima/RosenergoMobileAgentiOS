@@ -40,7 +40,7 @@ struct ListInspections: View {
     }
     
     var body: some View {
-        #if os(watchOS) || targetEnvironment(macCatalyst)
+        #if os(watchOS) || os(macOS)
         inspections
         #else
         inspections
