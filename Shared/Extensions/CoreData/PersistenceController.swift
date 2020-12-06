@@ -33,7 +33,6 @@ extension URL {
         guard let fileContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
             fatalError("Shared file container could not be created.")
         }
-
         return fileContainer.appendingPathComponent("\(database).sqlite")
     }
 }

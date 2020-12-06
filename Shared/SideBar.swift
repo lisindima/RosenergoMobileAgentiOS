@@ -10,12 +10,11 @@ import SwiftUI
 
 struct SideBar: View {
     @EnvironmentObject private var sessionStore: SessionStore
-    @EnvironmentObject private var notificationStore: NotificationStore
     
     @State private var selection: Set<NavigationItem> = [.createInspections]
     @State private var openSettings: Bool = false
     
-    var body: some View {
+    var sidebar: some View {
         List(selection: $selection) {
             #if !os(macOS)
             NavigationLink(destination: CreateInspections()) {
@@ -40,26 +39,33 @@ struct SideBar: View {
         }
         .listStyle(SidebarListStyle())
         .navigationTitle("Главная")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: { openSettings = true }) {
-                    Image(systemName: "gear")
-                        .imageScale(.large)
+    }
+    
+    var body: some View {
+        #if os(macOS)
+        sidebar
+            .frame(width: 180)
+        #else
+        sidebar
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { openSettings = true }) {
+                        Image(systemName: "gear")
+                            .imageScale(.large)
+                    }
                 }
             }
-        }
-        .sheet(isPresented: $openSettings) {
-            NavigationView {
-                SettingsView()
-                    .toolbar {
-                        ToolbarItem(placement: .primaryAction) {
-                            Button(action: { openSettings = false }) {
-                                Text("Закрыть")
+            .sheet(isPresented: $openSettings) {
+                NavigationView {
+                    SettingsView()
+                        .toolbar {
+                            ToolbarItem(placement: .primaryAction) {
+                                ExitButton(action: { openSettings = false })
                             }
                         }
-                    }
+                }
             }
-        }
+        #endif
         
         Text("Выберите\nпункт в меню")
             .messageTitle()

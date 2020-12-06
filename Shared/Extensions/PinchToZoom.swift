@@ -145,14 +145,14 @@ struct PinchToZoom: ViewModifier {
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        #if os(watchOS)
-        content
-        #else
+        #if os(iOS)
         content
             .scaleEffect(scale, anchor: anchor)
             .offset(offset)
             .animation(isPinching ? .none : .spring())
             .overlay(PinchZoom(scale: $scale, anchor: $anchor, offset: $offset, isPinching: $isPinching))
+        #else
+        content
         #endif
     }
 }

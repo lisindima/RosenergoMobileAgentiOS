@@ -17,13 +17,19 @@ struct LocalImageDetail: View {
     var body: some View {
         TabView(selection: $selectionImage) {
             ForEach(Array(photos.enumerated()), id: \.offset) { photo in
+                #if os(macOS)
+                Image(nsImage: NSImage(data: photo.element.photosData)!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                #else
                 Image(uiImage: UIImage(data: photo.element.photosData)!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .pinchToZoom()
+                #endif
             }
         }
-        .tabViewStyle(PageTabViewStyle())
+//        .tabViewStyle(PageTabViewStyle())
         .modifier(TabViewBackgroundMode())
         .navigationTitle("\(selectionImage) из \(Array(photos).last!.id)")
         .modifier(InlineTitleDisplayMode())

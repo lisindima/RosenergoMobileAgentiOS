@@ -12,8 +12,12 @@ struct RootView: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
     var body: some View {
-        NavigationView {
-            SideBar()
+        if sessionStore.loginModel != nil {
+            NavigationView {
+                SideBar()
+            }
+        } else {
+            SignIn()
         }
     }
 }

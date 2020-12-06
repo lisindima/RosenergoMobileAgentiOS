@@ -43,9 +43,7 @@ struct VyplatnyedelaDetails: View {
     #endif
     
     var body: some View {
-        #if os(watchOS)
-        formVyplatnyedela
-        #else
+        #if os(iOS)
         formVyplatnyedela
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -70,6 +68,8 @@ struct VyplatnyedelaDetails: View {
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: vyplatnyedela.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?delo=\(url)")!])
             }
+        #else
+        formVyplatnyedela
         #endif
     }
     

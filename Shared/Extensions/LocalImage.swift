@@ -20,9 +20,16 @@ struct LocalImage: View {
     }
     
     var body: some View {
+        #if os(macOS)
+        Image(nsImage: NSImage(data: data)!)
+            .resizable()
+            .cornerRadius(8)
+            .frame(width: size, height: size)
+        #else
         Image(uiImage: UIImage(data: data)!.resizedImage(width: size, height: size))
             .resizable()
             .cornerRadius(8)
             .frame(width: size, height: size)
+        #endif
     }
 }

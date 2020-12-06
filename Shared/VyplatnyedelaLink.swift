@@ -14,6 +14,10 @@ struct VyplatnyedelaLink: View {
     @State private var loadingState: LoadingState<Vyplatnyedela> = .loading
     
     var vyplatnyedelaID: String
+    
+    init(_ vyplatnyedelaID: String) {
+        self.vyplatnyedelaID = vyplatnyedelaID
+    }
 
     private func getVyplatnyedela() {
         Endpoint.api.fetch(.vyplatnyedela(vyplatnyedelaID)) { [self] (result: Result<Vyplatnyedela, ApiError>) in

@@ -50,17 +50,16 @@ struct RosenergoApp: App {
                         open(url)
                     }
                 }
-                .fullScreenCover(item: $urlType) { urlType in
+                .sheet(item: $urlType) { urlType in
                     NavigationView {
                         switch urlType {
                         case let .inspection(id):
-                            InspectionLink(inspectionID: id)
-                                .environmentObject(sessionStore)
+                            InspectionLink(id)
                         case let .vyplatnyedela(id):
-                            VyplatnyedelaLink(vyplatnyedelaID: id)
-                                .environmentObject(sessionStore)
+                            VyplatnyedelaLink(id)
                         }
                     }
+                    .environmentObject(sessionStore)
                 }
         }
         .onChange(of: scenePhase) { phase in
@@ -69,5 +68,11 @@ struct RosenergoApp: App {
                 NotificationStore.shared.refreshNotificationStatus()
             }
         }
+        #if os(macOS)
+        Settings {
+            SettingsView()
+                .environmentObject(sessionStore)
+        }
+        #endif
     }
 }

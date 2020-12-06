@@ -83,6 +83,7 @@
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
+		CB534C68257D185D0030DE1C /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB534C67257D185D0030DE1C /* ExitButton.swift */; };
 		CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
 		CB66D72E24A5ADA0005C616A /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
@@ -321,6 +322,7 @@
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CB4B9316246CF59B006B7008 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStore.swift; sourceTree = "<group>"; };
+		CB534C67257D185D0030DE1C /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
 		CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImageDetail.swift; sourceTree = "<group>"; };
 		CB66D74A24A5D989005C616A /* RosenergoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosenergoApp.swift; sourceTree = "<group>"; };
 		CB717C33248DF8B200DE31FE /* GeoIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoIndicator.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 		CB8E99A22521C6C700F59A5E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CB534C67257D185D0030DE1C /* ExitButton.swift */,
 				CB17E57A2467AEE400CDBB1A /* RootView.swift */,
 				CB17E58E24699F8400CDBB1A /* CreateInspections.swift */,
 				CBB2E0932478E5B20017AB00 /* CreateVyplatnyeDela.swift */,
@@ -1012,6 +1015,7 @@
 				CBF0E55E25166D5D0018BF45 /* String.swift in Sources */,
 				CBED06C82509C77600216056 /* Haptic.swift in Sources */,
 				CB758D6E24AECC43000A6B3C /* RootView.swift in Sources */,
+				CB534C68257D185D0030DE1C /* ExitButton.swift in Sources */,
 				CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */,
 				CB7EAEB02510856900B4B4F5 /* ImageButton.swift in Sources */,
 				CB7EAEA7250F394A00B4B4F5 /* LoadingView.swift in Sources */,
