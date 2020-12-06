@@ -11,11 +11,11 @@ import SwiftUI
 struct TabViewBackgroundMode: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
-        #if os(watchOS)
-        content
-        #else
+        #if os(iOS)
         content
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        #else
+        content
         #endif
     }
 }
@@ -23,11 +23,11 @@ struct TabViewBackgroundMode: ViewModifier {
 struct ListStyle: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
-        #if os(watchOS)
-        content
-        #else
+        #if os(iOS)
         content
             .listStyle(InsetGroupedListStyle())
+        #else
+        content
         #endif
     }
 }
@@ -35,11 +35,11 @@ struct ListStyle: ViewModifier {
 struct InlineTitleDisplayMode: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
-        #if os(watchOS)
-        content
-        #else
+        #if os(iOS)
         content
             .navigationBarTitleDisplayMode(.inline)
+        #else
+        content
         #endif
     }
 }

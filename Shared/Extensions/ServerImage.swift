@@ -18,14 +18,6 @@ struct ServerImage: View {
         self.delay = delay
     }
     
-    var scale: CGFloat {
-        #if os(watchOS)
-        return WKInterfaceDevice.current().screenScale
-        #else
-        return UIScreen.main.scale
-        #endif
-    }
-    
     var size: CGFloat {
         #if os(watchOS)
         return 75.0

@@ -13,20 +13,26 @@ func playHaptic(_ type: HapticType) {
     case .error:
         #if os(watchOS)
         playNotificationWatchHaptic(.retry)
-        #else
+        #elseif os(iOS)
         playNotificationHaptic(.error)
+        #else
+        break
         #endif
     case .success:
         #if os(watchOS)
         playNotificationWatchHaptic(.success)
-        #else
+        #elseif os(iOS)
         playNotificationHaptic(.success)
+        #else
+        break
         #endif
     case .warning:
         #if os(watchOS)
         playNotificationWatchHaptic(.failure)
-        #else
+        #elseif os(iOS)
         playNotificationHaptic(.warning)
+        #else
+        break
         #endif
     }
 }
@@ -35,7 +41,7 @@ func playHaptic(_ type: HapticType) {
 func playNotificationWatchHaptic(_ type: WKHapticType) {
     WKInterfaceDevice.current().play(type)
 }
-#else
+#elseif os(iOS)
 func playNotificationHaptic(_ type: UINotificationFeedbackGenerator.FeedbackType) {
     let generator = UINotificationFeedbackGenerator()
     generator.notificationOccurred(type)

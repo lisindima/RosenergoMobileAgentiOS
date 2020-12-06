@@ -32,10 +32,12 @@ struct SignIn: View {
     }
     
     var body: some View {
-        #if os(watchOS)
+        #if os(iOS)
+        phone
+        #elseif os(watchOS)
         watch
         #else
-        phone
+        macOS
         #endif
     }
     
@@ -84,6 +86,7 @@ struct SignIn: View {
     }
     #endif
     
+    #if os(watchOS)
     var watch: some View {
         VStack {
             Text("Мобильный агент")
@@ -99,4 +102,23 @@ struct SignIn: View {
         .navigationTitle("Мобильный агент")
         .customAlert(item: $alertItem)
     }
+    #endif
+    
+    #if os(macOS)
+    var macOS: some View {
+        VStack {
+            Text("Мобильный агент")
+                .fontWeight(.bold)
+                .padding(.vertical)
+            TextField("Эл.почта", text: $email)
+                .textContentType(.username)
+            SecureField("Пароль", text: $password)
+                .textContentType(.password)
+                .padding(.bottom)
+            CustomButton("Войти", loading: loading, action: login)
+        }
+        .navigationTitle("Мобильный агент")
+        .customAlert(item: $alertItem)
+    }
+    #endif
 }

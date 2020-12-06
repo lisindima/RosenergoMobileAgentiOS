@@ -20,7 +20,7 @@ struct ImageDetail: View {
                 FullScreenServerImage(photo.path)
             }
         }
-        .tabViewStyle(PageTabViewStyle())
+//        .tabViewStyle(PageTabViewStyle())
         .modifier(TabViewBackgroundMode())
         .navigationTitle("\(selectionImage) из \(photos.last!.id)")
         .modifier(InlineTitleDisplayMode())

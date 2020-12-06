@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-#if os(iOS)
+#if !os(watchOS)
 import AVKit
 #endif
 
@@ -60,9 +60,7 @@ struct InspectionsDetails: View {
     #endif
     
     var body: some View {
-        #if os(watchOS)
-        formInspections
-        #else
+        #if os(iOS)
         formInspections
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -92,6 +90,8 @@ struct InspectionsDetails: View {
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: inspection.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?inspection=\(url)")!])
             }
+        #else
+        formInspections
         #endif
     }
     

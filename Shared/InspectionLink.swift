@@ -14,6 +14,10 @@ struct InspectionLink: View {
     @State private var loadingState: LoadingState<Inspections> = .loading
     
     var inspectionID: String
+    
+    init(_ inspectionID: String) {
+        self.inspectionID = inspectionID
+    }
 
     private func getInspection() {
         Endpoint.api.fetch(.inspections(inspectionID)) { [self] (result: Result<Inspections, ApiError>) in

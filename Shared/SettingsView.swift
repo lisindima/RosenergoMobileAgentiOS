@@ -79,12 +79,12 @@ struct SettingsView: View {
                     title: "Очистить кэш изображений",
                     action: removeCache
                 )
-//                SectionButton(
-//                    imageName: "ant",
-//                    title: "Обратная связь"
-//                ) {
-//                    showFeedback = true
-//                }
+                SectionButton(
+                    imageName: "ant",
+                    title: "Обратная связь"
+                ) {
+                    showFeedback = true
+                }
             }
             Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
@@ -116,15 +116,15 @@ struct SettingsView: View {
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
         .userFeedback(isPresented: $showFeedback)
-        .actionSheet(isPresented: $showActionSheetExit) {
-            ActionSheet(
-                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
-                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
-                buttons: [
-                    .destructive(Text("Выйти"), action: logout),
-                    .cancel(),
-                ]
-            )
-        }
+//        .actionSheet(isPresented: $showActionSheetExit) {
+//            ActionSheet(
+//                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
+//                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
+//                buttons: [
+//                    .destructive(Text("Выйти"), action: logout),
+//                    .cancel(),
+//                ]
+//            )
+//        }
     }
 }

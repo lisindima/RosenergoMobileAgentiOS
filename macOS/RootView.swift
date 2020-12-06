@@ -1,8 +1,8 @@
 //
 //  RootView.swift
-//  RosenergoMobileAgent (watchOS Extension)
+//  RosenergoMobileAgent (macOS)
 //
-//  Created by Дмитрий Лисин on 29.09.2020.
+//  Created by Дмитрий Лисин on 05.12.2020.
 //  Copyright © 2020 Дмитрий Лисин. All rights reserved.
 //
 
@@ -14,10 +14,11 @@ struct RootView: View {
     var body: some View {
         if sessionStore.loginModel != nil {
             NavigationView {
-                MenuView()
+                SideBar()
             }
         } else {
             SignIn()
         }
     }
 }
+
