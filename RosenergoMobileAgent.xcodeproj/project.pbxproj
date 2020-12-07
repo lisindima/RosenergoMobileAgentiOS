@@ -55,7 +55,6 @@
 		CB3C916E250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3F1E7A257E39D700684D32 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheetView.swift */; };
 		CB3F1E86257E457600684D32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1E85257E457600684D32 /* SettingsView.swift */; };
-		CB3F1E8C257E468600684D32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1E85257E457600684D32 /* SettingsView.swift */; };
 		CB44139A257B617300969563 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CB4413A5257B61BD00969563 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CB4413AB257B61C000969563 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
@@ -980,7 +979,6 @@
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
 				CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */,
-				CB3F1E8C257E468600684D32 /* SettingsView.swift in Sources */,
 				CBD6737A2553DB3800437053 /* URL.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,

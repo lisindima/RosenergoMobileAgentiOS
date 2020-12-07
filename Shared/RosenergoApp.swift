@@ -70,10 +70,10 @@ struct RosenergoApp: App {
         }
         #if os(macOS)
         Settings {
-            NavigationView {
-                SettingsView()
-                    .environmentObject(sessionStore)
-            }
+            SettingsView()
+                .environmentObject(sessionStore)
+                .environmentObject(notificationStore)
+                .accentColor(.rosenergo)
         }
         #endif
     }
