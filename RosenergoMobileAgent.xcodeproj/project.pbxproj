@@ -54,6 +54,8 @@
 		CB3C916D250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3C916E250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3F1E7A257E39D700684D32 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheetView.swift */; };
+		CB3F1E86257E457600684D32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1E85257E457600684D32 /* SettingsView.swift */; };
+		CB3F1E8C257E468600684D32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1E85257E457600684D32 /* SettingsView.swift */; };
 		CB44139A257B617300969563 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CB4413A5257B61BD00969563 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CB4413AB257B61C000969563 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
@@ -64,7 +66,6 @@
 		CB4413C8257B626D00969563 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E567251894F20018BF45 /* API.swift */; };
 		CB4413CE257B627000969563 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1ECFCB2508BD9700523D9E /* Enum.swift */; };
 		CB4413D4257B628300969563 /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
-		CB4413DA257B62A000969563 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4413E5257B62BB00969563 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CA250A24C300216056 /* CustomAlert.swift */; };
 		CB4413EB257B62D300969563 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF0E55D25166D5D0018BF45 /* String.swift */; };
 		CB4413F1257B62FB00969563 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD673792553DB3800437053 /* URL.swift */; };
@@ -322,6 +323,7 @@
 		CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
 		CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingEmptyView.swift; sourceTree = "<group>"; };
 		CB3C916C250DE30A0099958D /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		CB3F1E85257E457600684D32 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		CB44143E257B668100969563 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CB4B826824D4079800C0C558 /* InspectionLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionLink.swift; sourceTree = "<group>"; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				CB8C8554257A556F00B176DD /* Info.plist */,
 				CB8C8555257A556F00B176DD /* macOS.entitlements */,
 				CB8C8551257A556F00B176DD /* Preview Content */,
+				CB3F1E85257E457600684D32 /* SettingsView.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -977,6 +980,7 @@
 				CBE9BE9624A7628B00D8CA2A /* SideBar.swift in Sources */,
 				CBAC7F3524D26E2B0081597D /* VyplatnyedelaItems.swift in Sources */,
 				CBB4B0BB24C8330B00C25A59 /* PersistenceController.swift in Sources */,
+				CB3F1E8C257E468600684D32 /* SettingsView.swift in Sources */,
 				CBD6737A2553DB3800437053 /* URL.swift in Sources */,
 				CB17E5612466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,
 				CB2B5B0F24C55B4800D024D8 /* LocalPhotos+CoreDataClass.swift in Sources */,
@@ -1049,7 +1053,6 @@
 				CB879424257B955F008E7AE8 /* ServerImage.swift in Sources */,
 				CB4413A5257B61BD00969563 /* SessionStoreModel.swift in Sources */,
 				CB879458257B96A2008E7AE8 /* LocalImageDetail.swift in Sources */,
-				CB4413DA257B62A000969563 /* SettingsView.swift in Sources */,
 				CB87944C257B9648008E7AE8 /* Int.swift in Sources */,
 				CB879400257B947C008E7AE8 /* LocalPhotos+CoreDataProperties.swift in Sources */,
 				CB4413FD257B638300969563 /* Log.swift in Sources */,
@@ -1068,6 +1071,7 @@
 				CB44143F257B668100969563 /* RootView.swift in Sources */,
 				CB879406257B947E008E7AE8 /* PersistenceController.swift in Sources */,
 				CB879452257B966D008E7AE8 /* Date.swift in Sources */,
+				CB3F1E86257E457600684D32 /* SettingsView.swift in Sources */,
 				CB879492257B9A2F008E7AE8 /* InspectionLink.swift in Sources */,
 				CB8793EE257B9473008E7AE8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB879487257B9A0F008E7AE8 /* RosenergoApp.swift in Sources */,

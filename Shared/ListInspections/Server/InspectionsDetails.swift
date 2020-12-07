@@ -111,7 +111,7 @@ struct InspectionsDetails: View {
                     }
                 }
             }
-            #if os(iOS)
+            #if !os(watchOS)
             if let url = inspection.video {
                 Section(header: Text("Видео").fontWeight(.bold)) {
                     VideoPlayer(player: AVPlayer(url: url))

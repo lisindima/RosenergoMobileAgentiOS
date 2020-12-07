@@ -18,6 +18,7 @@ struct SettingsView: View {
     @State private var alertItem: AlertItem?
     @State private var showFeedback: Bool = false
     @State private var loading: Bool = false
+    @State private var showActionSheetExit: Bool = false
     
     private let appstoreURL = URL(string: "https://itunes.apple.com/app/id1513090178?action=write-review")
     
@@ -91,9 +92,10 @@ struct SettingsView: View {
                         imageName: "flame",
                         imageColor: .red,
                         title: "Выйти",
-                        titleColor: .red,
-                        action: logout
-                    )
+                        titleColor: .red
+                    ) {
+                        showActionSheetExit = true
+                    }
                 } else {
                     #if os(watchOS)
                     Label {
@@ -114,5 +116,15 @@ struct SettingsView: View {
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
         .userFeedback(isPresented: $showFeedback)
+        .actionSheet(isPresented: $showActionSheetExit) {
+            ActionSheet(
+                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
+                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
+                buttons: [
+                    .destructive(Text("Выйти"), action: logout),
+                    .cancel(),
+                ]
+            )
+        }
     }
 }
