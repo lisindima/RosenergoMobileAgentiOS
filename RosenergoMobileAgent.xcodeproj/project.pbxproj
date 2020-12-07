@@ -43,6 +43,9 @@
 		CB2B5B1224C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
 		CB2B5B1324C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */; };
 		CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */; };
+		CB32BF52257E27EE00F1340C /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32BF51257E27EE00F1340C /* Pasteboard.swift */; };
+		CB32BF53257E27EE00F1340C /* Pasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32BF51257E27EE00F1340C /* Pasteboard.swift */; };
+		CB32BF59257E2BF100F1340C /* DownloadIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBED06CD250B1F2E00216056 /* DownloadIndicator.swift */; };
 		CB373FBF25344D6C00FEDE4B /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */; };
 		CB373FC025344D6C00FEDE4B /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */; };
 		CB373FCA25344D8C00FEDE4B /* LoadingEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */; };
@@ -314,6 +317,7 @@
 		CB2B5B0824C55B4800D024D8 /* LocalPhotos+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalPhotos+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CB2B5B82246BA8CE006F35AC /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CB2B5B84246BA8CE006F35AC /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		CB32BF51257E27EE00F1340C /* Pasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasteboard.swift; sourceTree = "<group>"; };
 		CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
 		CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingEmptyView.swift; sourceTree = "<group>"; };
 		CB3C916C250DE30A0099958D /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -538,6 +542,7 @@
 				CB733DFC25259FC400651C0F /* LocalImage.swift */,
 				CBDFFB7C2521DD490060249B /* Bundle.swift */,
 				CBD673792553DB3800437053 /* URL.swift */,
+				CB32BF51257E27EE00F1340C /* Pasteboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1030,6 +1035,7 @@
 				CB2B5B0924C55B4800D024D8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB0115C62507335400801969 /* PinchToZoom.swift in Sources */,
 				CBA6118E2500998D009CD8BD /* ShareSheetView.swift in Sources */,
+				CB32BF52257E27EE00F1340C /* Pasteboard.swift in Sources */,
 				CB20FB7A2480CB92004CB9C1 /* CustomCameraController.swift in Sources */,
 				CB17E5832468636700CDBB1A /* CustomInput.swift in Sources */,
 			);
@@ -1055,6 +1061,7 @@
 				CB441415257B65A800969563 /* NotificationView.swift in Sources */,
 				CB44139A257B617300969563 /* SideBar.swift in Sources */,
 				CB8793E2257B9441008E7AE8 /* LocalInspectionsDetails.swift in Sources */,
+				CB32BF53257E27EE00F1340C /* Pasteboard.swift in Sources */,
 				CB4413E5257B62BB00969563 /* CustomAlert.swift in Sources */,
 				CB4413D4257B628300969563 /* NotificationStore.swift in Sources */,
 				CB44143F257B668100969563 /* RootView.swift in Sources */,
@@ -1086,6 +1093,7 @@
 				CB441462257B686E00969563 /* LoadingEmptyView.swift in Sources */,
 				CB879498257B9A32008E7AE8 /* VyplatnyedelaLink.swift in Sources */,
 				CB87945E257B972F008E7AE8 /* PinchToZoom.swift in Sources */,
+				CB32BF59257E2BF100F1340C /* DownloadIndicator.swift in Sources */,
 				CB8793F4257B9476008E7AE8 /* LocalInspections+CoreDataProperties.swift in Sources */,
 				CB87947B257B97A4008E7AE8 /* VyplatnyedelaDetails.swift in Sources */,
 				CB8793DC257B8EDD008E7AE8 /* RosenergoMobileAgentiOS.xcdatamodeld in Sources */,

@@ -54,8 +54,9 @@ struct InspectionsDetails: View {
     }
     
     private func copyLink() {
-        UIPasteboard.general.url = URL(string: "rosenergo://share?inspection=\(inspection.id)")
-        alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
+        copyPasteboard("rosenergo://share?inspection=\(inspection.id)") {
+            alertItem = AlertItem(title: "Ссылка скопирована", message: "Ссылка на осмотр успешно скопирована в буфер обмена.")
+        }
     }
     #endif
     

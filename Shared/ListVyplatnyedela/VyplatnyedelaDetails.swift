@@ -37,8 +37,9 @@ struct VyplatnyedelaDetails: View {
     }
     
     private func copyLink() {
-        UIPasteboard.general.url = URL(string: "rosenergo://share?delo=\(vyplatnyedela.id)")
-        alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
+        copyPasteboard("rosenergo://share?delo=\(vyplatnyedela.id)") {
+            alertItem = AlertItem(title: "Ссылка скопирована", message: "Cсылка на выплатное дело успешно скопирована в буфер обмена.")
+        }
     }
     #endif
     
