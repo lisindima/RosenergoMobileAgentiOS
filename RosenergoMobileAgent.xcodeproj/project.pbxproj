@@ -53,6 +53,7 @@
 		CB3805D424EB8F4500925D44 /* InspectionLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B826824D4079800C0C558 /* InspectionLink.swift */; };
 		CB3C916D250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3C916E250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
+		CB3F1E7A257E39D700684D32 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheetView.swift */; };
 		CB44139A257B617300969563 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CB4413A5257B61BD00969563 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CB4413AB257B61C000969563 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
@@ -1073,6 +1074,7 @@
 				CB879446257B963A008E7AE8 /* InspectionsItems.swift in Sources */,
 				CB879464257B9746008E7AE8 /* ListVyplatnyedela.swift in Sources */,
 				CB8793FA257B9478008E7AE8 /* LocalPhotos+CoreDataClass.swift in Sources */,
+				CB3F1E7A257E39D700684D32 /* ShareSheetView.swift in Sources */,
 				CB87941E257B9554008E7AE8 /* ImageDetail.swift in Sources */,
 				CB879440257B961A008E7AE8 /* LocationStore.swift in Sources */,
 				CB8793E8257B944D008E7AE8 /* LocalInspectionsItems.swift in Sources */,
@@ -1393,7 +1395,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 56;
@@ -1410,6 +1412,7 @@
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.macos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1421,7 +1424,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 56;
@@ -1438,6 +1441,7 @@
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.darkfox.rosenergomobileagent.macos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};

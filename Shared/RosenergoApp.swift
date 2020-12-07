@@ -70,8 +70,10 @@ struct RosenergoApp: App {
         }
         #if os(macOS)
         Settings {
-            SettingsView()
-                .environmentObject(sessionStore)
+            NavigationView {
+                SettingsView()
+                    .environmentObject(sessionStore)
+            }
         }
         #endif
     }

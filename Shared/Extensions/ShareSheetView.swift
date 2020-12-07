@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct ShareSheetView: UIViewControllerRepresentable {
     var activityItems: [Any]
     var applicationActivities: [UIActivity]?
@@ -18,16 +19,22 @@ struct ShareSheetView: UIViewControllerRepresentable {
     
     func updateUIViewController(_: UIActivityViewController, context _: UIViewControllerRepresentableContext<ShareSheetView>) {}
 }
+#endif
 
 struct ShareSheet: ViewModifier {
     @Binding var item: ShareSheetItem?
     
+    @ViewBuilder
     func body(content: Content) -> some View {
+        #if os(macOS)
+        content
+        #else
         content
             .sheet(item: $item) { item in
                 ShareSheetView(activityItems: item.activityItems)
                     .ignoresSafeArea(edges: .bottom)
             }
+        #endif
     }
 }
 

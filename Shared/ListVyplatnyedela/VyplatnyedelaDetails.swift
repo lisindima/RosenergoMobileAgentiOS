@@ -13,7 +13,7 @@ struct VyplatnyedelaDetails: View {
     
     var vyplatnyedela: Vyplatnyedela
     
-    #if os(iOS)
+    #if !os(watchOS)
     @State private var alertItem: AlertItem?
     @State private var shareSheetItem: ShareSheetItem?
     @State private var fileType: FileType?
@@ -44,7 +44,9 @@ struct VyplatnyedelaDetails: View {
     #endif
     
     var body: some View {
-        #if os(iOS)
+        #if os(watchOS)
+        formVyplatnyedela
+        #else
         formVyplatnyedela
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -69,8 +71,6 @@ struct VyplatnyedelaDetails: View {
             .userActivity("com.rosenergomobileagent.inspectionsdetails", element: vyplatnyedela.id) { url, activity in
                 activity.addUserInfoEntries(from: ["url": URL(string: "rosenergo://share?delo=\(url)")!])
             }
-        #else
-        formVyplatnyedela
         #endif
     }
     

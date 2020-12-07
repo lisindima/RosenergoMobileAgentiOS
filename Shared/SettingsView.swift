@@ -16,7 +16,6 @@ struct SettingsView: View {
     @Environment(\.presentationMode) private var presentationMode
     
     @State private var alertItem: AlertItem?
-    @State private var showActionSheetExit: Bool = false
     @State private var showFeedback: Bool = false
     @State private var loading: Bool = false
     
@@ -51,7 +50,7 @@ struct SettingsView: View {
                     )
                 }
             }
-            #if !targetEnvironment(macCatalyst) || os(watchOS)
+            #if os(iOS)
             Section(footer: Text("Здесь вы можете управлять уведомлениями приложения.")) {
                 SectionNavigationLink(
                     imageName: "bell",
@@ -92,10 +91,9 @@ struct SettingsView: View {
                         imageName: "flame",
                         imageColor: .red,
                         title: "Выйти",
-                        titleColor: .red
-                    ) {
-                        showActionSheetExit = true
-                    }
+                        titleColor: .red,
+                        action: logout
+                    )
                 } else {
                     #if os(watchOS)
                     Label {
@@ -116,15 +114,5 @@ struct SettingsView: View {
         .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
         .userFeedback(isPresented: $showFeedback)
-//        .actionSheet(isPresented: $showActionSheetExit) {
-//            ActionSheet(
-//                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
-//                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
-//                buttons: [
-//                    .destructive(Text("Выйти"), action: logout),
-//                    .cancel(),
-//                ]
-//            )
-//        }
     }
 }
