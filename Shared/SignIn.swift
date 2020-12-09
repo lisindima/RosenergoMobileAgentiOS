@@ -33,16 +33,16 @@ struct SignIn: View {
     
     var body: some View {
         #if os(iOS)
-        phone
+        iOS
         #elseif os(watchOS)
-        watch
+        watchOS
         #else
         macOS
         #endif
     }
     
     #if os(iOS)
-    var phone: some View {
+    var iOS: some View {
         VStack {
             Spacer()
             Image("rosenergo")
@@ -87,7 +87,7 @@ struct SignIn: View {
     #endif
     
     #if os(watchOS)
-    var watch: some View {
+    var watchOS: some View {
         VStack {
             Text("Мобильный агент")
                 .fontWeight(.bold)
@@ -107,16 +107,35 @@ struct SignIn: View {
     #if os(macOS)
     var macOS: some View {
         VStack {
+            Spacer()
             Text("Мобильный агент")
+                .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.vertical)
+            Spacer()
             TextField("Эл.почта", text: $email)
-                .textContentType(.username)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             SecureField("Пароль", text: $password)
-                .textContentType(.password)
-                .padding(.bottom)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             CustomButton("Войти", loading: loading, action: login)
+                .keyboardShortcut(.defaultAction)
+                .padding(.vertical)
+            Divider()
+                .padding(.bottom, 8)
+            HStack {
+                Text("У вас еще нет аккаунта?")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                Button(action: {
+                    alertItem = AlertItem(title: "Регистрация", message: "Для того, чтобы вы могли зарегистрироваться в приложение, вам необходимо написать на электронную почту lisinde@rosen.ttb.ru.")
+                }) {
+                    Text("Регистрация")
+                        .font(.footnote)
+                }
+            }
         }
+        .padding()
+        .frame(width: 500, height: 400)
         .navigationTitle("Мобильный агент")
         .customAlert(item: $alertItem)
     }

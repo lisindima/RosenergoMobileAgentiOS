@@ -16,6 +16,7 @@ struct RootView: View {
             NavigationView {
                 SideBar()
             }
+            .frame(minWidth: 500, idealWidth: 600, maxWidth: nil, minHeight: 300, idealHeight: 400, maxHeight: nil)
         } else {
             SignIn()
         }

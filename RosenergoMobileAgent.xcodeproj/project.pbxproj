@@ -54,7 +54,7 @@
 		CB3C916D250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3C916E250DE30A0099958D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3C916C250DE30A0099958D /* Log.swift */; };
 		CB3F1E7A257E39D700684D32 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA6118D2500998D009CD8BD /* ShareSheetView.swift */; };
-		CB3F1E86257E457600684D32 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1E85257E457600684D32 /* SettingsView.swift */; };
+		CB3F1E86257E457600684D32 /* SettingsTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3F1E85257E457600684D32 /* SettingsTabsView.swift */; };
 		CB44139A257B617300969563 /* SideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE9BE9524A7628B00D8CA2A /* SideBar.swift */; };
 		CB4413A5257B61BD00969563 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CB4413AB257B61C000969563 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
@@ -199,6 +199,7 @@
 		CBB4B0BC24C8330B00C25A59 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4B0BA24C8330B00C25A59 /* PersistenceController.swift */; };
 		CBB842ED24E3AE600008EB07 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842EC24E3AE600008EB07 /* License.swift */; };
 		CBB842EE24E3AE600008EB07 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB842EC24E3AE600008EB07 /* License.swift */; };
+		CBC00AD02580B15000EAEA07 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
@@ -322,7 +323,7 @@
 		CB373FBE25344D6C00FEDE4B /* LoadingErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
 		CB373FC925344D8C00FEDE4B /* LoadingEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingEmptyView.swift; sourceTree = "<group>"; };
 		CB3C916C250DE30A0099958D /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		CB3F1E85257E457600684D32 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CB3F1E85257E457600684D32 /* SettingsTabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabsView.swift; sourceTree = "<group>"; };
 		CB44143E257B668100969563 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CB4B826824D4079800C0C558 /* InspectionLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectionLink.swift; sourceTree = "<group>"; };
 		CB4B9314246CF235006B7008 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -615,11 +616,11 @@
 			isa = PBXGroup;
 			children = (
 				CB44143E257B668100969563 /* RootView.swift */,
+				CB3F1E85257E457600684D32 /* SettingsTabsView.swift */,
 				CB8C854F257A556F00B176DD /* Assets.xcassets */,
 				CB8C8554257A556F00B176DD /* Info.plist */,
 				CB8C8555257A556F00B176DD /* macOS.entitlements */,
 				CB8C8551257A556F00B176DD /* Preview Content */,
-				CB3F1E85257E457600684D32 /* SettingsView.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -1058,6 +1059,7 @@
 				CB4413EB257B62D300969563 /* String.swift in Sources */,
 				CB441450257B683100969563 /* ListInspections.swift in Sources */,
 				CB4413F1257B62FB00969563 /* URL.swift in Sources */,
+				CBC00AD02580B15000EAEA07 /* SettingsView.swift in Sources */,
 				CB879481257B9946008E7AE8 /* SignIn.swift in Sources */,
 				CB44140F257B657300969563 /* CodableUserDefaults.swift in Sources */,
 				CB441415257B65A800969563 /* NotificationView.swift in Sources */,
@@ -1069,7 +1071,7 @@
 				CB44143F257B668100969563 /* RootView.swift in Sources */,
 				CB879406257B947E008E7AE8 /* PersistenceController.swift in Sources */,
 				CB879452257B966D008E7AE8 /* Date.swift in Sources */,
-				CB3F1E86257E457600684D32 /* SettingsView.swift in Sources */,
+				CB3F1E86257E457600684D32 /* SettingsTabsView.swift in Sources */,
 				CB879492257B9A2F008E7AE8 /* InspectionLink.swift in Sources */,
 				CB8793EE257B9473008E7AE8 /* LocalInspections+CoreDataClass.swift in Sources */,
 				CB879487257B9A0F008E7AE8 /* RosenergoApp.swift in Sources */,

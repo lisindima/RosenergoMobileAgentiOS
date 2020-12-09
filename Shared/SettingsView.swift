@@ -36,6 +36,26 @@ struct SettingsView: View {
     }
     
     var body: some View {
+        #if os(macOS)
+        formSettings
+        #else
+        formSettings
+            .navigationTitle("Настройки")
+            .userFeedback(isPresented: $showFeedback)
+            .actionSheet(isPresented: $showActionSheetExit) {
+                ActionSheet(
+                    title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
+                    message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
+                    buttons: [
+                        .destructive(Text("Выйти"), action: logout),
+                        .cancel(),
+                    ]
+                )
+            }
+        #endif
+    }
+    
+    var formSettings: some View {
         Form {
             if let agent = sessionStore.loginModel {
                 Section(header: Text("Личные данные").fontWeight(.bold)) {
@@ -61,11 +81,13 @@ struct SettingsView: View {
             }
             #endif
             Section(header: Text("Другое").fontWeight(.bold)) {
+                #if !os(macOS)
                 SectionNavigationLink(
                     imageName: "doc.plaintext",
                     title: "Лицензии",
                     destination: License()
                 )
+                #endif
                 #if os(iOS)
                 SectionLink(
                     imageName: "star",
@@ -79,12 +101,14 @@ struct SettingsView: View {
                     title: "Очистить кэш изображений",
                     action: removeCache
                 )
+                #if !os(macOS)
                 SectionButton(
                     imageName: "ant",
                     title: "Обратная связь"
                 ) {
                     showFeedback = true
                 }
+                #endif
             }
             Section(footer: Text("Версия: \(getVersion())")) {
                 if !loading {
@@ -94,37 +118,29 @@ struct SettingsView: View {
                         title: "Выйти",
                         titleColor: .red
                     ) {
+                        #if os(macOS)
+                        logout()
+                        #else
                         showActionSheetExit = true
+                        #endif
                     }
                 } else {
-                    #if os(watchOS)
-                    Label {
-                        Text("Подождите")
-                    } icon: {
-                        ProgressView()
-                    }
-                    #else
+                    #if os(iOS)
                     HStack {
                         ProgressView()
                         Text("Подождите")
                             .padding(.leading, 12)
                     }
+                    #else
+                    Label {
+                        Text("Подождите")
+                    } icon: {
+                        ProgressView()
+                    }
                     #endif
                 }
             }
         }
-        .navigationTitle("Настройки")
         .customAlert(item: $alertItem)
-        .userFeedback(isPresented: $showFeedback)
-        .actionSheet(isPresented: $showActionSheetExit) {
-            ActionSheet(
-                title: Text("Вы уверены, что хотите выйти из этого аккаунта?"),
-                message: Text("Для продолжения использования приложения вам потребуется повторно войти в аккаунт!"),
-                buttons: [
-                    .destructive(Text("Выйти"), action: logout),
-                    .cancel(),
-                ]
-            )
-        }
     }
 }
