@@ -94,7 +94,6 @@
 		CB66D73024A5ADCE005C616A /* LocalImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D72F24A5ADCE005C616A /* LocalImageDetail.swift */; };
 		CB717C34248DF8B200DE31FE /* GeoIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB717C33248DF8B200DE31FE /* GeoIndicator.swift */; };
 		CB7267A8249879B700E138BD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB17E5752467A43700CDBB1A /* SessionStore.swift */; };
-		CB7267C22498B76500E138BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB7267C52498B79A00E138BD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB733DFD25259FC400651C0F /* LocalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB733DFC25259FC400651C0F /* LocalImage.swift */; };
 		CB733DFE25259FC500651C0F /* LocalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB733DFC25259FC400651C0F /* LocalImage.swift */; };
@@ -156,16 +155,13 @@
 		CB879498257B9A32008E7AE8 /* VyplatnyedelaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7EAEA9250F593400B4B4F5 /* VyplatnyedelaLink.swift */; };
 		CB8794A3257B9AA8008E7AE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB7791DE254C03E20072B232 /* GoogleService-Info.plist */; };
 		CB87B15E24D302A9009A010E /* RosenergoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66D74A24A5D989005C616A /* RosenergoApp.swift */; };
-		CB8C8550257A556F00B176DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB8C854F257A556F00B176DD /* Assets.xcassets */; };
 		CB8C8553257A556F00B176DD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB8C8552257A556F00B176DD /* Preview Assets.xcassets */; };
 		CB9AD06F24DD96BC00D220D8 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9AD06E24DD96BC00D220D8 /* Map.swift */; };
 		CB9AD07024DD96BC00D220D8 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9AD06E24DD96BC00D220D8 /* Map.swift */; };
 		CB9D62D024A3B784000C1C3A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB9D62D224A455B1000C1C3A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D62D124A455B1000C1C3A /* SectionItem.swift */; };
 		CB9D62D324A455B1000C1C3A /* SectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D62D124A455B1000C1C3A /* SectionItem.swift */; };
-		CB9DE932249758B300F4E72A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE931249758B300F4E72A /* Assets.xcassets */; };
 		CB9DE939249758B400F4E72A /* RosenergoMobileAgent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB9DE938249758B400F4E72A /* RosenergoMobileAgent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE947249758B500F4E72A /* Assets.xcassets */; };
 		CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */; };
 		CB9DE950249758B500F4E72A /* RosenergoMobileAgent.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CB9DE92C249758B100F4E72A /* RosenergoMobileAgent.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CB9DE96124975BE600F4E72A /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
@@ -202,6 +198,10 @@
 		CBC00AD02580B15000EAEA07 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CBC0C61924B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
 		CBC0C61A24B76CA300E078E5 /* CodableUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC0C61824B76CA300E078E5 /* CodableUserDefaults.swift */; };
+		CBC4B297258387E800363968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
+		CBC4B29D258387E900363968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
+		CBC4B29E258387EA00363968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
+		CBC4B29F258387EA00363968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB17E5642466644500CDBB1A /* Assets.xcassets */; };
 		CBC52839247A504700E337B4 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC52838247A504700E337B4 /* ImageDetail.swift */; };
 		CBC5283D247CB4FB00E337B4 /* SessionStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC5283C247CB4FB00E337B4 /* SessionStoreModel.swift */; };
 		CBD6737A2553DB3800437053 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD673792553DB3800437053 /* URL.swift */; };
@@ -348,17 +348,14 @@
 		CB7EAEAF2510856900B4B4F5 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		CB7F88B7251461B500F5AF97 /* ServerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerImage.swift; sourceTree = "<group>"; };
 		CB8C8549257A556B00B176DD /* RosenergoMobileAgent (macOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RosenergoMobileAgent (macOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB8C854F257A556F00B176DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB8C8552257A556F00B176DD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CB8C8554257A556F00B176DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8C8555257A556F00B176DD /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		CB9AD06E24DD96BC00D220D8 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		CB9D62D124A455B1000C1C3A /* SectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionItem.swift; sourceTree = "<group>"; };
 		CB9DE92C249758B100F4E72A /* RosenergoMobileAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RosenergoMobileAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB9DE931249758B300F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB9DE933249758B300F4E72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB9DE938249758B400F4E72A /* RosenergoMobileAgent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RosenergoMobileAgent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB9DE947249758B500F4E72A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB9DE94A249758B500F4E72A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CB9DE94C249758B500F4E72A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBA401AF251C6CD6001881B5 /* RosenergoMobileAgent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RosenergoMobileAgent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -501,6 +498,7 @@
 				CBAC7F3024D266470081597D /* ListVyplatnyedela */,
 				CBB2E0952478F3380017AB00 /* ListInspections */,
 				CBC5283A247CB4AC00E337B4 /* Session */,
+				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E55F2466644400CDBB1A /* RosenergoMobileAgentiOS.xcdatamodeld */,
 				CBDFFB712521DCF00060249B /* license.json */,
 			);
@@ -617,7 +615,6 @@
 			children = (
 				CB44143E257B668100969563 /* RootView.swift */,
 				CB3F1E85257E457600684D32 /* SettingsTabsView.swift */,
-				CB8C854F257A556F00B176DD /* Assets.xcassets */,
 				CB8C8554257A556F00B176DD /* Info.plist */,
 				CB8C8555257A556F00B176DD /* macOS.entitlements */,
 				CB8C8551257A556F00B176DD /* Preview Content */,
@@ -643,7 +640,6 @@
 				CB17E56C2466644500CDBB1A /* Info.plist */,
 				CB7791DE254C03E20072B232 /* GoogleService-Info.plist */,
 				CB2B5B82246BA8CE006F35AC /* iOS.entitlements */,
-				CB17E5642466644500CDBB1A /* Assets.xcassets */,
 				CB17E5662466644500CDBB1A /* Preview Content */,
 			);
 			path = iOS;
@@ -654,7 +650,6 @@
 			children = (
 				CB9DE933249758B300F4E72A /* Info.plist */,
 				CB27F54E24DBB190000A43FB /* watchOS.entitlements */,
-				CB9DE931249758B300F4E72A /* Assets.xcassets */,
 			);
 			path = watchOS;
 			sourceTree = "<group>";
@@ -666,7 +661,6 @@
 				CB9DE94C249758B500F4E72A /* Info.plist */,
 				CB7791E8254C040D0072B232 /* GoogleService-Info.plist */,
 				CB7CEFA824AAC1F9009DF93A /* watchOS Extension.entitlements */,
-				CB9DE947249758B500F4E72A /* Assets.xcassets */,
 				CB9DE949249758B500F4E72A /* Preview Content */,
 			);
 			path = "watchOS Extension";
@@ -935,8 +929,8 @@
 			files = (
 				CB441427257B65DC00969563 /* license.json in Resources */,
 				CB8794A3257B9AA8008E7AE8 /* GoogleService-Info.plist in Resources */,
+				CBC4B29E258387EA00363968 /* Assets.xcassets in Resources */,
 				CB8C8553257A556F00B176DD /* Preview Assets.xcassets in Resources */,
-				CB8C8550257A556F00B176DD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,7 +938,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB9DE932249758B300F4E72A /* Assets.xcassets in Resources */,
+				CBC4B297258387E800363968 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,8 +948,7 @@
 			files = (
 				CB7791E9254C040D0072B232 /* GoogleService-Info.plist in Resources */,
 				CB9DE94B249758B500F4E72A /* Preview Assets.xcassets in Resources */,
-				CB7267C22498B76500E138BD /* Assets.xcassets in Resources */,
-				CB9DE948249758B500F4E72A /* Assets.xcassets in Resources */,
+				CBC4B29D258387E900363968 /* Assets.xcassets in Resources */,
 				CBDFFB732521DCF00060249B /* license.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -964,6 +957,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBC4B29F258387EA00363968 /* Assets.xcassets in Resources */,
 				CBA401B7251C6CD8001881B5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

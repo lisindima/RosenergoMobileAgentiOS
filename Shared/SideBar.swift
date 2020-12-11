@@ -11,31 +11,33 @@ import SwiftUI
 struct SideBar: View {
     @EnvironmentObject private var sessionStore: SessionStore
     
-    @State private var selection: Set<NavigationItem> = [.createInspections]
+    @State private var selection: NavigationItem? = .createInspections
     @State private var openSettings: Bool = false
     
     var sidebar: some View {
         List(selection: $selection) {
-            #if !os(macOS)
-            NavigationLink(destination: CreateInspections()) {
-                Label("Новый осмотр", systemImage: "car")
+            Section(header: Text("Главное")) {
+                #if !os(macOS)
+                NavigationLink(destination: CreateInspections()) {
+                    Label("Новый осмотр", systemImage: "car")
+                }
+                .tag(NavigationItem.createInspections)
+                #endif
+                NavigationLink(destination: ListInspections()) {
+                    Label("Осмотры", systemImage: "archivebox")
+                }
+                .tag(NavigationItem.listInspections)
+                #if !os(macOS)
+                NavigationLink(destination: CreateVyplatnyeDela()) {
+                    Label("Новое выплатное дело", systemImage: "doc.badge.plus")
+                }
+                .tag(NavigationItem.createVyplatnye)
+                #endif
+                NavigationLink(destination: ListVyplatnyedela()) {
+                    Label("Выплатные дела", systemImage: "doc.on.doc")
+                }
+                .tag(NavigationItem.listVyplatnyedela)
             }
-            .tag(NavigationItem.createInspections)
-            #endif
-            NavigationLink(destination: ListInspections()) {
-                Label("Осмотры", systemImage: "archivebox")
-            }
-            .tag(NavigationItem.listInspections)
-            #if !os(macOS)
-            NavigationLink(destination: CreateVyplatnyeDela()) {
-                Label("Новое выплатное дело", systemImage: "doc.badge.plus")
-            }
-            .tag(NavigationItem.createVyplatnye)
-            #endif
-            NavigationLink(destination: ListVyplatnyedela()) {
-                Label("Выплатные дела", systemImage: "doc.on.doc")
-            }
-            .tag(NavigationItem.listVyplatnyedela)
         }
         .listStyle(SidebarListStyle())
         .navigationTitle("Главная")

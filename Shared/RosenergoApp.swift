@@ -68,6 +68,9 @@ struct RosenergoApp: App {
                 NotificationStore.shared.refreshNotificationStatus()
             }
         }
+        .commands {
+            SidebarCommands()
+        }
         #if os(macOS)
         Settings {
             SettingsTabsView()

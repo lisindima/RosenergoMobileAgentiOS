@@ -15,6 +15,7 @@ struct RootView: View {
         if sessionStore.loginModel != nil {
             NavigationView {
                 SideBar()
+                    .navigationTitle("Мобильный агент")
             }
             .frame(minWidth: 500, idealWidth: 600, maxWidth: nil, minHeight: 300, idealHeight: 400, maxHeight: nil)
         } else {
