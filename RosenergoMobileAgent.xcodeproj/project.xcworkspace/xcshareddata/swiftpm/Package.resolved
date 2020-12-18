@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk",
         "state": {
           "branch": null,
-          "revision": "8c8ad924fc364522b5c9148a4537ae46ee462c8f",
-          "version": "7.3.0"
+          "revision": "c67d97dc802aafe5474042156dce828e1c4145ca",
+          "version": "7.3.1"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/dmytro-anokhin/url-image",
         "state": {
           "branch": null,
-          "revision": "520a997733560d1eaa6cc60c445807e7db1984c6",
-          "version": "2.1.12"
+          "revision": "7ff0e0e22fa9d0e293db312cb740718c377336dd",
+          "version": "2.1.13"
         }
       }
     ]
