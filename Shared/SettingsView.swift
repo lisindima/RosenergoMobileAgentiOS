@@ -110,7 +110,7 @@ struct SettingsView: View {
                 }
                 #endif
             }
-            Section(footer: Text("Версия: \(getVersion())")) {
+            Section(footer: Text("Версия: \(getVersion)")) {
                 if !loading {
                     SectionButton(
                         imageName: "flame",

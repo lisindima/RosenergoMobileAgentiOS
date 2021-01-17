@@ -20,7 +20,7 @@ final class API {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("RosenergoMobileAgentiOS:\(getVersion())", forHTTPHeaderField: "User-Agent")
+        request.setValue("RosenergoMobileAgentiOS:\(getVersion)", forHTTPHeaderField: "User-Agent")
         return request
     }
     

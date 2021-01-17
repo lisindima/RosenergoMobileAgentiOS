@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-func getVersion() -> String {
+var getVersion: String {
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
     return "\(version) (\(build))"
