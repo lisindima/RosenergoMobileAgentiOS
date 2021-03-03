@@ -40,6 +40,29 @@ enum Endpoint {
     case vyplatnyedela(_ id: String = "")
 }
 
+extension Endpoint {
+    static let api = API()
+}
+
+extension Endpoint {
+    var url: URL {
+        switch self {
+        case .login:
+            return .makeForEndpoint("login")
+        case .logout:
+            return .makeForEndpoint("logout")
+        case .uploadInspection:
+            return .makeForEndpoint("inspection")
+        case .uploadVyplatnyedela:
+            return .makeForEndpoint("vyplatnyedela")
+        case let .inspections(id):
+            return .makeForEndpoint(id.isEmpty ? "v2/inspections" : "v2/inspections" + "/\(id)")
+        case let .vyplatnyedela(id):
+            return .makeForEndpoint(id.isEmpty ? "v2/vyplatnyedelas" : "v2/vyplatnyedelas" + "/\(id)")
+        }
+    }
+}
+
 enum Series: String, CaseIterable, Identifiable {
     case XXX = "ХХХ"
     case CCC = "ССС"

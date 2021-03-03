@@ -24,7 +24,7 @@ final class API {
         return request
     }
     
-    private func createDecoder() -> JSONDecoder {
+    private var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
@@ -36,7 +36,7 @@ final class API {
         return decoder
     }
     
-    private func createEncoder() -> JSONEncoder {
+    private var encoder: JSONEncoder {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -49,11 +49,11 @@ final class API {
     
     func upload<Parameters: Encodable, T: Decodable>(_ endpoint: Endpoint, parameters: Parameters, httpMethod: HTTPMethod = .post, completion: @escaping (Result<T, ApiError>) -> Void) {
         var request = createRequest(endpoint, httpMethod: httpMethod)
-        request.httpBody = try? createEncoder().encode(parameters)
+        request.httpBody = try? encoder.encode(parameters)
         
         URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: T.self, decoder: createDecoder())
+            .decode(type: T.self, decoder: decoder)
             .map(Result.success)
             .catch { error -> Just<Result<T, ApiError>> in
                 error is DecodingError
@@ -68,7 +68,7 @@ final class API {
     func fetch<T: Decodable>(_ endpoint: Endpoint, httpMethod: HTTPMethod = .get, completion: @escaping (Result<T, ApiError>) -> Void) {
         URLSession.shared.dataTaskPublisher(for: createRequest(endpoint, httpMethod: httpMethod))
             .map(\.data)
-            .decode(type: T.self, decoder: createDecoder())
+            .decode(type: T.self, decoder: decoder)
             .map(Result.success)
             .catch { error -> Just<Result<T, ApiError>> in
                 error is DecodingError
@@ -78,28 +78,5 @@ final class API {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: completion)
             .store(in: &requests)
-    }
-}
-
-extension Endpoint {
-    static let api = API()
-}
-
-extension Endpoint {
-    var url: URL {
-        switch self {
-        case .login:
-            return .makeForEndpoint("login")
-        case .logout:
-            return .makeForEndpoint("logout")
-        case .uploadInspection:
-            return .makeForEndpoint("inspection")
-        case .uploadVyplatnyedela:
-            return .makeForEndpoint("vyplatnyedela")
-        case let .inspections(id):
-            return .makeForEndpoint(id.isEmpty ? "v2/inspections" : "v2/inspections" + "/\(id)")
-        case let .vyplatnyedela(id):
-            return .makeForEndpoint(id.isEmpty ? "v2/vyplatnyedelas" : "v2/vyplatnyedelas" + "/\(id)")
-        }
     }
 }
