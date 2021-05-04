@@ -48,9 +48,11 @@ extension Text {
     @ViewBuilder
     func messageTitle() -> Text {
         #if os(watchOS)
-        fontWeight(.bold)
+        self
+            .fontWeight(.bold)
         #else
-        font(.title)
+        self
+            .font(.title)
             .fontWeight(.bold)
             .foregroundColor(.secondary)
         #endif
@@ -59,10 +61,12 @@ extension Text {
     @ViewBuilder
     func messageSubtitle() -> Text {
         #if os(watchOS)
-        font(.footnote)
+        self
+            .font(.footnote)
             .foregroundColor(.secondary)
         #else
-        foregroundColor(.secondary)
+        self
+            .foregroundColor(.secondary)
         #endif
     }
 }
