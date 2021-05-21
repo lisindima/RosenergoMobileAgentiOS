@@ -87,6 +87,7 @@
 		CB4B9315246CF235006B7008 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9314246CF235006B7008 /* SettingsView.swift */; };
 		CB4B9317246CF59B006B7008 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4B9316246CF59B006B7008 /* Color.swift */; };
 		CB4CD7BF24909A71007FE4AB /* NotificationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4CD7BE24909A71007FE4AB /* NotificationStore.swift */; };
+		CB4EECBA264BD06100C3296C /* UserFeedback in Frameworks */ = {isa = PBXBuildFile; productRef = CB4EECB9264BD06100C3296C /* UserFeedback */; };
 		CB534C68257D185D0030DE1C /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB534C67257D185D0030DE1C /* ExitButton.swift */; };
 		CB66D63224A469FF005C616A /* InspectionsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E0A02478F8110017AB00 /* InspectionsDetails.swift */; };
 		CB66D72B24A5973A005C616A /* InspectionsItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2E09E2478F7E10017AB00 /* InspectionsItems.swift */; };
@@ -386,7 +387,6 @@
 		CBDFFB712521DCF00060249B /* license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = license.json; sourceTree = "<group>"; };
 		CBDFFB7C2521DD490060249B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CBDFFD9E2522F1980060249B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		CBE6ADB12546BA93003781F4 /* UserFeedback */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UserFeedback; path = ../UserFeedback; sourceTree = "<group>"; };
 		CBE9BE9524A7628B00D8CA2A /* SideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBar.swift; sourceTree = "<group>"; };
 		CBED06C72509C77600216056 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		CBED06CA250A24C300216056 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
@@ -413,6 +413,7 @@
 				CB7791CB254C01C60072B232 /* FirebaseCrashlytics in Frameworks */,
 				CBAC7F4024D27CF60081597D /* NativeSearchBar in Frameworks */,
 				CB87022A249C5FF400B5DA72 /* URLImage in Frameworks */,
+				CB4EECBA264BD06100C3296C /* UserFeedback in Frameworks */,
 				CB2B5B85246BA8CE006F35AC /* AuthenticationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,7 +457,6 @@
 		CB17E54F2466644400CDBB1A = {
 			isa = PBXGroup;
 			children = (
-				CBE6ADB12546BA93003781F4 /* UserFeedback */,
 				CB17E55A2466644400CDBB1A /* Shared */,
 				CB8E99A22521C6C700F59A5E /* iOS */,
 				CB9DE92D249758B100F4E72A /* watchOS */,
@@ -769,6 +769,7 @@
 				CBAC7F3F24D27CF60081597D /* NativeSearchBar */,
 				CBE6ADBC2546BB01003781F4 /* UserFeedback */,
 				CB7791CA254C01C60072B232 /* FirebaseCrashlytics */,
+				CB4EECB9264BD06100C3296C /* UserFeedback */,
 			);
 			productName = RosenergoMobileAgentiOS;
 			productReference = CB17E5582466644400CDBB1A /* Агент.app */;
@@ -897,6 +898,7 @@
 				CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */,
 				CBAC7F3E24D27CF60081597D /* XCRemoteSwiftPackageReference "NativeSearchBar" */,
 				CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CB4EECB8264BD06100C3296C /* XCRemoteSwiftPackageReference "UserFeedback" */,
 			);
 			productRefGroup = CB17E5592466644400CDBB1A /* Products */;
 			projectDirPath = "";
@@ -1676,12 +1678,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CB4EECB8264BD06100C3296C /* XCRemoteSwiftPackageReference "UserFeedback" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lisindima/UserFeedback";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		CB7791C7254C01C60072B232 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
+				minimumVersion = 8.0.0;
 			};
 		};
 		CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */ = {
@@ -1721,6 +1731,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CB85CDB7249B34A500AAEF04 /* XCRemoteSwiftPackageReference "url-image" */;
 			productName = URLImage;
+		};
+		CB4EECB9264BD06100C3296C /* UserFeedback */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB4EECB8264BD06100C3296C /* XCRemoteSwiftPackageReference "UserFeedback" */;
+			productName = UserFeedback;
 		};
 		CB7791CA254C01C60072B232 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
